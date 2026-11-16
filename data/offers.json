@@ -1,11 +1,16 @@
 {
- "generated_at": "2026-11-16T21:39:25+00:00",
+ "generated_at": "2026-11-16T21:42:29+00:00",
  "stores": {
   "lidl": {
    "name": "Lidl",
    "ok": true,
    "scraped": 7,
    "produce": 7
+  },
+  "ah": {
+   "name": "Albert Heijn",
+   "ok": false,
+   "error": "AHBlocked: ah.nl answered HTTP 403"
   }
  },
  "offers": [
