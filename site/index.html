@@ -1,0 +1,58 @@
+<!doctype html>
+<html lang="nl">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Groente &amp; Fruit Deals</title>
+  <meta name="description" content="Compare this week's fruit and vegetable offers at Albert Heijn and Lidl.">
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🥕</text></svg>">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <header class="top">
+    <div class="wrap">
+      <h1>Groente &amp; Fruit Deals</h1>
+      <p class="sub">This week's fruit &amp; vegetable offers at Albert Heijn and Lidl, compared per kilo or per piece.</p>
+      <div id="status" class="status" aria-live="polite">Loading offers…</div>
+    </div>
+  </header>
+
+  <main class="wrap">
+    <div class="controls">
+      <div class="seg" role="tablist" aria-label="Category">
+        <button class="on" data-cat="all" role="tab" aria-selected="true">All</button>
+        <button data-cat="fruit" role="tab" aria-selected="false">Fruit</button>
+        <button data-cat="groente" role="tab" aria-selected="false">Groente</button>
+      </div>
+      <input id="q" type="search" placeholder="Search, e.g. appels" aria-label="Search products">
+      <select id="sort" aria-label="Sort">
+        <option value="compare">Compared first</option>
+        <option value="saving">Biggest discount</option>
+        <option value="name">A–Z</option>
+      </select>
+    </div>
+
+    <section id="list" class="grid" aria-label="Products"></section>
+    <p id="empty" class="empty" hidden>No offers match your filter.</p>
+
+    <footer class="foot">
+      <p>Prices include loyalty prices (Lidl Plus app, AH Bonuskaart) where offered; these are free to join.
+        "Best deal" compares the effective price per kg or per piece after multi-buy deals such as
+        "1+1 gratis". Always check the store before you go; this page is not affiliated with AH or Lidl.</p>
+      <p id="updated"></p>
+    </footer>
+  </main>
+
+  <template id="card-tpl">
+    <article class="card">
+      <header class="card-h">
+        <h2></h2>
+        <span class="tag"></span>
+      </header>
+      <ul class="rows"></ul>
+    </article>
+  </template>
+
+  <script src="app.js"></script>
+</body>
+</html>

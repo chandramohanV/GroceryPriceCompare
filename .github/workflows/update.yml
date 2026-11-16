@@ -1,0 +1,73 @@
+name: Update offers & deploy site
+
+on:
+  schedule:
+    - cron: "17 5 * * *"   # every day ~06:17 Dutch time (05:17 UTC)
+  workflow_dispatch:        # "Run workflow" button in the Actions tab
+  push:
+    branches: [main]
+    paths-ignore: ["data/**", "README.md"]
+
+permissions:
+  contents: write   # commit data/offers.json
+  pages: write      # deploy to GitHub Pages
+  id-token: write
+
+concurrency:
+  group: update
+  cancel-in-progress: false
+
+jobs:
+  scrape:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+          cache: pip
+
+      - name: Install dependencies
+        run: |
+          pip install -r requirements.txt
+          python -m playwright install --with-deps chromium
+
+      - name: Run tests
+        run: python -m pytest -q
+
+      - name: Scrape stores
+        run: python -m scraper.run --out data
+
+      - name: Commit new data
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add data
+          if git diff --cached --quiet; then
+            echo "No changes"
+          else
+            git commit -m "Update offers $(date -u +%Y-%m-%d)"
+            git push
+          fi
+
+      - name: Build site
+        run: |
+          mkdir -p _site/data
+          cp site/* _site/
+          cp data/offers.json _site/data/
+
+      - uses: actions/upload-pages-artifact@v3
+        with:
+          path: _site
+
+  deploy:
+    needs: scrape
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - id: deployment
+        uses: actions/deploy-pages@v4
