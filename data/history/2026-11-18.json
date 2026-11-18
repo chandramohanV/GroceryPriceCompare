@@ -1,0 +1,306 @@
+{
+ "generated_at": "2026-11-18T14:00:42+00:00",
+ "stores": {
+  "lidl": {
+   "name": "Lidl",
+   "ok": true,
+   "scraped": 7,
+   "produce": 7
+  },
+  "ah": {
+   "name": "Albert Heijn",
+   "ok": false,
+   "error": "AHBlocked: ah.nl answered HTTP 403"
+  }
+ },
+ "offers": [
+  {
+   "key": "lidl:11029883",
+   "store": "lidl",
+   "id": "11029883",
+   "name": "Mango",
+   "image": "https://www.lidl.nl/assets/gcpf58ddbf59c90468298a2144de4745fcf.png",
+   "url": "https://www.lidl.nl/p/mango/p11029883",
+   "price": 1.79,
+   "old_price": 1.79,
+   "member_price": 0.99,
+   "member_label": "met Lidl Plus",
+   "deal_text": "-45%",
+   "quantity_text": "1 Stk.",
+   "valid_from": "2026-11-16",
+   "valid_to": "2026-11-22",
+   "category": "fruit",
+   "product": "Mango",
+   "qty_amount": 1.0,
+   "qty_unit": "stuk",
+   "effective_price": 0.99,
+   "unit_price": 0.99
+  },
+  {
+   "key": "lidl:11030070",
+   "store": "lidl",
+   "id": "11030070",
+   "name": "Conference peren",
+   "image": "https://www.lidl.nl/assets/gcpc67ec2660f07410d9b060603f6032964.png",
+   "url": "https://www.lidl.nl/p/conference-peren/p11030070",
+   "price": 1.79,
+   "old_price": 1.79,
+   "member_price": 1.29,
+   "member_label": "met Lidl Plus",
+   "deal_text": "-28%",
+   "quantity_text": "1 kg",
+   "valid_from": "2026-11-16",
+   "valid_to": "2026-11-22",
+   "category": "fruit",
+   "product": "Peren",
+   "qty_amount": 1.0,
+   "qty_unit": "kg",
+   "effective_price": 1.29,
+   "unit_price": 1.29,
+   "extras": {
+    "variety": "Conference"
+   }
+  },
+  {
+   "key": "lidl:11150818",
+   "store": "lidl",
+   "id": "11150818",
+   "name": "QUALITÉ SUISSE Jonagold appels",
+   "image": "https://www.lidl.nl/assets/gcp27830028173442aba23fc81c0d45f1fb.png",
+   "url": "https://www.lidl.nl/p/qualite-suisse-jonagold-appels/p11150818",
+   "price": 1.82,
+   "old_price": 1.85,
+   "member_price": 1.49,
+   "member_label": "met Lidl Plus",
+   "deal_text": null,
+   "quantity_text": "1500 g",
+   "valid_from": "2026-11-16",
+   "valid_to": "2026-11-22",
+   "category": "fruit",
+   "product": "Appels",
+   "qty_amount": 1.5,
+   "qty_unit": "kg",
+   "effective_price": 1.49,
+   "unit_price": 0.99,
+   "extras": {
+    "note": "Zak 1,5 kilo",
+    "variety": "Jonagold"
+   }
+  },
+  {
+   "key": "lidl:11150934",
+   "store": "lidl",
+   "id": "11150934",
+   "name": "Zoete aardappels",
+   "image": "https://www.lidl.nl/assets/gcp028fe77bd7c44dd4a4afbe22438f0743.png",
+   "url": "https://www.lidl.nl/p/zoete-aardappels/p11150934",
+   "price": null,
+   "old_price": 1.39,
+   "member_price": 0.99,
+   "member_label": "met Lidl Plus",
+   "deal_text": "-29%",
+   "quantity_text": "Per 500 g",
+   "valid_from": "2026-11-16",
+   "valid_to": "2026-11-22",
+   "category": "groente",
+   "product": "Zoete aardappels",
+   "qty_amount": 0.5,
+   "qty_unit": "kg",
+   "effective_price": 0.99,
+   "unit_price": 1.98
+  },
+  {
+   "key": "lidl:11214362",
+   "store": "lidl",
+   "id": "11214362",
+   "name": "Spruiten",
+   "image": "https://www.lidl.nl/assets/gcp6e93c3228fbc45ad983e85179d526935.png",
+   "url": "https://www.lidl.nl/p/spruiten/p11214362",
+   "price": 1.89,
+   "old_price": 1.89,
+   "member_price": 1.49,
+   "member_label": "met Lidl Plus",
+   "deal_text": "-21%",
+   "quantity_text": "750 g",
+   "valid_from": "2026-11-16",
+   "valid_to": "2026-11-22",
+   "category": "groente",
+   "product": "Spruiten",
+   "qty_amount": 0.75,
+   "qty_unit": "kg",
+   "effective_price": 1.49,
+   "unit_price": 1.99
+  },
+  {
+   "key": "lidl:11266455",
+   "store": "lidl",
+   "id": "11266455",
+   "name": "Bio flespompoen",
+   "image": "https://www.lidl.nl/assets/gcp0b396af4fbd04cbf974df09f8dad1430.png",
+   "url": "https://www.lidl.nl/p/bio-flespompoen/p11266455",
+   "price": 1.99,
+   "old_price": 1.99,
+   "member_price": 1.49,
+   "member_label": "met Lidl Plus",
+   "deal_text": "-25%",
+   "quantity_text": "1 Stk.",
+   "valid_from": "2026-11-16",
+   "valid_to": "2026-11-22",
+   "category": "groente",
+   "product": "Pompoen",
+   "qty_amount": 1.0,
+   "qty_unit": "stuk",
+   "effective_price": 1.49,
+   "unit_price": 1.49,
+   "extras": {
+    "variety": "Flespompoen"
+   }
+  },
+  {
+   "key": "lidl:11492121",
+   "store": "lidl",
+   "id": "11492121",
+   "name": "Kiwi gold",
+   "image": "https://www.lidl.nl/assets/gcp37c1541a72db4e1b9048df0a9ae93c44.png",
+   "url": "https://www.lidl.nl/p/kiwi-gold/p11492121",
+   "price": 5.99,
+   "old_price": 5.99,
+   "member_price": 3.99,
+   "member_label": "met Lidl Plus",
+   "deal_text": "-33%",
+   "quantity_text": "750 g",
+   "valid_from": "2026-11-16",
+   "valid_to": "2026-11-22",
+   "category": "fruit",
+   "product": "Kiwi's",
+   "qty_amount": 0.75,
+   "qty_unit": "kg",
+   "effective_price": 3.99,
+   "unit_price": 5.32,
+   "extras": {
+    "variety": "Kiwi"
+   }
+  }
+ ],
+ "comparisons": [
+  {
+   "product": "Appels",
+   "category": "fruit",
+   "unit": "kg",
+   "stores": [
+    "lidl"
+   ],
+   "offer_ids": [
+    "lidl:11150818"
+   ],
+   "best": {
+    "store": "lidl",
+    "id": "11150818",
+    "unit_price": 0.99
+   },
+   "saving_pct": null
+  },
+  {
+   "product": "Kiwi's",
+   "category": "fruit",
+   "unit": "kg",
+   "stores": [
+    "lidl"
+   ],
+   "offer_ids": [
+    "lidl:11492121"
+   ],
+   "best": {
+    "store": "lidl",
+    "id": "11492121",
+    "unit_price": 5.32
+   },
+   "saving_pct": null
+  },
+  {
+   "product": "Mango",
+   "category": "fruit",
+   "unit": "stuk",
+   "stores": [
+    "lidl"
+   ],
+   "offer_ids": [
+    "lidl:11029883"
+   ],
+   "best": {
+    "store": "lidl",
+    "id": "11029883",
+    "unit_price": 0.99
+   },
+   "saving_pct": null
+  },
+  {
+   "product": "Peren",
+   "category": "fruit",
+   "unit": "kg",
+   "stores": [
+    "lidl"
+   ],
+   "offer_ids": [
+    "lidl:11030070"
+   ],
+   "best": {
+    "store": "lidl",
+    "id": "11030070",
+    "unit_price": 1.29
+   },
+   "saving_pct": null
+  },
+  {
+   "product": "Pompoen",
+   "category": "groente",
+   "unit": "stuk",
+   "stores": [
+    "lidl"
+   ],
+   "offer_ids": [
+    "lidl:11266455"
+   ],
+   "best": {
+    "store": "lidl",
+    "id": "11266455",
+    "unit_price": 1.49
+   },
+   "saving_pct": null
+  },
+  {
+   "product": "Spruiten",
+   "category": "groente",
+   "unit": "kg",
+   "stores": [
+    "lidl"
+   ],
+   "offer_ids": [
+    "lidl:11214362"
+   ],
+   "best": {
+    "store": "lidl",
+    "id": "11214362",
+    "unit_price": 1.99
+   },
+   "saving_pct": null
+  },
+  {
+   "product": "Zoete aardappels",
+   "category": "groente",
+   "unit": "kg",
+   "stores": [
+    "lidl"
+   ],
+   "offer_ids": [
+    "lidl:11150934"
+   ],
+   "best": {
+    "store": "lidl",
+    "id": "11150934",
+    "unit_price": 1.98
+   },
+   "saving_pct": null
+  }
+ ]
+}
