@@ -1,0 +1,55 @@
+/* Find the promotion cards on an ah.nl/bonus page.
+ *
+ * Shared by the Python scraper (run inside Playwright) and the site's upload
+ * form (run on a page parsed with DOMParser), so both read AH pages the same
+ * way. Card text is built from its text nodes joined by spaces, because a
+ * parsed page is never rendered and so has no layout for innerText.
+ */
+function extractAhCards(doc) {
+  "use strict";
+  const CARD_LINKS = 'a[href*="/bonus/groep/"], a[href*="/producten/product/"], '
+    + '[data-testhook*="promotion-card"] a, [class*="promotion-card"] a';
+  const TITLE = '[data-testhook*="title"], [class*="title"], h3, h4, strong';
+  const MAX_LEVELS_UP = 4;
+  const MIN_CARD_TEXT = 5;
+  const SKIPPED_TAGS = new Set(["SCRIPT", "STYLE", "NOSCRIPT"]);
+
+  function textOf(node) {
+    const parts = [];
+    const walker = doc.createTreeWalker(node, NodeFilter.SHOW_TEXT);
+    while (walker.nextNode()) {
+      const text = walker.currentNode.nodeValue.trim();
+      if (text && !SKIPPED_TAGS.has(walker.currentNode.parentElement.tagName)) parts.push(text);
+    }
+    return parts.join(" ");
+  }
+
+  // Climb from the link to the card container that holds an image and some text.
+  function cardAround(link) {
+    let card = link;
+    for (let i = 0; i < MAX_LEVELS_UP && card.parentElement; i++) {
+      if (card.querySelector("img") && textOf(card).length > MIN_CARD_TEXT) break;
+      card = card.parentElement;
+    }
+    return card;
+  }
+
+  const cards = [];
+  const seen = new Set();
+  for (const link of doc.querySelectorAll(CARD_LINKS)) {
+    const href = link.getAttribute("href");
+    if (!href || seen.has(href)) continue;
+    seen.add(href);
+    const card = cardAround(link);
+    const img = card.querySelector("img");
+    const titleEl = card.querySelector(TITLE);
+    cards.push({
+      href,
+      title: (titleEl && textOf(titleEl)) || link.getAttribute("aria-label") || link.title || "",
+      text: textOf(card),
+      img: img ? (img.currentSrc || img.getAttribute("src") || img.getAttribute("data-src")) : null,
+      alt: img ? img.alt : null,
+    });
+  }
+  return cards;
+}

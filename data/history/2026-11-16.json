@@ -1,5 +1,5 @@
 {
- "generated_at": "2026-11-16T21:42:29+00:00",
+ "generated_at": "2026-11-16T22:03:49+00:00",
  "stores": {
   "lidl": {
    "name": "Lidl",
@@ -34,7 +34,14 @@
    "qty_amount": 1.0,
    "qty_unit": "stuk",
    "effective_price": 0.99,
-   "unit_price": 0.99
+   "unit_price": 0.99,
+   "en": {
+    "name": "Mango",
+    "quantity_text": "1 Pc.",
+    "member_label": "with Lidl Plus",
+    "deal_text": "-45%",
+    "product": "Mango"
+   }
   },
   {
    "key": "lidl:11030070",
@@ -59,6 +66,13 @@
    "unit_price": 1.29,
    "extras": {
     "variety": "Conference"
+   },
+   "en": {
+    "name": "Conference pears",
+    "quantity_text": "1 kg",
+    "member_label": "with Lidl Plus",
+    "deal_text": "-28%",
+    "product": "Pears"
    }
   },
   {
@@ -85,6 +99,13 @@
    "extras": {
     "note": "Zak 1,5 kilo",
     "variety": "Jonagold"
+   },
+   "en": {
+    "name": "QUALITÉ SUISSE Jonagold apples",
+    "quantity_text": "1500 g",
+    "member_label": "with Lidl Plus",
+    "note": "Bag 1.5 kilo",
+    "product": "Apples"
    }
   },
   {
@@ -107,7 +128,14 @@
    "qty_amount": 0.5,
    "qty_unit": "kg",
    "effective_price": 0.99,
-   "unit_price": 1.98
+   "unit_price": 1.98,
+   "en": {
+    "name": "Sweet potatoes",
+    "quantity_text": "Per 500 g",
+    "member_label": "with Lidl Plus",
+    "deal_text": "-29%",
+    "product": "Sweet potatoes"
+   }
   },
   {
    "key": "lidl:11214362",
@@ -129,7 +157,14 @@
    "qty_amount": 0.75,
    "qty_unit": "kg",
    "effective_price": 1.49,
-   "unit_price": 1.99
+   "unit_price": 1.99,
+   "en": {
+    "name": "Brussels sprouts",
+    "quantity_text": "750 g",
+    "member_label": "with Lidl Plus",
+    "deal_text": "-21%",
+    "product": "Brussels sprouts"
+   }
   },
   {
    "key": "lidl:11266455",
@@ -154,6 +189,13 @@
    "unit_price": 1.49,
    "extras": {
     "variety": "Flespompoen"
+   },
+   "en": {
+    "name": "Organic butternut squash",
+    "quantity_text": "1 Pc.",
+    "member_label": "with Lidl Plus",
+    "deal_text": "-25%",
+    "product": "Pumpkin"
    }
   },
   {
@@ -179,12 +221,20 @@
    "unit_price": 5.32,
    "extras": {
     "variety": "Kiwi"
+   },
+   "en": {
+    "name": "Kiwi gold",
+    "quantity_text": "750 g",
+    "member_label": "with Lidl Plus",
+    "deal_text": "-33%",
+    "product": "Kiwis"
    }
   }
  ],
  "comparisons": [
   {
    "product": "Appels",
+   "product_en": "Apples",
    "category": "fruit",
    "unit": "kg",
    "stores": [
@@ -202,6 +252,7 @@
   },
   {
    "product": "Kiwi's",
+   "product_en": "Kiwis",
    "category": "fruit",
    "unit": "kg",
    "stores": [
@@ -219,6 +270,7 @@
   },
   {
    "product": "Mango",
+   "product_en": "Mango",
    "category": "fruit",
    "unit": "stuk",
    "stores": [
@@ -236,6 +288,7 @@
   },
   {
    "product": "Peren",
+   "product_en": "Pears",
    "category": "fruit",
    "unit": "kg",
    "stores": [
@@ -253,6 +306,7 @@
   },
   {
    "product": "Pompoen",
+   "product_en": "Pumpkin",
    "category": "groente",
    "unit": "stuk",
    "stores": [
@@ -270,6 +324,7 @@
   },
   {
    "product": "Spruiten",
+   "product_en": "Brussels sprouts",
    "category": "groente",
    "unit": "kg",
    "stores": [
@@ -287,6 +342,7 @@
   },
   {
    "product": "Zoete aardappels",
+   "product_en": "Sweet potatoes",
    "category": "groente",
    "unit": "kg",
    "stores": [

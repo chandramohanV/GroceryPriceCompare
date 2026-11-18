@@ -1,0 +1,16 @@
+# Cloudflare Pages project. Build with `python tools/build_site.py`, then
+# `npx wrangler pages deploy`. The upload password is a secret, set with
+# `npx wrangler pages secret put UPLOAD_PASSWORD`.
+name = "grocerypricecompare"
+pages_build_output_dir = "_site"
+compatibility_date = "2025-06-01"
+
+# Offers saved by the site's "Upload AH bonus page" form (functions/api/offers.js)
+[[kv_namespaces]]
+binding = "OFFERS"
+id = "087e2b6d30404fb481d3af23da482d68"
+
+# Used by the Run button (functions/api/run.js); its token is the GITHUB_TOKEN secret.
+[vars]
+GITHUB_REPO = "chandramohanV/GroceryPriceCompare"
+WORKFLOW = "update.yml"

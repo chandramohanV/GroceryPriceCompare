@@ -1,14 +1,20 @@
+import json
+from datetime import date, datetime, timedelta, timezone
 from pathlib import Path
 
 import pytest
 
-from scraper import ah, lidl
-from scraper.match import classify
+from scraper import ah, lidl, publish, upload
+from scraper.match import CATEGORIES, PRODUCTS, classify
 from scraper.models import Offer
 from scraper.normalize import deal_factor, enrich, multi_price, parse_quantity
-from scraper.run import compare, prepare
+from scraper.pipeline import compare, prepare, replace_store_offers
+from scraper.run import build_scrapers, run
+from scraper.translate import PRODUCT_NAMES, translate_offer, translate_text
 
 FIXTURE = Path(__file__).parent / "fixtures" / "lidl_sample.html"
+AH_SAVED_PAGE = Path(__file__).parent / "fixtures" / "ah_saved_sample.html"
+NOW = datetime(2026, 11, 17, 12, 0, tzinfo=timezone.utc)
 
 
 # ---------- normalize ----------
@@ -56,6 +62,12 @@ def test_enrich_ah_one_plus_one():
     assert o.unit_price == pytest.approx(1.25, abs=0.01)
 
 
+def test_enrich_multi_buy_without_shelf_price_uses_deal_price():
+    o = enrich(Offer(store="ah", id="x", name="Chiquita bananen", deal_text="2 voor 3.50"),
+               price_already_discounted=False)
+    assert o.effective_price == 1.75
+
+
 def test_enrich_percent_not_double_counted():
     o = enrich(Offer(store="ah", id="x", name="Mango", price=1.00, old_price=1.50,
                      deal_text="25% korting", quantity_text="per stuk"),
@@ -78,10 +90,31 @@ def test_enrich_percent_not_double_counted():
     ("Aardbei kruimelvlaaitje", None),
     ("Stoofperencake", None),
     ("Vierkante donut", None),
+    # meat, fish, dairy & eggs, cereals, coffee
+    ("- Half-om-half gehakt", "Gehakt"),
+    ("Zwagerman Gerookte spekreepjes", "Spek"),
+    ("AH Scharrelkipkluifjes", "Kippenpoten"),
+    ("- Zalmfilet op huid", "Zalm"),
+    ("Iglo vissticks", "Vissticks"),
+    ("Milbona Gouda oud stuk", "Kaas"),
+    ("AH Halfvolle melk", "Melk"),
+    ("Scharreleieren 10 stuks", "Eieren"),
+    ("Quaker havermout", "Havermout"),
+    ("Bellarom Koffie rood", "Koffie"),
+    ("Koffiebroodjes", None),           # pastry, not coffee
+    ("Kaastwister", None),              # pastry, not cheese
+    ("Alle Douwe Egberts ijskoffie", None),
+    ("Alle Calvé pindakaas 350 gram", None),
+    ("Vegetarisch gehakt", None),
+    ("Appel yoghurt", "Yoghurt"),       # yoghurt with fruit is dairy, not apples
 ])
 def test_classify(name, product):
     hit = classify(name)
     assert (hit[0] if hit else None) == product
+
+
+def test_every_product_has_a_known_category():
+    assert {category for category, _ in PRODUCTS.values()} == set(CATEGORIES)
 
 
 # ---------- lidl parser on real page sample ----------
@@ -89,7 +122,7 @@ def test_lidl_parse_fixture():
     offers = lidl.parse_html(FIXTURE.read_text(encoding="utf-8"))
     names = {o.name for o in offers}
     assert "Mango" in names
-    assert "Vierkante donut" not in names  # not fruit/veg category
+    assert "Vierkante donut" not in names  # bakery aisle
     mango = next(o for o in offers if o.name == "Mango")
     assert mango.price == 1.79
     assert mango.member_price == 0.99
@@ -100,6 +133,18 @@ def test_lidl_parse_fixture():
     assert mango.valid_from <= mango.valid_to
     sweet = next(o for o in offers if o.name == "Zoete aardappels")
     assert sweet.price is None and sweet.member_price == 0.99  # Lidl Plus only
+
+
+@pytest.mark.parametrize("path,is_food", [
+    ("Werelden van nood/Eten en dichtbij voedsel/Vlees & gevogelte/Varkensvlees", True),
+    ("Werelden van nood/Eten en dichtbij voedsel/Koffie, thee & cacao", True),
+    ("Werelden van nood/Eten en dichtbij voedsel/Dierbenodigdheden/Hondenvoer", False),
+    ("Werelden van nood/Eten en dichtbij voedsel/Diepvriesvoeding/Diepvriespizza's & snacks",
+     False),
+    ("Werelden van nood/Wonen & Inrichting/Badkamer", False),
+])
+def test_lidl_keeps_food_aisles_only(path, is_food):
+    assert lidl.is_grocery_food({"keyfacts": {"wonCategoryPrimary": path}}) is is_food
 
 
 def test_prepare_drops_pastry_and_computes_unit_price():
@@ -125,6 +170,86 @@ def test_compare_picks_cheapest_per_kg():
     assert row["best"]["store"] == "lidl"
     assert row["stores"] == ["ah", "lidl"]
     assert row["saving_pct"] == 21  # 0.99 vs 1.25 per kg
+    assert row["product_en"] == "Apples"
+
+
+def test_compare_flags_group_without_a_second_price_as_not_compared():
+    offers = [
+        Offer(store="lidl", id="1", name="Jonagold appels", price=1.49, quantity_text="1500 g"),
+        Offer(store="ah", id="2", name="Alle appels op schaal", deal_text="2e halve prijs"),
+    ]
+    row = compare(prepare(offers))[0]
+    assert row["stores"] == ["ah", "lidl"]
+    assert row["compared"] is False and row["saving_pct"] is None
+
+
+def test_replace_store_offers_keeps_other_stores():
+    lidl_offer = prepare([Offer(store="lidl", id="1", name="Mango", price=0.99,
+                                quantity_text="1 Stk.")])[0]
+    old_ah = prepare([Offer(store="ah", id="old", name="AH Prei", price=1.29)])[0]
+    previous = {
+        "stores": {"lidl": {"name": "Lidl", "ok": True}, "ah": {"name": "Albert Heijn", "ok": False}},
+        "offers": [lidl_offer.to_dict(), old_ah.to_dict()],
+    }
+    fresh = [Offer(store="ah", id="new", name="AH Mandarijnen", price=1.29, quantity_text="1 kg"),
+             Offer(store="ah", id="toy", name="Speelgoedauto", price=9.99)]
+    payload = replace_store_offers(previous, "ah", "Albert Heijn", fresh, NOW)
+    assert sorted(o["key"] for o in payload["offers"]) == ["ah:new", "lidl:1"]
+    assert payload["stores"]["ah"] == {"name": "Albert Heijn", "ok": True, "scraped": 2,
+                                       "matched": 1}
+    assert payload["stores"]["lidl"]["ok"] is True
+    assert payload["generated_at"] == "2026-11-17T12:00:00+00:00"
+
+
+def test_upload_turns_cards_into_payload():
+    cards = [{"href": "/producten/product/wi1/ah-witlof", "title": "AH Witlof",
+              "text": "voor 1.49 AH Witlof 1.49 2.29 4 stuks"}]
+    payload = json.loads(upload.import_ah_cards(json.dumps(cards), json.dumps({"offers": []})))
+    assert [o["name"] for o in payload["offers"]] == ["AH Witlof"]
+    assert payload["stores"]["ah"]["matched"] == 1
+
+
+def test_upload_rejects_page_without_offers():
+    with pytest.raises(ValueError, match="No AH bonus offers"):
+        upload.import_ah_cards("[]", "{}")
+
+
+# ---------- translate ----------
+@pytest.mark.parametrize("dutch,english", [
+    ("Conference peren", "Conference pears"),
+    ("Bio flespompoen", "Organic butternut squash"),
+    ("Zoete aardappels", "Sweet potatoes"),
+    ("AH Kruimige aardappelen 3 kg", "AH Floury potatoes 3 kg"),
+    ("BIO RODE UIEN", "ORGANIC RED ONIONS"),
+    ("Blauwe bessen", "Blueberries"),
+    ("Zak 1,5 kilo", "Bag 1.5 kilo"),
+    ("met Lidl Plus", "with Lidl Plus"),
+    ("1+1 gratis", "1+1 free"),
+    ("2e halve prijs", "2nd half price"),
+    ("2 voor 5,00", "2 for 5.00"),
+    ("25% korting", "25% off"),
+    ("QUALITÉ SUISSE Jonagold appels", "QUALITÉ SUISSE Jonagold apples"),
+    ("Kiwi gold", "Kiwi gold"),
+    ("Appelsap", "Appelsap"),  # unknown compound words stay untouched
+    (None, None),
+])
+def test_translate_text(dutch, english):
+    assert translate_text(dutch) == english
+
+
+def test_every_product_has_an_english_name():
+    assert set(PRODUCTS) <= set(PRODUCT_NAMES)
+
+
+def test_translate_offer_keeps_only_filled_fields():
+    offer = Offer(store="lidl", id="1", name="Spruiten", quantity_text="750 g",
+                  member_label="met Lidl Plus", product="Spruiten")
+    assert translate_offer(offer) == {
+        "name": "Brussels sprouts",
+        "quantity_text": "750 g",
+        "member_label": "with Lidl Plus",
+        "product": "Brussels sprouts",
+    }
 
 
 # ---------- AH card parsing (synthetic card text) ----------
@@ -141,3 +266,103 @@ def test_ah_card_to_offer():
     assert o.quantity_text == "1 kg"
     assert o.price == 2.49 and o.old_price == 2.99
     assert o.url == "https://www.ah.nl/bonus/groep/123456"
+
+
+@pytest.mark.parametrize("text,price,old_price,deal", [
+    # the deal amount is not a shelf price
+    ("voor 1.49 AH Witlof 1.49 2.29 4 stuks", 1.49, 2.29, "voor 1.49"),
+    ("2 voor 4.00 AH Ananas eetrijp 2.19 per stuk", 2.19, None, "2 voor 4.00"),
+    ("€1 korting AH Scharrelkipkluifjes", None, None, "€1 korting"),
+    ("100 gram 1.79 AH Stoofvlees 8.95 9.99 ca. 500 g", 8.95, 9.99, "100 gram 1.79"),
+    ("voor 2.49 Alle Calvé pindakaas 350 gram 2.49 2.99", 2.49, 2.99, "voor 2.49"),
+])
+def test_ah_card_prices_ignore_deal_amount(text, price, old_price, deal):
+    o = ah.card_to_offer({"href": "/bonus/groep/1", "title": "x", "text": text})
+    assert (o.price, o.old_price, o.deal_text) == (price, old_price, deal)
+
+
+def test_ah_card_quantity_ignores_price_per_weight_label():
+    card = {"href": "/x/1", "title": "AH Stoofvlees",
+            "text": "100 gram 1.79 AH Stoofvlees 8.95 9.99 ca. 500 g"}
+    assert ah.card_to_offer(card).quantity_text == "500 g"
+
+
+def test_ah_card_without_deal_or_price_is_a_banner():
+    card = {"href": "/bonus/groep/2", "title": "Heerlijke koffie, voordelig gezet",
+            "text": "Heerlijke koffie, voordelig gezet"}
+    assert ah.card_to_offer(card) is None
+
+
+def test_ah_card_id_drops_week_query():
+    card = {"href": "/bonus/groep/832162?week=47", "title": "AH Prei", "text": "AH Prei 1.29"}
+    assert ah.card_to_offer(card).id == "832162"
+
+
+def test_ah_card_drops_local_image_from_saved_page():
+    card = {"href": "/bonus/groep/1", "title": "AH Prei", "text": "AH Prei 1.29",
+            "img": "Bonus_files/prei.jpg"}
+    assert ah.card_to_offer(card).image is None
+
+
+def test_ah_saved_page_import_is_offline_and_deduplicated():
+    offers = ah.scrape_saved_page(AH_SAVED_PAGE)
+    assert [o.name for o in offers] == ["AH Elstar appels", "AH Spruiten"]
+    apples, sprouts = offers
+    assert apples.deal_text == "1+1 gratis" and apples.image is None
+    assert sprouts.image == "https://static.ah.nl/dam/product/spruiten.jpg"
+    assert sprouts.price == 1.49 and sprouts.old_price == 1.99
+
+
+def test_build_scrapers_uses_saved_ah_page_even_when_not_listed():
+    scrapers = build_scrapers(["lidl"], AH_SAVED_PAGE)
+    assert set(scrapers) == {"lidl", "ah"}
+    assert scrapers["ah"][0] == "Albert Heijn"
+
+
+# ---------- carrying over a blocked store's offers ----------
+def _blocked() -> list[Offer]:
+    raise ah.AHBlocked("ah.nl answered HTTP 403")
+
+
+def _save_previous_ah_offer(out_dir: Path, valid_to: date) -> None:
+    offer = prepare([Offer(store="ah", id="7", name="AH Spruiten", price=1.49,
+                           quantity_text="500 g", valid_to=valid_to.isoformat())])[0]
+    out_dir.mkdir(parents=True, exist_ok=True)
+    (out_dir / "offers.json").write_text(
+        json.dumps({"offers": [{"key": "ah:7", **offer.to_dict(), "en": {}}]}), encoding="utf-8")
+
+
+def test_blocked_store_keeps_offers_until_its_week_ends(tmp_path):
+    _save_previous_ah_offer(tmp_path, date.today() + timedelta(days=2))
+    data = run({"ah": ("Albert Heijn", _blocked)}, tmp_path)
+    assert data["stores"]["ah"]["ok"] is False
+    assert data["stores"]["ah"]["carried_over"] == 1
+    assert [o["name"] for o in data["offers"]] == ["AH Spruiten"]
+    assert data["offers"][0]["en"]["name"] == "AH Brussels sprouts"
+
+
+def test_blocked_store_drops_expired_offers(tmp_path):
+    _save_previous_ah_offer(tmp_path, date.today() - timedelta(days=1))
+    data = run({"ah": ("Albert Heijn", _blocked)}, tmp_path)
+    assert data["offers"] == []
+    assert "carried_over" not in data["stores"]["ah"]
+
+
+# ---------- weekly refresh (scraper/publish.py) ----------
+def test_refresh_replaces_lidl_and_drops_expired_ah(monkeypatch):
+    this_week = prepare([Offer(store="ah", id="1", name="AH Witlof", price=1.49,
+                               valid_to="2026-11-22")])[0]
+    last_week = prepare([Offer(store="ah", id="2", name="AH Prei", price=1.29,
+                               valid_to="2026-11-15")])[0]
+    saved = {"stores": {"ah": {"name": "Albert Heijn", "ok": True}},
+             "offers": [this_week.to_dict(), last_week.to_dict()]}
+    fresh_lidl = [Offer(store="lidl", id="9", name="Mango", price=0.99, quantity_text="1 Stk.")]
+    monkeypatch.setattr(publish, "STORES", {"lidl": ("Lidl", lambda: fresh_lidl)})
+    payload = publish.refresh(saved, ["lidl"], NOW)
+    assert sorted(o["key"] for o in payload["offers"]) == ["ah:1", "lidl:9"]
+    assert payload["stores"]["lidl"]["matched"] == 1
+
+
+def test_publish_needs_upload_password(monkeypatch):
+    monkeypatch.delenv("UPLOAD_PASSWORD", raising=False)
+    assert publish.main(["--site", "https://example.invalid"]) == 2

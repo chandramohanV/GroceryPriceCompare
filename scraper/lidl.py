@@ -14,6 +14,7 @@ from zoneinfo import ZoneInfo
 
 from .models import Offer
 
+LABEL = "Lidl"
 OFFERS_URL = "https://www.lidl.nl/c/store/aanbiedingen/a10008785"
 BASE = "https://www.lidl.nl"
 USER_AGENT = (
@@ -22,6 +23,15 @@ USER_AGENT = (
 )
 
 _GRID_RE = re.compile(r'data-grid-data="([^"]*)"')
+# Segments of the "wonCategoryPrimary" path, e.g.
+# "Werelden van nood/Eten en dichtbij voedsel/Vlees & gevogelte/Varkensvlees"
+FOOD_CATEGORY = "Eten en dichtbij voedsel"
+# Sold in the food section, but never one of our products (pet food named
+# "Rundertartaartje", frozen pizza named "salami", pastries, ...).
+SKIPPED_AISLES = (
+    "Dierbenodigdheden", "Bloemen & planten", "Huishouding", "Bakkerij",
+    "Diepvriespizza's & snacks", "Snoep & snacks",
+)
 _TZ = ZoneInfo("Europe/Amsterdam")
 # Only treat ribbon text as a "deal" if it describes a discount
 _DEAL_WORDS = re.compile(r"%|gratis|halve prijs|voor\s*€?\s*\d", re.I)
@@ -120,13 +130,16 @@ def parse_item(item: dict) -> Offer:
     )
 
 
-def is_fruit_or_veg(item: dict) -> bool:
+def is_grocery_food(item: dict) -> bool:
+    """Food from Lidl's own category tree, minus aisles we never compare."""
     keyfacts = item.get("keyfacts") or {}
     path = keyfacts.get("wonCategoryPrimary") or ""
-    return "Groenten & fruit" in path or item.get("category") == "F+V"
+    if item.get("category") == "F+V":
+        return True
+    return FOOD_CATEGORY in path and not any(aisle in path for aisle in SKIPPED_AISLES)
 
 
-def parse_html(page: str, only_produce: bool = True) -> list[Offer]:
+def parse_html(page: str, only_food: bool = True) -> list[Offer]:
     offers: list[Offer] = []
     seen: set[str] = set()
     for raw in _GRID_RE.findall(page):
@@ -134,7 +147,7 @@ def parse_html(page: str, only_produce: bool = True) -> list[Offer]:
             item = json.loads(html.unescape(raw))
         except json.JSONDecodeError:
             continue
-        if only_produce and not is_fruit_or_veg(item):
+        if only_food and not is_grocery_food(item):
             continue
         offer = parse_item(item)
         if offer.id in seen:

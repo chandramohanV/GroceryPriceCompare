@@ -1,51 +1,69 @@
-# GroceryPriceCompare 🥕
+# GroceryPriceCompare 🛒
 
-Compares this week's **fruit & vegetable offers** at **Albert Heijn** (ah.nl/bonus) and
-**Lidl** (lidl.nl/aanbiedingen): picture, price, discount and the effective price
-**per kg / per piece**, with the cheapest offer marked **Best deal**.
+Compares this week's offers at **Albert Heijn** (ah.nl/bonus) and **Lidl**
+(lidl.nl/aanbiedingen) on **fruit, vegetables, meat, fish, dairy & eggs, cereals and coffee**:
+picture, price, discount and the effective price **per kg / litre / piece**, with the cheapest
+offer marked **Best deal**.
 
-Runs completely **free**: a daily GitHub Actions job scrapes the offers, saves them as JSON in
-this repo, and publishes a static website on GitHub Pages.
+Runs **free** on Cloudflare Pages (site + Functions + KV) and GitHub Actions.
 
 ```
-GitHub Actions (daily) ──> scraper (Python) ──> data/offers.json ──> GitHub Pages site
-                           Lidl: HTTP + embedded JSON              cards, filters, best-deal badge
-                           AH:   headless Chromium (experimental)
+Every Monday / "Run now" button ──> GitHub Actions: scrape Lidl ──┐
+                                                                  ├─> /api/offers (Cloudflare KV) ──> site
+"Upload AH bonus page" form ──> parsed in your browser (Pyodide) ─┘
 ```
 
-## Setup (one time)
+## Weekly use
 
-1. Push this repo to GitHub (it must be **public** for unlimited free Actions minutes).
-2. **Settings → Pages → Build and deployment → Source: GitHub Actions**.
-3. **Actions** tab → *Update offers & deploy site* → **Run workflow**.
-4. Your site appears at `https://<your-username>.github.io/GroceryPriceCompare/`.
+On the site, open **Update prices** (top right) and enter the update password.
 
-After that it updates itself every morning.
+- **Lidl:** runs by itself every Monday. Press **Run now** for an extra run; new prices appear
+  after about three minutes.
+- **Albert Heijn:** ah.nl blocks scripts, so upload the page from your own browser:
+  1. Open <https://www.ah.nl/bonus> and scroll to the bottom so every offer loads.
+  2. Press **Ctrl+S** and save it as **Webpage, Complete**.
+  3. Choose the saved `.html` file and press **Upload**.
+
+The AH page is read in your browser with the same Python code the scraper uses (via Pyodide,
+~10 MB on the first upload); only the resulting offers are sent to the site.
+
+## Deploy (Cloudflare Pages)
+
+```bash
+python tools/build_site.py                      # assembles _site/
+npx wrangler pages deploy                       # uses wrangler.toml
+```
+
+One-time setup, already done for `grocerypricecompare.pages.dev`:
+
+| What | Where | Command / setting |
+|---|---|---|
+| KV namespace `OFFERS` | Cloudflare | `npx wrangler kv namespace create OFFERS` (id in `wrangler.toml`) |
+| `UPLOAD_PASSWORD` secret | Cloudflare | `npx wrangler pages secret put UPLOAD_PASSWORD` |
+| `GITHUB_TOKEN` secret (Run button) | Cloudflare | fine-grained token for this repo with **Actions: read and write**, then `npx wrangler pages secret put GITHUB_TOKEN` |
+| `UPLOAD_PASSWORD` secret | GitHub repo | `gh secret set UPLOAD_PASSWORD` (same value) |
+| `SITE_URL` variable | GitHub repo | `gh variable set SITE_URL --body https://grocerypricecompare.pages.dev` |
 
 ## How it works
 
 | File | What it does |
 |---|---|
-| `scraper/lidl.py` | Downloads the Lidl offers page; every product tile has its data as JSON in the HTML. Keeps the "Groenten & fruit" category. Reads regular and Lidl Plus prices. |
-| `scraper/ah.py` | **Experimental.** Opens ah.nl/bonus in headless Chromium, scrolls, and reads the promotion cards. |
-| `scraper/match.py` | Recognises fruit/veg in Dutch product names ("Jonagold appels" → *Appels*) using whole-word matching, and skips processed products (appelsap, appeltaart, vlaai…). |
-| `scraper/normalize.py` | Parses quantities ("2 x 150 g", "Per 500 g", "1 Stk.") and deals ("1+1 gratis", "2e halve prijs", "2 voor 5,00") into an effective price per kg / per piece. |
-| `scraper/run.py` | Runs all stores (one failing store doesn't stop the others), compares, and writes `data/offers.json` plus `data/history/YYYY-MM-DD.json`. |
-| `site/` | Static website (plain HTML/CSS/JS, no build step). |
+| `scraper/lidl.py` | Downloads the Lidl offers page; every product tile has its data as JSON in the HTML. Keeps the food aisles (skips pet food, bakery, frozen pizza, sweets). Reads regular and Lidl Plus prices. |
+| `scraper/ah.py` + `ah_cards.js` | Reads AH promotion cards from a saved bonus page (or live, usually blocked). `ah_cards.js` finds the cards and is shared by Playwright and the site's upload form. |
+| `scraper/match.py` | Recognises products in Dutch names ("Jonagold appels" → *Appels*, "Half-om-half gehakt" → *Gehakt*) with whole-word matching, and skips things that only look like them (appeltaart, koffiebroodjes, vegetarisch gehakt…). |
+| `scraper/normalize.py` | Parses quantities ("2 x 150 g", "Per 500 g", "1 Stk.") and deals ("1+1 gratis", "2e halve prijs", "2 voor 5,00") into an effective price per kg / litre / piece. |
+| `scraper/translate.py` | Translates Dutch names, quantities and deals to English with a built-in glossary. The site shows English by default with a Nederlands toggle. |
+| `scraper/pipeline.py` | Pure logic: classify, normalise, compare and build the `offers.json` payload. Runs in Python and in the browser. |
+| `scraper/upload.py` | Entry point for the upload form (runs in Pyodide). |
+| `scraper/publish.py` | Weekly refresh: scrapes Lidl, merges it into the saved offers and saves them back. |
+| `scraper/run.py` | Local run: scrapes all stores and writes `data/offers.json` plus `data/history/`. |
+| `functions/api/` | Cloudflare Pages Functions: `offers.js` (read/save offers in KV) and `run.js` (Run button). |
+| `site/` | Static website (plain HTML/CSS/JS, Material Design 3 styling, no build step). |
 
 **Comparison rule:** for each product, offers are compared on the effective price per kg (or per
-piece when sold per piece), using the lowest price you can get, including free loyalty programmes
-(Lidl Plus, AH Bonuskaart).
-
-## ⚠️ About Albert Heijn
-
-ah.nl is protected against automated traffic and may answer **Access Denied** to cloud servers
-such as GitHub Actions. The scraper does not try to get around that; it records the store as
-"not available" and the site shows Lidl offers only. If that happens, run the scraper from your
-own computer (below) and push the result, or schedule it there with Task Scheduler / cron.
-
-The AH card parser is generic because AH's HTML could not be tested while this was built. If it
-finds no products, adjust `_EXTRACT_JS` in `scraper/ah.py`.
+piece when sold per piece), using the lowest price you can get, including free loyalty programmes.
+When one store's offer has no price (e.g. "25% korting" without a shelf price), the card says
+"Can't compare: price missing".
 
 ## Running locally
 
@@ -53,17 +71,22 @@ finds no products, adjust `_EXTRACT_JS` in `scraper/ah.py`.
 python -m venv .venv && source .venv/bin/activate   # Windows: .venv\Scripts\activate
 pip install -r requirements.txt
 python -m playwright install chromium
-python -m scraper.run            # or: python -m scraper.run --stores lidl
+python -m scraper.run                            # or: --stores lidl
+python -m scraper.run --ah-page ah-bonus.html    # with AH from a saved page
 python -m pytest -q
-python -m http.server 8000       # then open http://localhost:8000/site/
+python -m http.server 8000                       # then open http://localhost:8000/site/
 ```
+
+The plain local server has no `/api`, so saving uploads and Run now only work on Cloudflare. To
+test those locally: `python tools/build_site.py`, put `UPLOAD_PASSWORD=...` in `.dev.vars`, then
+`npx wrangler pages dev`.
 
 ## Adding a store
 
-Write `scraper/<store>.py` with a `scrape() -> list[Offer]` function and register it in
-`STORES` in `scraper/run.py`.
+Write `scraper/<store>.py` with a `LABEL` and a `scrape() -> list[Offer]` function and register it
+in `STORES` in `scraper/run.py`.
 
 ## Fair use
 
-One request per store per day, public offer pages only, respecting each site's `robots.txt`.
-Not affiliated with Albert Heijn or Lidl. Prices can differ in store; always check before you go.
+A few requests per store per week, public offer pages only. Not affiliated with Albert Heijn or
+Lidl. Prices can differ in store; always check before you go.

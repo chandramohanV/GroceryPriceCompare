@@ -1,16 +1,17 @@
 {
- "generated_at": "2026-11-16T21:42:29+00:00",
+ "generated_at": "2026-11-17T22:26:48+00:00",
  "stores": {
   "lidl": {
    "name": "Lidl",
    "ok": true,
-   "scraped": 7,
-   "produce": 7
+   "scraped": 22,
+   "matched": 18
   },
   "ah": {
    "name": "Albert Heijn",
-   "ok": false,
-   "error": "AHBlocked: ah.nl answered HTTP 403"
+   "ok": true,
+   "scraped": 219,
+   "matched": 23
   }
  },
  "offers": [
@@ -34,7 +35,14 @@
    "qty_amount": 1.0,
    "qty_unit": "stuk",
    "effective_price": 0.99,
-   "unit_price": 0.99
+   "unit_price": 0.99,
+   "en": {
+    "name": "Mango",
+    "quantity_text": "1 Pc.",
+    "member_label": "with Lidl Plus",
+    "deal_text": "-45%",
+    "product": "Mango"
+   }
   },
   {
    "key": "lidl:11030070",
@@ -59,6 +67,45 @@
    "unit_price": 1.29,
    "extras": {
     "variety": "Conference"
+   },
+   "en": {
+    "name": "Conference pears",
+    "quantity_text": "1 kg",
+    "member_label": "with Lidl Plus",
+    "deal_text": "-28%",
+    "product": "Pears"
+   }
+  },
+  {
+   "key": "lidl:11031013",
+   "store": "lidl",
+   "id": "11031013",
+   "name": "Milbona Burrata",
+   "image": "https://www.lidl.nl/assets/gcpf9ff51aa054a47dd892b814bb24e134a.png",
+   "url": "https://www.lidl.nl/p/milbona-burrata/p11031013",
+   "price": 1.99,
+   "old_price": 1.99,
+   "member_price": 1.79,
+   "member_label": "met Lidl Plus",
+   "deal_text": "-10%",
+   "quantity_text": "125 g",
+   "valid_from": "2026-11-16",
+   "valid_to": "2026-11-22",
+   "category": "zuivel",
+   "product": "Kaas",
+   "qty_amount": 0.125,
+   "qty_unit": "kg",
+   "effective_price": 1.79,
+   "unit_price": 14.32,
+   "extras": {
+    "variety": "Burrata"
+   },
+   "en": {
+    "name": "Milbona Burrata",
+    "quantity_text": "125 g",
+    "member_label": "with Lidl Plus",
+    "deal_text": "-10%",
+    "product": "Cheese"
    }
   },
   {
@@ -85,6 +132,13 @@
    "extras": {
     "note": "Zak 1,5 kilo",
     "variety": "Jonagold"
+   },
+   "en": {
+    "name": "QUALITÉ SUISSE Jonagold apples",
+    "quantity_text": "1500 g",
+    "member_label": "with Lidl Plus",
+    "note": "Bag 1.5 kilo",
+    "product": "Apples"
    }
   },
   {
@@ -107,7 +161,14 @@
    "qty_amount": 0.5,
    "qty_unit": "kg",
    "effective_price": 0.99,
-   "unit_price": 1.98
+   "unit_price": 1.98,
+   "en": {
+    "name": "Sweet potatoes",
+    "quantity_text": "Per 500 g",
+    "member_label": "with Lidl Plus",
+    "deal_text": "-29%",
+    "product": "Sweet potatoes"
+   }
   },
   {
    "key": "lidl:11214362",
@@ -129,7 +190,14 @@
    "qty_amount": 0.75,
    "qty_unit": "kg",
    "effective_price": 1.49,
-   "unit_price": 1.99
+   "unit_price": 1.99,
+   "en": {
+    "name": "Brussels sprouts",
+    "quantity_text": "750 g",
+    "member_label": "with Lidl Plus",
+    "deal_text": "-21%",
+    "product": "Brussels sprouts"
+   }
   },
   {
    "key": "lidl:11266455",
@@ -154,6 +222,200 @@
    "unit_price": 1.49,
    "extras": {
     "variety": "Flespompoen"
+   },
+   "en": {
+    "name": "Organic butternut squash",
+    "quantity_text": "1 Pc.",
+    "member_label": "with Lidl Plus",
+    "deal_text": "-25%",
+    "product": "Pumpkin"
+   }
+  },
+  {
+   "key": "lidl:11305613",
+   "store": "lidl",
+   "id": "11305613",
+   "name": "Zalmfilet op huid",
+   "image": "https://www.lidl.nl/assets/gcpc8e83115472d41deaf2cf534524a7b7e.png",
+   "url": "https://www.lidl.nl/p/zalmfilet-op-huid/p11305613",
+   "price": 5.99,
+   "old_price": 5.99,
+   "member_price": 4.99,
+   "member_label": "met Lidl Plus",
+   "deal_text": "-16%",
+   "quantity_text": "250 g",
+   "valid_from": "2026-11-16",
+   "valid_to": "2026-11-22",
+   "category": "vis",
+   "product": "Zalm",
+   "qty_amount": 0.25,
+   "qty_unit": "kg",
+   "effective_price": 4.99,
+   "unit_price": 19.96,
+   "extras": {
+    "variety": "Zalmfilet"
+   },
+   "en": {
+    "name": "Salmon fillet skin-on",
+    "quantity_text": "250 g",
+    "member_label": "with Lidl Plus",
+    "deal_text": "-16%",
+    "product": "Salmon"
+   }
+  },
+  {
+   "key": "lidl:11317783",
+   "store": "lidl",
+   "id": "11317783",
+   "name": "Gehakt cordon bleu",
+   "image": "https://www.lidl.nl/assets/gcp863b027621d842dda7f20f32d1c59ab9.png",
+   "url": "https://www.lidl.nl/p/gehakt-cordon-bleu/p11317783",
+   "price": 4.49,
+   "old_price": null,
+   "member_price": null,
+   "member_label": null,
+   "deal_text": null,
+   "quantity_text": null,
+   "valid_from": "2026-11-16",
+   "valid_to": "2026-11-22",
+   "category": "vlees",
+   "product": "Gehakt",
+   "qty_amount": null,
+   "qty_unit": null,
+   "effective_price": 4.49,
+   "unit_price": null,
+   "extras": {
+    "note": "500 gram"
+   },
+   "en": {
+    "name": "Minced meat cordon bleu",
+    "note": "500 gram",
+    "product": "Minced meat"
+   }
+  },
+  {
+   "key": "lidl:11321020",
+   "store": "lidl",
+   "id": "11321020",
+   "name": "Bellarom Koffie rood",
+   "image": "https://www.lidl.nl/assets/gcp89059a76dc7e4be4a9096b80d5965373.png",
+   "url": "https://www.lidl.nl/p/bellarom-koffie-rood/p11321020",
+   "price": 8.99,
+   "old_price": null,
+   "member_price": null,
+   "member_label": null,
+   "deal_text": null,
+   "quantity_text": null,
+   "valid_from": "2026-11-16",
+   "valid_to": "2026-11-22",
+   "category": "koffie",
+   "product": "Koffie",
+   "qty_amount": null,
+   "qty_unit": null,
+   "effective_price": 8.99,
+   "unit_price": null,
+   "extras": {
+    "note": "2 x 500 g"
+   },
+   "en": {
+    "name": "Bellarom Coffee red",
+    "note": "2 x 500 g",
+    "product": "Coffee"
+   }
+  },
+  {
+   "key": "lidl:11324875",
+   "store": "lidl",
+   "id": "11324875",
+   "name": "Milbona Gouda oud stuk",
+   "image": "https://www.lidl.nl/assets/gcp88b5f150b0bc4ea190a00918890d0f87.png",
+   "url": "https://www.lidl.nl/p/milbona-gouda-oud-stuk/p11324875",
+   "price": 5.14,
+   "old_price": 5.14,
+   "member_price": 3.99,
+   "member_label": "met Lidl Plus",
+   "deal_text": "-22%",
+   "quantity_text": "450 g",
+   "valid_from": "2026-11-16",
+   "valid_to": "2026-11-22",
+   "category": "zuivel",
+   "product": "Kaas",
+   "qty_amount": 0.45,
+   "qty_unit": "kg",
+   "effective_price": 3.99,
+   "unit_price": 8.87,
+   "extras": {
+    "variety": "Gouda"
+   },
+   "en": {
+    "name": "Milbona Gouda aged piece",
+    "quantity_text": "450 g",
+    "member_label": "with Lidl Plus",
+    "deal_text": "-22%",
+    "product": "Cheese"
+   }
+  },
+  {
+   "key": "lidl:11342971",
+   "store": "lidl",
+   "id": "11342971",
+   "name": "Milbona Goudse oude kaas plakken",
+   "image": "https://www.lidl.nl/assets/gcp5eeec9442d774bf2bbce1d05165beca0.png",
+   "url": "https://www.lidl.nl/p/milbona-goudse-oude-kaas-plakken/p11342971",
+   "price": 6.99,
+   "old_price": null,
+   "member_price": null,
+   "member_label": null,
+   "deal_text": null,
+   "quantity_text": null,
+   "valid_from": "2026-11-16",
+   "valid_to": "2026-11-22",
+   "category": "zuivel",
+   "product": "Kaas",
+   "qty_amount": null,
+   "qty_unit": null,
+   "effective_price": 6.99,
+   "unit_price": null,
+   "extras": {
+    "note": "XXL",
+    "variety": "Goudse"
+   },
+   "en": {
+    "name": "Milbona Gouda old cheese slices",
+    "note": "XXL",
+    "product": "Cheese"
+   }
+  },
+  {
+   "key": "lidl:11357318",
+   "store": "lidl",
+   "id": "11357318",
+   "name": "Zwagerman Gerookte spekreepjes",
+   "image": "https://www.lidl.nl/assets/gcp8df66ab5ff844996a8a5591163837861.png",
+   "url": "https://www.lidl.nl/p/zwagerman-gerookte-spekreepjes/p11357318",
+   "price": 3.19,
+   "old_price": 3.19,
+   "member_price": 2.79,
+   "member_label": "met Lidl Plus",
+   "deal_text": "-12%",
+   "quantity_text": "2 x 150 g",
+   "valid_from": "2026-11-16",
+   "valid_to": "2026-11-22",
+   "category": "vlees",
+   "product": "Spek",
+   "qty_amount": 0.3,
+   "qty_unit": "kg",
+   "effective_price": 2.79,
+   "unit_price": 9.3,
+   "extras": {
+    "variety": "Spekreepjes"
+   },
+   "en": {
+    "name": "Zwagerman Smoked bacon strips",
+    "quantity_text": "2 x 150 g",
+    "member_label": "with Lidl Plus",
+    "deal_text": "-12%",
+    "product": "Bacon"
    }
   },
   {
@@ -179,19 +441,824 @@
    "unit_price": 5.32,
    "extras": {
     "variety": "Kiwi"
+   },
+   "en": {
+    "name": "Kiwi gold",
+    "quantity_text": "750 g",
+    "member_label": "with Lidl Plus",
+    "deal_text": "-33%",
+    "product": "Kiwis"
+   }
+  },
+  {
+   "key": "lidl:11558757",
+   "store": "lidl",
+   "id": "11558757",
+   "name": "Half-om-half gehakt",
+   "image": "https://www.lidl.nl/assets/gcp162a55e982fe4b9f83a4c980c974f4ba.png",
+   "url": "https://www.lidl.nl/p/half-om-half-gehakt/p11558757",
+   "price": 4.59,
+   "old_price": 4.59,
+   "member_price": 3.99,
+   "member_label": "met Lidl Plus",
+   "deal_text": "-13%",
+   "quantity_text": "500 g",
+   "valid_from": "2026-11-16",
+   "valid_to": "2026-11-22",
+   "category": "vlees",
+   "product": "Gehakt",
+   "qty_amount": 0.5,
+   "qty_unit": "kg",
+   "effective_price": 3.99,
+   "unit_price": 7.98,
+   "extras": {
+    "variety": "Half Om Half Gehakt"
+   },
+   "en": {
+    "name": "Half-om-half minced meat",
+    "quantity_text": "500 g",
+    "member_label": "with Lidl Plus",
+    "deal_text": "-13%",
+    "product": "Minced meat"
+   }
+  },
+  {
+   "key": "lidl:11317934",
+   "store": "lidl",
+   "id": "11317934",
+   "name": "Kabeljauwburgers",
+   "image": "https://www.lidl.nl/assets/gcpba1d9ea8dc2d4e8ca7b0ff7d53e3f45e.png",
+   "url": "https://www.lidl.nl/p/kabeljauwburgers/p11317934",
+   "price": 5.98,
+   "old_price": 5.98,
+   "member_price": 4.49,
+   "member_label": "met Lidl Plus",
+   "deal_text": "-25%",
+   "quantity_text": "400 g",
+   "valid_from": "2026-11-19",
+   "valid_to": "2026-11-22",
+   "category": "vis",
+   "product": "Kabeljauw",
+   "qty_amount": 0.4,
+   "qty_unit": "kg",
+   "effective_price": 4.49,
+   "unit_price": 11.22,
+   "extras": {
+    "variety": "Kabeljauwburgers"
+   },
+   "en": {
+    "name": "Cod burgers",
+    "quantity_text": "400 g",
+    "member_label": "with Lidl Plus",
+    "deal_text": "-25%",
+    "product": "Cod"
+   }
+  },
+  {
+   "key": "lidl:11322234",
+   "store": "lidl",
+   "id": "11322234",
+   "name": "Speklappen",
+   "image": "https://www.lidl.nl/assets/gcp74405b7deae545db89b5eb59a7b169e1.png",
+   "url": "https://www.lidl.nl/p/speklappen/p11322234",
+   "price": 6.49,
+   "old_price": 6.49,
+   "member_price": 5.49,
+   "member_label": "met Lidl Plus",
+   "deal_text": "-15%",
+   "quantity_text": "600 g",
+   "valid_from": "2026-11-19",
+   "valid_to": "2026-11-22",
+   "category": "vlees",
+   "product": "Varkensvlees",
+   "qty_amount": 0.6,
+   "qty_unit": "kg",
+   "effective_price": 5.49,
+   "unit_price": 9.15,
+   "extras": {
+    "variety": "Speklappen"
+   },
+   "en": {
+    "name": "Pork belly slices",
+    "quantity_text": "600 g",
+    "member_label": "with Lidl Plus",
+    "deal_text": "-15%",
+    "product": "Pork"
+   }
+  },
+  {
+   "key": "lidl:11322419",
+   "store": "lidl",
+   "id": "11322419",
+   "name": "Iglo vissticks",
+   "image": "https://www.lidl.nl/assets/gcp1664f0e9905a4967a098645f895d82e9.png",
+   "url": "https://www.lidl.nl/p/iglo-vissticks/p11322419",
+   "price": 2.99,
+   "old_price": 2.99,
+   "member_price": 2.79,
+   "member_label": "met Lidl Plus",
+   "deal_text": null,
+   "quantity_text": "15 Stk.",
+   "valid_from": "2026-11-19",
+   "valid_to": "2026-11-22",
+   "category": "vis",
+   "product": "Vissticks",
+   "qty_amount": 15.0,
+   "qty_unit": "stuk",
+   "effective_price": 2.79,
+   "unit_price": 0.19,
+   "en": {
+    "name": "Iglo fish fingers",
+    "quantity_text": "15 Pc.",
+    "member_label": "with Lidl Plus",
+    "product": "Fish fingers"
+   }
+  },
+  {
+   "key": "ah:ah-witlof",
+   "store": "ah",
+   "id": "ah-witlof",
+   "name": "AH Witlof",
+   "image": null,
+   "url": "https://www.ah.nl/producten/product/wi238834/ah-witlof",
+   "price": 1.49,
+   "old_price": 2.29,
+   "member_price": null,
+   "member_label": null,
+   "deal_text": "voor 1.49",
+   "quantity_text": "4 stuks",
+   "valid_from": "2026-11-16",
+   "valid_to": "2026-11-22",
+   "category": "groente",
+   "product": "Witlof",
+   "qty_amount": 4.0,
+   "qty_unit": "stuk",
+   "effective_price": 1.49,
+   "unit_price": 0.37,
+   "en": {
+    "name": "AH Chicory",
+    "quantity_text": "4 pieces",
+    "deal_text": "for 1.49",
+    "product": "Chicory"
+   }
+  },
+  {
+   "key": "ah:832162",
+   "store": "ah",
+   "id": "832162",
+   "name": "AH Biologisch flespompoen of oranje pompoen",
+   "image": null,
+   "url": "https://www.ah.nl/bonus/groep/832162",
+   "price": null,
+   "old_price": null,
+   "member_price": null,
+   "member_label": null,
+   "deal_text": "30% korting",
+   "quantity_text": null,
+   "valid_from": "2026-11-16",
+   "valid_to": "2026-11-22",
+   "category": "groente",
+   "product": "Pompoen",
+   "qty_amount": null,
+   "qty_unit": null,
+   "effective_price": null,
+   "unit_price": null,
+   "extras": {
+    "variety": "Flespompoen"
+   },
+   "en": {
+    "name": "AH Organic butternut squash of oranje pumpkin",
+    "deal_text": "30% off",
+    "product": "Pumpkin"
+   }
+  },
+  {
+   "key": "ah:ah-mandarijnen",
+   "store": "ah",
+   "id": "ah-mandarijnen",
+   "name": "AH Mandarijnen",
+   "image": null,
+   "url": "https://www.ah.nl/producten/product/wi94782/ah-mandarijnen",
+   "price": 1.29,
+   "old_price": 2.29,
+   "member_price": null,
+   "member_label": null,
+   "deal_text": "voor 1.29",
+   "quantity_text": "1 kg",
+   "valid_from": "2026-11-16",
+   "valid_to": "2026-11-22",
+   "category": "fruit",
+   "product": "Mandarijnen",
+   "qty_amount": 1.0,
+   "qty_unit": "kg",
+   "effective_price": 1.29,
+   "unit_price": 1.29,
+   "en": {
+    "name": "AH Mandarins",
+    "quantity_text": "1 kg",
+    "deal_text": "for 1.29",
+    "product": "Mandarins"
+   }
+  },
+  {
+   "key": "ah:832168",
+   "store": "ah",
+   "id": "832168",
+   "name": "Alle appels op schaal 4 stuks",
+   "image": null,
+   "url": "https://www.ah.nl/bonus/groep/832168",
+   "price": null,
+   "old_price": null,
+   "member_price": null,
+   "member_label": null,
+   "deal_text": "2e halve prijs",
+   "quantity_text": "4 stuks",
+   "valid_from": "2026-11-16",
+   "valid_to": "2026-11-22",
+   "category": "fruit",
+   "product": "Appels",
+   "qty_amount": 4.0,
+   "qty_unit": "stuk",
+   "effective_price": null,
+   "unit_price": null,
+   "en": {
+    "name": "All apples op schaal 4 pieces",
+    "quantity_text": "4 pieces",
+    "deal_text": "2nd half price",
+    "product": "Apples"
+   }
+  },
+  {
+   "key": "ah:ah-blauwe-bessen",
+   "store": "ah",
+   "id": "ah-blauwe-bessen",
+   "name": "AH Blauwe bessen",
+   "image": null,
+   "url": "https://www.ah.nl/producten/product/wi143235/ah-blauwe-bessen",
+   "price": 1.99,
+   "old_price": 2.59,
+   "member_price": null,
+   "member_label": null,
+   "deal_text": "voor 1.99",
+   "quantity_text": "150 g",
+   "valid_from": "2026-11-16",
+   "valid_to": "2026-11-22",
+   "category": "fruit",
+   "product": "Blauwe bessen",
+   "qty_amount": 0.15,
+   "qty_unit": "kg",
+   "effective_price": 1.99,
+   "unit_price": 13.27,
+   "en": {
+    "name": "AH Blueberries",
+    "quantity_text": "150 g",
+    "deal_text": "for 1.99",
+    "product": "Blueberries"
+   }
+  },
+  {
+   "key": "ah:830646",
+   "store": "ah",
+   "id": "830646",
+   "name": "Chiquita Ready to eat en Later lekker bananen",
+   "image": null,
+   "url": "https://www.ah.nl/bonus/groep/830646",
+   "price": null,
+   "old_price": null,
+   "member_price": null,
+   "member_label": null,
+   "deal_text": "2 voor 3.50",
+   "quantity_text": null,
+   "valid_from": "2026-11-16",
+   "valid_to": "2026-11-22",
+   "category": "fruit",
+   "product": "Bananen",
+   "qty_amount": null,
+   "qty_unit": null,
+   "effective_price": 1.75,
+   "unit_price": null,
+   "en": {
+    "name": "Chiquita Ready to eat and Later lekker bananas",
+    "deal_text": "2 for 3.50",
+    "product": "Bananas"
+   }
+  },
+  {
+   "key": "ah:ah-ananas-eetrijp",
+   "store": "ah",
+   "id": "ah-ananas-eetrijp",
+   "name": "AH Ananas eetrijp",
+   "image": null,
+   "url": "https://www.ah.nl/producten/product/wi571711/ah-ananas-eetrijp",
+   "price": 2.19,
+   "old_price": null,
+   "member_price": null,
+   "member_label": null,
+   "deal_text": "2 voor 4.00",
+   "quantity_text": "per stuk",
+   "valid_from": "2026-11-16",
+   "valid_to": "2026-11-22",
+   "category": "fruit",
+   "product": "Ananas",
+   "qty_amount": 1.0,
+   "qty_unit": "stuk",
+   "effective_price": 2.0,
+   "unit_price": 2.0,
+   "en": {
+    "name": "AH Pineapple ready to eat",
+    "quantity_text": "per piece",
+    "deal_text": "2 for 4.00",
+    "product": "Pineapple"
+   }
+  },
+  {
+   "key": "ah:ah-schnitzel-6-stuks",
+   "store": "ah",
+   "id": "ah-schnitzel-6-stuks",
+   "name": "AH Schnitzel 6 stuks",
+   "image": null,
+   "url": "https://www.ah.nl/producten/product/wi619315/ah-schnitzel-6-stuks",
+   "price": 4.49,
+   "old_price": 9.99,
+   "member_price": null,
+   "member_label": null,
+   "deal_text": "voor 4.49",
+   "quantity_text": "6 stuks",
+   "valid_from": "2026-11-16",
+   "valid_to": "2026-11-22",
+   "category": "vlees",
+   "product": "Varkensvlees",
+   "qty_amount": 6.0,
+   "qty_unit": "stuk",
+   "effective_price": 4.49,
+   "unit_price": 0.75,
+   "extras": {
+    "variety": "Schnitzel"
+   },
+   "en": {
+    "name": "AH Schnitzel 6 pieces",
+    "quantity_text": "6 pieces",
+    "deal_text": "for 4.49",
+    "product": "Pork"
+   }
+  },
+  {
+   "key": "ah:824843",
+   "store": "ah",
+   "id": "824843",
+   "name": "AH Scharrelkipkluifjes",
+   "image": null,
+   "url": "https://www.ah.nl/bonus/groep/824843",
+   "price": null,
+   "old_price": null,
+   "member_price": null,
+   "member_label": null,
+   "deal_text": "€1 korting",
+   "quantity_text": null,
+   "valid_from": "2026-11-16",
+   "valid_to": "2026-11-22",
+   "category": "vlees",
+   "product": "Kippenpoten",
+   "qty_amount": null,
+   "qty_unit": null,
+   "effective_price": null,
+   "unit_price": null,
+   "extras": {
+    "variety": "Scharrelkipkluifjes"
+   },
+   "en": {
+    "name": "AH Free-range chicken drumsticks",
+    "deal_text": "€1 off",
+    "product": "Chicken legs & wings"
+   }
+  },
+  {
+   "key": "ah:ah-mager-rundergehakt-300g",
+   "store": "ah",
+   "id": "ah-mager-rundergehakt-300g",
+   "name": "AH Mager rundergehakt 300g",
+   "image": null,
+   "url": "https://www.ah.nl/producten/product/wi199715/ah-mager-rundergehakt-300g",
+   "price": 3.99,
+   "old_price": 4.69,
+   "member_price": null,
+   "member_label": null,
+   "deal_text": "voor 3.99",
+   "quantity_text": "300g",
+   "valid_from": "2026-11-16",
+   "valid_to": "2026-11-22",
+   "category": "vlees",
+   "product": "Gehakt",
+   "qty_amount": 0.3,
+   "qty_unit": "kg",
+   "effective_price": 3.99,
+   "unit_price": 13.3,
+   "extras": {
+    "variety": "Rundergehakt"
+   },
+   "en": {
+    "name": "AH Lean minced beef 300g",
+    "quantity_text": "300g",
+    "deal_text": "for 3.99",
+    "product": "Minced meat"
+   }
+  },
+  {
+   "key": "ah:824842",
+   "store": "ah",
+   "id": "824842",
+   "name": "AH Verse rookworst",
+   "image": null,
+   "url": "https://www.ah.nl/bonus/groep/824842",
+   "price": null,
+   "old_price": null,
+   "member_price": null,
+   "member_label": null,
+   "deal_text": "10% korting",
+   "quantity_text": null,
+   "valid_from": "2026-11-16",
+   "valid_to": "2026-11-22",
+   "category": "vlees",
+   "product": "Worst",
+   "qty_amount": null,
+   "qty_unit": null,
+   "effective_price": null,
+   "unit_price": null,
+   "extras": {
+    "variety": "Rookworst"
+   },
+   "en": {
+    "name": "AH Fresh smoked sausage",
+    "deal_text": "10% off",
+    "product": "Sausages"
+   }
+  },
+  {
+   "key": "ah:ah-stoofvlees",
+   "store": "ah",
+   "id": "ah-stoofvlees",
+   "name": "AH Stoofvlees",
+   "image": null,
+   "url": "https://www.ah.nl/producten/product/wi619311/ah-stoofvlees",
+   "price": 8.95,
+   "old_price": 9.99,
+   "member_price": null,
+   "member_label": null,
+   "deal_text": "100 gram 1.79",
+   "quantity_text": "500 g",
+   "valid_from": "2026-11-16",
+   "valid_to": "2026-11-22",
+   "category": "vlees",
+   "product": "Rundvlees",
+   "qty_amount": 0.5,
+   "qty_unit": "kg",
+   "effective_price": 8.95,
+   "unit_price": 17.9,
+   "extras": {
+    "variety": "Stoofvlees"
+   },
+   "en": {
+    "name": "AH Stewing beef",
+    "quantity_text": "500 g",
+    "deal_text": "100 gram 1.79",
+    "product": "Beef"
+   }
+  },
+  {
+   "key": "ah:819908",
+   "store": "ah",
+   "id": "819908",
+   "name": "Alle John West, Fish Tales, Rio Mare en Princes tonijn single-packs",
+   "image": null,
+   "url": "https://www.ah.nl/bonus/groep/819908",
+   "price": null,
+   "old_price": null,
+   "member_price": null,
+   "member_label": null,
+   "deal_text": "2+1 gratis",
+   "quantity_text": null,
+   "valid_from": "2026-11-16",
+   "valid_to": "2026-11-22",
+   "category": "vis",
+   "product": "Tonijn",
+   "qty_amount": null,
+   "qty_unit": null,
+   "effective_price": null,
+   "unit_price": null,
+   "en": {
+    "name": "All John West, Fish Tales, Rio Mare and Princes tuna single-packs",
+    "deal_text": "2+1 free",
+    "product": "Tuna"
+   }
+  },
+  {
+   "key": "ah:819899",
+   "store": "ah",
+   "id": "819899",
+   "name": "Alle AH Gerookte zalm",
+   "image": null,
+   "url": "https://www.ah.nl/bonus/groep/819899",
+   "price": null,
+   "old_price": null,
+   "member_price": null,
+   "member_label": null,
+   "deal_text": "25% korting",
+   "quantity_text": null,
+   "valid_from": "2026-11-16",
+   "valid_to": "2026-11-22",
+   "category": "vis",
+   "product": "Zalm",
+   "qty_amount": null,
+   "qty_unit": null,
+   "effective_price": null,
+   "unit_price": null,
+   "extras": {
+    "variety": "Gerookte Zalm"
+   },
+   "en": {
+    "name": "All AH Smoked salmon",
+    "deal_text": "25% off",
+    "product": "Salmon"
+   }
+  },
+  {
+   "key": "ah:824839",
+   "store": "ah",
+   "id": "824839",
+   "name": "AH Leverworst in plakjes van de versafdeling",
+   "image": null,
+   "url": "https://www.ah.nl/bonus/groep/824839",
+   "price": null,
+   "old_price": null,
+   "member_price": null,
+   "member_label": null,
+   "deal_text": "voor 1.69",
+   "quantity_text": null,
+   "valid_from": "2026-11-16",
+   "valid_to": "2026-11-22",
+   "category": "vlees",
+   "product": "Vleeswaren",
+   "qty_amount": null,
+   "qty_unit": null,
+   "effective_price": null,
+   "unit_price": null,
+   "extras": {
+    "variety": "Leverworst"
+   },
+   "en": {
+    "name": "AH Leverworst in plakjes from the fresh counter",
+    "deal_text": "for 1.69",
+    "product": "Cold cuts"
+   }
+  },
+  {
+   "key": "ah:824844",
+   "store": "ah",
+   "id": "824844",
+   "name": "Alle AH Cervelaat",
+   "image": null,
+   "url": "https://www.ah.nl/bonus/groep/824844",
+   "price": null,
+   "old_price": null,
+   "member_price": null,
+   "member_label": null,
+   "deal_text": "20% korting",
+   "quantity_text": null,
+   "valid_from": "2026-11-16",
+   "valid_to": "2026-11-22",
+   "category": "vlees",
+   "product": "Vleeswaren",
+   "qty_amount": null,
+   "qty_unit": null,
+   "effective_price": null,
+   "unit_price": null,
+   "extras": {
+    "variety": "Cervelaat"
+   },
+   "en": {
+    "name": "All AH Cervelaat",
+    "deal_text": "20% off",
+    "product": "Cold cuts"
+   }
+  },
+  {
+   "key": "ah:824874",
+   "store": "ah",
+   "id": "824874",
+   "name": "AH Vleeswaren van de versafdeling",
+   "image": null,
+   "url": "https://www.ah.nl/bonus/groep/824874",
+   "price": null,
+   "old_price": null,
+   "member_price": null,
+   "member_label": null,
+   "deal_text": "10% korting",
+   "quantity_text": null,
+   "valid_from": "2026-11-16",
+   "valid_to": "2026-11-22",
+   "category": "vlees",
+   "product": "Vleeswaren",
+   "qty_amount": null,
+   "qty_unit": null,
+   "effective_price": null,
+   "unit_price": null,
+   "en": {
+    "name": "AH Cold cuts from the fresh counter",
+    "deal_text": "10% off",
+    "product": "Cold cuts"
+   }
+  },
+  {
+   "key": "ah:819907",
+   "store": "ah",
+   "id": "819907",
+   "name": "Alle AH Goudse kaas van de versafdeling",
+   "image": null,
+   "url": "https://www.ah.nl/bonus/groep/819907",
+   "price": null,
+   "old_price": null,
+   "member_price": null,
+   "member_label": null,
+   "deal_text": "25% korting",
+   "quantity_text": null,
+   "valid_from": "2026-11-16",
+   "valid_to": "2026-11-22",
+   "category": "zuivel",
+   "product": "Kaas",
+   "qty_amount": null,
+   "qty_unit": null,
+   "effective_price": null,
+   "unit_price": null,
+   "extras": {
+    "variety": "Goudse Kaas"
+   },
+   "en": {
+    "name": "All AH Gouda cheese from the fresh counter",
+    "deal_text": "25% off",
+    "product": "Cheese"
+   }
+  },
+  {
+   "key": "ah:825322",
+   "store": "ah",
+   "id": "825322",
+   "name": "AH Goudse plakken",
+   "image": null,
+   "url": "https://www.ah.nl/bonus/groep/825322",
+   "price": null,
+   "old_price": null,
+   "member_price": null,
+   "member_label": null,
+   "deal_text": "2 voor 5.50",
+   "quantity_text": null,
+   "valid_from": "2026-11-16",
+   "valid_to": "2026-11-22",
+   "category": "zuivel",
+   "product": "Kaas",
+   "qty_amount": null,
+   "qty_unit": null,
+   "effective_price": 2.75,
+   "unit_price": null,
+   "extras": {
+    "variety": "Goudse"
+   },
+   "en": {
+    "name": "AH Gouda slices",
+    "deal_text": "2 for 5.50",
+    "product": "Cheese"
+   }
+  },
+  {
+   "key": "ah:819900",
+   "store": "ah",
+   "id": "819900",
+   "name": "Alle Campina yoghurt literpakken en kwark",
+   "image": null,
+   "url": "https://www.ah.nl/bonus/groep/819900",
+   "price": null,
+   "old_price": null,
+   "member_price": null,
+   "member_label": null,
+   "deal_text": "2e halve prijs",
+   "quantity_text": null,
+   "valid_from": "2026-11-16",
+   "valid_to": "2026-11-22",
+   "category": "zuivel",
+   "product": "Yoghurt",
+   "qty_amount": null,
+   "qty_unit": null,
+   "effective_price": null,
+   "unit_price": null,
+   "en": {
+    "name": "All Campina yoghurt literpakken and quark",
+    "deal_text": "2nd half price",
+    "product": "Yoghurt"
+   }
+  },
+  {
+   "key": "ah:819875",
+   "store": "ah",
+   "id": "819875",
+   "name": "Alle Campina boter 200-250 gram",
+   "image": null,
+   "url": "https://www.ah.nl/bonus/groep/819875",
+   "price": null,
+   "old_price": null,
+   "member_price": null,
+   "member_label": null,
+   "deal_text": "2 voor 4.99",
+   "quantity_text": "250 gram",
+   "valid_from": "2026-11-16",
+   "valid_to": "2026-11-22",
+   "category": "zuivel",
+   "product": "Boter",
+   "qty_amount": 0.25,
+   "qty_unit": "kg",
+   "effective_price": 2.5,
+   "unit_price": 9.98,
+   "en": {
+    "name": "All Campina butter 200-250 gram",
+    "quantity_text": "250 gram",
+    "deal_text": "2 for 4.99",
+    "product": "Butter"
+   }
+  },
+  {
+   "key": "ah:819887",
+   "store": "ah",
+   "id": "819887",
+   "name": "Alle Quaker Cruesli 375-450 gram",
+   "image": null,
+   "url": "https://www.ah.nl/bonus/groep/819887",
+   "price": null,
+   "old_price": null,
+   "member_price": null,
+   "member_label": null,
+   "deal_text": "2 voor 5.99",
+   "quantity_text": "450 gram",
+   "valid_from": "2026-11-16",
+   "valid_to": "2026-11-22",
+   "category": "granen",
+   "product": "Muesli & granola",
+   "qty_amount": 0.45,
+   "qty_unit": "kg",
+   "effective_price": 3.0,
+   "unit_price": 6.66,
+   "extras": {
+    "variety": "Cruesli"
+   },
+   "en": {
+    "name": "All Quaker Cruesli 375-450 gram",
+    "quantity_text": "450 gram",
+    "deal_text": "2 for 5.99",
+    "product": "Muesli & granola"
+   }
+  },
+  {
+   "key": "ah:819963",
+   "store": "ah",
+   "id": "819963",
+   "name": "Alle Senseo",
+   "image": null,
+   "url": "https://www.ah.nl/bonus/groep/819963",
+   "price": null,
+   "old_price": null,
+   "member_price": null,
+   "member_label": null,
+   "deal_text": "25% korting",
+   "quantity_text": null,
+   "valid_from": "2026-11-16",
+   "valid_to": "2026-11-22",
+   "category": "koffie",
+   "product": "Koffiecups & pads",
+   "qty_amount": null,
+   "qty_unit": null,
+   "effective_price": null,
+   "unit_price": null,
+   "extras": {
+    "variety": "Senseo"
+   },
+   "en": {
+    "name": "All Senseo",
+    "deal_text": "25% off",
+    "product": "Coffee capsules & pads"
    }
   }
  ],
  "comparisons": [
   {
    "product": "Appels",
+   "product_en": "Apples",
    "category": "fruit",
    "unit": "kg",
    "stores": [
+    "ah",
     "lidl"
    ],
+   "compared": false,
    "offer_ids": [
-    "lidl:11150818"
+    "lidl:11150818",
+    "ah:832168"
    ],
    "best": {
     "store": "lidl",
@@ -201,12 +1268,176 @@
    "saving_pct": null
   },
   {
+   "product": "Pompoen",
+   "product_en": "Pumpkin",
+   "category": "groente",
+   "unit": "stuk",
+   "stores": [
+    "ah",
+    "lidl"
+   ],
+   "compared": false,
+   "offer_ids": [
+    "lidl:11266455",
+    "ah:832162"
+   ],
+   "best": {
+    "store": "lidl",
+    "id": "11266455",
+    "unit_price": 1.49
+   },
+   "saving_pct": null
+  },
+  {
+   "product": "Zalm",
+   "product_en": "Salmon",
+   "category": "vis",
+   "unit": "kg",
+   "stores": [
+    "ah",
+    "lidl"
+   ],
+   "compared": false,
+   "offer_ids": [
+    "lidl:11305613",
+    "ah:819899"
+   ],
+   "best": {
+    "store": "lidl",
+    "id": "11305613",
+    "unit_price": 19.96
+   },
+   "saving_pct": null
+  },
+  {
+   "product": "Gehakt",
+   "product_en": "Minced meat",
+   "category": "vlees",
+   "unit": "kg",
+   "stores": [
+    "ah",
+    "lidl"
+   ],
+   "compared": true,
+   "offer_ids": [
+    "lidl:11558757",
+    "ah:ah-mager-rundergehakt-300g",
+    "lidl:11317783"
+   ],
+   "best": {
+    "store": "lidl",
+    "id": "11558757",
+    "unit_price": 7.98
+   },
+   "saving_pct": 40
+  },
+  {
+   "product": "Varkensvlees",
+   "product_en": "Pork",
+   "category": "vlees",
+   "unit": "kg",
+   "stores": [
+    "ah",
+    "lidl"
+   ],
+   "compared": false,
+   "offer_ids": [
+    "ah:ah-schnitzel-6-stuks",
+    "lidl:11322234"
+   ],
+   "best": {
+    "store": "lidl",
+    "id": "11322234",
+    "unit_price": 9.15
+   },
+   "saving_pct": null
+  },
+  {
+   "product": "Kaas",
+   "product_en": "Cheese",
+   "category": "zuivel",
+   "unit": "kg",
+   "stores": [
+    "ah",
+    "lidl"
+   ],
+   "compared": false,
+   "offer_ids": [
+    "lidl:11324875",
+    "lidl:11031013",
+    "lidl:11342971",
+    "ah:819907",
+    "ah:825322"
+   ],
+   "best": {
+    "store": "lidl",
+    "id": "11324875",
+    "unit_price": 8.87
+   },
+   "saving_pct": null
+  },
+  {
+   "product": "Ananas",
+   "product_en": "Pineapple",
+   "category": "fruit",
+   "unit": "stuk",
+   "stores": [
+    "ah"
+   ],
+   "compared": false,
+   "offer_ids": [
+    "ah:ah-ananas-eetrijp"
+   ],
+   "best": {
+    "store": "ah",
+    "id": "ah-ananas-eetrijp",
+    "unit_price": 2.0
+   },
+   "saving_pct": null
+  },
+  {
+   "product": "Bananen",
+   "product_en": "Bananas",
+   "category": "fruit",
+   "unit": null,
+   "stores": [
+    "ah"
+   ],
+   "compared": false,
+   "offer_ids": [
+    "ah:830646"
+   ],
+   "best": null,
+   "saving_pct": null
+  },
+  {
+   "product": "Blauwe bessen",
+   "product_en": "Blueberries",
+   "category": "fruit",
+   "unit": "kg",
+   "stores": [
+    "ah"
+   ],
+   "compared": false,
+   "offer_ids": [
+    "ah:ah-blauwe-bessen"
+   ],
+   "best": {
+    "store": "ah",
+    "id": "ah-blauwe-bessen",
+    "unit_price": 13.27
+   },
+   "saving_pct": null
+  },
+  {
    "product": "Kiwi's",
+   "product_en": "Kiwis",
    "category": "fruit",
    "unit": "kg",
    "stores": [
     "lidl"
    ],
+   "compared": false,
    "offer_ids": [
     "lidl:11492121"
    ],
@@ -218,12 +1449,33 @@
    "saving_pct": null
   },
   {
+   "product": "Mandarijnen",
+   "product_en": "Mandarins",
+   "category": "fruit",
+   "unit": "kg",
+   "stores": [
+    "ah"
+   ],
+   "compared": false,
+   "offer_ids": [
+    "ah:ah-mandarijnen"
+   ],
+   "best": {
+    "store": "ah",
+    "id": "ah-mandarijnen",
+    "unit_price": 1.29
+   },
+   "saving_pct": null
+  },
+  {
    "product": "Mango",
+   "product_en": "Mango",
    "category": "fruit",
    "unit": "stuk",
    "stores": [
     "lidl"
    ],
+   "compared": false,
    "offer_ids": [
     "lidl:11029883"
    ],
@@ -236,11 +1488,13 @@
   },
   {
    "product": "Peren",
+   "product_en": "Pears",
    "category": "fruit",
    "unit": "kg",
    "stores": [
     "lidl"
    ],
+   "compared": false,
    "offer_ids": [
     "lidl:11030070"
    ],
@@ -252,29 +1506,33 @@
    "saving_pct": null
   },
   {
-   "product": "Pompoen",
-   "category": "groente",
-   "unit": "stuk",
+   "product": "Muesli & granola",
+   "product_en": "Muesli & granola",
+   "category": "granen",
+   "unit": "kg",
    "stores": [
-    "lidl"
+    "ah"
    ],
+   "compared": false,
    "offer_ids": [
-    "lidl:11266455"
+    "ah:819887"
    ],
    "best": {
-    "store": "lidl",
-    "id": "11266455",
-    "unit_price": 1.49
+    "store": "ah",
+    "id": "819887",
+    "unit_price": 6.66
    },
    "saving_pct": null
   },
   {
    "product": "Spruiten",
+   "product_en": "Brussels sprouts",
    "category": "groente",
    "unit": "kg",
    "stores": [
     "lidl"
    ],
+   "compared": false,
    "offer_ids": [
     "lidl:11214362"
    ],
@@ -286,12 +1544,33 @@
    "saving_pct": null
   },
   {
+   "product": "Witlof",
+   "product_en": "Chicory",
+   "category": "groente",
+   "unit": "stuk",
+   "stores": [
+    "ah"
+   ],
+   "compared": false,
+   "offer_ids": [
+    "ah:ah-witlof"
+   ],
+   "best": {
+    "store": "ah",
+    "id": "ah-witlof",
+    "unit_price": 0.37
+   },
+   "saving_pct": null
+  },
+  {
    "product": "Zoete aardappels",
+   "product_en": "Sweet potatoes",
    "category": "groente",
    "unit": "kg",
    "stores": [
     "lidl"
    ],
+   "compared": false,
    "offer_ids": [
     "lidl:11150934"
    ],
@@ -300,6 +1579,208 @@
     "id": "11150934",
     "unit_price": 1.98
    },
+   "saving_pct": null
+  },
+  {
+   "product": "Koffie",
+   "product_en": "Coffee",
+   "category": "koffie",
+   "unit": null,
+   "stores": [
+    "lidl"
+   ],
+   "compared": false,
+   "offer_ids": [
+    "lidl:11321020"
+   ],
+   "best": null,
+   "saving_pct": null
+  },
+  {
+   "product": "Koffiecups & pads",
+   "product_en": "Coffee capsules & pads",
+   "category": "koffie",
+   "unit": null,
+   "stores": [
+    "ah"
+   ],
+   "compared": false,
+   "offer_ids": [
+    "ah:819963"
+   ],
+   "best": null,
+   "saving_pct": null
+  },
+  {
+   "product": "Kabeljauw",
+   "product_en": "Cod",
+   "category": "vis",
+   "unit": "kg",
+   "stores": [
+    "lidl"
+   ],
+   "compared": false,
+   "offer_ids": [
+    "lidl:11317934"
+   ],
+   "best": {
+    "store": "lidl",
+    "id": "11317934",
+    "unit_price": 11.22
+   },
+   "saving_pct": null
+  },
+  {
+   "product": "Tonijn",
+   "product_en": "Tuna",
+   "category": "vis",
+   "unit": null,
+   "stores": [
+    "ah"
+   ],
+   "compared": false,
+   "offer_ids": [
+    "ah:819908"
+   ],
+   "best": null,
+   "saving_pct": null
+  },
+  {
+   "product": "Vissticks",
+   "product_en": "Fish fingers",
+   "category": "vis",
+   "unit": "stuk",
+   "stores": [
+    "lidl"
+   ],
+   "compared": false,
+   "offer_ids": [
+    "lidl:11322419"
+   ],
+   "best": {
+    "store": "lidl",
+    "id": "11322419",
+    "unit_price": 0.19
+   },
+   "saving_pct": null
+  },
+  {
+   "product": "Kippenpoten",
+   "product_en": "Chicken legs & wings",
+   "category": "vlees",
+   "unit": null,
+   "stores": [
+    "ah"
+   ],
+   "compared": false,
+   "offer_ids": [
+    "ah:824843"
+   ],
+   "best": null,
+   "saving_pct": null
+  },
+  {
+   "product": "Rundvlees",
+   "product_en": "Beef",
+   "category": "vlees",
+   "unit": "kg",
+   "stores": [
+    "ah"
+   ],
+   "compared": false,
+   "offer_ids": [
+    "ah:ah-stoofvlees"
+   ],
+   "best": {
+    "store": "ah",
+    "id": "ah-stoofvlees",
+    "unit_price": 17.9
+   },
+   "saving_pct": null
+  },
+  {
+   "product": "Spek",
+   "product_en": "Bacon",
+   "category": "vlees",
+   "unit": "kg",
+   "stores": [
+    "lidl"
+   ],
+   "compared": false,
+   "offer_ids": [
+    "lidl:11357318"
+   ],
+   "best": {
+    "store": "lidl",
+    "id": "11357318",
+    "unit_price": 9.3
+   },
+   "saving_pct": null
+  },
+  {
+   "product": "Vleeswaren",
+   "product_en": "Cold cuts",
+   "category": "vlees",
+   "unit": null,
+   "stores": [
+    "ah"
+   ],
+   "compared": false,
+   "offer_ids": [
+    "ah:824839",
+    "ah:824844",
+    "ah:824874"
+   ],
+   "best": null,
+   "saving_pct": null
+  },
+  {
+   "product": "Worst",
+   "product_en": "Sausages",
+   "category": "vlees",
+   "unit": null,
+   "stores": [
+    "ah"
+   ],
+   "compared": false,
+   "offer_ids": [
+    "ah:824842"
+   ],
+   "best": null,
+   "saving_pct": null
+  },
+  {
+   "product": "Boter",
+   "product_en": "Butter",
+   "category": "zuivel",
+   "unit": "kg",
+   "stores": [
+    "ah"
+   ],
+   "compared": false,
+   "offer_ids": [
+    "ah:819875"
+   ],
+   "best": {
+    "store": "ah",
+    "id": "819875",
+    "unit_price": 9.98
+   },
+   "saving_pct": null
+  },
+  {
+   "product": "Yoghurt",
+   "product_en": "Yoghurt",
+   "category": "zuivel",
+   "unit": null,
+   "stores": [
+    "ah"
+   ],
+   "compared": false,
+   "offer_ids": [
+    "ah:819900"
+   ],
+   "best": null,
    "saving_pct": null
   }
  ]

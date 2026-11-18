@@ -20,7 +20,7 @@ class Offer:
     quantity_text: Optional[str] = None   # e.g. "1500 g", "Per stuk"
     valid_from: Optional[str] = None      # ISO date
     valid_to: Optional[str] = None        # ISO date
-    category: Optional[str] = None        # "fruit" | "groente" (filled by matcher)
+    category: Optional[str] = None        # one of match.CATEGORIES (filled by matcher)
     product: Optional[str] = None         # canonical product, e.g. "Appels"
     # Filled in by normalize.enrich()
     qty_amount: Optional[float] = None

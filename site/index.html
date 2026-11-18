@@ -1,44 +1,112 @@
 <!doctype html>
-<html lang="nl">
+<html lang="en">
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Groente &amp; Fruit Deals</title>
-  <meta name="description" content="Compare this week's fruit and vegetable offers at Albert Heijn and Lidl.">
-  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🥕</text></svg>">
+  <title>Weekly Grocery Deals</title>
+  <meta name="description" content="Compare this week's grocery offers at Albert Heijn and Lidl.">
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🛒</text></svg>">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0&display=block">
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
-  <header class="top">
-    <div class="wrap">
-      <h1>Groente &amp; Fruit Deals</h1>
-      <p class="sub">This week's fruit &amp; vegetable offers at Albert Heijn and Lidl, compared per kilo or per piece.</p>
-      <div id="status" class="status" aria-live="polite">Loading offers…</div>
+  <header class="app-bar">
+    <div class="wrap app-bar-row">
+      <span class="material-symbols-outlined app-bar-icon" aria-hidden="true">shopping_cart</span>
+      <h1>Weekly Grocery Deals</h1>
+      <a class="btn text" href="#update">
+        <span class="material-symbols-outlined" aria-hidden="true">sync</span>Update prices
+      </a>
     </div>
   </header>
 
+  <section class="hero">
+    <div class="wrap">
+      <p class="sub">This week's offers on fruit, vegetables, meat, fish, dairy, eggs, cereals and coffee at
+        Albert Heijn and Lidl, compared per kilo, litre or piece.</p>
+      <div id="status" class="status" aria-live="polite">Loading offers…</div>
+    </div>
+  </section>
+
   <main class="wrap">
     <div class="controls">
-      <div class="seg" role="tablist" aria-label="Category">
-        <button class="on" data-cat="all" role="tab" aria-selected="true">All</button>
-        <button data-cat="fruit" role="tab" aria-selected="false">Fruit</button>
-        <button data-cat="groente" role="tab" aria-selected="false">Groente</button>
+      <label class="field search">
+        <span class="material-symbols-outlined" aria-hidden="true">search</span>
+        <input id="q" type="search" placeholder="Search, e.g. apples" aria-label="Search products">
+      </label>
+      <label class="field select">
+        <span class="material-symbols-outlined" aria-hidden="true">sort</span>
+        <select id="sort" aria-label="Sort">
+          <option value="compare">Compared first</option>
+          <option value="saving">Biggest discount</option>
+          <option value="name">A–Z</option>
+        </select>
+      </label>
+      <div id="lang" class="seg" role="tablist" aria-label="Product text language">
+        <button class="on" data-lang="en" role="tab" aria-selected="true">English</button>
+        <button data-lang="nl" role="tab" aria-selected="false" lang="nl">Nederlands</button>
       </div>
-      <input id="q" type="search" placeholder="Search, e.g. appels" aria-label="Search products">
-      <select id="sort" aria-label="Sort">
-        <option value="compare">Compared first</option>
-        <option value="saving">Biggest discount</option>
-        <option value="name">A–Z</option>
-      </select>
+    </div>
+
+    <div id="cat" class="filter-chips" role="tablist" aria-label="Category">
+      <button class="on" data-cat="all" role="tab" aria-selected="true">All</button>
+      <button data-cat="fruit" role="tab" aria-selected="false">🍎 Fruit</button>
+      <button data-cat="groente" role="tab" aria-selected="false">🥦 Vegetables</button>
+      <button data-cat="vlees" role="tab" aria-selected="false">🥩 Meat</button>
+      <button data-cat="vis" role="tab" aria-selected="false">🐟 Fish</button>
+      <button data-cat="zuivel" role="tab" aria-selected="false">🧀 Dairy &amp; eggs</button>
+      <button data-cat="granen" role="tab" aria-selected="false">🥣 Cereals</button>
+      <button data-cat="koffie" role="tab" aria-selected="false">☕ Coffee</button>
     </div>
 
     <section id="list" class="grid" aria-label="Products"></section>
     <p id="empty" class="empty" hidden>No offers match your filter.</p>
 
+    <section id="update" class="card update" aria-labelledby="update-title">
+      <h2 id="update-title">Update prices</h2>
+      <label class="field password">
+        <span class="material-symbols-outlined" aria-hidden="true">key</span>
+        <input id="update-password" type="password" placeholder="Update password"
+          autocomplete="current-password" aria-label="Update password">
+      </label>
+
+      <div class="update-step">
+        <h3>Lidl</h3>
+        <p class="small">Fetches the latest Lidl offers. This runs by itself every Monday; use the button for an
+          extra run. New prices appear here after about three minutes.</p>
+        <button id="run-now" class="btn tonal" type="button">
+          <span class="material-symbols-outlined" aria-hidden="true">play_arrow</span>Run now
+        </button>
+        <p id="run-message" class="small message" aria-live="polite"></p>
+      </div>
+
+      <div class="update-step">
+        <h3>Albert Heijn</h3>
+        <ol class="small">
+          <li>Open <a href="https://www.ah.nl/bonus" target="_blank" rel="noopener">ah.nl/bonus</a> and scroll
+            to the bottom so every offer loads.</li>
+          <li>Press <kbd>Ctrl</kbd>+<kbd>S</kbd> and save as "Webpage, Complete".</li>
+          <li>Choose the saved <code>.html</code> file and upload it.</li>
+        </ol>
+        <form id="upload-form" class="upload-form">
+          <input name="page" type="file" accept=".html,.htm,text/html" aria-label="Saved AH bonus page">
+          <button class="btn filled" type="submit">
+            <span class="material-symbols-outlined" aria-hidden="true">upload</span>Upload
+          </button>
+        </form>
+        <p id="upload-message" class="small message" aria-live="polite"></p>
+      </div>
+    </section>
+
     <footer class="foot">
       <p>Prices include loyalty prices (Lidl Plus app, AH Bonuskaart) where offered; these are free to join.
-        "Best deal" compares the effective price per kg or per piece after multi-buy deals such as
-        "1+1 gratis". Always check the store before you go; this page is not affiliated with AH or Lidl.</p>
+        "Best deal" compares the effective price per kg, litre or piece after multi-buy deals such as
+        "1+1 free" (1+1 gratis). Product names are translated automatically from Dutch; switch to
+        Nederlands to see them exactly as the store writes them. Always check the store before you go; this
+        page is not affiliated with AH or Lidl.</p>
       <p id="updated"></p>
     </footer>
   </main>
@@ -54,5 +122,7 @@
   </template>
 
   <script src="app.js"></script>
+  <script src="upload.js"></script>
+  <script src="run.js"></script>
 </body>
 </html>

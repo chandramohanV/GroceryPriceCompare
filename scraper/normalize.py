@@ -108,14 +108,15 @@ def enrich(offer: Offer, price_already_discounted: bool = True) -> Offer:
     offer.qty_amount, offer.qty_unit = amount, unit
 
     candidates = [p for p in (offer.price, offer.member_price) if p is not None]
+    mp = multi_price(offer.deal_text)
+    if mp:
+        # "2 voor 3.50" is a price on its own, even without a shelf price
+        candidates.append(mp[1] / mp[0])
     if not candidates:
         return offer
     base = min(candidates)
 
-    mp = multi_price(offer.deal_text)
-    if mp:
-        base = min(base, mp[1] / mp[0])
-    else:
+    if not mp:
         base *= deal_factor(offer.deal_text)
         pct = percent_off(offer.deal_text)
         if pct and not price_already_discounted:
