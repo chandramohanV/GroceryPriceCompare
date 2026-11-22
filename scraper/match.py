@@ -149,23 +149,26 @@ EXCLUDE_ALWAYS = {
     "chips", "snoep", "chocolade", "pizza", "soep", "saus", "croissant", "tosti", "wrap",
     "wraps", "broodje", "broodjes", "maaltijd", "shampoo", "zeep", "kaars", "geur", "plant",
     "conifeer", "zaad", "zaden", "pencee", "hondenvoer", "kattenvoer", "hond", "honden",
-    "kat", "katten",
+    "kat", "katten", "spray", "reiniger", "bowl", "staaf",
 }
 _EXCLUDE_PRODUCE = {
     "sap", "jam", "smoothie", "siroop", "moes", "compote", "yoghurt", "kwark", "ijs", "drank",
     "limonade", "thee", "bier", "wijn", "gedroogd", "gedroogde", "chutney", "kaas", "frites",
     "patat", "puree", "olie", "azijn", "stroop", "mix voor", "bakmix", "diepvries",
+    "perensap", "olijven", "fruitcocktail", "piccalilly",
 }
 _EXCLUDE_NOT_ANIMAL = {
     "vega", "vegan", "vegetarisch", "vegetarische", "plantaardig", "plantaardige", "salade",
 }
+# Ready-made meat products: cold cuts, filled schnitzels, potato dishes
+_EXCLUDE_PREPARED_MEAT = {"gebraden", "cordon", "aardappel"}
 # Extra exclusions per category, on top of EXCLUDE_ALWAYS.
 EXCLUDE_BY_CATEGORY: dict[str, set[str]] = {
     "fruit": _EXCLUDE_PRODUCE,
     "groente": _EXCLUDE_PRODUCE,
-    "vlees": _EXCLUDE_NOT_ANIMAL,
+    "vlees": _EXCLUDE_NOT_ANIMAL | _EXCLUDE_PREPARED_MEAT,
     "vis": _EXCLUDE_NOT_ANIMAL,
-    "zuivel": _EXCLUDE_NOT_ANIMAL | {"ijs"},
+    "zuivel": _EXCLUDE_NOT_ANIMAL | {"ijs", "choco"},
     "granen": {"reep", "repen", "yoghurt"},
     "koffie": {"ijs", "likeur", "apparaat", "machine", "mok", "beker", "filters"},
 }

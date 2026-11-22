@@ -4,7 +4,7 @@ from pathlib import Path
 
 import pytest
 
-from scraper import ah, lidl, publish, upload
+from scraper import ah, aldi, lidl, publish, upload
 from scraper.match import CATEGORIES, PRODUCTS, classify
 from scraper.models import Offer
 from scraper.normalize import deal_factor, enrich, multi_price, parse_quantity
@@ -14,6 +14,8 @@ from scraper.translate import PRODUCT_NAMES, translate_offer, translate_text
 
 FIXTURE = Path(__file__).parent / "fixtures" / "lidl_sample.html"
 AH_SAVED_PAGE = Path(__file__).parent / "fixtures" / "ah_saved_sample.html"
+ALDI_FIXTURE = Path(__file__).parent / "fixtures" / "aldi_sample.html"
+ALDI_WEEK_DAY = date(2026, 11, 17)  # a Tuesday in the fixture's offer week (16-22 Nov)
 NOW = datetime(2026, 11, 17, 12, 0, tzinfo=timezone.utc)
 
 
@@ -107,6 +109,17 @@ def test_enrich_percent_not_double_counted():
     ("Alle Calvé pindakaas 350 gram", None),
     ("Vegetarisch gehakt", None),
     ("Appel yoghurt", "Yoghurt"),       # yoghurt with fruit is dairy, not apples
+    # Aldi look-alikes
+    ("3-in-1 powerspray citroen", None),            # cleaning spray
+    ("Appel- of perensap", None),
+    ("Olijven met kruiden of knoflook", None),
+    ("Pokébowl kip, zalm of tonijn", None),         # ready meal
+    ("Gehakt cordon bleus", None),
+    ("Gebraden gehakt", None),                      # cold cut
+    ("Aardappelschijfjes spek & ui", None),
+    ("Choco met slagroom", None),
+    ("Roomboter amandelstaaf", None),               # pastry
+    ("Gemengd gehakt gekruid", "Gehakt"),
 ])
 def test_classify(name, product):
     hit = classify(name)
@@ -145,6 +158,89 @@ def test_lidl_parse_fixture():
 ])
 def test_lidl_keeps_food_aisles_only(path, is_food):
     assert lidl.is_grocery_food({"keyfacts": {"wonCategoryPrimary": path}}) is is_food
+
+
+# ---------- aldi parser on real page sample ----------
+def _aldi_offers(today: date = ALDI_WEEK_DAY) -> list[Offer]:
+    return aldi.parse_pages([ALDI_FIXTURE.read_text(encoding="utf-8")], today)
+
+
+def _aldi_page(*items: dict) -> str:
+    """A minimal Aldi page embedding the given products."""
+    api = [["OFFER_GET", {"res": {"algoliaDataMap": {i["objectID"]: i for i in items}}}]]
+    next_data = {"props": {"pageProps": {"apiData": json.dumps(api)}}}
+    return f'<script id="__NEXT_DATA__" type="application/json">{json.dumps(next_data)}</script>'
+
+
+def _aldi_item(object_id: str, valid_from: str, valid_to: str) -> dict:
+    return {"objectID": object_id, "name": "Prei", "salesUnit": "Per stuk",
+            "currentPrice": {"priceValue": 0.55},
+            "promotionPrices": [{"validFromLocalDate": valid_from, "validUntilLocalDate": valid_to}]}
+
+
+def test_aldi_parse_fixture():
+    sprouts = next(o for o in _aldi_offers() if o.name == "Spruiten")
+    assert sprouts.store == "aldi"
+    assert sprouts.price == 0.99 and sprouts.old_price == 1.89
+    assert sprouts.deal_text == "-47%"
+    assert sprouts.quantity_text == "750 g"
+    assert sprouts.image.startswith("https://")
+    assert sprouts.url == "https://www.aldi.nl/product/spruiten-1219371.html"
+    assert (sprouts.valid_from, sprouts.valid_to) == ("2026-11-16", "2026-11-22")
+
+
+def test_aldi_multi_buy_price_moves_into_deal_text():
+    skyr = next(o for o in _aldi_offers() if o.name == "High protein skyr")
+    assert skyr.price is None
+    assert skyr.deal_text == "2 voor 2.50"
+
+
+def test_aldi_non_discount_label_is_a_note():
+    item = _aldi_item("1", "2026-11-16", "2026-11-22")
+    item["currentPrice"]["priceTagLabels"] = {"promoText1": "OP=OP"}
+    [leek] = aldi.parse_pages([_aldi_page(item)], ALDI_WEEK_DAY)
+    assert leek.deal_text is None
+    assert leek.extras == {"note": "OP=OP"}
+
+
+def test_aldi_product_without_label_has_no_deal_or_note():
+    ham = next(o for o in _aldi_offers() if o.name == "Gegrilde beenham")
+    assert ham.deal_text is None and ham.extras == {}
+
+
+def test_aldi_skips_products_without_price():
+    assert "Gyoza" not in {o.name for o in _aldi_offers()}
+
+
+def test_aldi_drops_this_weeks_offers_on_sunday():
+    assert _aldi_offers(today=date(2026, 11, 22)) == []
+
+
+@pytest.mark.parametrize("today,week", [
+    (date(2026, 11, 22), (date(2026, 11, 23), date(2026, 11, 29))),  # Sunday: next week
+    (date(2026, 11, 23), (date(2026, 11, 23), date(2026, 11, 29))),  # Monday
+    (date(2026, 11, 28), (date(2026, 11, 23), date(2026, 11, 29))),  # Saturday
+])
+def test_aldi_offer_week(today, week):
+    assert aldi.offer_week(today) == week
+
+
+def test_aldi_keeps_each_product_once_across_pages():
+    this_week = _aldi_page(_aldi_item("1", "2026-11-16", "2026-11-22"))
+    next_week = _aldi_page(_aldi_item("1", "2026-11-23", "2026-11-29"),
+                           _aldi_item("2", "2026-11-23", "2026-11-29"))
+    offers = aldi.parse_pages([this_week, next_week], date(2026, 11, 17))
+    assert [(o.id, o.valid_to) for o in offers] == [("1", "2026-11-22")]
+
+
+def test_aldi_page_without_offers_data_is_reported():
+    with pytest.raises(aldi.AldiPageChanged):
+        aldi.parse_pages(["<html>no data</html>"], ALDI_WEEK_DAY)
+
+
+def test_prepare_uses_aldi_shelf_price_as_discounted():
+    sprouts = next(o for o in prepare(_aldi_offers()) if o.name == "Spruiten")
+    assert sprouts.unit_price == pytest.approx(1.32, abs=0.01)  # 0.99 for 750 g, not 47% off again
 
 
 def test_prepare_drops_pastry_and_computes_unit_price():

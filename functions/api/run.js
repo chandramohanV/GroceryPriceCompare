@@ -1,7 +1,7 @@
 // Cloudflare Pages Function at /api/run: the site's "Run now" button.
 //
 // POST (with "Authorization: Bearer <UPLOAD_PASSWORD>") starts the GitHub
-// Actions workflow that scrapes Lidl and saves the merged offers back to
+// Actions workflow that scrapes Lidl and Aldi and saves the merged offers back to
 // /api/offers. The same workflow also runs by itself every Monday.
 //
 // Needs the GITHUB_TOKEN secret: a fine-grained token for this repository

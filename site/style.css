@@ -19,6 +19,7 @@
   --deal-container: #ffdcc2;
   --ah: #0077b6;
   --lidl: #0050aa;
+  --aldi: #00796b;
   --shape-s: 8px;
   --shape-m: 12px;
   --shape-l: 16px;
@@ -46,6 +47,7 @@
     --deal-container: #4f2500;
     --ah: #7cc8f0;
     --lidl: #a8c4ff;
+    --aldi: #5fd4c4;
     color-scheme: dark;
   }
 }
@@ -150,6 +152,7 @@ h1 { flex: 1; margin: 0; font-size: 1.375rem; font-weight: 400; }
 .store { font-size: 0.6875rem; font-weight: 700; letter-spacing: 0.06em; text-transform: uppercase; }
 .store.ah { color: var(--ah); }
 .store.lidl { color: var(--lidl); }
+.store.aldi { color: var(--aldi); }
 .name {
   color: inherit; text-decoration: none; font-size: 0.9375rem; line-height: 1.3;
   display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden;

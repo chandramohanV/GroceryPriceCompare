@@ -1,7 +1,7 @@
 (() => {
   "use strict";
 
-  const STORE_NAMES = { ah: "Albert Heijn", lidl: "Lidl" };
+  const STORE_NAMES = { ah: "Albert Heijn", lidl: "Lidl", aldi: "Aldi" };
   // Category codes come from scraper/match.py (CATEGORIES).
   const CATEGORY_ICON = {
     fruit: "🍎", groente: "🥦", vlees: "🥩", vis: "🐟", zuivel: "🧀", granen: "🥣", koffie: "☕",

@@ -13,14 +13,11 @@ from typing import Iterable, Optional
 from zoneinfo import ZoneInfo
 
 from .models import Offer
+from .web import fetch_page
 
 LABEL = "Lidl"
 OFFERS_URL = "https://www.lidl.nl/c/store/aanbiedingen/a10008785"
 BASE = "https://www.lidl.nl"
-USER_AGENT = (
-    "Mozilla/5.0 (compatible; GroceryPriceCompare/1.0; "
-    "+https://github.com/chandramohanV/GroceryPriceCompare)"
-)
 
 _GRID_RE = re.compile(r'data-grid-data="([^"]*)"')
 # Segments of the "wonCategoryPrimary" path, e.g.
@@ -35,19 +32,6 @@ SKIPPED_AISLES = (
 _TZ = ZoneInfo("Europe/Amsterdam")
 # Only treat ribbon text as a "deal" if it describes a discount
 _DEAL_WORDS = re.compile(r"%|gratis|halve prijs|voor\s*€?\s*\d", re.I)
-
-
-def fetch_html(url: str = OFFERS_URL) -> str:
-    import httpx  # imported lazily so parsing/tests don't need it
-
-    resp = httpx.get(
-        url,
-        headers={"User-Agent": USER_AGENT, "Accept-Language": "nl-NL,nl;q=0.9"},
-        timeout=30,
-        follow_redirects=True,
-    )
-    resp.raise_for_status()
-    return resp.text
 
 
 def _iso_from_ts(ts) -> Optional[str]:
@@ -158,7 +142,7 @@ def parse_html(page: str, only_food: bool = True) -> list[Offer]:
 
 
 def scrape() -> list[Offer]:
-    return parse_html(fetch_html())
+    return parse_html(fetch_page(OFFERS_URL))
 
 
 def _cli(argv: Iterable[str]) -> None:  # pragma: no cover

@@ -1,577 +1,1850 @@
 {
- "generated_at": "2026-11-17T22:26:48+00:00",
+ "generated_at": "2026-11-22T16:46:44+00:00",
  "stores": {
   "lidl": {
    "name": "Lidl",
    "ok": true,
-   "scraped": 22,
-   "matched": 18
+   "scraped": 44,
+   "matched": 24
+  },
+  "aldi": {
+   "name": "Aldi",
+   "ok": true,
+   "scraped": 312,
+   "matched": 36
   },
   "ah": {
    "name": "Albert Heijn",
-   "ok": true,
-   "scraped": 219,
-   "matched": 23
+   "ok": false,
+   "error": "AHBlocked: ah.nl answered HTTP 403",
+   "carried_over": 23
   }
  },
  "offers": [
   {
-   "key": "lidl:11029883",
+   "key": "lidl:11029408",
    "store": "lidl",
-   "id": "11029883",
-   "name": "Mango",
-   "image": "https://www.lidl.nl/assets/gcpf58ddbf59c90468298a2144de4745fcf.png",
-   "url": "https://www.lidl.nl/p/mango/p11029883",
-   "price": 1.79,
-   "old_price": 1.79,
-   "member_price": 0.99,
+   "id": "11029408",
+   "name": "BIO Bio courgette",
+   "image": "https://www.lidl.nl/assets/gcpa96a5f75f28541239626e252d68fff06.png",
+   "url": "https://www.lidl.nl/p/bio-bio-courgette/p11029408",
+   "price": 0.99,
+   "old_price": 0.99,
+   "member_price": 0.39,
    "member_label": "met Lidl Plus",
-   "deal_text": "-45%",
+   "deal_text": "-46%",
    "quantity_text": "1 Stk.",
-   "valid_from": "2026-11-16",
-   "valid_to": "2026-11-22",
-   "category": "fruit",
-   "product": "Mango",
+   "valid_from": "2026-11-23",
+   "valid_to": "2026-11-29",
+   "category": "groente",
+   "product": "Courgette",
    "qty_amount": 1.0,
    "qty_unit": "stuk",
-   "effective_price": 0.99,
-   "unit_price": 0.99,
+   "effective_price": 0.39,
+   "unit_price": 0.39,
    "en": {
-    "name": "Mango",
+    "name": "ORGANIC Organic courgette",
     "quantity_text": "1 Pc.",
     "member_label": "with Lidl Plus",
-    "deal_text": "-45%",
-    "product": "Mango"
+    "deal_text": "-46%",
+    "product": "Courgette"
    }
   },
   {
-   "key": "lidl:11030070",
+   "key": "lidl:11029530",
    "store": "lidl",
-   "id": "11030070",
-   "name": "Conference peren",
-   "image": "https://www.lidl.nl/assets/gcpc67ec2660f07410d9b060603f6032964.png",
-   "url": "https://www.lidl.nl/p/conference-peren/p11030070",
-   "price": 1.79,
-   "old_price": 1.79,
-   "member_price": 1.29,
-   "member_label": "met Lidl Plus",
-   "deal_text": "-28%",
-   "quantity_text": "1 kg",
-   "valid_from": "2026-11-16",
-   "valid_to": "2026-11-22",
-   "category": "fruit",
-   "product": "Peren",
-   "qty_amount": 1.0,
-   "qty_unit": "kg",
-   "effective_price": 1.29,
-   "unit_price": 1.29,
-   "extras": {
-    "variety": "Conference"
-   },
-   "en": {
-    "name": "Conference pears",
-    "quantity_text": "1 kg",
-    "member_label": "with Lidl Plus",
-    "deal_text": "-28%",
-    "product": "Pears"
-   }
-  },
-  {
-   "key": "lidl:11031013",
-   "store": "lidl",
-   "id": "11031013",
-   "name": "Milbona Burrata",
-   "image": "https://www.lidl.nl/assets/gcpf9ff51aa054a47dd892b814bb24e134a.png",
-   "url": "https://www.lidl.nl/p/milbona-burrata/p11031013",
-   "price": 1.99,
-   "old_price": 1.99,
-   "member_price": 1.79,
-   "member_label": "met Lidl Plus",
-   "deal_text": "-10%",
-   "quantity_text": "125 g",
-   "valid_from": "2026-11-16",
-   "valid_to": "2026-11-22",
-   "category": "zuivel",
-   "product": "Kaas",
-   "qty_amount": 0.125,
-   "qty_unit": "kg",
-   "effective_price": 1.79,
-   "unit_price": 14.32,
-   "extras": {
-    "variety": "Burrata"
-   },
-   "en": {
-    "name": "Milbona Burrata",
-    "quantity_text": "125 g",
-    "member_label": "with Lidl Plus",
-    "deal_text": "-10%",
-    "product": "Cheese"
-   }
-  },
-  {
-   "key": "lidl:11150818",
-   "store": "lidl",
-   "id": "11150818",
-   "name": "QUALITÉ SUISSE Jonagold appels",
-   "image": "https://www.lidl.nl/assets/gcp27830028173442aba23fc81c0d45f1fb.png",
-   "url": "https://www.lidl.nl/p/qualite-suisse-jonagold-appels/p11150818",
-   "price": 1.82,
-   "old_price": 1.85,
-   "member_price": 1.49,
-   "member_label": "met Lidl Plus",
-   "deal_text": null,
-   "quantity_text": "1500 g",
-   "valid_from": "2026-11-16",
-   "valid_to": "2026-11-22",
-   "category": "fruit",
-   "product": "Appels",
-   "qty_amount": 1.5,
-   "qty_unit": "kg",
-   "effective_price": 1.49,
-   "unit_price": 0.99,
-   "extras": {
-    "note": "Zak 1,5 kilo",
-    "variety": "Jonagold"
-   },
-   "en": {
-    "name": "QUALITÉ SUISSE Jonagold apples",
-    "quantity_text": "1500 g",
-    "member_label": "with Lidl Plus",
-    "note": "Bag 1.5 kilo",
-    "product": "Apples"
-   }
-  },
-  {
-   "key": "lidl:11150934",
-   "store": "lidl",
-   "id": "11150934",
-   "name": "Zoete aardappels",
-   "image": "https://www.lidl.nl/assets/gcp028fe77bd7c44dd4a4afbe22438f0743.png",
-   "url": "https://www.lidl.nl/p/zoete-aardappels/p11150934",
-   "price": null,
+   "id": "11029530",
+   "name": "Bospeen",
+   "image": "https://www.lidl.nl/assets/gcp19a92cf6adab4c2e9d3a7c6dcc063fb7.png",
+   "url": "https://www.lidl.nl/p/bospeen/p11029530",
+   "price": 1.39,
    "old_price": 1.39,
-   "member_price": 0.99,
+   "member_price": 1.19,
+   "member_label": "met Lidl Plus",
+   "deal_text": "-14%",
+   "quantity_text": "1 Stk.",
+   "valid_from": "2026-11-23",
+   "valid_to": "2026-11-29",
+   "category": "groente",
+   "product": "Wortels",
+   "qty_amount": 1.0,
+   "qty_unit": "stuk",
+   "effective_price": 1.19,
+   "unit_price": 1.19,
+   "extras": {
+    "variety": "Bospeen"
+   },
+   "en": {
+    "name": "Bunched carrots",
+    "quantity_text": "1 Pc.",
+    "member_label": "with Lidl Plus",
+    "deal_text": "-14%",
+    "product": "Carrots"
+   }
+  },
+  {
+   "key": "lidl:11492612",
+   "store": "lidl",
+   "id": "11492612",
+   "name": "Snijbonen",
+   "image": "https://www.lidl.nl/assets/gcpa70b843ec69c4febacfe51a961235ed6.png",
+   "url": "https://www.lidl.nl/p/snijbonen/p11492612",
+   "price": 1.95,
+   "old_price": 1.95,
+   "member_price": 1.69,
+   "member_label": "met Lidl Plus",
+   "deal_text": "-13%",
+   "quantity_text": "400 g",
+   "valid_from": "2026-11-23",
+   "valid_to": "2026-11-29",
+   "category": "groente",
+   "product": "Sperziebonen",
+   "qty_amount": 0.4,
+   "qty_unit": "kg",
+   "effective_price": 1.69,
+   "unit_price": 4.22,
+   "extras": {
+    "variety": "Snijbonen"
+   },
+   "en": {
+    "name": "Runner beans",
+    "quantity_text": "400 g",
+    "member_label": "with Lidl Plus",
+    "deal_text": "-13%",
+    "product": "Green beans"
+   }
+  },
+  {
+   "key": "lidl:11029706",
+   "store": "lidl",
+   "id": "11029706",
+   "name": "Prei",
+   "image": "https://www.lidl.nl/assets/gcpc556c94f66aa43a88f8b3263a0f922af.png",
+   "url": "https://www.lidl.nl/p/prei/p11029706",
+   "price": 0.55,
+   "old_price": 0.55,
+   "member_price": 0.39,
    "member_label": "met Lidl Plus",
    "deal_text": "-29%",
-   "quantity_text": "Per 500 g",
-   "valid_from": "2026-11-16",
-   "valid_to": "2026-11-22",
+   "quantity_text": "1 Stk.",
+   "valid_from": "2026-11-23",
+   "valid_to": "2026-11-29",
    "category": "groente",
-   "product": "Zoete aardappels",
+   "product": "Prei",
+   "qty_amount": 1.0,
+   "qty_unit": "stuk",
+   "effective_price": 0.39,
+   "unit_price": 0.39,
+   "en": {
+    "name": "Leek",
+    "quantity_text": "1 Pc.",
+    "member_label": "with Lidl Plus",
+    "deal_text": "-29%",
+    "product": "Leek"
+   }
+  },
+  {
+   "key": "lidl:11493347",
+   "store": "lidl",
+   "id": "11493347",
+   "name": "Aardappelen kruimig",
+   "image": "https://www.lidl.nl/assets/gcp9b290f8406b74ac38b700f487159c0f9.png",
+   "url": "https://www.lidl.nl/p/aardappelen-kruimig/p11493347",
+   "price": 4.99,
+   "old_price": 4.99,
+   "member_price": 3.99,
+   "member_label": "met Lidl Plus",
+   "deal_text": "-20%",
+   "quantity_text": "5000 g",
+   "valid_from": "2026-11-23",
+   "valid_to": "2026-11-29",
+   "category": "groente",
+   "product": "Aardappels",
+   "qty_amount": 5.0,
+   "qty_unit": "kg",
+   "effective_price": 3.99,
+   "unit_price": 0.8,
+   "extras": {
+    "variety": "Aardappelen"
+   },
+   "en": {
+    "name": "Potatoes kruimig",
+    "quantity_text": "5000 g",
+    "member_label": "with Lidl Plus",
+    "deal_text": "-20%",
+    "product": "Potatoes"
+   }
+  },
+  {
+   "key": "lidl:11304018",
+   "store": "lidl",
+   "id": "11304018",
+   "name": "Aardappelen vastkokend",
+   "image": "https://www.lidl.nl/assets/gcp2860ac0434fa4804bd9cc390265f959a.png",
+   "url": "https://www.lidl.nl/p/aardappelen-vastkokend/p11304018",
+   "price": 4.99,
+   "old_price": 4.99,
+   "member_price": 3.99,
+   "member_label": "met Lidl Plus",
+   "deal_text": "-20%",
+   "quantity_text": "5000 g",
+   "valid_from": "2026-11-23",
+   "valid_to": "2026-11-29",
+   "category": "groente",
+   "product": "Aardappels",
+   "qty_amount": 5.0,
+   "qty_unit": "kg",
+   "effective_price": 3.99,
+   "unit_price": 0.8,
+   "extras": {
+    "variety": "Aardappelen"
+   },
+   "en": {
+    "name": "Potatoes vastkokend",
+    "quantity_text": "5000 g",
+    "member_label": "with Lidl Plus",
+    "deal_text": "-20%",
+    "product": "Potatoes"
+   }
+  },
+  {
+   "key": "lidl:11029903",
+   "store": "lidl",
+   "id": "11029903",
+   "name": "Avocado in net",
+   "image": "https://www.lidl.nl/assets/gcpbdc7f4ee4d394bae94a6992f1f407b0f.png",
+   "url": "https://www.lidl.nl/p/avocado-in-net/p11029903",
+   "price": 2.79,
+   "old_price": 2.79,
+   "member_price": 1.89,
+   "member_label": "met Lidl Plus",
+   "deal_text": "-32%",
+   "quantity_text": "700 g",
+   "valid_from": "2026-11-23",
+   "valid_to": "2026-11-29",
+   "category": "fruit",
+   "product": "Avocado",
+   "qty_amount": 0.7,
+   "qty_unit": "kg",
+   "effective_price": 1.89,
+   "unit_price": 2.7,
+   "en": {
+    "name": "Avocado in net",
+    "quantity_text": "700 g",
+    "member_label": "with Lidl Plus",
+    "deal_text": "-32%",
+    "product": "Avocado"
+   }
+  },
+  {
+   "key": "lidl:11030000",
+   "store": "lidl",
+   "id": "11030000",
+   "name": "Citroenen",
+   "image": "https://www.lidl.nl/assets/gcpe21efba2c3ca49aeb016c11cca211feb.png",
+   "url": "https://www.lidl.nl/p/citroenen/p11030000",
+   "price": null,
+   "old_price": 1.49,
+   "member_price": 0.99,
+   "member_label": "met Lidl Plus",
+   "deal_text": "-34%",
+   "quantity_text": "500 g",
+   "valid_from": "2026-11-23",
+   "valid_to": "2026-11-29",
+   "category": "fruit",
+   "product": "Citroenen",
    "qty_amount": 0.5,
    "qty_unit": "kg",
    "effective_price": 0.99,
    "unit_price": 1.98,
    "en": {
-    "name": "Sweet potatoes",
-    "quantity_text": "Per 500 g",
+    "name": "Lemons",
+    "quantity_text": "500 g",
     "member_label": "with Lidl Plus",
-    "deal_text": "-29%",
-    "product": "Sweet potatoes"
+    "deal_text": "-34%",
+    "product": "Lemons"
    }
   },
   {
-   "key": "lidl:11214362",
+   "key": "lidl:11115702",
    "store": "lidl",
-   "id": "11214362",
-   "name": "Spruiten",
-   "image": "https://www.lidl.nl/assets/gcp6e93c3228fbc45ad983e85179d526935.png",
-   "url": "https://www.lidl.nl/p/spruiten/p11214362",
-   "price": 1.89,
-   "old_price": 1.89,
-   "member_price": 1.49,
+   "id": "11115702",
+   "name": "Handsinaasappels",
+   "image": "https://www.lidl.nl/assets/gcp58e1d9beea2a417cbe733b8569d9aa58.png",
+   "url": "https://www.lidl.nl/p/handsinaasappels/p11115702",
+   "price": 2.89,
+   "old_price": 2.89,
+   "member_price": 2.29,
    "member_label": "met Lidl Plus",
    "deal_text": "-21%",
-   "quantity_text": "750 g",
-   "valid_from": "2026-11-16",
-   "valid_to": "2026-11-22",
-   "category": "groente",
-   "product": "Spruiten",
-   "qty_amount": 0.75,
+   "quantity_text": "2000 g",
+   "valid_from": "2026-11-23",
+   "valid_to": "2026-11-29",
+   "category": "fruit",
+   "product": "Sinaasappels",
+   "qty_amount": 2.0,
    "qty_unit": "kg",
-   "effective_price": 1.49,
-   "unit_price": 1.99,
+   "effective_price": 2.29,
+   "unit_price": 1.15,
+   "extras": {
+    "variety": "Handsinaasappels"
+   },
    "en": {
-    "name": "Brussels sprouts",
-    "quantity_text": "750 g",
+    "name": "Eating oranges",
+    "quantity_text": "2000 g",
     "member_label": "with Lidl Plus",
     "deal_text": "-21%",
-    "product": "Brussels sprouts"
+    "product": "Oranges"
    }
   },
   {
-   "key": "lidl:11266455",
+   "key": "lidl:11214518",
    "store": "lidl",
-   "id": "11266455",
-   "name": "Bio flespompoen",
-   "image": "https://www.lidl.nl/assets/gcp0b396af4fbd04cbf974df09f8dad1430.png",
-   "url": "https://www.lidl.nl/p/bio-flespompoen/p11266455",
+   "id": "11214518",
+   "name": "Ananas",
+   "image": "https://www.lidl.nl/assets/gcpe91759616a44471cb1e4e5e3f78158ee.png",
+   "url": "https://www.lidl.nl/p/ananas/p11214518",
    "price": 1.99,
    "old_price": 1.99,
    "member_price": 1.49,
    "member_label": "met Lidl Plus",
    "deal_text": "-25%",
    "quantity_text": "1 Stk.",
-   "valid_from": "2026-11-16",
-   "valid_to": "2026-11-22",
-   "category": "groente",
-   "product": "Pompoen",
+   "valid_from": "2026-11-23",
+   "valid_to": "2026-11-29",
+   "category": "fruit",
+   "product": "Ananas",
    "qty_amount": 1.0,
    "qty_unit": "stuk",
    "effective_price": 1.49,
    "unit_price": 1.49,
-   "extras": {
-    "variety": "Flespompoen"
-   },
    "en": {
-    "name": "Organic butternut squash",
+    "name": "Pineapple",
     "quantity_text": "1 Pc.",
     "member_label": "with Lidl Plus",
     "deal_text": "-25%",
-    "product": "Pumpkin"
+    "product": "Pineapple"
    }
   },
   {
-   "key": "lidl:11305613",
+   "key": "lidl:11235434",
    "store": "lidl",
-   "id": "11305613",
-   "name": "Zalmfilet op huid",
-   "image": "https://www.lidl.nl/assets/gcpc8e83115472d41deaf2cf534524a7b7e.png",
-   "url": "https://www.lidl.nl/p/zalmfilet-op-huid/p11305613",
-   "price": 5.99,
-   "old_price": 5.99,
-   "member_price": 4.99,
-   "member_label": "met Lidl Plus",
-   "deal_text": "-16%",
-   "quantity_text": "250 g",
-   "valid_from": "2026-11-16",
-   "valid_to": "2026-11-22",
-   "category": "vis",
-   "product": "Zalm",
-   "qty_amount": 0.25,
-   "qty_unit": "kg",
-   "effective_price": 4.99,
-   "unit_price": 19.96,
-   "extras": {
-    "variety": "Zalmfilet"
-   },
-   "en": {
-    "name": "Salmon fillet skin-on",
-    "quantity_text": "250 g",
-    "member_label": "with Lidl Plus",
-    "deal_text": "-16%",
-    "product": "Salmon"
-   }
-  },
-  {
-   "key": "lidl:11317783",
-   "store": "lidl",
-   "id": "11317783",
-   "name": "Gehakt cordon bleu",
-   "image": "https://www.lidl.nl/assets/gcp863b027621d842dda7f20f32d1c59ab9.png",
-   "url": "https://www.lidl.nl/p/gehakt-cordon-bleu/p11317783",
-   "price": 4.49,
-   "old_price": null,
-   "member_price": null,
-   "member_label": null,
-   "deal_text": null,
-   "quantity_text": null,
-   "valid_from": "2026-11-16",
-   "valid_to": "2026-11-22",
-   "category": "vlees",
-   "product": "Gehakt",
-   "qty_amount": null,
-   "qty_unit": null,
-   "effective_price": 4.49,
-   "unit_price": null,
-   "extras": {
-    "note": "500 gram"
-   },
-   "en": {
-    "name": "Minced meat cordon bleu",
-    "note": "500 gram",
-    "product": "Minced meat"
-   }
-  },
-  {
-   "key": "lidl:11321020",
-   "store": "lidl",
-   "id": "11321020",
-   "name": "Bellarom Koffie rood",
-   "image": "https://www.lidl.nl/assets/gcp89059a76dc7e4be4a9096b80d5965373.png",
-   "url": "https://www.lidl.nl/p/bellarom-koffie-rood/p11321020",
-   "price": 8.99,
-   "old_price": null,
-   "member_price": null,
-   "member_label": null,
-   "deal_text": null,
-   "quantity_text": null,
-   "valid_from": "2026-11-16",
-   "valid_to": "2026-11-22",
-   "category": "koffie",
-   "product": "Koffie",
-   "qty_amount": null,
-   "qty_unit": null,
-   "effective_price": 8.99,
-   "unit_price": null,
-   "extras": {
-    "note": "2 x 500 g"
-   },
-   "en": {
-    "name": "Bellarom Coffee red",
-    "note": "2 x 500 g",
-    "product": "Coffee"
-   }
-  },
-  {
-   "key": "lidl:11324875",
-   "store": "lidl",
-   "id": "11324875",
-   "name": "Milbona Gouda oud stuk",
-   "image": "https://www.lidl.nl/assets/gcp88b5f150b0bc4ea190a00918890d0f87.png",
-   "url": "https://www.lidl.nl/p/milbona-gouda-oud-stuk/p11324875",
-   "price": 5.14,
-   "old_price": 5.14,
-   "member_price": 3.99,
-   "member_label": "met Lidl Plus",
-   "deal_text": "-22%",
-   "quantity_text": "450 g",
-   "valid_from": "2026-11-16",
-   "valid_to": "2026-11-22",
-   "category": "zuivel",
-   "product": "Kaas",
-   "qty_amount": 0.45,
-   "qty_unit": "kg",
-   "effective_price": 3.99,
-   "unit_price": 8.87,
-   "extras": {
-    "variety": "Gouda"
-   },
-   "en": {
-    "name": "Milbona Gouda aged piece",
-    "quantity_text": "450 g",
-    "member_label": "with Lidl Plus",
-    "deal_text": "-22%",
-    "product": "Cheese"
-   }
-  },
-  {
-   "key": "lidl:11342971",
-   "store": "lidl",
-   "id": "11342971",
-   "name": "Milbona Goudse oude kaas plakken",
-   "image": "https://www.lidl.nl/assets/gcp5eeec9442d774bf2bbce1d05165beca0.png",
-   "url": "https://www.lidl.nl/p/milbona-goudse-oude-kaas-plakken/p11342971",
+   "id": "11235434",
+   "name": "Nautica Gerookte zalm",
+   "image": "https://www.lidl.nl/assets/gcpbbf74328eeaa4ccda1360e8ba0dd3115.png",
+   "url": "https://www.lidl.nl/p/nautica-gerookte-zalm/p11235434",
    "price": 6.99,
    "old_price": null,
    "member_price": null,
    "member_label": null,
-   "deal_text": null,
+   "deal_text": "300 gram 22% volumevoordeel",
    "quantity_text": null,
-   "valid_from": "2026-11-16",
-   "valid_to": "2026-11-22",
-   "category": "zuivel",
-   "product": "Kaas",
+   "valid_from": "2026-11-23",
+   "valid_to": "2026-11-29",
+   "category": "vis",
+   "product": "Zalm",
    "qty_amount": null,
    "qty_unit": null,
    "effective_price": 6.99,
    "unit_price": null,
    "extras": {
-    "note": "XXL",
-    "variety": "Goudse"
+    "variety": "Gerookte Zalm"
    },
    "en": {
-    "name": "Milbona Gouda old cheese slices",
-    "note": "XXL",
+    "name": "Nautica Smoked salmon",
+    "deal_text": "300 gram 22% volumevoordeel",
+    "product": "Salmon"
+   }
+  },
+  {
+   "key": "lidl:11008575",
+   "store": "lidl",
+   "id": "11008575",
+   "name": "Milbona Lactosevrije houdbare melk",
+   "image": "https://www.lidl.nl/assets/gcpa019c2a2be1b4167acd3f28106a361c3.png",
+   "url": "https://www.lidl.nl/p/milbona-lactosevrije-houdbare-melk/p11008575",
+   "price": 1.24,
+   "old_price": 1.24,
+   "member_price": 0.99,
+   "member_label": "met Lidl Plus",
+   "deal_text": "-20%",
+   "quantity_text": "1 l",
+   "valid_from": "2026-11-23",
+   "valid_to": "2026-11-29",
+   "category": "zuivel",
+   "product": "Melk",
+   "qty_amount": 1.0,
+   "qty_unit": "l",
+   "effective_price": 0.99,
+   "unit_price": 0.99,
+   "extras": {
+    "variety": "Houdbare Melk"
+   },
+   "en": {
+    "name": "Milbona Lactosevrije houdbare milk",
+    "quantity_text": "1 l",
+    "member_label": "with Lidl Plus",
+    "deal_text": "-20%",
+    "product": "Milk"
+   }
+  },
+  {
+   "key": "lidl:11317696",
+   "store": "lidl",
+   "id": "11317696",
+   "name": "VITA D'OR Vloeibare margarine olijf",
+   "image": "https://www.lidl.nl/assets/gcp39d233c8844a4dba82d8b599cfdd78a4.png",
+   "url": "https://www.lidl.nl/p/vita-d-or-vloeibare-margarine-olijf/p11317696",
+   "price": 2.29,
+   "old_price": 2.29,
+   "member_price": 1.99,
+   "member_label": "met Lidl Plus",
+   "deal_text": "-13%",
+   "quantity_text": "500 ml",
+   "valid_from": "2026-11-23",
+   "valid_to": "2026-11-29",
+   "category": "zuivel",
+   "product": "Boter",
+   "qty_amount": 0.5,
+   "qty_unit": "l",
+   "effective_price": 1.99,
+   "unit_price": 3.98,
+   "extras": {
+    "variety": "Margarine"
+   },
+   "en": {
+    "name": "VITA D'OR Vloeibare margarine olijf",
+    "quantity_text": "500 ml",
+    "member_label": "with Lidl Plus",
+    "deal_text": "-13%",
+    "product": "Butter"
+   }
+  },
+  {
+   "key": "lidl:11322436",
+   "store": "lidl",
+   "id": "11322436",
+   "name": "KWEKKEBOOM Old Amsterdam croquetten",
+   "image": "https://www.lidl.nl/assets/gcp6f7120caa9a94d8bb2d40955ba30849b.png",
+   "url": "https://www.lidl.nl/p/kwekkeboom-old-amsterdam-croquetten/p11322436",
+   "price": 2.99,
+   "old_price": null,
+   "member_price": null,
+   "member_label": null,
+   "deal_text": null,
+   "quantity_text": "240-300 g",
+   "valid_from": "2026-11-23",
+   "valid_to": "2026-11-29",
+   "category": "zuivel",
+   "product": "Kaas",
+   "qty_amount": 0.3,
+   "qty_unit": "kg",
+   "effective_price": 2.99,
+   "unit_price": 9.97,
+   "extras": {
+    "variety": "Old Amsterdam"
+   },
+   "en": {
+    "name": "KWEKKEBOOM Old Amsterdam croquetten",
+    "quantity_text": "240-300 g",
     "product": "Cheese"
    }
   },
   {
-   "key": "lidl:11357318",
+   "key": "lidl:11322549",
    "store": "lidl",
-   "id": "11357318",
-   "name": "Zwagerman Gerookte spekreepjes",
-   "image": "https://www.lidl.nl/assets/gcp8df66ab5ff844996a8a5591163837861.png",
-   "url": "https://www.lidl.nl/p/zwagerman-gerookte-spekreepjes/p11357318",
-   "price": 3.19,
-   "old_price": 3.19,
-   "member_price": 2.79,
-   "member_label": "met Lidl Plus",
-   "deal_text": "-12%",
-   "quantity_text": "2 x 150 g",
-   "valid_from": "2026-11-16",
-   "valid_to": "2026-11-22",
+   "id": "11322549",
+   "name": "KWEKKEBOOM Rundvlees bitterballen",
+   "image": "https://www.lidl.nl/assets/gcp6deb74d1d14d4d7484be0b3712dfa5c3.png",
+   "url": "https://www.lidl.nl/p/kwekkeboom-rundvlees-bitterballen/p11322549",
+   "price": 2.99,
+   "old_price": null,
+   "member_price": null,
+   "member_label": null,
+   "deal_text": null,
+   "quantity_text": "240-300 g",
+   "valid_from": "2026-11-23",
+   "valid_to": "2026-11-29",
    "category": "vlees",
-   "product": "Spek",
+   "product": "Rundvlees",
    "qty_amount": 0.3,
    "qty_unit": "kg",
-   "effective_price": 2.79,
-   "unit_price": 9.3,
+   "effective_price": 2.99,
+   "unit_price": 9.97,
+   "en": {
+    "name": "KWEKKEBOOM Beef bitterballen",
+    "quantity_text": "240-300 g",
+    "product": "Beef"
+   }
+  },
+  {
+   "key": "lidl:11323339",
+   "store": "lidl",
+   "id": "11323339",
+   "name": "Milbona Plakken Goudse jonge kaas",
+   "image": "https://www.lidl.nl/assets/gcp3c2bfd2fac164e73b5abfd986060e23c.png",
+   "url": "https://www.lidl.nl/p/milbona-plakken-goudse-jonge-kaas/p11323339",
+   "price": 2.99,
+   "old_price": null,
+   "member_price": null,
+   "member_label": null,
+   "deal_text": null,
+   "quantity_text": "500 g",
+   "valid_from": "2026-11-23",
+   "valid_to": "2026-11-29",
+   "category": "zuivel",
+   "product": "Kaas",
+   "qty_amount": 0.5,
+   "qty_unit": "kg",
+   "effective_price": 2.99,
+   "unit_price": 5.98,
    "extras": {
+    "variety": "Goudse"
+   },
+   "en": {
+    "name": "Milbona Slices Gouda jonge cheese",
+    "quantity_text": "500 g",
+    "product": "Cheese"
+   }
+  },
+  {
+   "key": "lidl:11560456",
+   "store": "lidl",
+   "id": "11560456",
+   "name": "Coolbest fruitdrink aardbei",
+   "image": "https://www.lidl.nl/assets/gcpfd65ec020a6b42338c2b5bb6239000ca.png",
+   "url": "https://www.lidl.nl/p/coolbest-fruitdrink-aardbei/p11560456",
+   "price": 1.19,
+   "old_price": null,
+   "member_price": null,
+   "member_label": null,
+   "deal_text": null,
+   "quantity_text": "1 l",
+   "valid_from": "2026-11-23",
+   "valid_to": "2026-11-29",
+   "category": "fruit",
+   "product": "Aardbeien",
+   "qty_amount": 1.0,
+   "qty_unit": "l",
+   "effective_price": 1.19,
+   "unit_price": 1.19,
+   "extras": {
+    "variety": "Aardbei"
+   },
+   "en": {
+    "name": "Coolbest fruitdrink strawberry",
+    "quantity_text": "1 l",
+    "product": "Strawberries"
+   }
+  },
+  {
+   "key": "lidl:11560457",
+   "store": "lidl",
+   "id": "11560457",
+   "name": "Coolbest fruitdrink mango",
+   "image": "https://www.lidl.nl/assets/gcpf804f21f1a5f462d949f0e48993935ed.png",
+   "url": "https://www.lidl.nl/p/coolbest-fruitdrink-mango/p11560457",
+   "price": 1.19,
+   "old_price": null,
+   "member_price": null,
+   "member_label": null,
+   "deal_text": null,
+   "quantity_text": "1 l",
+   "valid_from": "2026-11-23",
+   "valid_to": "2026-11-29",
+   "category": "fruit",
+   "product": "Mango",
+   "qty_amount": 1.0,
+   "qty_unit": "l",
+   "effective_price": 1.19,
+   "unit_price": 1.19,
+   "en": {
+    "name": "Coolbest fruitdrink mango",
+    "quantity_text": "1 l",
+    "product": "Mango"
+   }
+  },
+  {
+   "key": "lidl:11562533",
+   "store": "lidl",
+   "id": "11562533",
+   "name": "Teisseire citroen-limoen 0%",
+   "image": "https://www.lidl.nl/assets/gcp63f7d50fa6a24b3dacb8ed88b66bc411.png",
+   "url": "https://www.lidl.nl/p/teisseire-citroen-limoen-0/p11562533",
+   "price": 4.99,
+   "old_price": null,
+   "member_price": null,
+   "member_label": null,
+   "deal_text": null,
+   "quantity_text": "1,3 l",
+   "valid_from": "2026-11-23",
+   "valid_to": "2026-11-29",
+   "category": "fruit",
+   "product": "Citroenen",
+   "qty_amount": 1.3,
+   "qty_unit": "l",
+   "effective_price": 4.99,
+   "unit_price": 3.84,
+   "extras": {
+    "note": "MEGA",
+    "variety": "Citroen"
+   },
+   "en": {
+    "name": "Teisseire lemon-lime 0%",
+    "quantity_text": "1.3 l",
+    "note": "MEGA",
+    "product": "Lemons"
+   }
+  },
+  {
+   "key": "lidl:11318025",
+   "store": "lidl",
+   "id": "11318025",
+   "name": "Kipfilet",
+   "image": "https://www.lidl.nl/assets/gcp10c722c9350a436895fe4303b0bbf79e.png",
+   "url": "https://www.lidl.nl/p/kipfilet/p11318025",
+   "price": 9.49,
+   "old_price": null,
+   "member_price": null,
+   "member_label": null,
+   "deal_text": null,
+   "quantity_text": null,
+   "valid_from": "2026-11-23",
+   "valid_to": "2026-11-29",
+   "category": "vlees",
+   "product": "Kipfilet",
+   "qty_amount": null,
+   "qty_unit": null,
+   "effective_price": 9.49,
+   "unit_price": null,
+   "extras": {
+    "note": "900 gram"
+   },
+   "en": {
+    "name": "Chicken breast",
+    "note": "900 gram",
+    "product": "Chicken breast"
+   }
+  },
+  {
+   "key": "lidl:11322143",
+   "store": "lidl",
+   "id": "11322143",
+   "name": "Zwagerman Verse rookworst",
+   "image": "https://www.lidl.nl/assets/gcp5fe75cce3645426b9051341214edeebd.png",
+   "url": "https://www.lidl.nl/p/zwagerman-verse-rookworst/p11322143",
+   "price": 2.69,
+   "old_price": 2.69,
+   "member_price": 1.99,
+   "member_label": "met Lidl Plus",
+   "deal_text": "-26%",
+   "quantity_text": "275 g",
+   "valid_from": "2026-11-23",
+   "valid_to": "2026-11-29",
+   "category": "vlees",
+   "product": "Worst",
+   "qty_amount": 0.275,
+   "qty_unit": "kg",
+   "effective_price": 1.99,
+   "unit_price": 7.24,
+   "extras": {
+    "variety": "Rookworst"
+   },
+   "en": {
+    "name": "Zwagerman Fresh smoked sausage",
+    "quantity_text": "275 g",
+    "member_label": "with Lidl Plus",
+    "deal_text": "-26%",
+    "product": "Sausages"
+   }
+  },
+  {
+   "key": "lidl:11322576",
+   "store": "lidl",
+   "id": "11322576",
+   "name": "Slavink hybride",
+   "image": "https://www.lidl.nl/assets/gcp01495bd0ca9b4ac58bf9cb7f73427e56.png",
+   "url": "https://www.lidl.nl/p/slavink-hybride/p11322576",
+   "price": 3.69,
+   "old_price": 3.69,
+   "member_price": 2.99,
+   "member_label": "met Lidl Plus",
+   "deal_text": "-18%",
+   "quantity_text": "400 g",
+   "valid_from": "2026-11-23",
+   "valid_to": "2026-11-29",
+   "category": "vlees",
+   "product": "Gehakt",
+   "qty_amount": 0.4,
+   "qty_unit": "kg",
+   "effective_price": 2.99,
+   "unit_price": 7.48,
+   "extras": {
+    "variety": "Slavink"
+   },
+   "en": {
+    "name": "Slavink hybride",
+    "quantity_text": "400 g",
+    "member_label": "with Lidl Plus",
+    "deal_text": "-18%",
+    "product": "Minced meat"
+   }
+  },
+  {
+   "key": "lidl:11562268",
+   "store": "lidl",
+   "id": "11562268",
+   "name": "Zwagerman Kipfilet naturel",
+   "image": "https://www.lidl.nl/assets/gcp178178ecc4c843fd836d9174960bfe70.png",
+   "url": "https://www.lidl.nl/p/zwagerman-kipfilet-naturel/p11562268",
+   "price": 2.49,
+   "old_price": 2.49,
+   "member_price": 1.99,
+   "member_label": "met Lidl Plus",
+   "deal_text": "-20%",
+   "quantity_text": "150 g",
+   "valid_from": "2026-11-23",
+   "valid_to": "2026-11-29",
+   "category": "vlees",
+   "product": "Kipfilet",
+   "qty_amount": 0.15,
+   "qty_unit": "kg",
+   "effective_price": 1.99,
+   "unit_price": 13.27,
+   "en": {
+    "name": "Zwagerman Chicken breast naturel",
+    "quantity_text": "150 g",
+    "member_label": "with Lidl Plus",
+    "deal_text": "-20%",
+    "product": "Chicken breast"
+   }
+  },
+  {
+   "key": "lidl:11317786",
+   "store": "lidl",
+   "id": "11317786",
+   "name": "Schol",
+   "image": "https://www.lidl.nl/assets/gcp66dfb00bfda44ee0a2f2f9a05d5ca676.png",
+   "url": "https://www.lidl.nl/p/schol/p11317786",
+   "price": 1.79,
+   "old_price": null,
+   "member_price": null,
+   "member_label": null,
+   "deal_text": null,
+   "quantity_text": null,
+   "valid_from": "2026-11-26",
+   "valid_to": "2026-11-29",
+   "category": "vis",
+   "product": "Witvis",
+   "qty_amount": null,
+   "qty_unit": null,
+   "effective_price": 1.79,
+   "unit_price": null,
+   "extras": {
+    "note": "Per 100 g",
+    "variety": "Schol"
+   },
+   "en": {
+    "name": "Plaice",
+    "note": "Per 100 g",
+    "product": "White fish"
+   }
+  },
+  {
+   "key": "aldi:1201661",
+   "store": "aldi",
+   "id": "1201661",
+   "name": "Frambozen",
+   "image": "https://s7g10.scene7.com/is/image/aldinord/product_1201661_main_cms_3_nl_nl_frambozen_cw01_2024",
+   "url": "https://www.aldi.nl/product/frambozen-1201661.html",
+   "price": 2.29,
+   "old_price": null,
+   "member_price": null,
+   "member_label": null,
+   "deal_text": null,
+   "quantity_text": "125 g",
+   "valid_from": "2026-11-23",
+   "valid_to": "2026-11-29",
+   "category": "fruit",
+   "product": "Frambozen",
+   "qty_amount": 0.125,
+   "qty_unit": "kg",
+   "effective_price": 2.29,
+   "unit_price": 18.32,
+   "en": {
+    "name": "Raspberries",
+    "quantity_text": "125 g",
+    "product": "Raspberries"
+   }
+  },
+  {
+   "key": "aldi:1202247",
+   "store": "aldi",
+   "id": "1202247",
+   "name": "Spekreepjes",
+   "image": "https://s7g10.scene7.com/is/image/aldinord/product_1202247_main_cms_9_nl_nl_spekreepjes_cw01_2024",
+   "url": "https://www.aldi.nl/product/spekreepjes-1202247.html",
+   "price": 2.99,
+   "old_price": null,
+   "member_price": null,
+   "member_label": null,
+   "deal_text": null,
+   "quantity_text": "2x190 g",
+   "valid_from": "2026-11-23",
+   "valid_to": "2026-11-29",
+   "category": "vlees",
+   "product": "Spek",
+   "qty_amount": 0.38,
+   "qty_unit": "kg",
+   "effective_price": 2.99,
+   "unit_price": 7.87,
+   "extras": {
+    "note": "OP=OP",
     "variety": "Spekreepjes"
    },
    "en": {
-    "name": "Zwagerman Smoked bacon strips",
-    "quantity_text": "2 x 150 g",
-    "member_label": "with Lidl Plus",
-    "deal_text": "-12%",
+    "name": "Bacon strips",
+    "quantity_text": "2x190 g",
+    "note": "OP=OP",
     "product": "Bacon"
    }
   },
   {
-   "key": "lidl:11492121",
-   "store": "lidl",
-   "id": "11492121",
+   "key": "aldi:1210301",
+   "store": "aldi",
+   "id": "1210301",
+   "name": "Prei",
+   "image": "https://s7g10.scene7.com/is/image/aldinord/product_1210301_main_cms_4_nl_nl_prei_cw01_2024",
+   "url": "https://www.aldi.nl/product/prei-1210301.html",
+   "price": 0.55,
+   "old_price": null,
+   "member_price": null,
+   "member_label": null,
+   "deal_text": null,
+   "quantity_text": "Per stuk",
+   "valid_from": "2026-11-23",
+   "valid_to": "2026-11-29",
+   "category": "groente",
+   "product": "Prei",
+   "qty_amount": 1.0,
+   "qty_unit": "stuk",
+   "effective_price": 0.55,
+   "unit_price": 0.55,
+   "en": {
+    "name": "Leek",
+    "quantity_text": "Per piece",
+    "product": "Leek"
+   }
+  },
+  {
+   "key": "aldi:1217256",
+   "store": "aldi",
+   "id": "1217256",
+   "name": "Volle kwark",
+   "image": "https://s7g10.scene7.com/is/image/aldinord/product_1217256_main_cms_4_nl_nl_volle_kwark_cw01_2024",
+   "url": "https://www.aldi.nl/product/volle-kwark-1217256.html",
+   "price": 1.35,
+   "old_price": null,
+   "member_price": null,
+   "member_label": null,
+   "deal_text": null,
+   "quantity_text": "500 g",
+   "valid_from": "2026-11-23",
+   "valid_to": "2026-11-29",
+   "category": "zuivel",
+   "product": "Kwark",
+   "qty_amount": 0.5,
+   "qty_unit": "kg",
+   "effective_price": 1.35,
+   "unit_price": 2.7,
+   "extras": {
+    "variety": "Volle Kwark"
+   },
+   "en": {
+    "name": "Full-fat quark",
+    "quantity_text": "500 g",
+    "product": "Quark"
+   }
+  },
+  {
+   "key": "aldi:1217266",
+   "store": "aldi",
+   "id": "1217266",
+   "name": "Magere kwark",
+   "image": "https://s7g10.scene7.com/is/image/aldinord/product_1217266_main_cms_3_nl_nl_magere_kwark_cw01_2024",
+   "url": "https://www.aldi.nl/product/magere-kwark-1217266.html",
+   "price": 0.95,
+   "old_price": null,
+   "member_price": null,
+   "member_label": null,
+   "deal_text": null,
+   "quantity_text": "500 g",
+   "valid_from": "2026-11-23",
+   "valid_to": "2026-11-29",
+   "category": "zuivel",
+   "product": "Kwark",
+   "qty_amount": 0.5,
+   "qty_unit": "kg",
+   "effective_price": 0.95,
+   "unit_price": 1.9,
+   "extras": {
+    "variety": "Magere Kwark"
+   },
+   "en": {
+    "name": "Lean quark",
+    "quantity_text": "500 g",
+    "product": "Quark"
+   }
+  },
+  {
+   "key": "aldi:1218644",
+   "store": "aldi",
+   "id": "1218644",
+   "name": "Trio sla op kluit",
+   "image": "https://s7g10.scene7.com/is/image/aldinord/product_1218644_main_cms_6_nl_nl_trio_sla_op_kluit_cw01_2024",
+   "url": "https://www.aldi.nl/product/trio-sla-op-kluit-1218644.html",
+   "price": 1.19,
+   "old_price": null,
+   "member_price": null,
+   "member_label": null,
+   "deal_text": null,
+   "quantity_text": "Per stuk",
+   "valid_from": "2026-11-23",
+   "valid_to": "2026-11-29",
+   "category": "groente",
+   "product": "Sla",
+   "qty_amount": 1.0,
+   "qty_unit": "stuk",
+   "effective_price": 1.19,
+   "unit_price": 1.19,
+   "en": {
+    "name": "Trio lettuce op kluit",
+    "quantity_text": "Per piece",
+    "product": "Lettuce"
+   }
+  },
+  {
+   "key": "aldi:1219324",
+   "store": "aldi",
+   "id": "1219324",
+   "name": "Mandarijnen",
+   "image": "https://s7g10.scene7.com/is/image/aldinord/product_1219324_main_cms_9_nl_nl_mandarijnen_cw01_2024",
+   "url": "https://www.aldi.nl/product/mandarijnen-1219324.html",
+   "price": 1.99,
+   "old_price": null,
+   "member_price": null,
+   "member_label": null,
+   "deal_text": null,
+   "quantity_text": "1 kg",
+   "valid_from": "2026-11-23",
+   "valid_to": "2026-11-29",
+   "category": "fruit",
+   "product": "Mandarijnen",
+   "qty_amount": 1.0,
+   "qty_unit": "kg",
+   "effective_price": 1.99,
+   "unit_price": 1.99,
+   "extras": {
+    "note": "OP=OP"
+   },
+   "en": {
+    "name": "Mandarins",
+    "quantity_text": "1 kg",
+    "note": "OP=OP",
+    "product": "Mandarins"
+   }
+  },
+  {
+   "key": "aldi:1219382",
+   "store": "aldi",
+   "id": "1219382",
+   "name": "Courgette",
+   "image": "https://s7g10.scene7.com/is/image/aldinord/product_1219382_main_cms_11_nl_nl_courgette_cw01_2024",
+   "url": "https://www.aldi.nl/product/courgette-1219382.html",
+   "price": 0.72,
+   "old_price": null,
+   "member_price": null,
+   "member_label": null,
+   "deal_text": null,
+   "quantity_text": "Per stuk",
+   "valid_from": "2026-11-23",
+   "valid_to": "2026-11-29",
+   "category": "groente",
+   "product": "Courgette",
+   "qty_amount": 1.0,
+   "qty_unit": "stuk",
+   "effective_price": 0.72,
+   "unit_price": 0.72,
+   "en": {
+    "name": "Courgette",
+    "quantity_text": "Per piece",
+    "product": "Courgette"
+   }
+  },
+  {
+   "key": "aldi:1219554",
+   "store": "aldi",
+   "id": "1219554",
+   "name": "Kastanjechampignons",
+   "image": "https://s7g10.scene7.com/is/image/aldinord/product_1219554_main_cms_12_nl_nl_kastanjechampignons_cw01_2024",
+   "url": "https://www.aldi.nl/product/kastanjechampignons-1219554.html",
+   "price": 1.69,
+   "old_price": null,
+   "member_price": null,
+   "member_label": null,
+   "deal_text": null,
+   "quantity_text": "250 g",
+   "valid_from": "2026-11-27",
+   "valid_to": "2026-11-29",
+   "category": "groente",
+   "product": "Champignons",
+   "qty_amount": 0.25,
+   "qty_unit": "kg",
+   "effective_price": 1.69,
+   "unit_price": 6.76,
+   "extras": {
+    "variety": "Kastanjechampignons"
+   },
+   "en": {
+    "name": "Chestnut mushrooms",
+    "quantity_text": "250 g",
+    "product": "Mushrooms"
+   }
+  },
+  {
+   "key": "aldi:1219892",
+   "store": "aldi",
+   "id": "1219892",
+   "name": "Elstar appels",
+   "image": "https://s7g10.scene7.com/is/image/aldinord/product_1219892_main_cms_3_nl_nl_elstar_appels_cw01_2024",
+   "url": "https://www.aldi.nl/product/elstar-appels-1219892.html",
+   "price": 2.49,
+   "old_price": null,
+   "member_price": null,
+   "member_label": null,
+   "deal_text": null,
+   "quantity_text": "1.5 kg",
+   "valid_from": "2026-11-23",
+   "valid_to": "2026-11-29",
+   "category": "fruit",
+   "product": "Appels",
+   "qty_amount": 1.5,
+   "qty_unit": "kg",
+   "effective_price": 2.49,
+   "unit_price": 1.66,
+   "extras": {
+    "variety": "Elstar"
+   },
+   "en": {
+    "name": "Elstar apples",
+    "quantity_text": "1.5 kg",
+    "product": "Apples"
+   }
+  },
+  {
+   "key": "aldi:1220494",
+   "store": "aldi",
+   "id": "1220494",
+   "name": "Bosui",
+   "image": "https://s7g10.scene7.com/is/image/aldinord/product_1220494_main_cms_6_nl_nl_bosui_cw01_2024",
+   "url": "https://www.aldi.nl/product/bosui-1220494.html",
+   "price": 0.89,
+   "old_price": null,
+   "member_price": null,
+   "member_label": null,
+   "deal_text": null,
+   "quantity_text": "120 g, Per bos.",
+   "valid_from": "2026-11-23",
+   "valid_to": "2026-11-29",
+   "category": "groente",
+   "product": "Uien",
+   "qty_amount": 0.12,
+   "qty_unit": "kg",
+   "effective_price": 0.89,
+   "unit_price": 7.42,
+   "extras": {
+    "variety": "Bosui"
+   },
+   "en": {
+    "name": "Spring onion",
+    "quantity_text": "120 g, Per bunch.",
+    "product": "Onions"
+   }
+  },
+  {
+   "key": "aldi:1221414",
+   "store": "aldi",
+   "id": "1221414",
+   "name": "Kipfilet",
+   "image": "https://s7g10.scene7.com/is/image/aldinord/product_1221414_main_cms_5_nl_nl_kipfilet_cw01_2024",
+   "url": "https://www.aldi.nl/product/kipfilet-1221414.html",
+   "price": 6.98,
+   "old_price": null,
+   "member_price": null,
+   "member_label": null,
+   "deal_text": null,
+   "quantity_text": "500 g",
+   "valid_from": "2026-11-23",
+   "valid_to": "2026-11-29",
+   "category": "vlees",
+   "product": "Kipfilet",
+   "qty_amount": 0.5,
+   "qty_unit": "kg",
+   "effective_price": 6.98,
+   "unit_price": 13.96,
+   "en": {
+    "name": "Chicken breast",
+    "quantity_text": "500 g",
+    "product": "Chicken breast"
+   }
+  },
+  {
+   "key": "aldi:1222205",
+   "store": "aldi",
+   "id": "1222205",
+   "name": "Biologische rode bieten",
+   "image": "https://s7g10.scene7.com/is/image/aldinord/product_1222205_main_cms_3_nl_nl_biologische_rode_bieten_cw01_2024",
+   "url": "https://www.aldi.nl/product/biologische-rode-bieten-1222205.html",
+   "price": 1.25,
+   "old_price": null,
+   "member_price": null,
+   "member_label": null,
+   "deal_text": null,
+   "quantity_text": "500 g",
+   "valid_from": "2026-11-23",
+   "valid_to": "2026-11-29",
+   "category": "groente",
+   "product": "Bieten",
+   "qty_amount": 0.5,
+   "qty_unit": "kg",
+   "effective_price": 1.25,
+   "unit_price": 2.5,
+   "extras": {
+    "variety": "Rode Bieten"
+   },
+   "en": {
+    "name": "Organic red beetroots",
+    "quantity_text": "500 g",
+    "product": "Beetroot"
+   }
+  },
+  {
+   "key": "aldi:1224139",
+   "store": "aldi",
+   "id": "1224139",
    "name": "Kiwi gold",
-   "image": "https://www.lidl.nl/assets/gcp37c1541a72db4e1b9048df0a9ae93c44.png",
-   "url": "https://www.lidl.nl/p/kiwi-gold/p11492121",
-   "price": 5.99,
-   "old_price": 5.99,
-   "member_price": 3.99,
-   "member_label": "met Lidl Plus",
-   "deal_text": "-33%",
-   "quantity_text": "750 g",
-   "valid_from": "2026-11-16",
-   "valid_to": "2026-11-22",
+   "image": "https://s7g10.scene7.com/is/image/aldinord/product_1224139_main_cms_1_nl_nl_kiwi_gold_cw01_2024",
+   "url": "https://www.aldi.nl/product/kiwi-gold-1224139.html",
+   "price": 0.69,
+   "old_price": null,
+   "member_price": null,
+   "member_label": null,
+   "deal_text": null,
+   "quantity_text": "Per stuk",
+   "valid_from": "2026-11-23",
+   "valid_to": "2026-11-29",
    "category": "fruit",
    "product": "Kiwi's",
-   "qty_amount": 0.75,
-   "qty_unit": "kg",
-   "effective_price": 3.99,
-   "unit_price": 5.32,
+   "qty_amount": 1.0,
+   "qty_unit": "stuk",
+   "effective_price": 0.69,
+   "unit_price": 0.69,
    "extras": {
+    "note": "OP=OP",
     "variety": "Kiwi"
    },
    "en": {
     "name": "Kiwi gold",
-    "quantity_text": "750 g",
-    "member_label": "with Lidl Plus",
-    "deal_text": "-33%",
+    "quantity_text": "Per piece",
+    "note": "OP=OP",
     "product": "Kiwis"
    }
   },
   {
-   "key": "lidl:11558757",
-   "store": "lidl",
-   "id": "11558757",
-   "name": "Half-om-half gehakt",
-   "image": "https://www.lidl.nl/assets/gcp162a55e982fe4b9f83a4c980c974f4ba.png",
-   "url": "https://www.lidl.nl/p/half-om-half-gehakt/p11558757",
-   "price": 4.59,
-   "old_price": 4.59,
-   "member_price": 3.99,
-   "member_label": "met Lidl Plus",
-   "deal_text": "-13%",
-   "quantity_text": "500 g",
-   "valid_from": "2026-11-16",
-   "valid_to": "2026-11-22",
+   "key": "aldi:1225395",
+   "store": "aldi",
+   "id": "1225395",
+   "name": "Zalmfilets op huid",
+   "image": "https://s7g10.scene7.com/is/image/aldinord/product_1225395_main_cms_9_nl_nl_zalmfilets_op_huid_cw01_2024",
+   "url": "https://www.aldi.nl/product/zalmfilets-op-huid-1225395.html",
+   "price": 7.99,
+   "old_price": null,
+   "member_price": null,
+   "member_label": null,
+   "deal_text": null,
+   "quantity_text": "4 stuks, 500 g",
+   "valid_from": "2026-11-23",
+   "valid_to": "2026-11-29",
+   "category": "vis",
+   "product": "Zalm",
+   "qty_amount": 0.5,
+   "qty_unit": "kg",
+   "effective_price": 7.99,
+   "unit_price": 15.98,
+   "extras": {
+    "note": "OP=OP",
+    "variety": "Zalmfilets"
+   },
+   "en": {
+    "name": "Salmon fillets skin-on",
+    "quantity_text": "4 pieces, 500 g",
+    "note": "OP=OP",
+    "product": "Salmon"
+   }
+  },
+  {
+   "key": "aldi:1229032",
+   "store": "aldi",
+   "id": "1229032",
+   "name": "Gerookte zalm",
+   "image": "https://s7g10.scene7.com/is/image/aldinord/product_1229032_main_cms_6_nl_nl_gerookte_zalm_cw01_2024",
+   "url": "https://www.aldi.nl/product/gerookte-zalm-1229032.html",
+   "price": 4.99,
+   "old_price": null,
+   "member_price": null,
+   "member_label": null,
+   "deal_text": null,
+   "quantity_text": "220 g",
+   "valid_from": "2026-11-23",
+   "valid_to": "2026-11-29",
+   "category": "vis",
+   "product": "Zalm",
+   "qty_amount": 0.22,
+   "qty_unit": "kg",
+   "effective_price": 4.99,
+   "unit_price": 22.68,
+   "extras": {
+    "note": "OP=OP",
+    "variety": "Gerookte Zalm"
+   },
+   "en": {
+    "name": "Smoked salmon",
+    "quantity_text": "220 g",
+    "note": "OP=OP",
+    "product": "Salmon"
+   }
+  },
+  {
+   "key": "aldi:1229904",
+   "store": "aldi",
+   "id": "1229904",
+   "name": "Gekookte achterham",
+   "image": "https://s7g10.scene7.com/is/image/aldinord/product_1229904_main_cms_5_nl_nl_gekookte_achterham_cw01_2024",
+   "url": "https://www.aldi.nl/product/gekookte-achterham-1229904.html",
+   "price": 1.69,
+   "old_price": null,
+   "member_price": null,
+   "member_label": null,
+   "deal_text": null,
+   "quantity_text": "250 g",
+   "valid_from": "2026-11-23",
+   "valid_to": "2026-11-29",
+   "category": "vlees",
+   "product": "Vleeswaren",
+   "qty_amount": 0.25,
+   "qty_unit": "kg",
+   "effective_price": 1.69,
+   "unit_price": 6.76,
+   "extras": {
+    "note": "OP=OP",
+    "variety": "Achterham"
+   },
+   "en": {
+    "name": "Gekookte cooked ham",
+    "quantity_text": "250 g",
+    "note": "OP=OP",
+    "product": "Cold cuts"
+   }
+  },
+  {
+   "key": "aldi:1232412",
+   "store": "aldi",
+   "id": "1232412",
+   "name": "Filet americain",
+   "image": "https://s7g10.scene7.com/is/image/aldinord/product_1232412_main_cms_1_nl_nl_filet_americain_cw01_2024",
+   "url": "https://www.aldi.nl/product/filet-americain-1232412.html",
+   "price": 1.99,
+   "old_price": null,
+   "member_price": null,
+   "member_label": null,
+   "deal_text": null,
+   "quantity_text": "175 g",
+   "valid_from": "2026-11-23",
+   "valid_to": "2026-11-29",
+   "category": "vlees",
+   "product": "Vleeswaren",
+   "qty_amount": 0.175,
+   "qty_unit": "kg",
+   "effective_price": 1.99,
+   "unit_price": 11.37,
+   "extras": {
+    "note": "OP=OP",
+    "variety": "Filet Americain"
+   },
+   "en": {
+    "name": "Filet americain",
+    "quantity_text": "175 g",
+    "note": "OP=OP",
+    "product": "Cold cuts"
+   }
+  },
+  {
+   "key": "aldi:1232626",
+   "store": "aldi",
+   "id": "1232626",
+   "name": "Tonijn 5-pack",
+   "image": "https://s7g10.scene7.com/is/image/aldinord/product_1232626_main_cms_1_nl_nl_tonijn_5_pack_cw01_2024",
+   "url": "https://www.aldi.nl/product/tonijn-5-pack-1232626.html",
+   "price": 5.99,
+   "old_price": null,
+   "member_price": null,
+   "member_label": null,
+   "deal_text": null,
+   "quantity_text": "5x145 g",
+   "valid_from": "2026-11-27",
+   "valid_to": "2026-12-03",
+   "category": "vis",
+   "product": "Tonijn",
+   "qty_amount": 0.725,
+   "qty_unit": "kg",
+   "effective_price": 5.99,
+   "unit_price": 8.26,
+   "extras": {
+    "note": "OP=OP"
+   },
+   "en": {
+    "name": "Tuna 5-pack",
+    "quantity_text": "5x145 g",
+    "note": "OP=OP",
+    "product": "Tuna"
+   }
+  },
+  {
+   "key": "aldi:1233569",
+   "store": "aldi",
+   "id": "1233569",
+   "name": "Grand cru-kaas stuk",
+   "image": "https://s7g10.scene7.com/is/image/aldinord/product_1233569_main_cms_1_nl_nl_grand_cru_kaas_stuk_cw01_2024",
+   "url": "https://www.aldi.nl/product/grand-cru-kaas-stuk-1233569.html",
+   "price": 2.99,
+   "old_price": null,
+   "member_price": null,
+   "member_label": null,
+   "deal_text": null,
+   "quantity_text": "200 g",
+   "valid_from": "2026-11-23",
+   "valid_to": "2026-11-29",
+   "category": "zuivel",
+   "product": "Kaas",
+   "qty_amount": 0.2,
+   "qty_unit": "kg",
+   "effective_price": 2.99,
+   "unit_price": 14.95,
+   "extras": {
+    "note": "OP=OP"
+   },
+   "en": {
+    "name": "Grand cru-cheese piece",
+    "quantity_text": "200 g",
+    "note": "OP=OP",
+    "product": "Cheese"
+   }
+  },
+  {
+   "key": "aldi:1235169",
+   "store": "aldi",
+   "id": "1235169",
+   "name": "Kipgehakt",
+   "image": "https://s7g10.scene7.com/is/image/aldinord/product_1235169_main_cms_6_nl_nl_kipgehakt_cw01_2024",
+   "url": "https://www.aldi.nl/product/kipgehakt-1235169.html",
+   "price": 4.99,
+   "old_price": null,
+   "member_price": null,
+   "member_label": null,
+   "deal_text": null,
+   "quantity_text": "400 g",
+   "valid_from": "2026-11-23",
+   "valid_to": "2026-11-29",
    "category": "vlees",
    "product": "Gehakt",
+   "qty_amount": 0.4,
+   "qty_unit": "kg",
+   "effective_price": 4.99,
+   "unit_price": 12.47,
+   "extras": {
+    "variety": "Kipgehakt"
+   },
+   "en": {
+    "name": "Minced chicken",
+    "quantity_text": "400 g",
+    "product": "Minced meat"
+   }
+  },
+  {
+   "key": "aldi:1237357",
+   "store": "aldi",
+   "id": "1237357",
+   "name": "Boerenkool fijn",
+   "image": "https://s7g10.scene7.com/is/image/aldinord/product_1237357_main_cms_4_nl_nl_boerenkool_fijn_cw01_2024",
+   "url": "https://www.aldi.nl/product/boerenkool-fijn-1237357.html",
+   "price": 1.99,
+   "old_price": null,
+   "member_price": null,
+   "member_label": null,
+   "deal_text": null,
+   "quantity_text": "500 g",
+   "valid_from": "2026-11-23",
+   "valid_to": "2026-11-29",
+   "category": "groente",
+   "product": "Boerenkool",
+   "qty_amount": 0.5,
+   "qty_unit": "kg",
+   "effective_price": 1.99,
+   "unit_price": 3.98,
+   "en": {
+    "name": "Kale fijn",
+    "quantity_text": "500 g",
+    "product": "Kale"
+   }
+  },
+  {
+   "key": "aldi:1240675",
+   "store": "aldi",
+   "id": "1240675",
+   "name": "Vla",
+   "image": "https://s7g10.scene7.com/is/image/aldinord/product_1240675_main_cms_7_nl_nl_vla_cw01_2024",
+   "url": "https://www.aldi.nl/product/vla-1240675.html",
+   "price": 0.49,
+   "old_price": null,
+   "member_price": null,
+   "member_label": null,
+   "deal_text": null,
+   "quantity_text": "200 g",
+   "valid_from": "2026-11-23",
+   "valid_to": "2026-11-29",
+   "category": "zuivel",
+   "product": "Vla & pudding",
+   "qty_amount": 0.2,
+   "qty_unit": "kg",
+   "effective_price": 0.49,
+   "unit_price": 2.45,
+   "extras": {
+    "note": "OP=OP",
+    "variety": "Vla"
+   },
+   "en": {
+    "name": "Custard",
+    "quantity_text": "200 g",
+    "note": "OP=OP",
+    "product": "Custard & pudding"
+   }
+  },
+  {
+   "key": "aldi:1241051",
+   "store": "aldi",
+   "id": "1241051",
+   "name": "Boerenkool",
+   "image": "https://s7g10.scene7.com/is/image/aldinord/product_1241051_main_cms_4_nl_nl_boerenkool_cw01_2024",
+   "url": "https://www.aldi.nl/product/boerenkool-1241051.html",
+   "price": 0.99,
+   "old_price": null,
+   "member_price": null,
+   "member_label": null,
+   "deal_text": null,
+   "quantity_text": "450 g",
+   "valid_from": "2026-11-23",
+   "valid_to": "2026-11-29",
+   "category": "groente",
+   "product": "Boerenkool",
+   "qty_amount": 0.45,
+   "qty_unit": "kg",
+   "effective_price": 0.99,
+   "unit_price": 2.2,
+   "en": {
+    "name": "Kale",
+    "quantity_text": "450 g",
+    "product": "Kale"
+   }
+  },
+  {
+   "key": "aldi:1243832",
+   "store": "aldi",
+   "id": "1243832",
+   "name": "Rode paprika's",
+   "image": "https://s7g10.scene7.com/is/image/aldinord/product_1243832_main_cms_1_nl_nl_rode_paprika_s_cw01_2024",
+   "url": "https://www.aldi.nl/product/rode-paprikas-1243832.html",
+   "price": 1.79,
+   "old_price": null,
+   "member_price": null,
+   "member_label": null,
+   "deal_text": null,
+   "quantity_text": "500 g",
+   "valid_from": "2026-11-23",
+   "valid_to": "2026-11-29",
+   "category": "groente",
+   "product": "Paprika",
+   "qty_amount": 0.5,
+   "qty_unit": "kg",
+   "effective_price": 1.79,
+   "unit_price": 3.58,
+   "extras": {
+    "note": "OP=OP",
+    "variety": "Paprika'S"
+   },
+   "en": {
+    "name": "Red bell peppers",
+    "quantity_text": "500 g",
+    "note": "OP=OP",
+    "product": "Bell peppers"
+   }
+  },
+  {
+   "key": "aldi:1244076",
+   "store": "aldi",
+   "id": "1244076",
+   "name": "Schnitzel met pretzelpanade",
+   "image": "https://s7g10.scene7.com/is/image/aldinord/product_1244076_main_cms_1_nl_nl_schnitzel_met_pretzelpanade_cw01_2024",
+   "url": "https://www.aldi.nl/product/schnitzel-met-pretzelpanade-1244076.html",
+   "price": 5.99,
+   "old_price": null,
+   "member_price": null,
+   "member_label": null,
+   "deal_text": null,
+   "quantity_text": "700 g",
+   "valid_from": "2026-11-23",
+   "valid_to": "2026-11-29",
+   "category": "vlees",
+   "product": "Varkensvlees",
+   "qty_amount": 0.7,
+   "qty_unit": "kg",
+   "effective_price": 5.99,
+   "unit_price": 8.56,
+   "extras": {
+    "note": "OP=OP",
+    "variety": "Schnitzel"
+   },
+   "en": {
+    "name": "Schnitzel with pretzelpanade",
+    "quantity_text": "700 g",
+    "note": "OP=OP",
+    "product": "Pork"
+   }
+  },
+  {
+   "key": "aldi:1244114",
+   "store": "aldi",
+   "id": "1244114",
+   "name": "Espresso oploskoffie",
+   "image": "https://s7g10.scene7.com/is/image/aldinord/product_1244114_main_cms_1_nl_nl_espresso_oploskoffie_cw01_2024",
+   "url": "https://www.aldi.nl/product/espresso-oploskoffie-1244114.html",
+   "price": 2.49,
+   "old_price": null,
+   "member_price": null,
+   "member_label": null,
+   "deal_text": null,
+   "quantity_text": "100 g",
+   "valid_from": "2026-11-23",
+   "valid_to": "2026-11-29",
+   "category": "koffie",
+   "product": "Koffie",
+   "qty_amount": 0.1,
+   "qty_unit": "kg",
+   "effective_price": 2.49,
+   "unit_price": 24.9,
+   "extras": {
+    "note": "OP=OP",
+    "variety": "Oploskoffie"
+   },
+   "en": {
+    "name": "Espresso oploskoffie",
+    "quantity_text": "100 g",
+    "note": "OP=OP",
+    "product": "Coffee"
+   }
+  },
+  {
+   "key": "aldi:1245179",
+   "store": "aldi",
+   "id": "1245179",
+   "name": "Culinaire varkensfilet",
+   "image": "https://s7g10.scene7.com/is/image/aldinord/product_1245179_main_cms_1_nl_nl_culinaire_varkensfilet_cw01_2024",
+   "url": "https://www.aldi.nl/product/culinaire-varkensfilet-1245179.html",
+   "price": 3.99,
+   "old_price": null,
+   "member_price": null,
+   "member_label": null,
+   "deal_text": null,
+   "quantity_text": "Ca. 500 g",
+   "valid_from": "2026-11-23",
+   "valid_to": "2026-11-29",
+   "category": "vlees",
+   "product": "Varkensvlees",
    "qty_amount": 0.5,
    "qty_unit": "kg",
    "effective_price": 3.99,
    "unit_price": 7.98,
    "extras": {
-    "variety": "Half Om Half Gehakt"
+    "note": "OP=OP",
+    "variety": "Varkensfilet"
    },
    "en": {
-    "name": "Half-om-half minced meat",
-    "quantity_text": "500 g",
-    "member_label": "with Lidl Plus",
-    "deal_text": "-13%",
-    "product": "Minced meat"
-   }
-  },
-  {
-   "key": "lidl:11317934",
-   "store": "lidl",
-   "id": "11317934",
-   "name": "Kabeljauwburgers",
-   "image": "https://www.lidl.nl/assets/gcpba1d9ea8dc2d4e8ca7b0ff7d53e3f45e.png",
-   "url": "https://www.lidl.nl/p/kabeljauwburgers/p11317934",
-   "price": 5.98,
-   "old_price": 5.98,
-   "member_price": 4.49,
-   "member_label": "met Lidl Plus",
-   "deal_text": "-25%",
-   "quantity_text": "400 g",
-   "valid_from": "2026-11-19",
-   "valid_to": "2026-11-22",
-   "category": "vis",
-   "product": "Kabeljauw",
-   "qty_amount": 0.4,
-   "qty_unit": "kg",
-   "effective_price": 4.49,
-   "unit_price": 11.22,
-   "extras": {
-    "variety": "Kabeljauwburgers"
-   },
-   "en": {
-    "name": "Cod burgers",
-    "quantity_text": "400 g",
-    "member_label": "with Lidl Plus",
-    "deal_text": "-25%",
-    "product": "Cod"
-   }
-  },
-  {
-   "key": "lidl:11322234",
-   "store": "lidl",
-   "id": "11322234",
-   "name": "Speklappen",
-   "image": "https://www.lidl.nl/assets/gcp74405b7deae545db89b5eb59a7b169e1.png",
-   "url": "https://www.lidl.nl/p/speklappen/p11322234",
-   "price": 6.49,
-   "old_price": 6.49,
-   "member_price": 5.49,
-   "member_label": "met Lidl Plus",
-   "deal_text": "-15%",
-   "quantity_text": "600 g",
-   "valid_from": "2026-11-19",
-   "valid_to": "2026-11-22",
-   "category": "vlees",
-   "product": "Varkensvlees",
-   "qty_amount": 0.6,
-   "qty_unit": "kg",
-   "effective_price": 5.49,
-   "unit_price": 9.15,
-   "extras": {
-    "variety": "Speklappen"
-   },
-   "en": {
-    "name": "Pork belly slices",
-    "quantity_text": "600 g",
-    "member_label": "with Lidl Plus",
-    "deal_text": "-15%",
+    "name": "Culinaire varkensfilet",
+    "quantity_text": "Approx. 500 g",
+    "note": "OP=OP",
     "product": "Pork"
    }
   },
   {
-   "key": "lidl:11322419",
-   "store": "lidl",
-   "id": "11322419",
-   "name": "Iglo vissticks",
-   "image": "https://www.lidl.nl/assets/gcp1664f0e9905a4967a098645f895d82e9.png",
-   "url": "https://www.lidl.nl/p/iglo-vissticks/p11322419",
+   "key": "aldi:91200939",
+   "store": "aldi",
+   "id": "91200939",
+   "name": "Goudse kaasplakken 48+",
+   "image": "https://s7g10.scene7.com/is/image/aldinord/91200939_week48",
+   "url": "https://www.aldi.nl/product/goudse-kaasplakken-48-91200939.html",
    "price": 2.99,
-   "old_price": 2.99,
-   "member_price": 2.79,
-   "member_label": "met Lidl Plus",
+   "old_price": null,
+   "member_price": null,
+   "member_label": null,
    "deal_text": null,
-   "quantity_text": "15 Stk.",
-   "valid_from": "2026-11-19",
-   "valid_to": "2026-11-22",
-   "category": "vis",
-   "product": "Vissticks",
-   "qty_amount": 15.0,
-   "qty_unit": "stuk",
-   "effective_price": 2.79,
-   "unit_price": 0.19,
+   "quantity_text": "500 g",
+   "valid_from": "2026-11-23",
+   "valid_to": "2026-11-29",
+   "category": "zuivel",
+   "product": "Kaas",
+   "qty_amount": 0.5,
+   "qty_unit": "kg",
+   "effective_price": 2.99,
+   "unit_price": 5.98,
+   "extras": {
+    "note": "VANAF",
+    "variety": "Goudse"
+   },
    "en": {
-    "name": "Iglo fish fingers",
-    "quantity_text": "15 Pc.",
-    "member_label": "with Lidl Plus",
-    "product": "Fish fingers"
+    "name": "Gouda kaasplakken 48+",
+    "quantity_text": "500 g",
+    "note": "FROM",
+    "product": "Cheese"
+   }
+  },
+  {
+   "key": "aldi:91216556",
+   "store": "aldi",
+   "id": "91216556",
+   "name": "Pudding",
+   "image": "https://s7g10.scene7.com/is/image/aldinord/91216556_week48",
+   "url": "https://www.aldi.nl/product/pudding-91216556.html",
+   "price": 1.29,
+   "old_price": null,
+   "member_price": null,
+   "member_label": null,
+   "deal_text": null,
+   "quantity_text": "450 ml",
+   "valid_from": "2026-11-23",
+   "valid_to": "2026-11-29",
+   "category": "zuivel",
+   "product": "Vla & pudding",
+   "qty_amount": 0.45,
+   "qty_unit": "l",
+   "effective_price": 1.29,
+   "unit_price": 2.87,
+   "extras": {
+    "note": "OP=OP",
+    "variety": "Pudding"
+   },
+   "en": {
+    "name": "Pudding",
+    "quantity_text": "450 ml",
+    "note": "OP=OP",
+    "product": "Custard & pudding"
+   }
+  },
+  {
+   "key": "aldi:91224479",
+   "store": "aldi",
+   "id": "91224479",
+   "name": "Koffiebonen",
+   "image": "https://s7g10.scene7.com/is/image/aldinord/91224479_week48",
+   "url": "https://www.aldi.nl/product/koffiebonen-91224479.html",
+   "price": 15.35,
+   "old_price": null,
+   "member_price": null,
+   "member_label": null,
+   "deal_text": null,
+   "quantity_text": "1.2 kg",
+   "valid_from": "2026-11-23",
+   "valid_to": "2026-11-29",
+   "category": "koffie",
+   "product": "Koffiebonen",
+   "qty_amount": 1.2,
+   "qty_unit": "kg",
+   "effective_price": 15.35,
+   "unit_price": 12.79,
+   "extras": {
+    "note": "OP=OP"
+   },
+   "en": {
+    "name": "Coffee beans",
+    "quantity_text": "1.2 kg",
+    "note": "OP=OP",
+    "product": "Coffee beans"
+   }
+  },
+  {
+   "key": "aldi:91226221",
+   "store": "aldi",
+   "id": "91226221",
+   "name": "Goudse kaasstuk 48+",
+   "image": "https://s7g10.scene7.com/is/image/aldinord/91226221_week48",
+   "url": "https://www.aldi.nl/product/goudse-kaasstuk-48-91226221.html",
+   "price": 4.29,
+   "old_price": null,
+   "member_price": null,
+   "member_label": null,
+   "deal_text": null,
+   "quantity_text": "450 g",
+   "valid_from": "2026-11-23",
+   "valid_to": "2026-11-29",
+   "category": "zuivel",
+   "product": "Kaas",
+   "qty_amount": 0.45,
+   "qty_unit": "kg",
+   "effective_price": 4.29,
+   "unit_price": 9.53,
+   "extras": {
+    "variety": "Goudse"
+   },
+   "en": {
+    "name": "Gouda kaasstuk 48+",
+    "quantity_text": "450 g",
+    "product": "Cheese"
+   }
+  },
+  {
+   "key": "aldi:91226229",
+   "store": "aldi",
+   "id": "91226229",
+   "name": "Goudse kaasstuk 48+",
+   "image": "https://s7g10.scene7.com/is/image/aldinord/91226229_week48",
+   "url": "https://www.aldi.nl/product/goudse-kaasstuk-48-91226229.html",
+   "price": 4.69,
+   "old_price": null,
+   "member_price": null,
+   "member_label": null,
+   "deal_text": null,
+   "quantity_text": "450 g",
+   "valid_from": "2026-11-23",
+   "valid_to": "2026-11-29",
+   "category": "zuivel",
+   "product": "Kaas",
+   "qty_amount": 0.45,
+   "qty_unit": "kg",
+   "effective_price": 4.69,
+   "unit_price": 10.42,
+   "extras": {
+    "note": "OP=OP",
+    "variety": "Goudse"
+   },
+   "en": {
+    "name": "Gouda kaasstuk 48+",
+    "quantity_text": "450 g",
+    "note": "OP=OP",
+    "product": "Cheese"
+   }
+  },
+  {
+   "key": "aldi:91239224",
+   "store": "aldi",
+   "id": "91239224",
+   "name": "Koffiecapsules",
+   "image": "https://s7g10.scene7.com/is/image/aldinord/91239224_week48",
+   "url": "https://www.aldi.nl/product/koffiecapsules-91239224.html",
+   "price": 19.75,
+   "old_price": null,
+   "member_price": null,
+   "member_label": null,
+   "deal_text": null,
+   "quantity_text": "100 cups",
+   "valid_from": "2026-11-23",
+   "valid_to": "2026-11-29",
+   "category": "koffie",
+   "product": "Koffiecups & pads",
+   "qty_amount": null,
+   "qty_unit": null,
+   "effective_price": 19.75,
+   "unit_price": null,
+   "extras": {
+    "note": "OP=OP",
+    "variety": "Koffiecapsules"
+   },
+   "en": {
+    "name": "Koffiecapsules",
+    "quantity_text": "100 cups",
+    "note": "OP=OP",
+    "product": "Coffee capsules & pads"
+   }
+  },
+  {
+   "key": "aldi:91240177",
+   "store": "aldi",
+   "id": "91240177",
+   "name": "Roomboter gezouten of ongezouten",
+   "image": "https://s7g10.scene7.com/is/image/aldinord/91240177_week48",
+   "url": "https://www.aldi.nl/product/roomboter-gezouten-of-ongezouten-91240177.html",
+   "price": 1.49,
+   "old_price": null,
+   "member_price": null,
+   "member_label": null,
+   "deal_text": null,
+   "quantity_text": "200 g",
+   "valid_from": "2026-11-23",
+   "valid_to": "2026-11-29",
+   "category": "zuivel",
+   "product": "Boter",
+   "qty_amount": 0.2,
+   "qty_unit": "kg",
+   "effective_price": 1.49,
+   "unit_price": 7.45,
+   "extras": {
+    "note": "OP=OP",
+    "variety": "Roomboter"
+   },
+   "en": {
+    "name": "Butter gezouten of ongezouten",
+    "quantity_text": "200 g",
+    "note": "OP=OP",
+    "product": "Butter"
+   }
+  },
+  {
+   "key": "aldi:91241532",
+   "store": "aldi",
+   "id": "91241532",
+   "name": "Fit yogurt of pudding",
+   "image": "https://s7g10.scene7.com/is/image/aldinord/91241532_week48",
+   "url": "https://www.aldi.nl/product/fit-yogurt-of-pudding-91241532.html",
+   "price": 0.99,
+   "old_price": null,
+   "member_price": null,
+   "member_label": null,
+   "deal_text": null,
+   "quantity_text": "200 g",
+   "valid_from": "2026-11-23",
+   "valid_to": "2026-11-29",
+   "category": "zuivel",
+   "product": "Vla & pudding",
+   "qty_amount": 0.2,
+   "qty_unit": "kg",
+   "effective_price": 0.99,
+   "unit_price": 4.95,
+   "extras": {
+    "note": "OP=OP",
+    "variety": "Pudding"
+   },
+   "en": {
+    "name": "Fit yogurt of pudding",
+    "quantity_text": "200 g",
+    "note": "OP=OP",
+    "product": "Custard & pudding"
    }
   },
   {
@@ -1247,65 +2520,26 @@
  ],
  "comparisons": [
   {
-   "product": "Appels",
-   "product_en": "Apples",
-   "category": "fruit",
-   "unit": "kg",
-   "stores": [
-    "ah",
-    "lidl"
-   ],
-   "compared": false,
-   "offer_ids": [
-    "lidl:11150818",
-    "ah:832168"
-   ],
-   "best": {
-    "store": "lidl",
-    "id": "11150818",
-    "unit_price": 0.99
-   },
-   "saving_pct": null
-  },
-  {
-   "product": "Pompoen",
-   "product_en": "Pumpkin",
-   "category": "groente",
-   "unit": "stuk",
-   "stores": [
-    "ah",
-    "lidl"
-   ],
-   "compared": false,
-   "offer_ids": [
-    "lidl:11266455",
-    "ah:832162"
-   ],
-   "best": {
-    "store": "lidl",
-    "id": "11266455",
-    "unit_price": 1.49
-   },
-   "saving_pct": null
-  },
-  {
    "product": "Zalm",
    "product_en": "Salmon",
    "category": "vis",
    "unit": "kg",
    "stores": [
     "ah",
+    "aldi",
     "lidl"
    ],
    "compared": false,
    "offer_ids": [
-    "lidl:11305613",
+    "aldi:1225395",
+    "aldi:1229032",
+    "lidl:11235434",
     "ah:819899"
    ],
    "best": {
-    "store": "lidl",
-    "id": "11305613",
-    "unit_price": 19.96
+    "store": "aldi",
+    "id": "1225395",
+    "unit_price": 15.98
    },
    "saving_pct": null
   },
@@ -1316,41 +2550,44 @@
    "unit": "kg",
    "stores": [
     "ah",
+    "aldi",
     "lidl"
    ],
    "compared": true,
    "offer_ids": [
-    "lidl:11558757",
-    "ah:ah-mager-rundergehakt-300g",
-    "lidl:11317783"
+    "lidl:11322576",
+    "aldi:1235169",
+    "ah:ah-mager-rundergehakt-300g"
    ],
    "best": {
     "store": "lidl",
-    "id": "11558757",
-    "unit_price": 7.98
+    "id": "11322576",
+    "unit_price": 7.48
    },
    "saving_pct": 40
   },
   {
-   "product": "Varkensvlees",
-   "product_en": "Pork",
-   "category": "vlees",
+   "product": "Boter",
+   "product_en": "Butter",
+   "category": "zuivel",
    "unit": "kg",
    "stores": [
     "ah",
+    "aldi",
     "lidl"
    ],
-   "compared": false,
+   "compared": true,
    "offer_ids": [
-    "ah:ah-schnitzel-6-stuks",
-    "lidl:11322234"
+    "lidl:11317696",
+    "aldi:91240177",
+    "ah:819875"
    ],
    "best": {
-    "store": "lidl",
-    "id": "11322234",
-    "unit_price": 9.15
+    "store": "aldi",
+    "id": "91240177",
+    "unit_price": 7.45
    },
-   "saving_pct": null
+   "saving_pct": 25
   },
   {
    "product": "Kaas",
@@ -1359,22 +2596,26 @@
    "unit": "kg",
    "stores": [
     "ah",
+    "aldi",
     "lidl"
    ],
-   "compared": false,
+   "compared": true,
    "offer_ids": [
-    "lidl:11324875",
-    "lidl:11031013",
-    "lidl:11342971",
+    "lidl:11323339",
+    "aldi:91200939",
+    "aldi:91226221",
+    "lidl:11322436",
+    "aldi:91226229",
+    "aldi:1233569",
     "ah:819907",
     "ah:825322"
    ],
    "best": {
     "store": "lidl",
-    "id": "11324875",
-    "unit_price": 8.87
+    "id": "11323339",
+    "unit_price": 5.98
    },
-   "saving_pct": null
+   "saving_pct": 0
   },
   {
    "product": "Ananas",
@@ -1382,16 +2623,288 @@
    "category": "fruit",
    "unit": "stuk",
    "stores": [
-    "ah"
+    "ah",
+    "lidl"
    ],
-   "compared": false,
+   "compared": true,
    "offer_ids": [
+    "lidl:11214518",
     "ah:ah-ananas-eetrijp"
    ],
    "best": {
+    "store": "lidl",
+    "id": "11214518",
+    "unit_price": 1.49
+   },
+   "saving_pct": 26
+  },
+  {
+   "product": "Appels",
+   "product_en": "Apples",
+   "category": "fruit",
+   "unit": "kg",
+   "stores": [
+    "ah",
+    "aldi"
+   ],
+   "compared": false,
+   "offer_ids": [
+    "aldi:1219892",
+    "ah:832168"
+   ],
+   "best": {
+    "store": "aldi",
+    "id": "1219892",
+    "unit_price": 1.66
+   },
+   "saving_pct": null
+  },
+  {
+   "product": "Mandarijnen",
+   "product_en": "Mandarins",
+   "category": "fruit",
+   "unit": "kg",
+   "stores": [
+    "ah",
+    "aldi"
+   ],
+   "compared": true,
+   "offer_ids": [
+    "ah:ah-mandarijnen",
+    "aldi:1219324"
+   ],
+   "best": {
     "store": "ah",
-    "id": "ah-ananas-eetrijp",
-    "unit_price": 2.0
+    "id": "ah-mandarijnen",
+    "unit_price": 1.29
+   },
+   "saving_pct": 35
+  },
+  {
+   "product": "Courgette",
+   "product_en": "Courgette",
+   "category": "groente",
+   "unit": "stuk",
+   "stores": [
+    "aldi",
+    "lidl"
+   ],
+   "compared": true,
+   "offer_ids": [
+    "lidl:11029408",
+    "aldi:1219382"
+   ],
+   "best": {
+    "store": "lidl",
+    "id": "11029408",
+    "unit_price": 0.39
+   },
+   "saving_pct": 46
+  },
+  {
+   "product": "Prei",
+   "product_en": "Leek",
+   "category": "groente",
+   "unit": "stuk",
+   "stores": [
+    "aldi",
+    "lidl"
+   ],
+   "compared": true,
+   "offer_ids": [
+    "lidl:11029706",
+    "aldi:1210301"
+   ],
+   "best": {
+    "store": "lidl",
+    "id": "11029706",
+    "unit_price": 0.39
+   },
+   "saving_pct": 29
+  },
+  {
+   "product": "Koffiecups & pads",
+   "product_en": "Coffee capsules & pads",
+   "category": "koffie",
+   "unit": null,
+   "stores": [
+    "ah",
+    "aldi"
+   ],
+   "compared": false,
+   "offer_ids": [
+    "aldi:91239224",
+    "ah:819963"
+   ],
+   "best": null,
+   "saving_pct": null
+  },
+  {
+   "product": "Tonijn",
+   "product_en": "Tuna",
+   "category": "vis",
+   "unit": "kg",
+   "stores": [
+    "ah",
+    "aldi"
+   ],
+   "compared": false,
+   "offer_ids": [
+    "aldi:1232626",
+    "ah:819908"
+   ],
+   "best": {
+    "store": "aldi",
+    "id": "1232626",
+    "unit_price": 8.26
+   },
+   "saving_pct": null
+  },
+  {
+   "product": "Kipfilet",
+   "product_en": "Chicken breast",
+   "category": "vlees",
+   "unit": "kg",
+   "stores": [
+    "aldi",
+    "lidl"
+   ],
+   "compared": true,
+   "offer_ids": [
+    "lidl:11562268",
+    "aldi:1221414",
+    "lidl:11318025"
+   ],
+   "best": {
+    "store": "lidl",
+    "id": "11562268",
+    "unit_price": 13.27
+   },
+   "saving_pct": 5
+  },
+  {
+   "product": "Rundvlees",
+   "product_en": "Beef",
+   "category": "vlees",
+   "unit": "kg",
+   "stores": [
+    "ah",
+    "lidl"
+   ],
+   "compared": true,
+   "offer_ids": [
+    "lidl:11322549",
+    "ah:ah-stoofvlees"
+   ],
+   "best": {
+    "store": "lidl",
+    "id": "11322549",
+    "unit_price": 9.97
+   },
+   "saving_pct": 44
+  },
+  {
+   "product": "Varkensvlees",
+   "product_en": "Pork",
+   "category": "vlees",
+   "unit": "kg",
+   "stores": [
+    "ah",
+    "aldi"
+   ],
+   "compared": false,
+   "offer_ids": [
+    "ah:ah-schnitzel-6-stuks",
+    "aldi:1245179",
+    "aldi:1244076"
+   ],
+   "best": {
+    "store": "aldi",
+    "id": "1245179",
+    "unit_price": 7.98
+   },
+   "saving_pct": null
+  },
+  {
+   "product": "Vleeswaren",
+   "product_en": "Cold cuts",
+   "category": "vlees",
+   "unit": "kg",
+   "stores": [
+    "ah",
+    "aldi"
+   ],
+   "compared": false,
+   "offer_ids": [
+    "aldi:1229904",
+    "aldi:1232412",
+    "ah:824839",
+    "ah:824844",
+    "ah:824874"
+   ],
+   "best": {
+    "store": "aldi",
+    "id": "1229904",
+    "unit_price": 6.76
+   },
+   "saving_pct": null
+  },
+  {
+   "product": "Worst",
+   "product_en": "Sausages",
+   "category": "vlees",
+   "unit": "kg",
+   "stores": [
+    "ah",
+    "lidl"
+   ],
+   "compared": false,
+   "offer_ids": [
+    "lidl:11322143",
+    "ah:824842"
+   ],
+   "best": {
+    "store": "lidl",
+    "id": "11322143",
+    "unit_price": 7.24
+   },
+   "saving_pct": null
+  },
+  {
+   "product": "Aardbeien",
+   "product_en": "Strawberries",
+   "category": "fruit",
+   "unit": "l",
+   "stores": [
+    "lidl"
+   ],
+   "compared": false,
+   "offer_ids": [
+    "lidl:11560456"
+   ],
+   "best": {
+    "store": "lidl",
+    "id": "11560456",
+    "unit_price": 1.19
+   },
+   "saving_pct": null
+  },
+  {
+   "product": "Avocado",
+   "product_en": "Avocado",
+   "category": "fruit",
+   "unit": "kg",
+   "stores": [
+    "lidl"
+   ],
+   "compared": false,
+   "offer_ids": [
+    "lidl:11029903"
+   ],
+   "best": {
+    "store": "lidl",
+    "id": "11029903",
+    "unit_price": 2.7
    },
    "saving_pct": null
   },
@@ -1430,8 +2943,8 @@
    "saving_pct": null
   },
   {
-   "product": "Kiwi's",
-   "product_en": "Kiwis",
+   "product": "Citroenen",
+   "product_en": "Lemons",
    "category": "fruit",
    "unit": "kg",
    "stores": [
@@ -1439,31 +2952,51 @@
    ],
    "compared": false,
    "offer_ids": [
-    "lidl:11492121"
+    "lidl:11030000",
+    "lidl:11562533"
    ],
    "best": {
     "store": "lidl",
-    "id": "11492121",
-    "unit_price": 5.32
+    "id": "11030000",
+    "unit_price": 1.98
    },
    "saving_pct": null
   },
   {
-   "product": "Mandarijnen",
-   "product_en": "Mandarins",
+   "product": "Frambozen",
+   "product_en": "Raspberries",
    "category": "fruit",
    "unit": "kg",
    "stores": [
-    "ah"
+    "aldi"
    ],
    "compared": false,
    "offer_ids": [
-    "ah:ah-mandarijnen"
+    "aldi:1201661"
    ],
    "best": {
-    "store": "ah",
-    "id": "ah-mandarijnen",
-    "unit_price": 1.29
+    "store": "aldi",
+    "id": "1201661",
+    "unit_price": 18.32
+   },
+   "saving_pct": null
+  },
+  {
+   "product": "Kiwi's",
+   "product_en": "Kiwis",
+   "category": "fruit",
+   "unit": "stuk",
+   "stores": [
+    "aldi"
+   ],
+   "compared": false,
+   "offer_ids": [
+    "aldi:1224139"
+   ],
+   "best": {
+    "store": "aldi",
+    "id": "1224139",
+    "unit_price": 0.69
    },
    "saving_pct": null
   },
@@ -1471,24 +3004,24 @@
    "product": "Mango",
    "product_en": "Mango",
    "category": "fruit",
-   "unit": "stuk",
+   "unit": "l",
    "stores": [
     "lidl"
    ],
    "compared": false,
    "offer_ids": [
-    "lidl:11029883"
+    "lidl:11560457"
    ],
    "best": {
     "store": "lidl",
-    "id": "11029883",
-    "unit_price": 0.99
+    "id": "11560457",
+    "unit_price": 1.19
    },
    "saving_pct": null
   },
   {
-   "product": "Peren",
-   "product_en": "Pears",
+   "product": "Sinaasappels",
+   "product_en": "Oranges",
    "category": "fruit",
    "unit": "kg",
    "stores": [
@@ -1496,12 +3029,12 @@
    ],
    "compared": false,
    "offer_ids": [
-    "lidl:11030070"
+    "lidl:11115702"
    ],
    "best": {
     "store": "lidl",
-    "id": "11030070",
-    "unit_price": 1.29
+    "id": "11115702",
+    "unit_price": 1.15
    },
    "saving_pct": null
   },
@@ -1525,8 +3058,8 @@
    "saving_pct": null
   },
   {
-   "product": "Spruiten",
-   "product_en": "Brussels sprouts",
+   "product": "Aardappels",
+   "product_en": "Potatoes",
    "category": "groente",
    "unit": "kg",
    "stores": [
@@ -1534,12 +3067,162 @@
    ],
    "compared": false,
    "offer_ids": [
-    "lidl:11214362"
+    "lidl:11493347",
+    "lidl:11304018"
    ],
    "best": {
     "store": "lidl",
-    "id": "11214362",
-    "unit_price": 1.99
+    "id": "11493347",
+    "unit_price": 0.8
+   },
+   "saving_pct": null
+  },
+  {
+   "product": "Bieten",
+   "product_en": "Beetroot",
+   "category": "groente",
+   "unit": "kg",
+   "stores": [
+    "aldi"
+   ],
+   "compared": false,
+   "offer_ids": [
+    "aldi:1222205"
+   ],
+   "best": {
+    "store": "aldi",
+    "id": "1222205",
+    "unit_price": 2.5
+   },
+   "saving_pct": null
+  },
+  {
+   "product": "Boerenkool",
+   "product_en": "Kale",
+   "category": "groente",
+   "unit": "kg",
+   "stores": [
+    "aldi"
+   ],
+   "compared": false,
+   "offer_ids": [
+    "aldi:1241051",
+    "aldi:1237357"
+   ],
+   "best": {
+    "store": "aldi",
+    "id": "1241051",
+    "unit_price": 2.2
+   },
+   "saving_pct": null
+  },
+  {
+   "product": "Champignons",
+   "product_en": "Mushrooms",
+   "category": "groente",
+   "unit": "kg",
+   "stores": [
+    "aldi"
+   ],
+   "compared": false,
+   "offer_ids": [
+    "aldi:1219554"
+   ],
+   "best": {
+    "store": "aldi",
+    "id": "1219554",
+    "unit_price": 6.76
+   },
+   "saving_pct": null
+  },
+  {
+   "product": "Paprika",
+   "product_en": "Bell peppers",
+   "category": "groente",
+   "unit": "kg",
+   "stores": [
+    "aldi"
+   ],
+   "compared": false,
+   "offer_ids": [
+    "aldi:1243832"
+   ],
+   "best": {
+    "store": "aldi",
+    "id": "1243832",
+    "unit_price": 3.58
+   },
+   "saving_pct": null
+  },
+  {
+   "product": "Pompoen",
+   "product_en": "Pumpkin",
+   "category": "groente",
+   "unit": null,
+   "stores": [
+    "ah"
+   ],
+   "compared": false,
+   "offer_ids": [
+    "ah:832162"
+   ],
+   "best": null,
+   "saving_pct": null
+  },
+  {
+   "product": "Sla",
+   "product_en": "Lettuce",
+   "category": "groente",
+   "unit": "stuk",
+   "stores": [
+    "aldi"
+   ],
+   "compared": false,
+   "offer_ids": [
+    "aldi:1218644"
+   ],
+   "best": {
+    "store": "aldi",
+    "id": "1218644",
+    "unit_price": 1.19
+   },
+   "saving_pct": null
+  },
+  {
+   "product": "Sperziebonen",
+   "product_en": "Green beans",
+   "category": "groente",
+   "unit": "kg",
+   "stores": [
+    "lidl"
+   ],
+   "compared": false,
+   "offer_ids": [
+    "lidl:11492612"
+   ],
+   "best": {
+    "store": "lidl",
+    "id": "11492612",
+    "unit_price": 4.22
+   },
+   "saving_pct": null
+  },
+  {
+   "product": "Uien",
+   "product_en": "Onions",
+   "category": "groente",
+   "unit": "kg",
+   "stores": [
+    "aldi"
+   ],
+   "compared": false,
+   "offer_ids": [
+    "aldi:1220494"
+   ],
+   "best": {
+    "store": "aldi",
+    "id": "1220494",
+    "unit_price": 7.42
    },
    "saving_pct": null
   },
@@ -1563,21 +3246,21 @@
    "saving_pct": null
   },
   {
-   "product": "Zoete aardappels",
-   "product_en": "Sweet potatoes",
+   "product": "Wortels",
+   "product_en": "Carrots",
    "category": "groente",
-   "unit": "kg",
+   "unit": "stuk",
    "stores": [
     "lidl"
    ],
    "compared": false,
    "offer_ids": [
-    "lidl:11150934"
+    "lidl:11029530"
    ],
    "best": {
     "store": "lidl",
-    "id": "11150934",
-    "unit_price": 1.98
+    "id": "11029530",
+    "unit_price": 1.19
    },
    "saving_pct": null
   },
@@ -1585,83 +3268,53 @@
    "product": "Koffie",
    "product_en": "Coffee",
    "category": "koffie",
-   "unit": null,
-   "stores": [
-    "lidl"
-   ],
-   "compared": false,
-   "offer_ids": [
-    "lidl:11321020"
-   ],
-   "best": null,
-   "saving_pct": null
-  },
-  {
-   "product": "Koffiecups & pads",
-   "product_en": "Coffee capsules & pads",
-   "category": "koffie",
-   "unit": null,
-   "stores": [
-    "ah"
-   ],
-   "compared": false,
-   "offer_ids": [
-    "ah:819963"
-   ],
-   "best": null,
-   "saving_pct": null
-  },
-  {
-   "product": "Kabeljauw",
-   "product_en": "Cod",
-   "category": "vis",
    "unit": "kg",
    "stores": [
-    "lidl"
+    "aldi"
    ],
    "compared": false,
    "offer_ids": [
-    "lidl:11317934"
+    "aldi:1244114"
    ],
    "best": {
-    "store": "lidl",
-    "id": "11317934",
-    "unit_price": 11.22
+    "store": "aldi",
+    "id": "1244114",
+    "unit_price": 24.9
    },
    "saving_pct": null
   },
   {
-   "product": "Tonijn",
-   "product_en": "Tuna",
+   "product": "Koffiebonen",
+   "product_en": "Coffee beans",
+   "category": "koffie",
+   "unit": "kg",
+   "stores": [
+    "aldi"
+   ],
+   "compared": false,
+   "offer_ids": [
+    "aldi:91224479"
+   ],
+   "best": {
+    "store": "aldi",
+    "id": "91224479",
+    "unit_price": 12.79
+   },
+   "saving_pct": null
+  },
+  {
+   "product": "Witvis",
+   "product_en": "White fish",
    "category": "vis",
    "unit": null,
    "stores": [
-    "ah"
-   ],
-   "compared": false,
-   "offer_ids": [
-    "ah:819908"
-   ],
-   "best": null,
-   "saving_pct": null
-  },
-  {
-   "product": "Vissticks",
-   "product_en": "Fish fingers",
-   "category": "vis",
-   "unit": "stuk",
-   "stores": [
     "lidl"
    ],
    "compared": false,
    "offer_ids": [
-    "lidl:11322419"
+    "lidl:11317786"
    ],
-   "best": {
-    "store": "lidl",
-    "id": "11322419",
-    "unit_price": 0.19
-   },
+   "best": null,
    "saving_pct": null
   },
   {
@@ -1680,91 +3333,81 @@
    "saving_pct": null
   },
   {
-   "product": "Rundvlees",
-   "product_en": "Beef",
-   "category": "vlees",
-   "unit": "kg",
-   "stores": [
-    "ah"
-   ],
-   "compared": false,
-   "offer_ids": [
-    "ah:ah-stoofvlees"
-   ],
-   "best": {
-    "store": "ah",
-    "id": "ah-stoofvlees",
-    "unit_price": 17.9
-   },
-   "saving_pct": null
-  },
-  {
    "product": "Spek",
    "product_en": "Bacon",
    "category": "vlees",
    "unit": "kg",
    "stores": [
-    "lidl"
+    "aldi"
    ],
    "compared": false,
    "offer_ids": [
-    "lidl:11357318"
+    "aldi:1202247"
    ],
    "best": {
-    "store": "lidl",
-    "id": "11357318",
-    "unit_price": 9.3
+    "store": "aldi",
+    "id": "1202247",
+    "unit_price": 7.87
    },
    "saving_pct": null
   },
   {
-   "product": "Vleeswaren",
-   "product_en": "Cold cuts",
-   "category": "vlees",
-   "unit": null,
-   "stores": [
-    "ah"
-   ],
-   "compared": false,
-   "offer_ids": [
-    "ah:824839",
-    "ah:824844",
-    "ah:824874"
-   ],
-   "best": null,
-   "saving_pct": null
-  },
-  {
-   "product": "Worst",
-   "product_en": "Sausages",
-   "category": "vlees",
-   "unit": null,
-   "stores": [
-    "ah"
-   ],
-   "compared": false,
-   "offer_ids": [
-    "ah:824842"
-   ],
-   "best": null,
-   "saving_pct": null
-  },
-  {
-   "product": "Boter",
-   "product_en": "Butter",
+   "product": "Kwark",
+   "product_en": "Quark",
    "category": "zuivel",
    "unit": "kg",
    "stores": [
-    "ah"
+    "aldi"
    ],
    "compared": false,
    "offer_ids": [
-    "ah:819875"
+    "aldi:1217266",
+    "aldi:1217256"
    ],
    "best": {
-    "store": "ah",
-    "id": "819875",
-    "unit_price": 9.98
+    "store": "aldi",
+    "id": "1217266",
+    "unit_price": 1.9
+   },
+   "saving_pct": null
+  },
+  {
+   "product": "Melk",
+   "product_en": "Milk",
+   "category": "zuivel",
+   "unit": "l",
+   "stores": [
+    "lidl"
+   ],
+   "compared": false,
+   "offer_ids": [
+    "lidl:11008575"
+   ],
+   "best": {
+    "store": "lidl",
+    "id": "11008575",
+    "unit_price": 0.99
+   },
+   "saving_pct": null
+  },
+  {
+   "product": "Vla & pudding",
+   "product_en": "Custard & pudding",
+   "category": "zuivel",
+   "unit": "kg",
+   "stores": [
+    "aldi"
+   ],
+   "compared": false,
+   "offer_ids": [
+    "aldi:1240675",
+    "aldi:91216556",
+    "aldi:91241532"
+   ],
+   "best": {
+    "store": "aldi",
+    "id": "1240675",
+    "unit_price": 2.45
    },
    "saving_pct": null
   },
