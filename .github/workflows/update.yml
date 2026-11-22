@@ -1,6 +1,6 @@
 name: Refresh offers
 
-# Scrapes Lidl and Aldi and merges them into the offers saved on the Cloudflare site
+# Scrapes Lidl, Aldi and Dirk and merges them into the offers saved on the Cloudflare site
 # (next to the AH offers uploaded there). Runs every Monday, from the
 # "Run workflow" button in the Actions tab, or from the site's "Run now" button.
 #
@@ -39,7 +39,14 @@ jobs:
       - name: Run tests
         run: python -m pytest -q
 
-      - name: Scrape Lidl and Aldi and save to the site
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+
+      - name: Run account tests
+        run: npm test
+
+      - name: Scrape Lidl, Aldi and Dirk and save to the site
         env:
           UPLOAD_PASSWORD: ${{ secrets.UPLOAD_PASSWORD }}
         run: python -m scraper.publish --site "${{ vars.SITE_URL }}"

@@ -1,17 +1,23 @@
 {
- "generated_at": "2026-11-22T16:46:44+00:00",
+ "generated_at": "2026-11-22T18:06:42+00:00",
  "stores": {
   "lidl": {
    "name": "Lidl",
    "ok": true,
    "scraped": 44,
-   "matched": 24
+   "matched": 22
   },
   "aldi": {
    "name": "Aldi",
    "ok": true,
    "scraped": 312,
    "matched": 36
+  },
+  "dirk": {
+   "name": "Dirk",
+   "ok": true,
+   "scraped": 120,
+   "matched": 22
   },
   "ah": {
    "name": "Albert Heijn",
@@ -505,63 +511,6 @@
     "name": "Milbona Slices Gouda jonge cheese",
     "quantity_text": "500 g",
     "product": "Cheese"
-   }
-  },
-  {
-   "key": "lidl:11560456",
-   "store": "lidl",
-   "id": "11560456",
-   "name": "Coolbest fruitdrink aardbei",
-   "image": "https://www.lidl.nl/assets/gcpfd65ec020a6b42338c2b5bb6239000ca.png",
-   "url": "https://www.lidl.nl/p/coolbest-fruitdrink-aardbei/p11560456",
-   "price": 1.19,
-   "old_price": null,
-   "member_price": null,
-   "member_label": null,
-   "deal_text": null,
-   "quantity_text": "1 l",
-   "valid_from": "2026-11-23",
-   "valid_to": "2026-11-29",
-   "category": "fruit",
-   "product": "Aardbeien",
-   "qty_amount": 1.0,
-   "qty_unit": "l",
-   "effective_price": 1.19,
-   "unit_price": 1.19,
-   "extras": {
-    "variety": "Aardbei"
-   },
-   "en": {
-    "name": "Coolbest fruitdrink strawberry",
-    "quantity_text": "1 l",
-    "product": "Strawberries"
-   }
-  },
-  {
-   "key": "lidl:11560457",
-   "store": "lidl",
-   "id": "11560457",
-   "name": "Coolbest fruitdrink mango",
-   "image": "https://www.lidl.nl/assets/gcpf804f21f1a5f462d949f0e48993935ed.png",
-   "url": "https://www.lidl.nl/p/coolbest-fruitdrink-mango/p11560457",
-   "price": 1.19,
-   "old_price": null,
-   "member_price": null,
-   "member_label": null,
-   "deal_text": null,
-   "quantity_text": "1 l",
-   "valid_from": "2026-11-23",
-   "valid_to": "2026-11-29",
-   "category": "fruit",
-   "product": "Mango",
-   "qty_amount": 1.0,
-   "qty_unit": "l",
-   "effective_price": 1.19,
-   "unit_price": 1.19,
-   "en": {
-    "name": "Coolbest fruitdrink mango",
-    "quantity_text": "1 l",
-    "product": "Mango"
    }
   },
   {
@@ -1848,6 +1797,634 @@
    }
   },
   {
+   "key": "dirk:140717",
+   "store": "dirk",
+   "id": "140717",
+   "name": "De Vleeschmeesters Duitse biefstuk",
+   "image": "https://web-fileserver.dirk.nl/artikelen/457299_2026-11-21_03-12-29-292_624bbd15-7f48-46d2-982f-8db05fa8959b.png",
+   "url": "https://www.dirk.nl/boodschappen/vlees-vis/rundvlees/vleeschmeesters%20duitse%20biefstuk%202%20stuks/99268",
+   "price": 2.99,
+   "old_price": 3.39,
+   "member_price": null,
+   "member_label": null,
+   "deal_text": null,
+   "quantity_text": "200 g",
+   "valid_from": "2026-11-18",
+   "valid_to": "2026-11-22",
+   "category": "vlees",
+   "product": "Rundvlees",
+   "qty_amount": 0.2,
+   "qty_unit": "kg",
+   "effective_price": 2.99,
+   "unit_price": 14.95,
+   "extras": {
+    "note": "VR, ZA & ZO",
+    "variety": "Biefstuk"
+   },
+   "en": {
+    "name": "De Vleeschmeesters Duitse steak",
+    "quantity_text": "200 g",
+    "note": "VR, ZA & ZO",
+    "product": "Beef"
+   }
+  },
+  {
+   "key": "dirk:140721",
+   "store": "dirk",
+   "id": "140721",
+   "name": "Maatjesharing",
+   "image": "https://web-fileserver.dirk.nl/artikelen/248875_1_485884_639051042193217764.png",
+   "url": "https://www.dirk.nl/boodschappen/vlees-vis/vis/maatjesharing%205%20stuks/121735",
+   "price": 3.49,
+   "old_price": null,
+   "member_price": null,
+   "member_label": null,
+   "deal_text": null,
+   "quantity_text": "Per pak",
+   "valid_from": "2026-11-18",
+   "valid_to": "2026-11-22",
+   "category": "vis",
+   "product": "Haring & makreel",
+   "qty_amount": 1.0,
+   "qty_unit": "stuk",
+   "effective_price": 3.49,
+   "unit_price": 3.49,
+   "extras": {
+    "note": "VR, ZA & ZO",
+    "variety": "Maatjesharing"
+   },
+   "en": {
+    "name": "Maatjesharing",
+    "quantity_text": "Per pak",
+    "note": "VR, ZA & ZO",
+    "product": "Herring & mackerel"
+   }
+  },
+  {
+   "key": "dirk:140605",
+   "store": "dirk",
+   "id": "140605",
+   "name": "1 de Beste stamppot aardappelen",
+   "image": null,
+   "url": "https://www.dirk.nl/aanbiedingen",
+   "price": 1.29,
+   "old_price": 1.49,
+   "member_price": null,
+   "member_label": null,
+   "deal_text": null,
+   "quantity_text": null,
+   "valid_from": "2026-11-18",
+   "valid_to": "2026-11-24",
+   "category": "groente",
+   "product": "Aardappels",
+   "qty_amount": null,
+   "qty_unit": null,
+   "effective_price": 1.29,
+   "unit_price": null,
+   "extras": {
+    "variety": "Aardappelen"
+   },
+   "en": {
+    "name": "1 de Beste stamppot potatoes",
+    "product": "Potatoes"
+   }
+  },
+  {
+   "key": "dirk:140606",
+   "store": "dirk",
+   "id": "140606",
+   "name": "BIO+ rode bieten",
+   "image": null,
+   "url": "https://www.dirk.nl/aanbiedingen",
+   "price": 0.99,
+   "old_price": 1.25,
+   "member_price": null,
+   "member_label": null,
+   "deal_text": null,
+   "quantity_text": null,
+   "valid_from": "2026-11-18",
+   "valid_to": "2026-11-24",
+   "category": "groente",
+   "product": "Bieten",
+   "qty_amount": null,
+   "qty_unit": null,
+   "effective_price": 0.99,
+   "unit_price": null,
+   "extras": {
+    "variety": "Rode Bieten"
+   },
+   "en": {
+    "name": "ORGANIC+ red beetroots",
+    "product": "Beetroot"
+   }
+  },
+  {
+   "key": "dirk:140607",
+   "store": "dirk",
+   "id": "140607",
+   "name": "Hollandse boerenkool",
+   "image": "https://web-fileserver.dirk.nl/artikelen/119811_1_247498_638683968455213886.png",
+   "url": "https://www.dirk.nl/boodschappen/aardappelen-groente-fruit/groente/1%20de%20beste%20boerenkool%20grof/43126",
+   "price": 0.99,
+   "old_price": 1.95,
+   "member_price": null,
+   "member_label": null,
+   "deal_text": null,
+   "quantity_text": "300 g",
+   "valid_from": "2026-11-18",
+   "valid_to": "2026-11-24",
+   "category": "groente",
+   "product": "Boerenkool",
+   "qty_amount": 0.3,
+   "qty_unit": "kg",
+   "effective_price": 0.99,
+   "unit_price": 3.3,
+   "en": {
+    "name": "Dutch kale",
+    "quantity_text": "300 g",
+    "product": "Kale"
+   }
+  },
+  {
+   "key": "dirk:140608",
+   "store": "dirk",
+   "id": "140608",
+   "name": "Hollandse spruiten",
+   "image": "https://web-fileserver.dirk.nl/artikelen/180011_1_268683_638415129288203565.png",
+   "url": "https://www.dirk.nl/boodschappen/aardappelen-groente-fruit/groente/1%20de%20beste%20spruiten%20verpakt/4535",
+   "price": 0.89,
+   "old_price": 1.89,
+   "member_price": null,
+   "member_label": null,
+   "deal_text": null,
+   "quantity_text": "750 g",
+   "valid_from": "2026-11-18",
+   "valid_to": "2026-11-24",
+   "category": "groente",
+   "product": "Spruiten",
+   "qty_amount": 0.75,
+   "qty_unit": "kg",
+   "effective_price": 0.89,
+   "unit_price": 1.19,
+   "en": {
+    "name": "Dutch Brussels sprouts",
+    "quantity_text": "750 g",
+    "product": "Brussels sprouts"
+   }
+  },
+  {
+   "key": "dirk:140611",
+   "store": "dirk",
+   "id": "140611",
+   "name": "Hollandse witlof",
+   "image": "https://web-fileserver.dirk.nl/artikelen/268381_2026-11-22_03-02-15-995_7ec00e96-707a-4919-b373-417fc2bf8db3.png",
+   "url": "https://www.dirk.nl/boodschappen/aardappelen-groente-fruit/groente/hollandse%20witlof/4429",
+   "price": 1.98,
+   "old_price": 2.3,
+   "member_price": null,
+   "member_label": null,
+   "deal_text": null,
+   "quantity_text": "1 kg (ca. 5 stuks)",
+   "valid_from": "2026-11-18",
+   "valid_to": "2026-11-24",
+   "category": "groente",
+   "product": "Witlof",
+   "qty_amount": 1.0,
+   "qty_unit": "kg",
+   "effective_price": 1.98,
+   "unit_price": 1.98,
+   "en": {
+    "name": "Dutch chicory",
+    "quantity_text": "1 kg (approx. 5 pieces)",
+    "product": "Chicory"
+   }
+  },
+  {
+   "key": "dirk:140699",
+   "store": "dirk",
+   "id": "140699",
+   "name": "Blauwe bessen",
+   "image": "https://web-fileserver.dirk.nl/artikelen/247739_2026-11-22_03-06-59-469_8628ceda-4884-4e06-a438-dce556bd61ce.png",
+   "url": "https://www.dirk.nl/boodschappen/aardappelen-groente-fruit/fruit/1%20de%20beste%20blauwe%20bessen/51069",
+   "price": 3.99,
+   "old_price": null,
+   "member_price": null,
+   "member_label": null,
+   "deal_text": null,
+   "quantity_text": "300 g",
+   "valid_from": "2026-11-18",
+   "valid_to": "2026-11-24",
+   "category": "fruit",
+   "product": "Blauwe bessen",
+   "qty_amount": 0.3,
+   "qty_unit": "kg",
+   "effective_price": 3.99,
+   "unit_price": 13.3,
+   "en": {
+    "name": "Blueberries",
+    "quantity_text": "300 g",
+    "product": "Blueberries"
+   }
+  },
+  {
+   "key": "dirk:140701",
+   "store": "dirk",
+   "id": "140701",
+   "name": "Eat me avocado's",
+   "image": "https://web-fileserver.dirk.nl/artikelen/248060_2026-11-22_03-01-49-973_2df8b6fe-c650-4ddf-b966-cafc3a085ae9.png",
+   "url": "https://www.dirk.nl/boodschappen/aardappelen-groente-fruit/fruit/eat%20me%20avocado%20ready%20to%20eat/57949",
+   "price": 1.99,
+   "old_price": null,
+   "member_price": null,
+   "member_label": null,
+   "deal_text": null,
+   "quantity_text": "Schaal 2 stuks.",
+   "valid_from": "2026-11-18",
+   "valid_to": "2026-11-24",
+   "category": "fruit",
+   "product": "Avocado",
+   "qty_amount": 2.0,
+   "qty_unit": "stuk",
+   "effective_price": 1.99,
+   "unit_price": 0.99,
+   "extras": {
+    "variety": "Avocado'S"
+   },
+   "en": {
+    "name": "Eat me avocado's",
+    "quantity_text": "Schaal 2 pieces.",
+    "product": "Avocado"
+   }
+  },
+  {
+   "key": "dirk:140702",
+   "store": "dirk",
+   "id": "140702",
+   "name": "Gala appels",
+   "image": null,
+   "url": "https://www.dirk.nl/aanbiedingen",
+   "price": 2.99,
+   "old_price": null,
+   "member_price": null,
+   "member_label": null,
+   "deal_text": null,
+   "quantity_text": null,
+   "valid_from": "2026-11-18",
+   "valid_to": "2026-11-24",
+   "category": "fruit",
+   "product": "Appels",
+   "qty_amount": null,
+   "qty_unit": null,
+   "effective_price": 2.99,
+   "unit_price": null,
+   "extras": {
+    "variety": "Gala"
+   },
+   "en": {
+    "name": "Gala apples",
+    "product": "Apples"
+   }
+  },
+  {
+   "key": "dirk:140704",
+   "store": "dirk",
+   "id": "140704",
+   "name": "Groene kiwi's",
+   "image": null,
+   "url": "https://www.dirk.nl/aanbiedingen",
+   "price": 3.49,
+   "old_price": 3.79,
+   "member_price": null,
+   "member_label": null,
+   "deal_text": null,
+   "quantity_text": null,
+   "valid_from": "2026-11-18",
+   "valid_to": "2026-11-24",
+   "category": "fruit",
+   "product": "Kiwi's",
+   "qty_amount": null,
+   "qty_unit": null,
+   "effective_price": 3.49,
+   "unit_price": null,
+   "en": {
+    "name": "Green kiwi's",
+    "product": "Kiwis"
+   }
+  },
+  {
+   "key": "dirk:140705",
+   "store": "dirk",
+   "id": "140705",
+   "name": "Hollandse aardbeien",
+   "image": "https://web-fileserver.dirk.nl/artikelen/243172_1_481279_638956218528263034.png",
+   "url": "https://www.dirk.nl/boodschappen/aardappelen-groente-fruit/fruit/1%20de%20beste%20aardbeien/118477",
+   "price": 3.99,
+   "old_price": null,
+   "member_price": null,
+   "member_label": null,
+   "deal_text": null,
+   "quantity_text": "400 g",
+   "valid_from": "2026-11-18",
+   "valid_to": "2026-11-24",
+   "category": "fruit",
+   "product": "Aardbeien",
+   "qty_amount": 0.4,
+   "qty_unit": "kg",
+   "effective_price": 3.99,
+   "unit_price": 9.97,
+   "en": {
+    "name": "Dutch strawberries",
+    "quantity_text": "400 g",
+    "product": "Strawberries"
+   }
+  },
+  {
+   "key": "dirk:140706",
+   "store": "dirk",
+   "id": "140706",
+   "name": "Hollandse bospeen",
+   "image": "https://web-fileserver.dirk.nl/artikelen/243440_1_269020_638961414295680679.png",
+   "url": "https://www.dirk.nl/boodschappen/aardappelen-groente-fruit/groente/bospeen/4620",
+   "price": 1.29,
+   "old_price": 1.39,
+   "member_price": null,
+   "member_label": null,
+   "deal_text": null,
+   "quantity_text": "Per bos",
+   "valid_from": "2026-11-18",
+   "valid_to": "2026-11-24",
+   "category": "groente",
+   "product": "Wortels",
+   "qty_amount": 1.0,
+   "qty_unit": "stuk",
+   "effective_price": 1.29,
+   "unit_price": 1.29,
+   "extras": {
+    "variety": "Bospeen"
+   },
+   "en": {
+    "name": "Dutch bunched carrots",
+    "quantity_text": "Per bunch",
+    "product": "Carrots"
+   }
+  },
+  {
+   "key": "dirk:140707",
+   "store": "dirk",
+   "id": "140707",
+   "name": "Pitloze rode druiven",
+   "image": null,
+   "url": "https://www.dirk.nl/aanbiedingen",
+   "price": 2.29,
+   "old_price": 2.39,
+   "member_price": null,
+   "member_label": null,
+   "deal_text": null,
+   "quantity_text": null,
+   "valid_from": "2026-11-18",
+   "valid_to": "2026-11-24",
+   "category": "fruit",
+   "product": "Druiven",
+   "qty_amount": null,
+   "qty_unit": null,
+   "effective_price": 2.29,
+   "unit_price": null,
+   "en": {
+    "name": "Seedless red grapes",
+    "product": "Grapes"
+   }
+  },
+  {
+   "key": "dirk:140710",
+   "store": "dirk",
+   "id": "140710",
+   "name": "Hollandse spitskool",
+   "image": null,
+   "url": "https://www.dirk.nl/aanbiedingen",
+   "price": 1.49,
+   "old_price": null,
+   "member_price": null,
+   "member_label": null,
+   "deal_text": null,
+   "quantity_text": null,
+   "valid_from": "2026-11-18",
+   "valid_to": "2026-11-24",
+   "category": "groente",
+   "product": "Witte kool",
+   "qty_amount": null,
+   "qty_unit": null,
+   "effective_price": 1.49,
+   "unit_price": null,
+   "extras": {
+    "variety": "Spitskool"
+   },
+   "en": {
+    "name": "Dutch pointed cabbage",
+    "product": "White cabbage"
+   }
+  },
+  {
+   "key": "dirk:140614",
+   "store": "dirk",
+   "id": "140614",
+   "name": "De Vleeschmeesters Rundergehakt",
+   "image": "https://web-fileserver.dirk.nl/artikelen/228604_1_463330_638853162728328200.png",
+   "url": "https://www.dirk.nl/boodschappen/vlees-vis/gehakt-worst/vleeschmeesters%20actie%20rundergehakt/103195",
+   "price": 3.29,
+   "old_price": 3.89,
+   "member_price": null,
+   "member_label": null,
+   "deal_text": null,
+   "quantity_text": "300 g",
+   "valid_from": "2026-11-18",
+   "valid_to": "2026-11-24",
+   "category": "vlees",
+   "product": "Gehakt",
+   "qty_amount": 0.3,
+   "qty_unit": "kg",
+   "effective_price": 3.29,
+   "unit_price": 10.97,
+   "extras": {
+    "variety": "Rundergehakt"
+   },
+   "en": {
+    "name": "De Vleeschmeesters Minced beef",
+    "quantity_text": "300 g",
+    "product": "Minced meat"
+   }
+  },
+  {
+   "key": "dirk:140628",
+   "store": "dirk",
+   "id": "140628",
+   "name": "Maaslander of Old Amsterdam",
+   "image": null,
+   "url": "https://www.dirk.nl/aanbiedingen",
+   "price": 1.49,
+   "old_price": 2.75,
+   "member_price": null,
+   "member_label": null,
+   "deal_text": null,
+   "quantity_text": null,
+   "valid_from": "2026-11-18",
+   "valid_to": "2026-11-24",
+   "category": "zuivel",
+   "product": "Kaas",
+   "qty_amount": null,
+   "qty_unit": null,
+   "effective_price": 1.49,
+   "unit_price": null,
+   "extras": {
+    "variety": "Old Amsterdam"
+   },
+   "en": {
+    "name": "Maaslander of Old Amsterdam",
+    "product": "Cheese"
+   }
+  },
+  {
+   "key": "dirk:140631",
+   "store": "dirk",
+   "id": "140631",
+   "name": "Optimel kwark of Griekse stijl yoghurt",
+   "image": null,
+   "url": "https://www.dirk.nl/aanbiedingen",
+   "price": 1.69,
+   "old_price": 2.39,
+   "member_price": null,
+   "member_label": null,
+   "deal_text": null,
+   "quantity_text": null,
+   "valid_from": "2026-11-18",
+   "valid_to": "2026-11-24",
+   "category": "zuivel",
+   "product": "Yoghurt",
+   "qty_amount": null,
+   "qty_unit": null,
+   "effective_price": 1.69,
+   "unit_price": null,
+   "en": {
+    "name": "Optimel quark of Greek stijl yoghurt",
+    "product": "Yoghurt"
+   }
+  },
+  {
+   "key": "dirk:140635",
+   "store": "dirk",
+   "id": "140635",
+   "name": "Dr. Oetker Paula vla",
+   "image": "https://web-fileserver.dirk.nl/artikelen/341119_2026-11-19_09-11-30-108_33063481-f915-4b64-a866-408dc0bb68e7.png",
+   "url": "https://www.dirk.nl/boodschappen/zuivel-kaas/toetjes/dr%20oetker%20paula%20mini%20vanille%20met%20choco%20vlekken/5969",
+   "price": 0.99,
+   "old_price": 1.79,
+   "member_price": null,
+   "member_label": null,
+   "deal_text": null,
+   "quantity_text": "300 g",
+   "valid_from": "2026-11-18",
+   "valid_to": "2026-11-24",
+   "category": "zuivel",
+   "product": "Vla & pudding",
+   "qty_amount": 0.3,
+   "qty_unit": "kg",
+   "effective_price": 0.99,
+   "unit_price": 3.3,
+   "extras": {
+    "variety": "Vla"
+   },
+   "en": {
+    "name": "Dr. Oetker Paula custard",
+    "quantity_text": "300 g",
+    "product": "Custard & pudding"
+   }
+  },
+  {
+   "key": "dirk:140604",
+   "store": "dirk",
+   "id": "140604",
+   "name": "Campina Langlekker houdbare melk",
+   "image": null,
+   "url": "https://www.dirk.nl/aanbiedingen",
+   "price": 0.79,
+   "old_price": 2.19,
+   "member_price": null,
+   "member_label": null,
+   "deal_text": null,
+   "quantity_text": null,
+   "valid_from": "2026-11-18",
+   "valid_to": "2026-11-24",
+   "category": "zuivel",
+   "product": "Melk",
+   "qty_amount": null,
+   "qty_unit": null,
+   "effective_price": 0.79,
+   "unit_price": null,
+   "extras": {
+    "variety": "Houdbare Melk"
+   },
+   "en": {
+    "name": "Campina Langlekker houdbare milk",
+    "product": "Milk"
+   }
+  },
+  {
+   "key": "dirk:140667",
+   "store": "dirk",
+   "id": "140667",
+   "name": "Nescafé Gold oploskoffie",
+   "image": "https://web-fileserver.dirk.nl/artikelen/207209_1_390831_638683968515210364.png",
+   "url": "https://www.dirk.nl/boodschappen/dranken-sap-koffie-thee/koffie-cacao/nescaf%c3%a9%20gold%20oploskoffie/37051",
+   "price": 6.99,
+   "old_price": 9.75,
+   "member_price": null,
+   "member_label": null,
+   "deal_text": null,
+   "quantity_text": "200 g",
+   "valid_from": "2026-11-18",
+   "valid_to": "2026-11-24",
+   "category": "koffie",
+   "product": "Koffie",
+   "qty_amount": 0.2,
+   "qty_unit": "kg",
+   "effective_price": 6.99,
+   "unit_price": 34.95,
+   "extras": {
+    "variety": "Oploskoffie"
+   },
+   "en": {
+    "name": "Nescafé Gold oploskoffie",
+    "quantity_text": "200 g",
+    "product": "Coffee"
+   }
+  },
+  {
+   "key": "dirk:140655",
+   "store": "dirk",
+   "id": "140655",
+   "name": "Aardappel Anders",
+   "image": null,
+   "url": "https://www.dirk.nl/aanbiedingen",
+   "price": 1.89,
+   "old_price": 3.49,
+   "member_price": null,
+   "member_label": null,
+   "deal_text": null,
+   "quantity_text": "390 g",
+   "valid_from": "2026-11-18",
+   "valid_to": "2026-11-24",
+   "category": "groente",
+   "product": "Aardappels",
+   "qty_amount": 0.39,
+   "qty_unit": "kg",
+   "effective_price": 1.89,
+   "unit_price": 4.85,
+   "en": {
+    "name": "Potato Anders",
+    "quantity_text": "390 g",
+    "product": "Potatoes"
+   }
+  },
+  {
    "key": "ah:ah-witlof",
    "store": "ah",
    "id": "ah-witlof",
@@ -2520,6 +3097,84 @@
  ],
  "comparisons": [
   {
+   "product": "Gehakt",
+   "product_en": "Minced meat",
+   "category": "vlees",
+   "unit": "kg",
+   "stores": [
+    "ah",
+    "aldi",
+    "dirk",
+    "lidl"
+   ],
+   "compared": true,
+   "offer_ids": [
+    "lidl:11322576",
+    "dirk:140614",
+    "aldi:1235169",
+    "ah:ah-mager-rundergehakt-300g"
+   ],
+   "best": {
+    "store": "lidl",
+    "id": "11322576",
+    "unit_price": 7.48
+   },
+   "saving_pct": 32
+  },
+  {
+   "product": "Kaas",
+   "product_en": "Cheese",
+   "category": "zuivel",
+   "unit": "kg",
+   "stores": [
+    "ah",
+    "aldi",
+    "dirk",
+    "lidl"
+   ],
+   "compared": true,
+   "offer_ids": [
+    "lidl:11323339",
+    "aldi:91200939",
+    "aldi:91226221",
+    "lidl:11322436",
+    "aldi:91226229",
+    "aldi:1233569",
+    "dirk:140628",
+    "ah:819907",
+    "ah:825322"
+   ],
+   "best": {
+    "store": "lidl",
+    "id": "11323339",
+    "unit_price": 5.98
+   },
+   "saving_pct": 0
+  },
+  {
+   "product": "Appels",
+   "product_en": "Apples",
+   "category": "fruit",
+   "unit": "kg",
+   "stores": [
+    "ah",
+    "aldi",
+    "dirk"
+   ],
+   "compared": false,
+   "offer_ids": [
+    "aldi:1219892",
+    "dirk:140702",
+    "ah:832168"
+   ],
+   "best": {
+    "store": "aldi",
+    "id": "1219892",
+    "unit_price": 1.66
+   },
+   "saving_pct": null
+  },
+  {
    "product": "Zalm",
    "product_en": "Salmon",
    "category": "vis",
@@ -2544,27 +3199,27 @@
    "saving_pct": null
   },
   {
-   "product": "Gehakt",
-   "product_en": "Minced meat",
+   "product": "Rundvlees",
+   "product_en": "Beef",
    "category": "vlees",
    "unit": "kg",
    "stores": [
     "ah",
-    "aldi",
+    "dirk",
     "lidl"
    ],
    "compared": true,
    "offer_ids": [
-    "lidl:11322576",
-    "aldi:1235169",
-    "ah:ah-mager-rundergehakt-300g"
+    "lidl:11322549",
+    "dirk:140717",
+    "ah:ah-stoofvlees"
    ],
    "best": {
     "store": "lidl",
-    "id": "11322576",
-    "unit_price": 7.48
+    "id": "11322549",
+    "unit_price": 9.97
    },
-   "saving_pct": 40
+   "saving_pct": 33
   },
   {
    "product": "Boter",
@@ -2590,34 +3245,6 @@
    "saving_pct": 25
   },
   {
-   "product": "Kaas",
-   "product_en": "Cheese",
-   "category": "zuivel",
-   "unit": "kg",
-   "stores": [
-    "ah",
-    "aldi",
-    "lidl"
-   ],
-   "compared": true,
-   "offer_ids": [
-    "lidl:11323339",
-    "aldi:91200939",
-    "aldi:91226221",
-    "lidl:11322436",
-    "aldi:91226229",
-    "aldi:1233569",
-    "ah:819907",
-    "ah:825322"
-   ],
-   "best": {
-    "store": "lidl",
-    "id": "11323339",
-    "unit_price": 5.98
-   },
-   "saving_pct": 0
-  },
-  {
    "product": "Ananas",
    "product_en": "Pineapple",
    "category": "fruit",
@@ -2639,23 +3266,65 @@
    "saving_pct": 26
   },
   {
-   "product": "Appels",
-   "product_en": "Apples",
+   "product": "Avocado",
+   "product_en": "Avocado",
+   "category": "fruit",
+   "unit": "kg",
+   "stores": [
+    "dirk",
+    "lidl"
+   ],
+   "compared": false,
+   "offer_ids": [
+    "dirk:140701",
+    "lidl:11029903"
+   ],
+   "best": {
+    "store": "lidl",
+    "id": "11029903",
+    "unit_price": 2.7
+   },
+   "saving_pct": null
+  },
+  {
+   "product": "Blauwe bessen",
+   "product_en": "Blueberries",
    "category": "fruit",
    "unit": "kg",
    "stores": [
     "ah",
-    "aldi"
+    "dirk"
+   ],
+   "compared": true,
+   "offer_ids": [
+    "ah:ah-blauwe-bessen",
+    "dirk:140699"
+   ],
+   "best": {
+    "store": "ah",
+    "id": "ah-blauwe-bessen",
+    "unit_price": 13.27
+   },
+   "saving_pct": 0
+  },
+  {
+   "product": "Kiwi's",
+   "product_en": "Kiwis",
+   "category": "fruit",
+   "unit": "stuk",
+   "stores": [
+    "aldi",
+    "dirk"
    ],
    "compared": false,
    "offer_ids": [
-    "aldi:1219892",
-    "ah:832168"
+    "aldi:1224139",
+    "dirk:140704"
    ],
    "best": {
     "store": "aldi",
-    "id": "1219892",
-    "unit_price": 1.66
+    "id": "1224139",
+    "unit_price": 0.69
    },
    "saving_pct": null
   },
@@ -2679,6 +3348,72 @@
     "unit_price": 1.29
    },
    "saving_pct": 35
+  },
+  {
+   "product": "Aardappels",
+   "product_en": "Potatoes",
+   "category": "groente",
+   "unit": "kg",
+   "stores": [
+    "dirk",
+    "lidl"
+   ],
+   "compared": true,
+   "offer_ids": [
+    "lidl:11493347",
+    "lidl:11304018",
+    "dirk:140655",
+    "dirk:140605"
+   ],
+   "best": {
+    "store": "lidl",
+    "id": "11493347",
+    "unit_price": 0.8
+   },
+   "saving_pct": 84
+  },
+  {
+   "product": "Bieten",
+   "product_en": "Beetroot",
+   "category": "groente",
+   "unit": "kg",
+   "stores": [
+    "aldi",
+    "dirk"
+   ],
+   "compared": false,
+   "offer_ids": [
+    "aldi:1222205",
+    "dirk:140606"
+   ],
+   "best": {
+    "store": "aldi",
+    "id": "1222205",
+    "unit_price": 2.5
+   },
+   "saving_pct": null
+  },
+  {
+   "product": "Boerenkool",
+   "product_en": "Kale",
+   "category": "groente",
+   "unit": "kg",
+   "stores": [
+    "aldi",
+    "dirk"
+   ],
+   "compared": true,
+   "offer_ids": [
+    "aldi:1241051",
+    "dirk:140607",
+    "aldi:1237357"
+   ],
+   "best": {
+    "store": "aldi",
+    "id": "1241051",
+    "unit_price": 2.2
+   },
+   "saving_pct": 33
   },
   {
    "product": "Courgette",
@@ -2719,6 +3454,69 @@
     "store": "lidl",
     "id": "11029706",
     "unit_price": 0.39
+   },
+   "saving_pct": 29
+  },
+  {
+   "product": "Witlof",
+   "product_en": "Chicory",
+   "category": "groente",
+   "unit": "kg",
+   "stores": [
+    "ah",
+    "dirk"
+   ],
+   "compared": false,
+   "offer_ids": [
+    "ah:ah-witlof",
+    "dirk:140611"
+   ],
+   "best": {
+    "store": "dirk",
+    "id": "140611",
+    "unit_price": 1.98
+   },
+   "saving_pct": null
+  },
+  {
+   "product": "Wortels",
+   "product_en": "Carrots",
+   "category": "groente",
+   "unit": "stuk",
+   "stores": [
+    "dirk",
+    "lidl"
+   ],
+   "compared": true,
+   "offer_ids": [
+    "lidl:11029530",
+    "dirk:140706"
+   ],
+   "best": {
+    "store": "lidl",
+    "id": "11029530",
+    "unit_price": 1.19
+   },
+   "saving_pct": 8
+  },
+  {
+   "product": "Koffie",
+   "product_en": "Coffee",
+   "category": "koffie",
+   "unit": "kg",
+   "stores": [
+    "aldi",
+    "dirk"
+   ],
+   "compared": true,
+   "offer_ids": [
+    "aldi:1244114",
+    "dirk:140667"
+   ],
+   "best": {
+    "store": "aldi",
+    "id": "1244114",
+    "unit_price": 24.9
    },
    "saving_pct": 29
   },
@@ -2781,27 +3579,6 @@
     "unit_price": 13.27
    },
    "saving_pct": 5
-  },
-  {
-   "product": "Rundvlees",
-   "product_en": "Beef",
-   "category": "vlees",
-   "unit": "kg",
-   "stores": [
-    "ah",
-    "lidl"
-   ],
-   "compared": true,
-   "offer_ids": [
-    "lidl:11322549",
-    "ah:ah-stoofvlees"
-   ],
-   "best": {
-    "store": "lidl",
-    "id": "11322549",
-    "unit_price": 9.97
-   },
-   "saving_pct": 44
   },
   {
    "product": "Varkensvlees",
@@ -2871,40 +3648,82 @@
    "saving_pct": null
   },
   {
-   "product": "Aardbeien",
-   "product_en": "Strawberries",
-   "category": "fruit",
+   "product": "Melk",
+   "product_en": "Milk",
+   "category": "zuivel",
    "unit": "l",
    "stores": [
+    "dirk",
     "lidl"
    ],
    "compared": false,
    "offer_ids": [
-    "lidl:11560456"
+    "lidl:11008575",
+    "dirk:140604"
    ],
    "best": {
     "store": "lidl",
-    "id": "11560456",
-    "unit_price": 1.19
+    "id": "11008575",
+    "unit_price": 0.99
    },
    "saving_pct": null
   },
   {
-   "product": "Avocado",
-   "product_en": "Avocado",
-   "category": "fruit",
+   "product": "Vla & pudding",
+   "product_en": "Custard & pudding",
+   "category": "zuivel",
    "unit": "kg",
    "stores": [
-    "lidl"
+    "aldi",
+    "dirk"
+   ],
+   "compared": true,
+   "offer_ids": [
+    "aldi:1240675",
+    "aldi:91216556",
+    "dirk:140635",
+    "aldi:91241532"
+   ],
+   "best": {
+    "store": "aldi",
+    "id": "1240675",
+    "unit_price": 2.45
+   },
+   "saving_pct": 26
+  },
+  {
+   "product": "Yoghurt",
+   "product_en": "Yoghurt",
+   "category": "zuivel",
+   "unit": null,
+   "stores": [
+    "ah",
+    "dirk"
    ],
    "compared": false,
    "offer_ids": [
-    "lidl:11029903"
+    "dirk:140631",
+    "ah:819900"
+   ],
+   "best": null,
+   "saving_pct": null
+  },
+  {
+   "product": "Aardbeien",
+   "product_en": "Strawberries",
+   "category": "fruit",
+   "unit": "kg",
+   "stores": [
+    "dirk"
+   ],
+   "compared": false,
+   "offer_ids": [
+    "dirk:140705"
    ],
    "best": {
-    "store": "lidl",
-    "id": "11029903",
-    "unit_price": 2.7
+    "store": "dirk",
+    "id": "140705",
+    "unit_price": 9.97
    },
    "saving_pct": null
   },
@@ -2921,25 +3740,6 @@
     "ah:830646"
    ],
    "best": null,
-   "saving_pct": null
-  },
-  {
-   "product": "Blauwe bessen",
-   "product_en": "Blueberries",
-   "category": "fruit",
-   "unit": "kg",
-   "stores": [
-    "ah"
-   ],
-   "compared": false,
-   "offer_ids": [
-    "ah:ah-blauwe-bessen"
-   ],
-   "best": {
-    "store": "ah",
-    "id": "ah-blauwe-bessen",
-    "unit_price": 13.27
-   },
    "saving_pct": null
   },
   {
@@ -2963,6 +3763,21 @@
    "saving_pct": null
   },
   {
+   "product": "Druiven",
+   "product_en": "Grapes",
+   "category": "fruit",
+   "unit": null,
+   "stores": [
+    "dirk"
+   ],
+   "compared": false,
+   "offer_ids": [
+    "dirk:140707"
+   ],
+   "best": null,
+   "saving_pct": null
+  },
+  {
    "product": "Frambozen",
    "product_en": "Raspberries",
    "category": "fruit",
@@ -2978,44 +3793,6 @@
     "store": "aldi",
     "id": "1201661",
     "unit_price": 18.32
-   },
-   "saving_pct": null
-  },
-  {
-   "product": "Kiwi's",
-   "product_en": "Kiwis",
-   "category": "fruit",
-   "unit": "stuk",
-   "stores": [
-    "aldi"
-   ],
-   "compared": false,
-   "offer_ids": [
-    "aldi:1224139"
-   ],
-   "best": {
-    "store": "aldi",
-    "id": "1224139",
-    "unit_price": 0.69
-   },
-   "saving_pct": null
-  },
-  {
-   "product": "Mango",
-   "product_en": "Mango",
-   "category": "fruit",
-   "unit": "l",
-   "stores": [
-    "lidl"
-   ],
-   "compared": false,
-   "offer_ids": [
-    "lidl:11560457"
-   ],
-   "best": {
-    "store": "lidl",
-    "id": "11560457",
-    "unit_price": 1.19
    },
    "saving_pct": null
   },
@@ -3054,65 +3831,6 @@
     "store": "ah",
     "id": "819887",
     "unit_price": 6.66
-   },
-   "saving_pct": null
-  },
-  {
-   "product": "Aardappels",
-   "product_en": "Potatoes",
-   "category": "groente",
-   "unit": "kg",
-   "stores": [
-    "lidl"
-   ],
-   "compared": false,
-   "offer_ids": [
-    "lidl:11493347",
-    "lidl:11304018"
-   ],
-   "best": {
-    "store": "lidl",
-    "id": "11493347",
-    "unit_price": 0.8
-   },
-   "saving_pct": null
-  },
-  {
-   "product": "Bieten",
-   "product_en": "Beetroot",
-   "category": "groente",
-   "unit": "kg",
-   "stores": [
-    "aldi"
-   ],
-   "compared": false,
-   "offer_ids": [
-    "aldi:1222205"
-   ],
-   "best": {
-    "store": "aldi",
-    "id": "1222205",
-    "unit_price": 2.5
-   },
-   "saving_pct": null
-  },
-  {
-   "product": "Boerenkool",
-   "product_en": "Kale",
-   "category": "groente",
-   "unit": "kg",
-   "stores": [
-    "aldi"
-   ],
-   "compared": false,
-   "offer_ids": [
-    "aldi:1241051",
-    "aldi:1237357"
-   ],
-   "best": {
-    "store": "aldi",
-    "id": "1241051",
-    "unit_price": 2.2
    },
    "saving_pct": null
   },
@@ -3208,6 +3926,25 @@
    "saving_pct": null
   },
   {
+   "product": "Spruiten",
+   "product_en": "Brussels sprouts",
+   "category": "groente",
+   "unit": "kg",
+   "stores": [
+    "dirk"
+   ],
+   "compared": false,
+   "offer_ids": [
+    "dirk:140608"
+   ],
+   "best": {
+    "store": "dirk",
+    "id": "140608",
+    "unit_price": 1.19
+   },
+   "saving_pct": null
+  },
+  {
    "product": "Uien",
    "product_en": "Onions",
    "category": "groente",
@@ -3227,60 +3964,18 @@
    "saving_pct": null
   },
   {
-   "product": "Witlof",
-   "product_en": "Chicory",
+   "product": "Witte kool",
+   "product_en": "White cabbage",
    "category": "groente",
-   "unit": "stuk",
+   "unit": null,
    "stores": [
-    "ah"
+    "dirk"
    ],
    "compared": false,
    "offer_ids": [
-    "ah:ah-witlof"
+    "dirk:140710"
    ],
-   "best": {
-    "store": "ah",
-    "id": "ah-witlof",
-    "unit_price": 0.37
-   },
-   "saving_pct": null
-  },
-  {
-   "product": "Wortels",
-   "product_en": "Carrots",
-   "category": "groente",
-   "unit": "stuk",
-   "stores": [
-    "lidl"
-   ],
-   "compared": false,
-   "offer_ids": [
-    "lidl:11029530"
-   ],
-   "best": {
-    "store": "lidl",
-    "id": "11029530",
-    "unit_price": 1.19
-   },
-   "saving_pct": null
-  },
-  {
-   "product": "Koffie",
-   "product_en": "Coffee",
-   "category": "koffie",
-   "unit": "kg",
-   "stores": [
-    "aldi"
-   ],
-   "compared": false,
-   "offer_ids": [
-    "aldi:1244114"
-   ],
-   "best": {
-    "store": "aldi",
-    "id": "1244114",
-    "unit_price": 24.9
-   },
+   "best": null,
    "saving_pct": null
   },
   {
@@ -3299,6 +3994,25 @@
     "store": "aldi",
     "id": "91224479",
     "unit_price": 12.79
+   },
+   "saving_pct": null
+  },
+  {
+   "product": "Haring & makreel",
+   "product_en": "Herring & mackerel",
+   "category": "vis",
+   "unit": "stuk",
+   "stores": [
+    "dirk"
+   ],
+   "compared": false,
+   "offer_ids": [
+    "dirk:140721"
+   ],
+   "best": {
+    "store": "dirk",
+    "id": "140721",
+    "unit_price": 3.49
    },
    "saving_pct": null
   },
@@ -3370,61 +4084,4774 @@
     "unit_price": 1.9
    },
    "saving_pct": null
-  },
-  {
-   "product": "Melk",
-   "product_en": "Milk",
-   "category": "zuivel",
-   "unit": "l",
-   "stores": [
-    "lidl"
-   ],
-   "compared": false,
-   "offer_ids": [
-    "lidl:11008575"
-   ],
-   "best": {
-    "store": "lidl",
-    "id": "11008575",
-    "unit_price": 0.99
-   },
-   "saving_pct": null
-  },
-  {
-   "product": "Vla & pudding",
-   "product_en": "Custard & pudding",
-   "category": "zuivel",
-   "unit": "kg",
-   "stores": [
-    "aldi"
-   ],
-   "compared": false,
-   "offer_ids": [
-    "aldi:1240675",
-    "aldi:91216556",
-    "aldi:91241532"
-   ],
-   "best": {
-    "store": "aldi",
-    "id": "1240675",
-    "unit_price": 2.45
-   },
-   "saving_pct": null
-  },
-  {
-   "product": "Yoghurt",
-   "product_en": "Yoghurt",
-   "category": "zuivel",
-   "unit": null,
-   "stores": [
-    "ah"
-   ],
-   "compared": false,
-   "offer_ids": [
-    "ah:819900"
-   ],
-   "best": null,
-   "saving_pct": null
   }
- ]
+ ],
+ "verdicts_by_store_set": {
+  "ah": {
+   "Ananas": {
+    "unit": "stuk",
+    "compared": false,
+    "best": {
+     "store": "ah",
+     "id": "ah-ananas-eetrijp",
+     "unit_price": 2.0
+    },
+    "saving_pct": null
+   },
+   "Appels": {
+    "unit": null,
+    "compared": false,
+    "best": null,
+    "saving_pct": null
+   },
+   "Bananen": {
+    "unit": null,
+    "compared": false,
+    "best": null,
+    "saving_pct": null
+   },
+   "Blauwe bessen": {
+    "unit": "kg",
+    "compared": false,
+    "best": {
+     "store": "ah",
+     "id": "ah-blauwe-bessen",
+     "unit_price": 13.27
+    },
+    "saving_pct": null
+   },
+   "Mandarijnen": {
+    "unit": "kg",
+    "compared": false,
+    "best": {
+     "store": "ah",
+     "id": "ah-mandarijnen",
+     "unit_price": 1.29
+    },
+    "saving_pct": null
+   },
+   "Muesli & granola": {
+    "unit": "kg",
+    "compared": false,
+    "best": {
+     "store": "ah",
+     "id": "819887",
+     "unit_price": 6.66
+    },
+    "saving_pct": null
+   },
+   "Pompoen": {
+    "unit": null,
+    "compared": false,
+    "best": null,
+    "saving_pct": null
+   },
+   "Witlof": {
+    "unit": "stuk",
+    "compared": false,
+    "best": {
+     "store": "ah",
+     "id": "ah-witlof",
+     "unit_price": 0.37
+    },
+    "saving_pct": null
+   },
+   "Koffiecups & pads": {
+    "unit": null,
+    "compared": false,
+    "best": null,
+    "saving_pct": null
+   },
+   "Tonijn": {
+    "unit": null,
+    "compared": false,
+    "best": null,
+    "saving_pct": null
+   },
+   "Zalm": {
+    "unit": null,
+    "compared": false,
+    "best": null,
+    "saving_pct": null
+   },
+   "Gehakt": {
+    "unit": "kg",
+    "compared": false,
+    "best": {
+     "store": "ah",
+     "id": "ah-mager-rundergehakt-300g",
+     "unit_price": 13.3
+    },
+    "saving_pct": null
+   },
+   "Kippenpoten": {
+    "unit": null,
+    "compared": false,
+    "best": null,
+    "saving_pct": null
+   },
+   "Rundvlees": {
+    "unit": "kg",
+    "compared": false,
+    "best": {
+     "store": "ah",
+     "id": "ah-stoofvlees",
+     "unit_price": 17.9
+    },
+    "saving_pct": null
+   },
+   "Varkensvlees": {
+    "unit": "stuk",
+    "compared": false,
+    "best": {
+     "store": "ah",
+     "id": "ah-schnitzel-6-stuks",
+     "unit_price": 0.75
+    },
+    "saving_pct": null
+   },
+   "Vleeswaren": {
+    "unit": null,
+    "compared": false,
+    "best": null,
+    "saving_pct": null
+   },
+   "Worst": {
+    "unit": null,
+    "compared": false,
+    "best": null,
+    "saving_pct": null
+   },
+   "Boter": {
+    "unit": "kg",
+    "compared": false,
+    "best": {
+     "store": "ah",
+     "id": "819875",
+     "unit_price": 9.98
+    },
+    "saving_pct": null
+   },
+   "Kaas": {
+    "unit": null,
+    "compared": false,
+    "best": null,
+    "saving_pct": null
+   },
+   "Yoghurt": {
+    "unit": null,
+    "compared": false,
+    "best": null,
+    "saving_pct": null
+   }
+  },
+  "aldi": {
+   "Appels": {
+    "unit": "kg",
+    "compared": false,
+    "best": {
+     "store": "aldi",
+     "id": "1219892",
+     "unit_price": 1.66
+    },
+    "saving_pct": null
+   },
+   "Frambozen": {
+    "unit": "kg",
+    "compared": false,
+    "best": {
+     "store": "aldi",
+     "id": "1201661",
+     "unit_price": 18.32
+    },
+    "saving_pct": null
+   },
+   "Kiwi's": {
+    "unit": "stuk",
+    "compared": false,
+    "best": {
+     "store": "aldi",
+     "id": "1224139",
+     "unit_price": 0.69
+    },
+    "saving_pct": null
+   },
+   "Mandarijnen": {
+    "unit": "kg",
+    "compared": false,
+    "best": {
+     "store": "aldi",
+     "id": "1219324",
+     "unit_price": 1.99
+    },
+    "saving_pct": null
+   },
+   "Bieten": {
+    "unit": "kg",
+    "compared": false,
+    "best": {
+     "store": "aldi",
+     "id": "1222205",
+     "unit_price": 2.5
+    },
+    "saving_pct": null
+   },
+   "Boerenkool": {
+    "unit": "kg",
+    "compared": false,
+    "best": {
+     "store": "aldi",
+     "id": "1241051",
+     "unit_price": 2.2
+    },
+    "saving_pct": null
+   },
+   "Champignons": {
+    "unit": "kg",
+    "compared": false,
+    "best": {
+     "store": "aldi",
+     "id": "1219554",
+     "unit_price": 6.76
+    },
+    "saving_pct": null
+   },
+   "Courgette": {
+    "unit": "stuk",
+    "compared": false,
+    "best": {
+     "store": "aldi",
+     "id": "1219382",
+     "unit_price": 0.72
+    },
+    "saving_pct": null
+   },
+   "Paprika": {
+    "unit": "kg",
+    "compared": false,
+    "best": {
+     "store": "aldi",
+     "id": "1243832",
+     "unit_price": 3.58
+    },
+    "saving_pct": null
+   },
+   "Prei": {
+    "unit": "stuk",
+    "compared": false,
+    "best": {
+     "store": "aldi",
+     "id": "1210301",
+     "unit_price": 0.55
+    },
+    "saving_pct": null
+   },
+   "Sla": {
+    "unit": "stuk",
+    "compared": false,
+    "best": {
+     "store": "aldi",
+     "id": "1218644",
+     "unit_price": 1.19
+    },
+    "saving_pct": null
+   },
+   "Uien": {
+    "unit": "kg",
+    "compared": false,
+    "best": {
+     "store": "aldi",
+     "id": "1220494",
+     "unit_price": 7.42
+    },
+    "saving_pct": null
+   },
+   "Koffie": {
+    "unit": "kg",
+    "compared": false,
+    "best": {
+     "store": "aldi",
+     "id": "1244114",
+     "unit_price": 24.9
+    },
+    "saving_pct": null
+   },
+   "Koffiebonen": {
+    "unit": "kg",
+    "compared": false,
+    "best": {
+     "store": "aldi",
+     "id": "91224479",
+     "unit_price": 12.79
+    },
+    "saving_pct": null
+   },
+   "Koffiecups & pads": {
+    "unit": null,
+    "compared": false,
+    "best": null,
+    "saving_pct": null
+   },
+   "Tonijn": {
+    "unit": "kg",
+    "compared": false,
+    "best": {
+     "store": "aldi",
+     "id": "1232626",
+     "unit_price": 8.26
+    },
+    "saving_pct": null
+   },
+   "Zalm": {
+    "unit": "kg",
+    "compared": false,
+    "best": {
+     "store": "aldi",
+     "id": "1225395",
+     "unit_price": 15.98
+    },
+    "saving_pct": null
+   },
+   "Gehakt": {
+    "unit": "kg",
+    "compared": false,
+    "best": {
+     "store": "aldi",
+     "id": "1235169",
+     "unit_price": 12.47
+    },
+    "saving_pct": null
+   },
+   "Kipfilet": {
+    "unit": "kg",
+    "compared": false,
+    "best": {
+     "store": "aldi",
+     "id": "1221414",
+     "unit_price": 13.96
+    },
+    "saving_pct": null
+   },
+   "Spek": {
+    "unit": "kg",
+    "compared": false,
+    "best": {
+     "store": "aldi",
+     "id": "1202247",
+     "unit_price": 7.87
+    },
+    "saving_pct": null
+   },
+   "Varkensvlees": {
+    "unit": "kg",
+    "compared": false,
+    "best": {
+     "store": "aldi",
+     "id": "1245179",
+     "unit_price": 7.98
+    },
+    "saving_pct": null
+   },
+   "Vleeswaren": {
+    "unit": "kg",
+    "compared": false,
+    "best": {
+     "store": "aldi",
+     "id": "1229904",
+     "unit_price": 6.76
+    },
+    "saving_pct": null
+   },
+   "Boter": {
+    "unit": "kg",
+    "compared": false,
+    "best": {
+     "store": "aldi",
+     "id": "91240177",
+     "unit_price": 7.45
+    },
+    "saving_pct": null
+   },
+   "Kaas": {
+    "unit": "kg",
+    "compared": false,
+    "best": {
+     "store": "aldi",
+     "id": "91200939",
+     "unit_price": 5.98
+    },
+    "saving_pct": null
+   },
+   "Kwark": {
+    "unit": "kg",
+    "compared": false,
+    "best": {
+     "store": "aldi",
+     "id": "1217266",
+     "unit_price": 1.9
+    },
+    "saving_pct": null
+   },
+   "Vla & pudding": {
+    "unit": "kg",
+    "compared": false,
+    "best": {
+     "store": "aldi",
+     "id": "1240675",
+     "unit_price": 2.45
+    },
+    "saving_pct": null
+   }
+  },
+  "dirk": {
+   "Aardbeien": {
+    "unit": "kg",
+    "compared": false,
+    "best": {
+     "store": "dirk",
+     "id": "140705",
+     "unit_price": 9.97
+    },
+    "saving_pct": null
+   },
+   "Appels": {
+    "unit": null,
+    "compared": false,
+    "best": null,
+    "saving_pct": null
+   },
+   "Avocado": {
+    "unit": "stuk",
+    "compared": false,
+    "best": {
+     "store": "dirk",
+     "id": "140701",
+     "unit_price": 0.99
+    },
+    "saving_pct": null
+   },
+   "Blauwe bessen": {
+    "unit": "kg",
+    "compared": false,
+    "best": {
+     "store": "dirk",
+     "id": "140699",
+     "unit_price": 13.3
+    },
+    "saving_pct": null
+   },
+   "Druiven": {
+    "unit": null,
+    "compared": false,
+    "best": null,
+    "saving_pct": null
+   },
+   "Kiwi's": {
+    "unit": null,
+    "compared": false,
+    "best": null,
+    "saving_pct": null
+   },
+   "Aardappels": {
+    "unit": "kg",
+    "compared": false,
+    "best": {
+     "store": "dirk",
+     "id": "140655",
+     "unit_price": 4.85
+    },
+    "saving_pct": null
+   },
+   "Bieten": {
+    "unit": null,
+    "compared": false,
+    "best": null,
+    "saving_pct": null
+   },
+   "Boerenkool": {
+    "unit": "kg",
+    "compared": false,
+    "best": {
+     "store": "dirk",
+     "id": "140607",
+     "unit_price": 3.3
+    },
+    "saving_pct": null
+   },
+   "Spruiten": {
+    "unit": "kg",
+    "compared": false,
+    "best": {
+     "store": "dirk",
+     "id": "140608",
+     "unit_price": 1.19
+    },
+    "saving_pct": null
+   },
+   "Witlof": {
+    "unit": "kg",
+    "compared": false,
+    "best": {
+     "store": "dirk",
+     "id": "140611",
+     "unit_price": 1.98
+    },
+    "saving_pct": null
+   },
+   "Witte kool": {
+    "unit": null,
+    "compared": false,
+    "best": null,
+    "saving_pct": null
+   },
+   "Wortels": {
+    "unit": "stuk",
+    "compared": false,
+    "best": {
+     "store": "dirk",
+     "id": "140706",
+     "unit_price": 1.29
+    },
+    "saving_pct": null
+   },
+   "Koffie": {
+    "unit": "kg",
+    "compared": false,
+    "best": {
+     "store": "dirk",
+     "id": "140667",
+     "unit_price": 34.95
+    },
+    "saving_pct": null
+   },
+   "Haring & makreel": {
+    "unit": "stuk",
+    "compared": false,
+    "best": {
+     "store": "dirk",
+     "id": "140721",
+     "unit_price": 3.49
+    },
+    "saving_pct": null
+   },
+   "Gehakt": {
+    "unit": "kg",
+    "compared": false,
+    "best": {
+     "store": "dirk",
+     "id": "140614",
+     "unit_price": 10.97
+    },
+    "saving_pct": null
+   },
+   "Rundvlees": {
+    "unit": "kg",
+    "compared": false,
+    "best": {
+     "store": "dirk",
+     "id": "140717",
+     "unit_price": 14.95
+    },
+    "saving_pct": null
+   },
+   "Kaas": {
+    "unit": null,
+    "compared": false,
+    "best": null,
+    "saving_pct": null
+   },
+   "Melk": {
+    "unit": null,
+    "compared": false,
+    "best": null,
+    "saving_pct": null
+   },
+   "Vla & pudding": {
+    "unit": "kg",
+    "compared": false,
+    "best": {
+     "store": "dirk",
+     "id": "140635",
+     "unit_price": 3.3
+    },
+    "saving_pct": null
+   },
+   "Yoghurt": {
+    "unit": null,
+    "compared": false,
+    "best": null,
+    "saving_pct": null
+   }
+  },
+  "lidl": {
+   "Ananas": {
+    "unit": "stuk",
+    "compared": false,
+    "best": {
+     "store": "lidl",
+     "id": "11214518",
+     "unit_price": 1.49
+    },
+    "saving_pct": null
+   },
+   "Avocado": {
+    "unit": "kg",
+    "compared": false,
+    "best": {
+     "store": "lidl",
+     "id": "11029903",
+     "unit_price": 2.7
+    },
+    "saving_pct": null
+   },
+   "Citroenen": {
+    "unit": "kg",
+    "compared": false,
+    "best": {
+     "store": "lidl",
+     "id": "11030000",
+     "unit_price": 1.98
+    },
+    "saving_pct": null
+   },
+   "Sinaasappels": {
+    "unit": "kg",
+    "compared": false,
+    "best": {
+     "store": "lidl",
+     "id": "11115702",
+     "unit_price": 1.15
+    },
+    "saving_pct": null
+   },
+   "Aardappels": {
+    "unit": "kg",
+    "compared": false,
+    "best": {
+     "store": "lidl",
+     "id": "11493347",
+     "unit_price": 0.8
+    },
+    "saving_pct": null
+   },
+   "Courgette": {
+    "unit": "stuk",
+    "compared": false,
+    "best": {
+     "store": "lidl",
+     "id": "11029408",
+     "unit_price": 0.39
+    },
+    "saving_pct": null
+   },
+   "Prei": {
+    "unit": "stuk",
+    "compared": false,
+    "best": {
+     "store": "lidl",
+     "id": "11029706",
+     "unit_price": 0.39
+    },
+    "saving_pct": null
+   },
+   "Sperziebonen": {
+    "unit": "kg",
+    "compared": false,
+    "best": {
+     "store": "lidl",
+     "id": "11492612",
+     "unit_price": 4.22
+    },
+    "saving_pct": null
+   },
+   "Wortels": {
+    "unit": "stuk",
+    "compared": false,
+    "best": {
+     "store": "lidl",
+     "id": "11029530",
+     "unit_price": 1.19
+    },
+    "saving_pct": null
+   },
+   "Witvis": {
+    "unit": null,
+    "compared": false,
+    "best": null,
+    "saving_pct": null
+   },
+   "Zalm": {
+    "unit": null,
+    "compared": false,
+    "best": null,
+    "saving_pct": null
+   },
+   "Gehakt": {
+    "unit": "kg",
+    "compared": false,
+    "best": {
+     "store": "lidl",
+     "id": "11322576",
+     "unit_price": 7.48
+    },
+    "saving_pct": null
+   },
+   "Kipfilet": {
+    "unit": "kg",
+    "compared": false,
+    "best": {
+     "store": "lidl",
+     "id": "11562268",
+     "unit_price": 13.27
+    },
+    "saving_pct": null
+   },
+   "Rundvlees": {
+    "unit": "kg",
+    "compared": false,
+    "best": {
+     "store": "lidl",
+     "id": "11322549",
+     "unit_price": 9.97
+    },
+    "saving_pct": null
+   },
+   "Worst": {
+    "unit": "kg",
+    "compared": false,
+    "best": {
+     "store": "lidl",
+     "id": "11322143",
+     "unit_price": 7.24
+    },
+    "saving_pct": null
+   },
+   "Boter": {
+    "unit": "l",
+    "compared": false,
+    "best": {
+     "store": "lidl",
+     "id": "11317696",
+     "unit_price": 3.98
+    },
+    "saving_pct": null
+   },
+   "Kaas": {
+    "unit": "kg",
+    "compared": false,
+    "best": {
+     "store": "lidl",
+     "id": "11323339",
+     "unit_price": 5.98
+    },
+    "saving_pct": null
+   },
+   "Melk": {
+    "unit": "l",
+    "compared": false,
+    "best": {
+     "store": "lidl",
+     "id": "11008575",
+     "unit_price": 0.99
+    },
+    "saving_pct": null
+   }
+  },
+  "ah,aldi": {
+   "Appels": {
+    "unit": "kg",
+    "compared": false,
+    "best": {
+     "store": "aldi",
+     "id": "1219892",
+     "unit_price": 1.66
+    },
+    "saving_pct": null
+   },
+   "Mandarijnen": {
+    "unit": "kg",
+    "compared": true,
+    "best": {
+     "store": "ah",
+     "id": "ah-mandarijnen",
+     "unit_price": 1.29
+    },
+    "saving_pct": 35
+   },
+   "Koffiecups & pads": {
+    "unit": null,
+    "compared": false,
+    "best": null,
+    "saving_pct": null
+   },
+   "Tonijn": {
+    "unit": "kg",
+    "compared": false,
+    "best": {
+     "store": "aldi",
+     "id": "1232626",
+     "unit_price": 8.26
+    },
+    "saving_pct": null
+   },
+   "Zalm": {
+    "unit": "kg",
+    "compared": false,
+    "best": {
+     "store": "aldi",
+     "id": "1225395",
+     "unit_price": 15.98
+    },
+    "saving_pct": null
+   },
+   "Gehakt": {
+    "unit": "kg",
+    "compared": true,
+    "best": {
+     "store": "aldi",
+     "id": "1235169",
+     "unit_price": 12.47
+    },
+    "saving_pct": 6
+   },
+   "Varkensvlees": {
+    "unit": "kg",
+    "compared": false,
+    "best": {
+     "store": "aldi",
+     "id": "1245179",
+     "unit_price": 7.98
+    },
+    "saving_pct": null
+   },
+   "Vleeswaren": {
+    "unit": "kg",
+    "compared": false,
+    "best": {
+     "store": "aldi",
+     "id": "1229904",
+     "unit_price": 6.76
+    },
+    "saving_pct": null
+   },
+   "Boter": {
+    "unit": "kg",
+    "compared": true,
+    "best": {
+     "store": "aldi",
+     "id": "91240177",
+     "unit_price": 7.45
+    },
+    "saving_pct": 25
+   },
+   "Kaas": {
+    "unit": "kg",
+    "compared": false,
+    "best": {
+     "store": "aldi",
+     "id": "91200939",
+     "unit_price": 5.98
+    },
+    "saving_pct": null
+   },
+   "Ananas": {
+    "unit": "stuk",
+    "compared": false,
+    "best": {
+     "store": "ah",
+     "id": "ah-ananas-eetrijp",
+     "unit_price": 2.0
+    },
+    "saving_pct": null
+   },
+   "Bananen": {
+    "unit": null,
+    "compared": false,
+    "best": null,
+    "saving_pct": null
+   },
+   "Blauwe bessen": {
+    "unit": "kg",
+    "compared": false,
+    "best": {
+     "store": "ah",
+     "id": "ah-blauwe-bessen",
+     "unit_price": 13.27
+    },
+    "saving_pct": null
+   },
+   "Frambozen": {
+    "unit": "kg",
+    "compared": false,
+    "best": {
+     "store": "aldi",
+     "id": "1201661",
+     "unit_price": 18.32
+    },
+    "saving_pct": null
+   },
+   "Kiwi's": {
+    "unit": "stuk",
+    "compared": false,
+    "best": {
+     "store": "aldi",
+     "id": "1224139",
+     "unit_price": 0.69
+    },
+    "saving_pct": null
+   },
+   "Muesli & granola": {
+    "unit": "kg",
+    "compared": false,
+    "best": {
+     "store": "ah",
+     "id": "819887",
+     "unit_price": 6.66
+    },
+    "saving_pct": null
+   },
+   "Bieten": {
+    "unit": "kg",
+    "compared": false,
+    "best": {
+     "store": "aldi",
+     "id": "1222205",
+     "unit_price": 2.5
+    },
+    "saving_pct": null
+   },
+   "Boerenkool": {
+    "unit": "kg",
+    "compared": false,
+    "best": {
+     "store": "aldi",
+     "id": "1241051",
+     "unit_price": 2.2
+    },
+    "saving_pct": null
+   },
+   "Champignons": {
+    "unit": "kg",
+    "compared": false,
+    "best": {
+     "store": "aldi",
+     "id": "1219554",
+     "unit_price": 6.76
+    },
+    "saving_pct": null
+   },
+   "Courgette": {
+    "unit": "stuk",
+    "compared": false,
+    "best": {
+     "store": "aldi",
+     "id": "1219382",
+     "unit_price": 0.72
+    },
+    "saving_pct": null
+   },
+   "Paprika": {
+    "unit": "kg",
+    "compared": false,
+    "best": {
+     "store": "aldi",
+     "id": "1243832",
+     "unit_price": 3.58
+    },
+    "saving_pct": null
+   },
+   "Pompoen": {
+    "unit": null,
+    "compared": false,
+    "best": null,
+    "saving_pct": null
+   },
+   "Prei": {
+    "unit": "stuk",
+    "compared": false,
+    "best": {
+     "store": "aldi",
+     "id": "1210301",
+     "unit_price": 0.55
+    },
+    "saving_pct": null
+   },
+   "Sla": {
+    "unit": "stuk",
+    "compared": false,
+    "best": {
+     "store": "aldi",
+     "id": "1218644",
+     "unit_price": 1.19
+    },
+    "saving_pct": null
+   },
+   "Uien": {
+    "unit": "kg",
+    "compared": false,
+    "best": {
+     "store": "aldi",
+     "id": "1220494",
+     "unit_price": 7.42
+    },
+    "saving_pct": null
+   },
+   "Witlof": {
+    "unit": "stuk",
+    "compared": false,
+    "best": {
+     "store": "ah",
+     "id": "ah-witlof",
+     "unit_price": 0.37
+    },
+    "saving_pct": null
+   },
+   "Koffie": {
+    "unit": "kg",
+    "compared": false,
+    "best": {
+     "store": "aldi",
+     "id": "1244114",
+     "unit_price": 24.9
+    },
+    "saving_pct": null
+   },
+   "Koffiebonen": {
+    "unit": "kg",
+    "compared": false,
+    "best": {
+     "store": "aldi",
+     "id": "91224479",
+     "unit_price": 12.79
+    },
+    "saving_pct": null
+   },
+   "Kipfilet": {
+    "unit": "kg",
+    "compared": false,
+    "best": {
+     "store": "aldi",
+     "id": "1221414",
+     "unit_price": 13.96
+    },
+    "saving_pct": null
+   },
+   "Kippenpoten": {
+    "unit": null,
+    "compared": false,
+    "best": null,
+    "saving_pct": null
+   },
+   "Rundvlees": {
+    "unit": "kg",
+    "compared": false,
+    "best": {
+     "store": "ah",
+     "id": "ah-stoofvlees",
+     "unit_price": 17.9
+    },
+    "saving_pct": null
+   },
+   "Spek": {
+    "unit": "kg",
+    "compared": false,
+    "best": {
+     "store": "aldi",
+     "id": "1202247",
+     "unit_price": 7.87
+    },
+    "saving_pct": null
+   },
+   "Worst": {
+    "unit": null,
+    "compared": false,
+    "best": null,
+    "saving_pct": null
+   },
+   "Kwark": {
+    "unit": "kg",
+    "compared": false,
+    "best": {
+     "store": "aldi",
+     "id": "1217266",
+     "unit_price": 1.9
+    },
+    "saving_pct": null
+   },
+   "Vla & pudding": {
+    "unit": "kg",
+    "compared": false,
+    "best": {
+     "store": "aldi",
+     "id": "1240675",
+     "unit_price": 2.45
+    },
+    "saving_pct": null
+   },
+   "Yoghurt": {
+    "unit": null,
+    "compared": false,
+    "best": null,
+    "saving_pct": null
+   }
+  },
+  "ah,dirk": {
+   "Appels": {
+    "unit": null,
+    "compared": false,
+    "best": null,
+    "saving_pct": null
+   },
+   "Blauwe bessen": {
+    "unit": "kg",
+    "compared": true,
+    "best": {
+     "store": "ah",
+     "id": "ah-blauwe-bessen",
+     "unit_price": 13.27
+    },
+    "saving_pct": 0
+   },
+   "Witlof": {
+    "unit": "kg",
+    "compared": false,
+    "best": {
+     "store": "dirk",
+     "id": "140611",
+     "unit_price": 1.98
+    },
+    "saving_pct": null
+   },
+   "Gehakt": {
+    "unit": "kg",
+    "compared": true,
+    "best": {
+     "store": "dirk",
+     "id": "140614",
+     "unit_price": 10.97
+    },
+    "saving_pct": 18
+   },
+   "Rundvlees": {
+    "unit": "kg",
+    "compared": true,
+    "best": {
+     "store": "dirk",
+     "id": "140717",
+     "unit_price": 14.95
+    },
+    "saving_pct": 16
+   },
+   "Kaas": {
+    "unit": null,
+    "compared": false,
+    "best": null,
+    "saving_pct": null
+   },
+   "Yoghurt": {
+    "unit": null,
+    "compared": false,
+    "best": null,
+    "saving_pct": null
+   },
+   "Aardbeien": {
+    "unit": "kg",
+    "compared": false,
+    "best": {
+     "store": "dirk",
+     "id": "140705",
+     "unit_price": 9.97
+    },
+    "saving_pct": null
+   },
+   "Ananas": {
+    "unit": "stuk",
+    "compared": false,
+    "best": {
+     "store": "ah",
+     "id": "ah-ananas-eetrijp",
+     "unit_price": 2.0
+    },
+    "saving_pct": null
+   },
+   "Avocado": {
+    "unit": "stuk",
+    "compared": false,
+    "best": {
+     "store": "dirk",
+     "id": "140701",
+     "unit_price": 0.99
+    },
+    "saving_pct": null
+   },
+   "Bananen": {
+    "unit": null,
+    "compared": false,
+    "best": null,
+    "saving_pct": null
+   },
+   "Druiven": {
+    "unit": null,
+    "compared": false,
+    "best": null,
+    "saving_pct": null
+   },
+   "Kiwi's": {
+    "unit": null,
+    "compared": false,
+    "best": null,
+    "saving_pct": null
+   },
+   "Mandarijnen": {
+    "unit": "kg",
+    "compared": false,
+    "best": {
+     "store": "ah",
+     "id": "ah-mandarijnen",
+     "unit_price": 1.29
+    },
+    "saving_pct": null
+   },
+   "Muesli & granola": {
+    "unit": "kg",
+    "compared": false,
+    "best": {
+     "store": "ah",
+     "id": "819887",
+     "unit_price": 6.66
+    },
+    "saving_pct": null
+   },
+   "Aardappels": {
+    "unit": "kg",
+    "compared": false,
+    "best": {
+     "store": "dirk",
+     "id": "140655",
+     "unit_price": 4.85
+    },
+    "saving_pct": null
+   },
+   "Bieten": {
+    "unit": null,
+    "compared": false,
+    "best": null,
+    "saving_pct": null
+   },
+   "Boerenkool": {
+    "unit": "kg",
+    "compared": false,
+    "best": {
+     "store": "dirk",
+     "id": "140607",
+     "unit_price": 3.3
+    },
+    "saving_pct": null
+   },
+   "Pompoen": {
+    "unit": null,
+    "compared": false,
+    "best": null,
+    "saving_pct": null
+   },
+   "Spruiten": {
+    "unit": "kg",
+    "compared": false,
+    "best": {
+     "store": "dirk",
+     "id": "140608",
+     "unit_price": 1.19
+    },
+    "saving_pct": null
+   },
+   "Witte kool": {
+    "unit": null,
+    "compared": false,
+    "best": null,
+    "saving_pct": null
+   },
+   "Wortels": {
+    "unit": "stuk",
+    "compared": false,
+    "best": {
+     "store": "dirk",
+     "id": "140706",
+     "unit_price": 1.29
+    },
+    "saving_pct": null
+   },
+   "Koffie": {
+    "unit": "kg",
+    "compared": false,
+    "best": {
+     "store": "dirk",
+     "id": "140667",
+     "unit_price": 34.95
+    },
+    "saving_pct": null
+   },
+   "Koffiecups & pads": {
+    "unit": null,
+    "compared": false,
+    "best": null,
+    "saving_pct": null
+   },
+   "Haring & makreel": {
+    "unit": "stuk",
+    "compared": false,
+    "best": {
+     "store": "dirk",
+     "id": "140721",
+     "unit_price": 3.49
+    },
+    "saving_pct": null
+   },
+   "Tonijn": {
+    "unit": null,
+    "compared": false,
+    "best": null,
+    "saving_pct": null
+   },
+   "Zalm": {
+    "unit": null,
+    "compared": false,
+    "best": null,
+    "saving_pct": null
+   },
+   "Kippenpoten": {
+    "unit": null,
+    "compared": false,
+    "best": null,
+    "saving_pct": null
+   },
+   "Varkensvlees": {
+    "unit": "stuk",
+    "compared": false,
+    "best": {
+     "store": "ah",
+     "id": "ah-schnitzel-6-stuks",
+     "unit_price": 0.75
+    },
+    "saving_pct": null
+   },
+   "Vleeswaren": {
+    "unit": null,
+    "compared": false,
+    "best": null,
+    "saving_pct": null
+   },
+   "Worst": {
+    "unit": null,
+    "compared": false,
+    "best": null,
+    "saving_pct": null
+   },
+   "Boter": {
+    "unit": "kg",
+    "compared": false,
+    "best": {
+     "store": "ah",
+     "id": "819875",
+     "unit_price": 9.98
+    },
+    "saving_pct": null
+   },
+   "Melk": {
+    "unit": null,
+    "compared": false,
+    "best": null,
+    "saving_pct": null
+   },
+   "Vla & pudding": {
+    "unit": "kg",
+    "compared": false,
+    "best": {
+     "store": "dirk",
+     "id": "140635",
+     "unit_price": 3.3
+    },
+    "saving_pct": null
+   }
+  },
+  "ah,lidl": {
+   "Ananas": {
+    "unit": "stuk",
+    "compared": true,
+    "best": {
+     "store": "lidl",
+     "id": "11214518",
+     "unit_price": 1.49
+    },
+    "saving_pct": 26
+   },
+   "Zalm": {
+    "unit": null,
+    "compared": false,
+    "best": null,
+    "saving_pct": null
+   },
+   "Gehakt": {
+    "unit": "kg",
+    "compared": true,
+    "best": {
+     "store": "lidl",
+     "id": "11322576",
+     "unit_price": 7.48
+    },
+    "saving_pct": 44
+   },
+   "Rundvlees": {
+    "unit": "kg",
+    "compared": true,
+    "best": {
+     "store": "lidl",
+     "id": "11322549",
+     "unit_price": 9.97
+    },
+    "saving_pct": 44
+   },
+   "Worst": {
+    "unit": "kg",
+    "compared": false,
+    "best": {
+     "store": "lidl",
+     "id": "11322143",
+     "unit_price": 7.24
+    },
+    "saving_pct": null
+   },
+   "Boter": {
+    "unit": "kg",
+    "compared": false,
+    "best": {
+     "store": "ah",
+     "id": "819875",
+     "unit_price": 9.98
+    },
+    "saving_pct": null
+   },
+   "Kaas": {
+    "unit": "kg",
+    "compared": false,
+    "best": {
+     "store": "lidl",
+     "id": "11323339",
+     "unit_price": 5.98
+    },
+    "saving_pct": null
+   },
+   "Appels": {
+    "unit": null,
+    "compared": false,
+    "best": null,
+    "saving_pct": null
+   },
+   "Avocado": {
+    "unit": "kg",
+    "compared": false,
+    "best": {
+     "store": "lidl",
+     "id": "11029903",
+     "unit_price": 2.7
+    },
+    "saving_pct": null
+   },
+   "Bananen": {
+    "unit": null,
+    "compared": false,
+    "best": null,
+    "saving_pct": null
+   },
+   "Blauwe bessen": {
+    "unit": "kg",
+    "compared": false,
+    "best": {
+     "store": "ah",
+     "id": "ah-blauwe-bessen",
+     "unit_price": 13.27
+    },
+    "saving_pct": null
+   },
+   "Citroenen": {
+    "unit": "kg",
+    "compared": false,
+    "best": {
+     "store": "lidl",
+     "id": "11030000",
+     "unit_price": 1.98
+    },
+    "saving_pct": null
+   },
+   "Mandarijnen": {
+    "unit": "kg",
+    "compared": false,
+    "best": {
+     "store": "ah",
+     "id": "ah-mandarijnen",
+     "unit_price": 1.29
+    },
+    "saving_pct": null
+   },
+   "Sinaasappels": {
+    "unit": "kg",
+    "compared": false,
+    "best": {
+     "store": "lidl",
+     "id": "11115702",
+     "unit_price": 1.15
+    },
+    "saving_pct": null
+   },
+   "Muesli & granola": {
+    "unit": "kg",
+    "compared": false,
+    "best": {
+     "store": "ah",
+     "id": "819887",
+     "unit_price": 6.66
+    },
+    "saving_pct": null
+   },
+   "Aardappels": {
+    "unit": "kg",
+    "compared": false,
+    "best": {
+     "store": "lidl",
+     "id": "11493347",
+     "unit_price": 0.8
+    },
+    "saving_pct": null
+   },
+   "Courgette": {
+    "unit": "stuk",
+    "compared": false,
+    "best": {
+     "store": "lidl",
+     "id": "11029408",
+     "unit_price": 0.39
+    },
+    "saving_pct": null
+   },
+   "Pompoen": {
+    "unit": null,
+    "compared": false,
+    "best": null,
+    "saving_pct": null
+   },
+   "Prei": {
+    "unit": "stuk",
+    "compared": false,
+    "best": {
+     "store": "lidl",
+     "id": "11029706",
+     "unit_price": 0.39
+    },
+    "saving_pct": null
+   },
+   "Sperziebonen": {
+    "unit": "kg",
+    "compared": false,
+    "best": {
+     "store": "lidl",
+     "id": "11492612",
+     "unit_price": 4.22
+    },
+    "saving_pct": null
+   },
+   "Witlof": {
+    "unit": "stuk",
+    "compared": false,
+    "best": {
+     "store": "ah",
+     "id": "ah-witlof",
+     "unit_price": 0.37
+    },
+    "saving_pct": null
+   },
+   "Wortels": {
+    "unit": "stuk",
+    "compared": false,
+    "best": {
+     "store": "lidl",
+     "id": "11029530",
+     "unit_price": 1.19
+    },
+    "saving_pct": null
+   },
+   "Koffiecups & pads": {
+    "unit": null,
+    "compared": false,
+    "best": null,
+    "saving_pct": null
+   },
+   "Tonijn": {
+    "unit": null,
+    "compared": false,
+    "best": null,
+    "saving_pct": null
+   },
+   "Witvis": {
+    "unit": null,
+    "compared": false,
+    "best": null,
+    "saving_pct": null
+   },
+   "Kipfilet": {
+    "unit": "kg",
+    "compared": false,
+    "best": {
+     "store": "lidl",
+     "id": "11562268",
+     "unit_price": 13.27
+    },
+    "saving_pct": null
+   },
+   "Kippenpoten": {
+    "unit": null,
+    "compared": false,
+    "best": null,
+    "saving_pct": null
+   },
+   "Varkensvlees": {
+    "unit": "stuk",
+    "compared": false,
+    "best": {
+     "store": "ah",
+     "id": "ah-schnitzel-6-stuks",
+     "unit_price": 0.75
+    },
+    "saving_pct": null
+   },
+   "Vleeswaren": {
+    "unit": null,
+    "compared": false,
+    "best": null,
+    "saving_pct": null
+   },
+   "Melk": {
+    "unit": "l",
+    "compared": false,
+    "best": {
+     "store": "lidl",
+     "id": "11008575",
+     "unit_price": 0.99
+    },
+    "saving_pct": null
+   },
+   "Yoghurt": {
+    "unit": null,
+    "compared": false,
+    "best": null,
+    "saving_pct": null
+   }
+  },
+  "aldi,dirk": {
+   "Appels": {
+    "unit": "kg",
+    "compared": false,
+    "best": {
+     "store": "aldi",
+     "id": "1219892",
+     "unit_price": 1.66
+    },
+    "saving_pct": null
+   },
+   "Kiwi's": {
+    "unit": "stuk",
+    "compared": false,
+    "best": {
+     "store": "aldi",
+     "id": "1224139",
+     "unit_price": 0.69
+    },
+    "saving_pct": null
+   },
+   "Bieten": {
+    "unit": "kg",
+    "compared": false,
+    "best": {
+     "store": "aldi",
+     "id": "1222205",
+     "unit_price": 2.5
+    },
+    "saving_pct": null
+   },
+   "Boerenkool": {
+    "unit": "kg",
+    "compared": true,
+    "best": {
+     "store": "aldi",
+     "id": "1241051",
+     "unit_price": 2.2
+    },
+    "saving_pct": 33
+   },
+   "Koffie": {
+    "unit": "kg",
+    "compared": true,
+    "best": {
+     "store": "aldi",
+     "id": "1244114",
+     "unit_price": 24.9
+    },
+    "saving_pct": 29
+   },
+   "Gehakt": {
+    "unit": "kg",
+    "compared": true,
+    "best": {
+     "store": "dirk",
+     "id": "140614",
+     "unit_price": 10.97
+    },
+    "saving_pct": 12
+   },
+   "Kaas": {
+    "unit": "kg",
+    "compared": false,
+    "best": {
+     "store": "aldi",
+     "id": "91200939",
+     "unit_price": 5.98
+    },
+    "saving_pct": null
+   },
+   "Vla & pudding": {
+    "unit": "kg",
+    "compared": true,
+    "best": {
+     "store": "aldi",
+     "id": "1240675",
+     "unit_price": 2.45
+    },
+    "saving_pct": 26
+   },
+   "Aardbeien": {
+    "unit": "kg",
+    "compared": false,
+    "best": {
+     "store": "dirk",
+     "id": "140705",
+     "unit_price": 9.97
+    },
+    "saving_pct": null
+   },
+   "Avocado": {
+    "unit": "stuk",
+    "compared": false,
+    "best": {
+     "store": "dirk",
+     "id": "140701",
+     "unit_price": 0.99
+    },
+    "saving_pct": null
+   },
+   "Blauwe bessen": {
+    "unit": "kg",
+    "compared": false,
+    "best": {
+     "store": "dirk",
+     "id": "140699",
+     "unit_price": 13.3
+    },
+    "saving_pct": null
+   },
+   "Druiven": {
+    "unit": null,
+    "compared": false,
+    "best": null,
+    "saving_pct": null
+   },
+   "Frambozen": {
+    "unit": "kg",
+    "compared": false,
+    "best": {
+     "store": "aldi",
+     "id": "1201661",
+     "unit_price": 18.32
+    },
+    "saving_pct": null
+   },
+   "Mandarijnen": {
+    "unit": "kg",
+    "compared": false,
+    "best": {
+     "store": "aldi",
+     "id": "1219324",
+     "unit_price": 1.99
+    },
+    "saving_pct": null
+   },
+   "Aardappels": {
+    "unit": "kg",
+    "compared": false,
+    "best": {
+     "store": "dirk",
+     "id": "140655",
+     "unit_price": 4.85
+    },
+    "saving_pct": null
+   },
+   "Champignons": {
+    "unit": "kg",
+    "compared": false,
+    "best": {
+     "store": "aldi",
+     "id": "1219554",
+     "unit_price": 6.76
+    },
+    "saving_pct": null
+   },
+   "Courgette": {
+    "unit": "stuk",
+    "compared": false,
+    "best": {
+     "store": "aldi",
+     "id": "1219382",
+     "unit_price": 0.72
+    },
+    "saving_pct": null
+   },
+   "Paprika": {
+    "unit": "kg",
+    "compared": false,
+    "best": {
+     "store": "aldi",
+     "id": "1243832",
+     "unit_price": 3.58
+    },
+    "saving_pct": null
+   },
+   "Prei": {
+    "unit": "stuk",
+    "compared": false,
+    "best": {
+     "store": "aldi",
+     "id": "1210301",
+     "unit_price": 0.55
+    },
+    "saving_pct": null
+   },
+   "Sla": {
+    "unit": "stuk",
+    "compared": false,
+    "best": {
+     "store": "aldi",
+     "id": "1218644",
+     "unit_price": 1.19
+    },
+    "saving_pct": null
+   },
+   "Spruiten": {
+    "unit": "kg",
+    "compared": false,
+    "best": {
+     "store": "dirk",
+     "id": "140608",
+     "unit_price": 1.19
+    },
+    "saving_pct": null
+   },
+   "Uien": {
+    "unit": "kg",
+    "compared": false,
+    "best": {
+     "store": "aldi",
+     "id": "1220494",
+     "unit_price": 7.42
+    },
+    "saving_pct": null
+   },
+   "Witlof": {
+    "unit": "kg",
+    "compared": false,
+    "best": {
+     "store": "dirk",
+     "id": "140611",
+     "unit_price": 1.98
+    },
+    "saving_pct": null
+   },
+   "Witte kool": {
+    "unit": null,
+    "compared": false,
+    "best": null,
+    "saving_pct": null
+   },
+   "Wortels": {
+    "unit": "stuk",
+    "compared": false,
+    "best": {
+     "store": "dirk",
+     "id": "140706",
+     "unit_price": 1.29
+    },
+    "saving_pct": null
+   },
+   "Koffiebonen": {
+    "unit": "kg",
+    "compared": false,
+    "best": {
+     "store": "aldi",
+     "id": "91224479",
+     "unit_price": 12.79
+    },
+    "saving_pct": null
+   },
+   "Koffiecups & pads": {
+    "unit": null,
+    "compared": false,
+    "best": null,
+    "saving_pct": null
+   },
+   "Haring & makreel": {
+    "unit": "stuk",
+    "compared": false,
+    "best": {
+     "store": "dirk",
+     "id": "140721",
+     "unit_price": 3.49
+    },
+    "saving_pct": null
+   },
+   "Tonijn": {
+    "unit": "kg",
+    "compared": false,
+    "best": {
+     "store": "aldi",
+     "id": "1232626",
+     "unit_price": 8.26
+    },
+    "saving_pct": null
+   },
+   "Zalm": {
+    "unit": "kg",
+    "compared": false,
+    "best": {
+     "store": "aldi",
+     "id": "1225395",
+     "unit_price": 15.98
+    },
+    "saving_pct": null
+   },
+   "Kipfilet": {
+    "unit": "kg",
+    "compared": false,
+    "best": {
+     "store": "aldi",
+     "id": "1221414",
+     "unit_price": 13.96
+    },
+    "saving_pct": null
+   },
+   "Rundvlees": {
+    "unit": "kg",
+    "compared": false,
+    "best": {
+     "store": "dirk",
+     "id": "140717",
+     "unit_price": 14.95
+    },
+    "saving_pct": null
+   },
+   "Spek": {
+    "unit": "kg",
+    "compared": false,
+    "best": {
+     "store": "aldi",
+     "id": "1202247",
+     "unit_price": 7.87
+    },
+    "saving_pct": null
+   },
+   "Varkensvlees": {
+    "unit": "kg",
+    "compared": false,
+    "best": {
+     "store": "aldi",
+     "id": "1245179",
+     "unit_price": 7.98
+    },
+    "saving_pct": null
+   },
+   "Vleeswaren": {
+    "unit": "kg",
+    "compared": false,
+    "best": {
+     "store": "aldi",
+     "id": "1229904",
+     "unit_price": 6.76
+    },
+    "saving_pct": null
+   },
+   "Boter": {
+    "unit": "kg",
+    "compared": false,
+    "best": {
+     "store": "aldi",
+     "id": "91240177",
+     "unit_price": 7.45
+    },
+    "saving_pct": null
+   },
+   "Kwark": {
+    "unit": "kg",
+    "compared": false,
+    "best": {
+     "store": "aldi",
+     "id": "1217266",
+     "unit_price": 1.9
+    },
+    "saving_pct": null
+   },
+   "Melk": {
+    "unit": null,
+    "compared": false,
+    "best": null,
+    "saving_pct": null
+   },
+   "Yoghurt": {
+    "unit": null,
+    "compared": false,
+    "best": null,
+    "saving_pct": null
+   }
+  },
+  "aldi,lidl": {
+   "Courgette": {
+    "unit": "stuk",
+    "compared": true,
+    "best": {
+     "store": "lidl",
+     "id": "11029408",
+     "unit_price": 0.39
+    },
+    "saving_pct": 46
+   },
+   "Prei": {
+    "unit": "stuk",
+    "compared": true,
+    "best": {
+     "store": "lidl",
+     "id": "11029706",
+     "unit_price": 0.39
+    },
+    "saving_pct": 29
+   },
+   "Zalm": {
+    "unit": "kg",
+    "compared": false,
+    "best": {
+     "store": "aldi",
+     "id": "1225395",
+     "unit_price": 15.98
+    },
+    "saving_pct": null
+   },
+   "Gehakt": {
+    "unit": "kg",
+    "compared": true,
+    "best": {
+     "store": "lidl",
+     "id": "11322576",
+     "unit_price": 7.48
+    },
+    "saving_pct": 40
+   },
+   "Kipfilet": {
+    "unit": "kg",
+    "compared": true,
+    "best": {
+     "store": "lidl",
+     "id": "11562268",
+     "unit_price": 13.27
+    },
+    "saving_pct": 5
+   },
+   "Boter": {
+    "unit": "kg",
+    "compared": false,
+    "best": {
+     "store": "aldi",
+     "id": "91240177",
+     "unit_price": 7.45
+    },
+    "saving_pct": null
+   },
+   "Kaas": {
+    "unit": "kg",
+    "compared": true,
+    "best": {
+     "store": "lidl",
+     "id": "11323339",
+     "unit_price": 5.98
+    },
+    "saving_pct": 0
+   },
+   "Ananas": {
+    "unit": "stuk",
+    "compared": false,
+    "best": {
+     "store": "lidl",
+     "id": "11214518",
+     "unit_price": 1.49
+    },
+    "saving_pct": null
+   },
+   "Appels": {
+    "unit": "kg",
+    "compared": false,
+    "best": {
+     "store": "aldi",
+     "id": "1219892",
+     "unit_price": 1.66
+    },
+    "saving_pct": null
+   },
+   "Avocado": {
+    "unit": "kg",
+    "compared": false,
+    "best": {
+     "store": "lidl",
+     "id": "11029903",
+     "unit_price": 2.7
+    },
+    "saving_pct": null
+   },
+   "Citroenen": {
+    "unit": "kg",
+    "compared": false,
+    "best": {
+     "store": "lidl",
+     "id": "11030000",
+     "unit_price": 1.98
+    },
+    "saving_pct": null
+   },
+   "Frambozen": {
+    "unit": "kg",
+    "compared": false,
+    "best": {
+     "store": "aldi",
+     "id": "1201661",
+     "unit_price": 18.32
+    },
+    "saving_pct": null
+   },
+   "Kiwi's": {
+    "unit": "stuk",
+    "compared": false,
+    "best": {
+     "store": "aldi",
+     "id": "1224139",
+     "unit_price": 0.69
+    },
+    "saving_pct": null
+   },
+   "Mandarijnen": {
+    "unit": "kg",
+    "compared": false,
+    "best": {
+     "store": "aldi",
+     "id": "1219324",
+     "unit_price": 1.99
+    },
+    "saving_pct": null
+   },
+   "Sinaasappels": {
+    "unit": "kg",
+    "compared": false,
+    "best": {
+     "store": "lidl",
+     "id": "11115702",
+     "unit_price": 1.15
+    },
+    "saving_pct": null
+   },
+   "Aardappels": {
+    "unit": "kg",
+    "compared": false,
+    "best": {
+     "store": "lidl",
+     "id": "11493347",
+     "unit_price": 0.8
+    },
+    "saving_pct": null
+   },
+   "Bieten": {
+    "unit": "kg",
+    "compared": false,
+    "best": {
+     "store": "aldi",
+     "id": "1222205",
+     "unit_price": 2.5
+    },
+    "saving_pct": null
+   },
+   "Boerenkool": {
+    "unit": "kg",
+    "compared": false,
+    "best": {
+     "store": "aldi",
+     "id": "1241051",
+     "unit_price": 2.2
+    },
+    "saving_pct": null
+   },
+   "Champignons": {
+    "unit": "kg",
+    "compared": false,
+    "best": {
+     "store": "aldi",
+     "id": "1219554",
+     "unit_price": 6.76
+    },
+    "saving_pct": null
+   },
+   "Paprika": {
+    "unit": "kg",
+    "compared": false,
+    "best": {
+     "store": "aldi",
+     "id": "1243832",
+     "unit_price": 3.58
+    },
+    "saving_pct": null
+   },
+   "Sla": {
+    "unit": "stuk",
+    "compared": false,
+    "best": {
+     "store": "aldi",
+     "id": "1218644",
+     "unit_price": 1.19
+    },
+    "saving_pct": null
+   },
+   "Sperziebonen": {
+    "unit": "kg",
+    "compared": false,
+    "best": {
+     "store": "lidl",
+     "id": "11492612",
+     "unit_price": 4.22
+    },
+    "saving_pct": null
+   },
+   "Uien": {
+    "unit": "kg",
+    "compared": false,
+    "best": {
+     "store": "aldi",
+     "id": "1220494",
+     "unit_price": 7.42
+    },
+    "saving_pct": null
+   },
+   "Wortels": {
+    "unit": "stuk",
+    "compared": false,
+    "best": {
+     "store": "lidl",
+     "id": "11029530",
+     "unit_price": 1.19
+    },
+    "saving_pct": null
+   },
+   "Koffie": {
+    "unit": "kg",
+    "compared": false,
+    "best": {
+     "store": "aldi",
+     "id": "1244114",
+     "unit_price": 24.9
+    },
+    "saving_pct": null
+   },
+   "Koffiebonen": {
+    "unit": "kg",
+    "compared": false,
+    "best": {
+     "store": "aldi",
+     "id": "91224479",
+     "unit_price": 12.79
+    },
+    "saving_pct": null
+   },
+   "Koffiecups & pads": {
+    "unit": null,
+    "compared": false,
+    "best": null,
+    "saving_pct": null
+   },
+   "Tonijn": {
+    "unit": "kg",
+    "compared": false,
+    "best": {
+     "store": "aldi",
+     "id": "1232626",
+     "unit_price": 8.26
+    },
+    "saving_pct": null
+   },
+   "Witvis": {
+    "unit": null,
+    "compared": false,
+    "best": null,
+    "saving_pct": null
+   },
+   "Rundvlees": {
+    "unit": "kg",
+    "compared": false,
+    "best": {
+     "store": "lidl",
+     "id": "11322549",
+     "unit_price": 9.97
+    },
+    "saving_pct": null
+   },
+   "Spek": {
+    "unit": "kg",
+    "compared": false,
+    "best": {
+     "store": "aldi",
+     "id": "1202247",
+     "unit_price": 7.87
+    },
+    "saving_pct": null
+   },
+   "Varkensvlees": {
+    "unit": "kg",
+    "compared": false,
+    "best": {
+     "store": "aldi",
+     "id": "1245179",
+     "unit_price": 7.98
+    },
+    "saving_pct": null
+   },
+   "Vleeswaren": {
+    "unit": "kg",
+    "compared": false,
+    "best": {
+     "store": "aldi",
+     "id": "1229904",
+     "unit_price": 6.76
+    },
+    "saving_pct": null
+   },
+   "Worst": {
+    "unit": "kg",
+    "compared": false,
+    "best": {
+     "store": "lidl",
+     "id": "11322143",
+     "unit_price": 7.24
+    },
+    "saving_pct": null
+   },
+   "Kwark": {
+    "unit": "kg",
+    "compared": false,
+    "best": {
+     "store": "aldi",
+     "id": "1217266",
+     "unit_price": 1.9
+    },
+    "saving_pct": null
+   },
+   "Melk": {
+    "unit": "l",
+    "compared": false,
+    "best": {
+     "store": "lidl",
+     "id": "11008575",
+     "unit_price": 0.99
+    },
+    "saving_pct": null
+   },
+   "Vla & pudding": {
+    "unit": "kg",
+    "compared": false,
+    "best": {
+     "store": "aldi",
+     "id": "1240675",
+     "unit_price": 2.45
+    },
+    "saving_pct": null
+   }
+  },
+  "dirk,lidl": {
+   "Avocado": {
+    "unit": "kg",
+    "compared": false,
+    "best": {
+     "store": "lidl",
+     "id": "11029903",
+     "unit_price": 2.7
+    },
+    "saving_pct": null
+   },
+   "Aardappels": {
+    "unit": "kg",
+    "compared": true,
+    "best": {
+     "store": "lidl",
+     "id": "11493347",
+     "unit_price": 0.8
+    },
+    "saving_pct": 84
+   },
+   "Wortels": {
+    "unit": "stuk",
+    "compared": true,
+    "best": {
+     "store": "lidl",
+     "id": "11029530",
+     "unit_price": 1.19
+    },
+    "saving_pct": 8
+   },
+   "Gehakt": {
+    "unit": "kg",
+    "compared": true,
+    "best": {
+     "store": "lidl",
+     "id": "11322576",
+     "unit_price": 7.48
+    },
+    "saving_pct": 32
+   },
+   "Rundvlees": {
+    "unit": "kg",
+    "compared": true,
+    "best": {
+     "store": "lidl",
+     "id": "11322549",
+     "unit_price": 9.97
+    },
+    "saving_pct": 33
+   },
+   "Kaas": {
+    "unit": "kg",
+    "compared": false,
+    "best": {
+     "store": "lidl",
+     "id": "11323339",
+     "unit_price": 5.98
+    },
+    "saving_pct": null
+   },
+   "Melk": {
+    "unit": "l",
+    "compared": false,
+    "best": {
+     "store": "lidl",
+     "id": "11008575",
+     "unit_price": 0.99
+    },
+    "saving_pct": null
+   },
+   "Aardbeien": {
+    "unit": "kg",
+    "compared": false,
+    "best": {
+     "store": "dirk",
+     "id": "140705",
+     "unit_price": 9.97
+    },
+    "saving_pct": null
+   },
+   "Ananas": {
+    "unit": "stuk",
+    "compared": false,
+    "best": {
+     "store": "lidl",
+     "id": "11214518",
+     "unit_price": 1.49
+    },
+    "saving_pct": null
+   },
+   "Appels": {
+    "unit": null,
+    "compared": false,
+    "best": null,
+    "saving_pct": null
+   },
+   "Blauwe bessen": {
+    "unit": "kg",
+    "compared": false,
+    "best": {
+     "store": "dirk",
+     "id": "140699",
+     "unit_price": 13.3
+    },
+    "saving_pct": null
+   },
+   "Citroenen": {
+    "unit": "kg",
+    "compared": false,
+    "best": {
+     "store": "lidl",
+     "id": "11030000",
+     "unit_price": 1.98
+    },
+    "saving_pct": null
+   },
+   "Druiven": {
+    "unit": null,
+    "compared": false,
+    "best": null,
+    "saving_pct": null
+   },
+   "Kiwi's": {
+    "unit": null,
+    "compared": false,
+    "best": null,
+    "saving_pct": null
+   },
+   "Sinaasappels": {
+    "unit": "kg",
+    "compared": false,
+    "best": {
+     "store": "lidl",
+     "id": "11115702",
+     "unit_price": 1.15
+    },
+    "saving_pct": null
+   },
+   "Bieten": {
+    "unit": null,
+    "compared": false,
+    "best": null,
+    "saving_pct": null
+   },
+   "Boerenkool": {
+    "unit": "kg",
+    "compared": false,
+    "best": {
+     "store": "dirk",
+     "id": "140607",
+     "unit_price": 3.3
+    },
+    "saving_pct": null
+   },
+   "Courgette": {
+    "unit": "stuk",
+    "compared": false,
+    "best": {
+     "store": "lidl",
+     "id": "11029408",
+     "unit_price": 0.39
+    },
+    "saving_pct": null
+   },
+   "Prei": {
+    "unit": "stuk",
+    "compared": false,
+    "best": {
+     "store": "lidl",
+     "id": "11029706",
+     "unit_price": 0.39
+    },
+    "saving_pct": null
+   },
+   "Sperziebonen": {
+    "unit": "kg",
+    "compared": false,
+    "best": {
+     "store": "lidl",
+     "id": "11492612",
+     "unit_price": 4.22
+    },
+    "saving_pct": null
+   },
+   "Spruiten": {
+    "unit": "kg",
+    "compared": false,
+    "best": {
+     "store": "dirk",
+     "id": "140608",
+     "unit_price": 1.19
+    },
+    "saving_pct": null
+   },
+   "Witlof": {
+    "unit": "kg",
+    "compared": false,
+    "best": {
+     "store": "dirk",
+     "id": "140611",
+     "unit_price": 1.98
+    },
+    "saving_pct": null
+   },
+   "Witte kool": {
+    "unit": null,
+    "compared": false,
+    "best": null,
+    "saving_pct": null
+   },
+   "Koffie": {
+    "unit": "kg",
+    "compared": false,
+    "best": {
+     "store": "dirk",
+     "id": "140667",
+     "unit_price": 34.95
+    },
+    "saving_pct": null
+   },
+   "Haring & makreel": {
+    "unit": "stuk",
+    "compared": false,
+    "best": {
+     "store": "dirk",
+     "id": "140721",
+     "unit_price": 3.49
+    },
+    "saving_pct": null
+   },
+   "Witvis": {
+    "unit": null,
+    "compared": false,
+    "best": null,
+    "saving_pct": null
+   },
+   "Zalm": {
+    "unit": null,
+    "compared": false,
+    "best": null,
+    "saving_pct": null
+   },
+   "Kipfilet": {
+    "unit": "kg",
+    "compared": false,
+    "best": {
+     "store": "lidl",
+     "id": "11562268",
+     "unit_price": 13.27
+    },
+    "saving_pct": null
+   },
+   "Worst": {
+    "unit": "kg",
+    "compared": false,
+    "best": {
+     "store": "lidl",
+     "id": "11322143",
+     "unit_price": 7.24
+    },
+    "saving_pct": null
+   },
+   "Boter": {
+    "unit": "l",
+    "compared": false,
+    "best": {
+     "store": "lidl",
+     "id": "11317696",
+     "unit_price": 3.98
+    },
+    "saving_pct": null
+   },
+   "Vla & pudding": {
+    "unit": "kg",
+    "compared": false,
+    "best": {
+     "store": "dirk",
+     "id": "140635",
+     "unit_price": 3.3
+    },
+    "saving_pct": null
+   },
+   "Yoghurt": {
+    "unit": null,
+    "compared": false,
+    "best": null,
+    "saving_pct": null
+   }
+  },
+  "ah,aldi,dirk": {
+   "Appels": {
+    "unit": "kg",
+    "compared": false,
+    "best": {
+     "store": "aldi",
+     "id": "1219892",
+     "unit_price": 1.66
+    },
+    "saving_pct": null
+   },
+   "Gehakt": {
+    "unit": "kg",
+    "compared": true,
+    "best": {
+     "store": "dirk",
+     "id": "140614",
+     "unit_price": 10.97
+    },
+    "saving_pct": 12
+   },
+   "Kaas": {
+    "unit": "kg",
+    "compared": false,
+    "best": {
+     "store": "aldi",
+     "id": "91200939",
+     "unit_price": 5.98
+    },
+    "saving_pct": null
+   },
+   "Blauwe bessen": {
+    "unit": "kg",
+    "compared": true,
+    "best": {
+     "store": "ah",
+     "id": "ah-blauwe-bessen",
+     "unit_price": 13.27
+    },
+    "saving_pct": 0
+   },
+   "Kiwi's": {
+    "unit": "stuk",
+    "compared": false,
+    "best": {
+     "store": "aldi",
+     "id": "1224139",
+     "unit_price": 0.69
+    },
+    "saving_pct": null
+   },
+   "Mandarijnen": {
+    "unit": "kg",
+    "compared": true,
+    "best": {
+     "store": "ah",
+     "id": "ah-mandarijnen",
+     "unit_price": 1.29
+    },
+    "saving_pct": 35
+   },
+   "Bieten": {
+    "unit": "kg",
+    "compared": false,
+    "best": {
+     "store": "aldi",
+     "id": "1222205",
+     "unit_price": 2.5
+    },
+    "saving_pct": null
+   },
+   "Boerenkool": {
+    "unit": "kg",
+    "compared": true,
+    "best": {
+     "store": "aldi",
+     "id": "1241051",
+     "unit_price": 2.2
+    },
+    "saving_pct": 33
+   },
+   "Witlof": {
+    "unit": "kg",
+    "compared": false,
+    "best": {
+     "store": "dirk",
+     "id": "140611",
+     "unit_price": 1.98
+    },
+    "saving_pct": null
+   },
+   "Koffie": {
+    "unit": "kg",
+    "compared": true,
+    "best": {
+     "store": "aldi",
+     "id": "1244114",
+     "unit_price": 24.9
+    },
+    "saving_pct": 29
+   },
+   "Koffiecups & pads": {
+    "unit": null,
+    "compared": false,
+    "best": null,
+    "saving_pct": null
+   },
+   "Tonijn": {
+    "unit": "kg",
+    "compared": false,
+    "best": {
+     "store": "aldi",
+     "id": "1232626",
+     "unit_price": 8.26
+    },
+    "saving_pct": null
+   },
+   "Zalm": {
+    "unit": "kg",
+    "compared": false,
+    "best": {
+     "store": "aldi",
+     "id": "1225395",
+     "unit_price": 15.98
+    },
+    "saving_pct": null
+   },
+   "Rundvlees": {
+    "unit": "kg",
+    "compared": true,
+    "best": {
+     "store": "dirk",
+     "id": "140717",
+     "unit_price": 14.95
+    },
+    "saving_pct": 16
+   },
+   "Varkensvlees": {
+    "unit": "kg",
+    "compared": false,
+    "best": {
+     "store": "aldi",
+     "id": "1245179",
+     "unit_price": 7.98
+    },
+    "saving_pct": null
+   },
+   "Vleeswaren": {
+    "unit": "kg",
+    "compared": false,
+    "best": {
+     "store": "aldi",
+     "id": "1229904",
+     "unit_price": 6.76
+    },
+    "saving_pct": null
+   },
+   "Boter": {
+    "unit": "kg",
+    "compared": true,
+    "best": {
+     "store": "aldi",
+     "id": "91240177",
+     "unit_price": 7.45
+    },
+    "saving_pct": 25
+   },
+   "Vla & pudding": {
+    "unit": "kg",
+    "compared": true,
+    "best": {
+     "store": "aldi",
+     "id": "1240675",
+     "unit_price": 2.45
+    },
+    "saving_pct": 26
+   },
+   "Yoghurt": {
+    "unit": null,
+    "compared": false,
+    "best": null,
+    "saving_pct": null
+   },
+   "Aardbeien": {
+    "unit": "kg",
+    "compared": false,
+    "best": {
+     "store": "dirk",
+     "id": "140705",
+     "unit_price": 9.97
+    },
+    "saving_pct": null
+   },
+   "Ananas": {
+    "unit": "stuk",
+    "compared": false,
+    "best": {
+     "store": "ah",
+     "id": "ah-ananas-eetrijp",
+     "unit_price": 2.0
+    },
+    "saving_pct": null
+   },
+   "Avocado": {
+    "unit": "stuk",
+    "compared": false,
+    "best": {
+     "store": "dirk",
+     "id": "140701",
+     "unit_price": 0.99
+    },
+    "saving_pct": null
+   },
+   "Bananen": {
+    "unit": null,
+    "compared": false,
+    "best": null,
+    "saving_pct": null
+   },
+   "Druiven": {
+    "unit": null,
+    "compared": false,
+    "best": null,
+    "saving_pct": null
+   },
+   "Frambozen": {
+    "unit": "kg",
+    "compared": false,
+    "best": {
+     "store": "aldi",
+     "id": "1201661",
+     "unit_price": 18.32
+    },
+    "saving_pct": null
+   },
+   "Muesli & granola": {
+    "unit": "kg",
+    "compared": false,
+    "best": {
+     "store": "ah",
+     "id": "819887",
+     "unit_price": 6.66
+    },
+    "saving_pct": null
+   },
+   "Aardappels": {
+    "unit": "kg",
+    "compared": false,
+    "best": {
+     "store": "dirk",
+     "id": "140655",
+     "unit_price": 4.85
+    },
+    "saving_pct": null
+   },
+   "Champignons": {
+    "unit": "kg",
+    "compared": false,
+    "best": {
+     "store": "aldi",
+     "id": "1219554",
+     "unit_price": 6.76
+    },
+    "saving_pct": null
+   },
+   "Courgette": {
+    "unit": "stuk",
+    "compared": false,
+    "best": {
+     "store": "aldi",
+     "id": "1219382",
+     "unit_price": 0.72
+    },
+    "saving_pct": null
+   },
+   "Paprika": {
+    "unit": "kg",
+    "compared": false,
+    "best": {
+     "store": "aldi",
+     "id": "1243832",
+     "unit_price": 3.58
+    },
+    "saving_pct": null
+   },
+   "Pompoen": {
+    "unit": null,
+    "compared": false,
+    "best": null,
+    "saving_pct": null
+   },
+   "Prei": {
+    "unit": "stuk",
+    "compared": false,
+    "best": {
+     "store": "aldi",
+     "id": "1210301",
+     "unit_price": 0.55
+    },
+    "saving_pct": null
+   },
+   "Sla": {
+    "unit": "stuk",
+    "compared": false,
+    "best": {
+     "store": "aldi",
+     "id": "1218644",
+     "unit_price": 1.19
+    },
+    "saving_pct": null
+   },
+   "Spruiten": {
+    "unit": "kg",
+    "compared": false,
+    "best": {
+     "store": "dirk",
+     "id": "140608",
+     "unit_price": 1.19
+    },
+    "saving_pct": null
+   },
+   "Uien": {
+    "unit": "kg",
+    "compared": false,
+    "best": {
+     "store": "aldi",
+     "id": "1220494",
+     "unit_price": 7.42
+    },
+    "saving_pct": null
+   },
+   "Witte kool": {
+    "unit": null,
+    "compared": false,
+    "best": null,
+    "saving_pct": null
+   },
+   "Wortels": {
+    "unit": "stuk",
+    "compared": false,
+    "best": {
+     "store": "dirk",
+     "id": "140706",
+     "unit_price": 1.29
+    },
+    "saving_pct": null
+   },
+   "Koffiebonen": {
+    "unit": "kg",
+    "compared": false,
+    "best": {
+     "store": "aldi",
+     "id": "91224479",
+     "unit_price": 12.79
+    },
+    "saving_pct": null
+   },
+   "Haring & makreel": {
+    "unit": "stuk",
+    "compared": false,
+    "best": {
+     "store": "dirk",
+     "id": "140721",
+     "unit_price": 3.49
+    },
+    "saving_pct": null
+   },
+   "Kipfilet": {
+    "unit": "kg",
+    "compared": false,
+    "best": {
+     "store": "aldi",
+     "id": "1221414",
+     "unit_price": 13.96
+    },
+    "saving_pct": null
+   },
+   "Kippenpoten": {
+    "unit": null,
+    "compared": false,
+    "best": null,
+    "saving_pct": null
+   },
+   "Spek": {
+    "unit": "kg",
+    "compared": false,
+    "best": {
+     "store": "aldi",
+     "id": "1202247",
+     "unit_price": 7.87
+    },
+    "saving_pct": null
+   },
+   "Worst": {
+    "unit": null,
+    "compared": false,
+    "best": null,
+    "saving_pct": null
+   },
+   "Kwark": {
+    "unit": "kg",
+    "compared": false,
+    "best": {
+     "store": "aldi",
+     "id": "1217266",
+     "unit_price": 1.9
+    },
+    "saving_pct": null
+   },
+   "Melk": {
+    "unit": null,
+    "compared": false,
+    "best": null,
+    "saving_pct": null
+   }
+  },
+  "ah,aldi,lidl": {
+   "Zalm": {
+    "unit": "kg",
+    "compared": false,
+    "best": {
+     "store": "aldi",
+     "id": "1225395",
+     "unit_price": 15.98
+    },
+    "saving_pct": null
+   },
+   "Gehakt": {
+    "unit": "kg",
+    "compared": true,
+    "best": {
+     "store": "lidl",
+     "id": "11322576",
+     "unit_price": 7.48
+    },
+    "saving_pct": 40
+   },
+   "Boter": {
+    "unit": "kg",
+    "compared": true,
+    "best": {
+     "store": "aldi",
+     "id": "91240177",
+     "unit_price": 7.45
+    },
+    "saving_pct": 25
+   },
+   "Kaas": {
+    "unit": "kg",
+    "compared": true,
+    "best": {
+     "store": "lidl",
+     "id": "11323339",
+     "unit_price": 5.98
+    },
+    "saving_pct": 0
+   },
+   "Ananas": {
+    "unit": "stuk",
+    "compared": true,
+    "best": {
+     "store": "lidl",
+     "id": "11214518",
+     "unit_price": 1.49
+    },
+    "saving_pct": 26
+   },
+   "Appels": {
+    "unit": "kg",
+    "compared": false,
+    "best": {
+     "store": "aldi",
+     "id": "1219892",
+     "unit_price": 1.66
+    },
+    "saving_pct": null
+   },
+   "Mandarijnen": {
+    "unit": "kg",
+    "compared": true,
+    "best": {
+     "store": "ah",
+     "id": "ah-mandarijnen",
+     "unit_price": 1.29
+    },
+    "saving_pct": 35
+   },
+   "Courgette": {
+    "unit": "stuk",
+    "compared": true,
+    "best": {
+     "store": "lidl",
+     "id": "11029408",
+     "unit_price": 0.39
+    },
+    "saving_pct": 46
+   },
+   "Prei": {
+    "unit": "stuk",
+    "compared": true,
+    "best": {
+     "store": "lidl",
+     "id": "11029706",
+     "unit_price": 0.39
+    },
+    "saving_pct": 29
+   },
+   "Koffiecups & pads": {
+    "unit": null,
+    "compared": false,
+    "best": null,
+    "saving_pct": null
+   },
+   "Tonijn": {
+    "unit": "kg",
+    "compared": false,
+    "best": {
+     "store": "aldi",
+     "id": "1232626",
+     "unit_price": 8.26
+    },
+    "saving_pct": null
+   },
+   "Kipfilet": {
+    "unit": "kg",
+    "compared": true,
+    "best": {
+     "store": "lidl",
+     "id": "11562268",
+     "unit_price": 13.27
+    },
+    "saving_pct": 5
+   },
+   "Rundvlees": {
+    "unit": "kg",
+    "compared": true,
+    "best": {
+     "store": "lidl",
+     "id": "11322549",
+     "unit_price": 9.97
+    },
+    "saving_pct": 44
+   },
+   "Varkensvlees": {
+    "unit": "kg",
+    "compared": false,
+    "best": {
+     "store": "aldi",
+     "id": "1245179",
+     "unit_price": 7.98
+    },
+    "saving_pct": null
+   },
+   "Vleeswaren": {
+    "unit": "kg",
+    "compared": false,
+    "best": {
+     "store": "aldi",
+     "id": "1229904",
+     "unit_price": 6.76
+    },
+    "saving_pct": null
+   },
+   "Worst": {
+    "unit": "kg",
+    "compared": false,
+    "best": {
+     "store": "lidl",
+     "id": "11322143",
+     "unit_price": 7.24
+    },
+    "saving_pct": null
+   },
+   "Avocado": {
+    "unit": "kg",
+    "compared": false,
+    "best": {
+     "store": "lidl",
+     "id": "11029903",
+     "unit_price": 2.7
+    },
+    "saving_pct": null
+   },
+   "Bananen": {
+    "unit": null,
+    "compared": false,
+    "best": null,
+    "saving_pct": null
+   },
+   "Blauwe bessen": {
+    "unit": "kg",
+    "compared": false,
+    "best": {
+     "store": "ah",
+     "id": "ah-blauwe-bessen",
+     "unit_price": 13.27
+    },
+    "saving_pct": null
+   },
+   "Citroenen": {
+    "unit": "kg",
+    "compared": false,
+    "best": {
+     "store": "lidl",
+     "id": "11030000",
+     "unit_price": 1.98
+    },
+    "saving_pct": null
+   },
+   "Frambozen": {
+    "unit": "kg",
+    "compared": false,
+    "best": {
+     "store": "aldi",
+     "id": "1201661",
+     "unit_price": 18.32
+    },
+    "saving_pct": null
+   },
+   "Kiwi's": {
+    "unit": "stuk",
+    "compared": false,
+    "best": {
+     "store": "aldi",
+     "id": "1224139",
+     "unit_price": 0.69
+    },
+    "saving_pct": null
+   },
+   "Sinaasappels": {
+    "unit": "kg",
+    "compared": false,
+    "best": {
+     "store": "lidl",
+     "id": "11115702",
+     "unit_price": 1.15
+    },
+    "saving_pct": null
+   },
+   "Muesli & granola": {
+    "unit": "kg",
+    "compared": false,
+    "best": {
+     "store": "ah",
+     "id": "819887",
+     "unit_price": 6.66
+    },
+    "saving_pct": null
+   },
+   "Aardappels": {
+    "unit": "kg",
+    "compared": false,
+    "best": {
+     "store": "lidl",
+     "id": "11493347",
+     "unit_price": 0.8
+    },
+    "saving_pct": null
+   },
+   "Bieten": {
+    "unit": "kg",
+    "compared": false,
+    "best": {
+     "store": "aldi",
+     "id": "1222205",
+     "unit_price": 2.5
+    },
+    "saving_pct": null
+   },
+   "Boerenkool": {
+    "unit": "kg",
+    "compared": false,
+    "best": {
+     "store": "aldi",
+     "id": "1241051",
+     "unit_price": 2.2
+    },
+    "saving_pct": null
+   },
+   "Champignons": {
+    "unit": "kg",
+    "compared": false,
+    "best": {
+     "store": "aldi",
+     "id": "1219554",
+     "unit_price": 6.76
+    },
+    "saving_pct": null
+   },
+   "Paprika": {
+    "unit": "kg",
+    "compared": false,
+    "best": {
+     "store": "aldi",
+     "id": "1243832",
+     "unit_price": 3.58
+    },
+    "saving_pct": null
+   },
+   "Pompoen": {
+    "unit": null,
+    "compared": false,
+    "best": null,
+    "saving_pct": null
+   },
+   "Sla": {
+    "unit": "stuk",
+    "compared": false,
+    "best": {
+     "store": "aldi",
+     "id": "1218644",
+     "unit_price": 1.19
+    },
+    "saving_pct": null
+   },
+   "Sperziebonen": {
+    "unit": "kg",
+    "compared": false,
+    "best": {
+     "store": "lidl",
+     "id": "11492612",
+     "unit_price": 4.22
+    },
+    "saving_pct": null
+   },
+   "Uien": {
+    "unit": "kg",
+    "compared": false,
+    "best": {
+     "store": "aldi",
+     "id": "1220494",
+     "unit_price": 7.42
+    },
+    "saving_pct": null
+   },
+   "Witlof": {
+    "unit": "stuk",
+    "compared": false,
+    "best": {
+     "store": "ah",
+     "id": "ah-witlof",
+     "unit_price": 0.37
+    },
+    "saving_pct": null
+   },
+   "Wortels": {
+    "unit": "stuk",
+    "compared": false,
+    "best": {
+     "store": "lidl",
+     "id": "11029530",
+     "unit_price": 1.19
+    },
+    "saving_pct": null
+   },
+   "Koffie": {
+    "unit": "kg",
+    "compared": false,
+    "best": {
+     "store": "aldi",
+     "id": "1244114",
+     "unit_price": 24.9
+    },
+    "saving_pct": null
+   },
+   "Koffiebonen": {
+    "unit": "kg",
+    "compared": false,
+    "best": {
+     "store": "aldi",
+     "id": "91224479",
+     "unit_price": 12.79
+    },
+    "saving_pct": null
+   },
+   "Witvis": {
+    "unit": null,
+    "compared": false,
+    "best": null,
+    "saving_pct": null
+   },
+   "Kippenpoten": {
+    "unit": null,
+    "compared": false,
+    "best": null,
+    "saving_pct": null
+   },
+   "Spek": {
+    "unit": "kg",
+    "compared": false,
+    "best": {
+     "store": "aldi",
+     "id": "1202247",
+     "unit_price": 7.87
+    },
+    "saving_pct": null
+   },
+   "Kwark": {
+    "unit": "kg",
+    "compared": false,
+    "best": {
+     "store": "aldi",
+     "id": "1217266",
+     "unit_price": 1.9
+    },
+    "saving_pct": null
+   },
+   "Melk": {
+    "unit": "l",
+    "compared": false,
+    "best": {
+     "store": "lidl",
+     "id": "11008575",
+     "unit_price": 0.99
+    },
+    "saving_pct": null
+   },
+   "Vla & pudding": {
+    "unit": "kg",
+    "compared": false,
+    "best": {
+     "store": "aldi",
+     "id": "1240675",
+     "unit_price": 2.45
+    },
+    "saving_pct": null
+   },
+   "Yoghurt": {
+    "unit": null,
+    "compared": false,
+    "best": null,
+    "saving_pct": null
+   }
+  },
+  "ah,dirk,lidl": {
+   "Gehakt": {
+    "unit": "kg",
+    "compared": true,
+    "best": {
+     "store": "lidl",
+     "id": "11322576",
+     "unit_price": 7.48
+    },
+    "saving_pct": 32
+   },
+   "Rundvlees": {
+    "unit": "kg",
+    "compared": true,
+    "best": {
+     "store": "lidl",
+     "id": "11322549",
+     "unit_price": 9.97
+    },
+    "saving_pct": 33
+   },
+   "Kaas": {
+    "unit": "kg",
+    "compared": false,
+    "best": {
+     "store": "lidl",
+     "id": "11323339",
+     "unit_price": 5.98
+    },
+    "saving_pct": null
+   },
+   "Ananas": {
+    "unit": "stuk",
+    "compared": true,
+    "best": {
+     "store": "lidl",
+     "id": "11214518",
+     "unit_price": 1.49
+    },
+    "saving_pct": 26
+   },
+   "Appels": {
+    "unit": null,
+    "compared": false,
+    "best": null,
+    "saving_pct": null
+   },
+   "Avocado": {
+    "unit": "kg",
+    "compared": false,
+    "best": {
+     "store": "lidl",
+     "id": "11029903",
+     "unit_price": 2.7
+    },
+    "saving_pct": null
+   },
+   "Blauwe bessen": {
+    "unit": "kg",
+    "compared": true,
+    "best": {
+     "store": "ah",
+     "id": "ah-blauwe-bessen",
+     "unit_price": 13.27
+    },
+    "saving_pct": 0
+   },
+   "Aardappels": {
+    "unit": "kg",
+    "compared": true,
+    "best": {
+     "store": "lidl",
+     "id": "11493347",
+     "unit_price": 0.8
+    },
+    "saving_pct": 84
+   },
+   "Witlof": {
+    "unit": "kg",
+    "compared": false,
+    "best": {
+     "store": "dirk",
+     "id": "140611",
+     "unit_price": 1.98
+    },
+    "saving_pct": null
+   },
+   "Wortels": {
+    "unit": "stuk",
+    "compared": true,
+    "best": {
+     "store": "lidl",
+     "id": "11029530",
+     "unit_price": 1.19
+    },
+    "saving_pct": 8
+   },
+   "Zalm": {
+    "unit": null,
+    "compared": false,
+    "best": null,
+    "saving_pct": null
+   },
+   "Worst": {
+    "unit": "kg",
+    "compared": false,
+    "best": {
+     "store": "lidl",
+     "id": "11322143",
+     "unit_price": 7.24
+    },
+    "saving_pct": null
+   },
+   "Boter": {
+    "unit": "kg",
+    "compared": false,
+    "best": {
+     "store": "ah",
+     "id": "819875",
+     "unit_price": 9.98
+    },
+    "saving_pct": null
+   },
+   "Melk": {
+    "unit": "l",
+    "compared": false,
+    "best": {
+     "store": "lidl",
+     "id": "11008575",
+     "unit_price": 0.99
+    },
+    "saving_pct": null
+   },
+   "Yoghurt": {
+    "unit": null,
+    "compared": false,
+    "best": null,
+    "saving_pct": null
+   },
+   "Aardbeien": {
+    "unit": "kg",
+    "compared": false,
+    "best": {
+     "store": "dirk",
+     "id": "140705",
+     "unit_price": 9.97
+    },
+    "saving_pct": null
+   },
+   "Bananen": {
+    "unit": null,
+    "compared": false,
+    "best": null,
+    "saving_pct": null
+   },
+   "Citroenen": {
+    "unit": "kg",
+    "compared": false,
+    "best": {
+     "store": "lidl",
+     "id": "11030000",
+     "unit_price": 1.98
+    },
+    "saving_pct": null
+   },
+   "Druiven": {
+    "unit": null,
+    "compared": false,
+    "best": null,
+    "saving_pct": null
+   },
+   "Kiwi's": {
+    "unit": null,
+    "compared": false,
+    "best": null,
+    "saving_pct": null
+   },
+   "Mandarijnen": {
+    "unit": "kg",
+    "compared": false,
+    "best": {
+     "store": "ah",
+     "id": "ah-mandarijnen",
+     "unit_price": 1.29
+    },
+    "saving_pct": null
+   },
+   "Sinaasappels": {
+    "unit": "kg",
+    "compared": false,
+    "best": {
+     "store": "lidl",
+     "id": "11115702",
+     "unit_price": 1.15
+    },
+    "saving_pct": null
+   },
+   "Muesli & granola": {
+    "unit": "kg",
+    "compared": false,
+    "best": {
+     "store": "ah",
+     "id": "819887",
+     "unit_price": 6.66
+    },
+    "saving_pct": null
+   },
+   "Bieten": {
+    "unit": null,
+    "compared": false,
+    "best": null,
+    "saving_pct": null
+   },
+   "Boerenkool": {
+    "unit": "kg",
+    "compared": false,
+    "best": {
+     "store": "dirk",
+     "id": "140607",
+     "unit_price": 3.3
+    },
+    "saving_pct": null
+   },
+   "Courgette": {
+    "unit": "stuk",
+    "compared": false,
+    "best": {
+     "store": "lidl",
+     "id": "11029408",
+     "unit_price": 0.39
+    },
+    "saving_pct": null
+   },
+   "Pompoen": {
+    "unit": null,
+    "compared": false,
+    "best": null,
+    "saving_pct": null
+   },
+   "Prei": {
+    "unit": "stuk",
+    "compared": false,
+    "best": {
+     "store": "lidl",
+     "id": "11029706",
+     "unit_price": 0.39
+    },
+    "saving_pct": null
+   },
+   "Sperziebonen": {
+    "unit": "kg",
+    "compared": false,
+    "best": {
+     "store": "lidl",
+     "id": "11492612",
+     "unit_price": 4.22
+    },
+    "saving_pct": null
+   },
+   "Spruiten": {
+    "unit": "kg",
+    "compared": false,
+    "best": {
+     "store": "dirk",
+     "id": "140608",
+     "unit_price": 1.19
+    },
+    "saving_pct": null
+   },
+   "Witte kool": {
+    "unit": null,
+    "compared": false,
+    "best": null,
+    "saving_pct": null
+   },
+   "Koffie": {
+    "unit": "kg",
+    "compared": false,
+    "best": {
+     "store": "dirk",
+     "id": "140667",
+     "unit_price": 34.95
+    },
+    "saving_pct": null
+   },
+   "Koffiecups & pads": {
+    "unit": null,
+    "compared": false,
+    "best": null,
+    "saving_pct": null
+   },
+   "Haring & makreel": {
+    "unit": "stuk",
+    "compared": false,
+    "best": {
+     "store": "dirk",
+     "id": "140721",
+     "unit_price": 3.49
+    },
+    "saving_pct": null
+   },
+   "Tonijn": {
+    "unit": null,
+    "compared": false,
+    "best": null,
+    "saving_pct": null
+   },
+   "Witvis": {
+    "unit": null,
+    "compared": false,
+    "best": null,
+    "saving_pct": null
+   },
+   "Kipfilet": {
+    "unit": "kg",
+    "compared": false,
+    "best": {
+     "store": "lidl",
+     "id": "11562268",
+     "unit_price": 13.27
+    },
+    "saving_pct": null
+   },
+   "Kippenpoten": {
+    "unit": null,
+    "compared": false,
+    "best": null,
+    "saving_pct": null
+   },
+   "Varkensvlees": {
+    "unit": "stuk",
+    "compared": false,
+    "best": {
+     "store": "ah",
+     "id": "ah-schnitzel-6-stuks",
+     "unit_price": 0.75
+    },
+    "saving_pct": null
+   },
+   "Vleeswaren": {
+    "unit": null,
+    "compared": false,
+    "best": null,
+    "saving_pct": null
+   },
+   "Vla & pudding": {
+    "unit": "kg",
+    "compared": false,
+    "best": {
+     "store": "dirk",
+     "id": "140635",
+     "unit_price": 3.3
+    },
+    "saving_pct": null
+   }
+  },
+  "aldi,dirk,lidl": {
+   "Gehakt": {
+    "unit": "kg",
+    "compared": true,
+    "best": {
+     "store": "lidl",
+     "id": "11322576",
+     "unit_price": 7.48
+    },
+    "saving_pct": 32
+   },
+   "Kaas": {
+    "unit": "kg",
+    "compared": true,
+    "best": {
+     "store": "lidl",
+     "id": "11323339",
+     "unit_price": 5.98
+    },
+    "saving_pct": 0
+   },
+   "Appels": {
+    "unit": "kg",
+    "compared": false,
+    "best": {
+     "store": "aldi",
+     "id": "1219892",
+     "unit_price": 1.66
+    },
+    "saving_pct": null
+   },
+   "Avocado": {
+    "unit": "kg",
+    "compared": false,
+    "best": {
+     "store": "lidl",
+     "id": "11029903",
+     "unit_price": 2.7
+    },
+    "saving_pct": null
+   },
+   "Kiwi's": {
+    "unit": "stuk",
+    "compared": false,
+    "best": {
+     "store": "aldi",
+     "id": "1224139",
+     "unit_price": 0.69
+    },
+    "saving_pct": null
+   },
+   "Aardappels": {
+    "unit": "kg",
+    "compared": true,
+    "best": {
+     "store": "lidl",
+     "id": "11493347",
+     "unit_price": 0.8
+    },
+    "saving_pct": 84
+   },
+   "Bieten": {
+    "unit": "kg",
+    "compared": false,
+    "best": {
+     "store": "aldi",
+     "id": "1222205",
+     "unit_price": 2.5
+    },
+    "saving_pct": null
+   },
+   "Boerenkool": {
+    "unit": "kg",
+    "compared": true,
+    "best": {
+     "store": "aldi",
+     "id": "1241051",
+     "unit_price": 2.2
+    },
+    "saving_pct": 33
+   },
+   "Courgette": {
+    "unit": "stuk",
+    "compared": true,
+    "best": {
+     "store": "lidl",
+     "id": "11029408",
+     "unit_price": 0.39
+    },
+    "saving_pct": 46
+   },
+   "Prei": {
+    "unit": "stuk",
+    "compared": true,
+    "best": {
+     "store": "lidl",
+     "id": "11029706",
+     "unit_price": 0.39
+    },
+    "saving_pct": 29
+   },
+   "Wortels": {
+    "unit": "stuk",
+    "compared": true,
+    "best": {
+     "store": "lidl",
+     "id": "11029530",
+     "unit_price": 1.19
+    },
+    "saving_pct": 8
+   },
+   "Koffie": {
+    "unit": "kg",
+    "compared": true,
+    "best": {
+     "store": "aldi",
+     "id": "1244114",
+     "unit_price": 24.9
+    },
+    "saving_pct": 29
+   },
+   "Zalm": {
+    "unit": "kg",
+    "compared": false,
+    "best": {
+     "store": "aldi",
+     "id": "1225395",
+     "unit_price": 15.98
+    },
+    "saving_pct": null
+   },
+   "Kipfilet": {
+    "unit": "kg",
+    "compared": true,
+    "best": {
+     "store": "lidl",
+     "id": "11562268",
+     "unit_price": 13.27
+    },
+    "saving_pct": 5
+   },
+   "Rundvlees": {
+    "unit": "kg",
+    "compared": true,
+    "best": {
+     "store": "lidl",
+     "id": "11322549",
+     "unit_price": 9.97
+    },
+    "saving_pct": 33
+   },
+   "Boter": {
+    "unit": "kg",
+    "compared": false,
+    "best": {
+     "store": "aldi",
+     "id": "91240177",
+     "unit_price": 7.45
+    },
+    "saving_pct": null
+   },
+   "Melk": {
+    "unit": "l",
+    "compared": false,
+    "best": {
+     "store": "lidl",
+     "id": "11008575",
+     "unit_price": 0.99
+    },
+    "saving_pct": null
+   },
+   "Vla & pudding": {
+    "unit": "kg",
+    "compared": true,
+    "best": {
+     "store": "aldi",
+     "id": "1240675",
+     "unit_price": 2.45
+    },
+    "saving_pct": 26
+   },
+   "Aardbeien": {
+    "unit": "kg",
+    "compared": false,
+    "best": {
+     "store": "dirk",
+     "id": "140705",
+     "unit_price": 9.97
+    },
+    "saving_pct": null
+   },
+   "Ananas": {
+    "unit": "stuk",
+    "compared": false,
+    "best": {
+     "store": "lidl",
+     "id": "11214518",
+     "unit_price": 1.49
+    },
+    "saving_pct": null
+   },
+   "Blauwe bessen": {
+    "unit": "kg",
+    "compared": false,
+    "best": {
+     "store": "dirk",
+     "id": "140699",
+     "unit_price": 13.3
+    },
+    "saving_pct": null
+   },
+   "Citroenen": {
+    "unit": "kg",
+    "compared": false,
+    "best": {
+     "store": "lidl",
+     "id": "11030000",
+     "unit_price": 1.98
+    },
+    "saving_pct": null
+   },
+   "Druiven": {
+    "unit": null,
+    "compared": false,
+    "best": null,
+    "saving_pct": null
+   },
+   "Frambozen": {
+    "unit": "kg",
+    "compared": false,
+    "best": {
+     "store": "aldi",
+     "id": "1201661",
+     "unit_price": 18.32
+    },
+    "saving_pct": null
+   },
+   "Mandarijnen": {
+    "unit": "kg",
+    "compared": false,
+    "best": {
+     "store": "aldi",
+     "id": "1219324",
+     "unit_price": 1.99
+    },
+    "saving_pct": null
+   },
+   "Sinaasappels": {
+    "unit": "kg",
+    "compared": false,
+    "best": {
+     "store": "lidl",
+     "id": "11115702",
+     "unit_price": 1.15
+    },
+    "saving_pct": null
+   },
+   "Champignons": {
+    "unit": "kg",
+    "compared": false,
+    "best": {
+     "store": "aldi",
+     "id": "1219554",
+     "unit_price": 6.76
+    },
+    "saving_pct": null
+   },
+   "Paprika": {
+    "unit": "kg",
+    "compared": false,
+    "best": {
+     "store": "aldi",
+     "id": "1243832",
+     "unit_price": 3.58
+    },
+    "saving_pct": null
+   },
+   "Sla": {
+    "unit": "stuk",
+    "compared": false,
+    "best": {
+     "store": "aldi",
+     "id": "1218644",
+     "unit_price": 1.19
+    },
+    "saving_pct": null
+   },
+   "Sperziebonen": {
+    "unit": "kg",
+    "compared": false,
+    "best": {
+     "store": "lidl",
+     "id": "11492612",
+     "unit_price": 4.22
+    },
+    "saving_pct": null
+   },
+   "Spruiten": {
+    "unit": "kg",
+    "compared": false,
+    "best": {
+     "store": "dirk",
+     "id": "140608",
+     "unit_price": 1.19
+    },
+    "saving_pct": null
+   },
+   "Uien": {
+    "unit": "kg",
+    "compared": false,
+    "best": {
+     "store": "aldi",
+     "id": "1220494",
+     "unit_price": 7.42
+    },
+    "saving_pct": null
+   },
+   "Witlof": {
+    "unit": "kg",
+    "compared": false,
+    "best": {
+     "store": "dirk",
+     "id": "140611",
+     "unit_price": 1.98
+    },
+    "saving_pct": null
+   },
+   "Witte kool": {
+    "unit": null,
+    "compared": false,
+    "best": null,
+    "saving_pct": null
+   },
+   "Koffiebonen": {
+    "unit": "kg",
+    "compared": false,
+    "best": {
+     "store": "aldi",
+     "id": "91224479",
+     "unit_price": 12.79
+    },
+    "saving_pct": null
+   },
+   "Koffiecups & pads": {
+    "unit": null,
+    "compared": false,
+    "best": null,
+    "saving_pct": null
+   },
+   "Haring & makreel": {
+    "unit": "stuk",
+    "compared": false,
+    "best": {
+     "store": "dirk",
+     "id": "140721",
+     "unit_price": 3.49
+    },
+    "saving_pct": null
+   },
+   "Tonijn": {
+    "unit": "kg",
+    "compared": false,
+    "best": {
+     "store": "aldi",
+     "id": "1232626",
+     "unit_price": 8.26
+    },
+    "saving_pct": null
+   },
+   "Witvis": {
+    "unit": null,
+    "compared": false,
+    "best": null,
+    "saving_pct": null
+   },
+   "Spek": {
+    "unit": "kg",
+    "compared": false,
+    "best": {
+     "store": "aldi",
+     "id": "1202247",
+     "unit_price": 7.87
+    },
+    "saving_pct": null
+   },
+   "Varkensvlees": {
+    "unit": "kg",
+    "compared": false,
+    "best": {
+     "store": "aldi",
+     "id": "1245179",
+     "unit_price": 7.98
+    },
+    "saving_pct": null
+   },
+   "Vleeswaren": {
+    "unit": "kg",
+    "compared": false,
+    "best": {
+     "store": "aldi",
+     "id": "1229904",
+     "unit_price": 6.76
+    },
+    "saving_pct": null
+   },
+   "Worst": {
+    "unit": "kg",
+    "compared": false,
+    "best": {
+     "store": "lidl",
+     "id": "11322143",
+     "unit_price": 7.24
+    },
+    "saving_pct": null
+   },
+   "Kwark": {
+    "unit": "kg",
+    "compared": false,
+    "best": {
+     "store": "aldi",
+     "id": "1217266",
+     "unit_price": 1.9
+    },
+    "saving_pct": null
+   },
+   "Yoghurt": {
+    "unit": null,
+    "compared": false,
+    "best": null,
+    "saving_pct": null
+   }
+  },
+  "ah,aldi,dirk,lidl": {
+   "Gehakt": {
+    "unit": "kg",
+    "compared": true,
+    "best": {
+     "store": "lidl",
+     "id": "11322576",
+     "unit_price": 7.48
+    },
+    "saving_pct": 32
+   },
+   "Kaas": {
+    "unit": "kg",
+    "compared": true,
+    "best": {
+     "store": "lidl",
+     "id": "11323339",
+     "unit_price": 5.98
+    },
+    "saving_pct": 0
+   },
+   "Appels": {
+    "unit": "kg",
+    "compared": false,
+    "best": {
+     "store": "aldi",
+     "id": "1219892",
+     "unit_price": 1.66
+    },
+    "saving_pct": null
+   },
+   "Zalm": {
+    "unit": "kg",
+    "compared": false,
+    "best": {
+     "store": "aldi",
+     "id": "1225395",
+     "unit_price": 15.98
+    },
+    "saving_pct": null
+   },
+   "Rundvlees": {
+    "unit": "kg",
+    "compared": true,
+    "best": {
+     "store": "lidl",
+     "id": "11322549",
+     "unit_price": 9.97
+    },
+    "saving_pct": 33
+   },
+   "Boter": {
+    "unit": "kg",
+    "compared": true,
+    "best": {
+     "store": "aldi",
+     "id": "91240177",
+     "unit_price": 7.45
+    },
+    "saving_pct": 25
+   },
+   "Ananas": {
+    "unit": "stuk",
+    "compared": true,
+    "best": {
+     "store": "lidl",
+     "id": "11214518",
+     "unit_price": 1.49
+    },
+    "saving_pct": 26
+   },
+   "Avocado": {
+    "unit": "kg",
+    "compared": false,
+    "best": {
+     "store": "lidl",
+     "id": "11029903",
+     "unit_price": 2.7
+    },
+    "saving_pct": null
+   },
+   "Blauwe bessen": {
+    "unit": "kg",
+    "compared": true,
+    "best": {
+     "store": "ah",
+     "id": "ah-blauwe-bessen",
+     "unit_price": 13.27
+    },
+    "saving_pct": 0
+   },
+   "Kiwi's": {
+    "unit": "stuk",
+    "compared": false,
+    "best": {
+     "store": "aldi",
+     "id": "1224139",
+     "unit_price": 0.69
+    },
+    "saving_pct": null
+   },
+   "Mandarijnen": {
+    "unit": "kg",
+    "compared": true,
+    "best": {
+     "store": "ah",
+     "id": "ah-mandarijnen",
+     "unit_price": 1.29
+    },
+    "saving_pct": 35
+   },
+   "Aardappels": {
+    "unit": "kg",
+    "compared": true,
+    "best": {
+     "store": "lidl",
+     "id": "11493347",
+     "unit_price": 0.8
+    },
+    "saving_pct": 84
+   },
+   "Bieten": {
+    "unit": "kg",
+    "compared": false,
+    "best": {
+     "store": "aldi",
+     "id": "1222205",
+     "unit_price": 2.5
+    },
+    "saving_pct": null
+   },
+   "Boerenkool": {
+    "unit": "kg",
+    "compared": true,
+    "best": {
+     "store": "aldi",
+     "id": "1241051",
+     "unit_price": 2.2
+    },
+    "saving_pct": 33
+   },
+   "Courgette": {
+    "unit": "stuk",
+    "compared": true,
+    "best": {
+     "store": "lidl",
+     "id": "11029408",
+     "unit_price": 0.39
+    },
+    "saving_pct": 46
+   },
+   "Prei": {
+    "unit": "stuk",
+    "compared": true,
+    "best": {
+     "store": "lidl",
+     "id": "11029706",
+     "unit_price": 0.39
+    },
+    "saving_pct": 29
+   },
+   "Witlof": {
+    "unit": "kg",
+    "compared": false,
+    "best": {
+     "store": "dirk",
+     "id": "140611",
+     "unit_price": 1.98
+    },
+    "saving_pct": null
+   },
+   "Wortels": {
+    "unit": "stuk",
+    "compared": true,
+    "best": {
+     "store": "lidl",
+     "id": "11029530",
+     "unit_price": 1.19
+    },
+    "saving_pct": 8
+   },
+   "Koffie": {
+    "unit": "kg",
+    "compared": true,
+    "best": {
+     "store": "aldi",
+     "id": "1244114",
+     "unit_price": 24.9
+    },
+    "saving_pct": 29
+   },
+   "Koffiecups & pads": {
+    "unit": null,
+    "compared": false,
+    "best": null,
+    "saving_pct": null
+   },
+   "Tonijn": {
+    "unit": "kg",
+    "compared": false,
+    "best": {
+     "store": "aldi",
+     "id": "1232626",
+     "unit_price": 8.26
+    },
+    "saving_pct": null
+   },
+   "Kipfilet": {
+    "unit": "kg",
+    "compared": true,
+    "best": {
+     "store": "lidl",
+     "id": "11562268",
+     "unit_price": 13.27
+    },
+    "saving_pct": 5
+   },
+   "Varkensvlees": {
+    "unit": "kg",
+    "compared": false,
+    "best": {
+     "store": "aldi",
+     "id": "1245179",
+     "unit_price": 7.98
+    },
+    "saving_pct": null
+   },
+   "Vleeswaren": {
+    "unit": "kg",
+    "compared": false,
+    "best": {
+     "store": "aldi",
+     "id": "1229904",
+     "unit_price": 6.76
+    },
+    "saving_pct": null
+   },
+   "Worst": {
+    "unit": "kg",
+    "compared": false,
+    "best": {
+     "store": "lidl",
+     "id": "11322143",
+     "unit_price": 7.24
+    },
+    "saving_pct": null
+   },
+   "Melk": {
+    "unit": "l",
+    "compared": false,
+    "best": {
+     "store": "lidl",
+     "id": "11008575",
+     "unit_price": 0.99
+    },
+    "saving_pct": null
+   },
+   "Vla & pudding": {
+    "unit": "kg",
+    "compared": true,
+    "best": {
+     "store": "aldi",
+     "id": "1240675",
+     "unit_price": 2.45
+    },
+    "saving_pct": 26
+   },
+   "Yoghurt": {
+    "unit": null,
+    "compared": false,
+    "best": null,
+    "saving_pct": null
+   },
+   "Aardbeien": {
+    "unit": "kg",
+    "compared": false,
+    "best": {
+     "store": "dirk",
+     "id": "140705",
+     "unit_price": 9.97
+    },
+    "saving_pct": null
+   },
+   "Bananen": {
+    "unit": null,
+    "compared": false,
+    "best": null,
+    "saving_pct": null
+   },
+   "Citroenen": {
+    "unit": "kg",
+    "compared": false,
+    "best": {
+     "store": "lidl",
+     "id": "11030000",
+     "unit_price": 1.98
+    },
+    "saving_pct": null
+   },
+   "Druiven": {
+    "unit": null,
+    "compared": false,
+    "best": null,
+    "saving_pct": null
+   },
+   "Frambozen": {
+    "unit": "kg",
+    "compared": false,
+    "best": {
+     "store": "aldi",
+     "id": "1201661",
+     "unit_price": 18.32
+    },
+    "saving_pct": null
+   },
+   "Sinaasappels": {
+    "unit": "kg",
+    "compared": false,
+    "best": {
+     "store": "lidl",
+     "id": "11115702",
+     "unit_price": 1.15
+    },
+    "saving_pct": null
+   },
+   "Muesli & granola": {
+    "unit": "kg",
+    "compared": false,
+    "best": {
+     "store": "ah",
+     "id": "819887",
+     "unit_price": 6.66
+    },
+    "saving_pct": null
+   },
+   "Champignons": {
+    "unit": "kg",
+    "compared": false,
+    "best": {
+     "store": "aldi",
+     "id": "1219554",
+     "unit_price": 6.76
+    },
+    "saving_pct": null
+   },
+   "Paprika": {
+    "unit": "kg",
+    "compared": false,
+    "best": {
+     "store": "aldi",
+     "id": "1243832",
+     "unit_price": 3.58
+    },
+    "saving_pct": null
+   },
+   "Pompoen": {
+    "unit": null,
+    "compared": false,
+    "best": null,
+    "saving_pct": null
+   },
+   "Sla": {
+    "unit": "stuk",
+    "compared": false,
+    "best": {
+     "store": "aldi",
+     "id": "1218644",
+     "unit_price": 1.19
+    },
+    "saving_pct": null
+   },
+   "Sperziebonen": {
+    "unit": "kg",
+    "compared": false,
+    "best": {
+     "store": "lidl",
+     "id": "11492612",
+     "unit_price": 4.22
+    },
+    "saving_pct": null
+   },
+   "Spruiten": {
+    "unit": "kg",
+    "compared": false,
+    "best": {
+     "store": "dirk",
+     "id": "140608",
+     "unit_price": 1.19
+    },
+    "saving_pct": null
+   },
+   "Uien": {
+    "unit": "kg",
+    "compared": false,
+    "best": {
+     "store": "aldi",
+     "id": "1220494",
+     "unit_price": 7.42
+    },
+    "saving_pct": null
+   },
+   "Witte kool": {
+    "unit": null,
+    "compared": false,
+    "best": null,
+    "saving_pct": null
+   },
+   "Koffiebonen": {
+    "unit": "kg",
+    "compared": false,
+    "best": {
+     "store": "aldi",
+     "id": "91224479",
+     "unit_price": 12.79
+    },
+    "saving_pct": null
+   },
+   "Haring & makreel": {
+    "unit": "stuk",
+    "compared": false,
+    "best": {
+     "store": "dirk",
+     "id": "140721",
+     "unit_price": 3.49
+    },
+    "saving_pct": null
+   },
+   "Witvis": {
+    "unit": null,
+    "compared": false,
+    "best": null,
+    "saving_pct": null
+   },
+   "Kippenpoten": {
+    "unit": null,
+    "compared": false,
+    "best": null,
+    "saving_pct": null
+   },
+   "Spek": {
+    "unit": "kg",
+    "compared": false,
+    "best": {
+     "store": "aldi",
+     "id": "1202247",
+     "unit_price": 7.87
+    },
+    "saving_pct": null
+   },
+   "Kwark": {
+    "unit": "kg",
+    "compared": false,
+    "best": {
+     "store": "aldi",
+     "id": "1217266",
+     "unit_price": 1.9
+    },
+    "saving_pct": null
+   }
+  }
+ }
 }

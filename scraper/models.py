@@ -7,7 +7,7 @@ from typing import Optional
 
 @dataclass
 class Offer:
-    store: str                      # "lidl" | "aldi" | "ah"
+    store: str                      # "lidl" | "aldi" | "dirk" | "ah"
     id: str                         # store-specific id, unique within store
     name: str                       # product title as shown by the store
     image: Optional[str] = None

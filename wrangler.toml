@@ -10,6 +10,12 @@ compatibility_date = "2025-06-01"
 binding = "OFFERS"
 id = "087e2b6d30404fb481d3af23da482d68"
 
+# Accounts, sessions and saved grocery lists (functions/api/account/, lib/accounts.js).
+# Sign-up needs the INVITE_CODE secret: `npx wrangler pages secret put INVITE_CODE`.
+[[kv_namespaces]]
+binding = "USERS"
+id = "f6c08f9945f34d4aa605b2b0178f2ae6"
+
 # Used by the Run button (functions/api/run.js); its token is the GITHUB_TOKEN secret.
 [vars]
 GITHUB_REPO = "chandramohanV/GroceryPriceCompare"

@@ -1,7 +1,7 @@
 (() => {
   "use strict";
 
-  const STORE_NAMES = { ah: "Albert Heijn", lidl: "Lidl", aldi: "Aldi" };
+  const STORE_NAMES = window.STORE_NAMES;
   // Category codes come from scraper/match.py (CATEGORIES).
   const CATEGORY_ICON = {
     fruit: "🍎", groente: "🥦", vlees: "🥩", vis: "🐟", zuivel: "🧀", granen: "🥣", koffie: "☕",
@@ -10,9 +10,12 @@
   const STATIC_OFFERS_URLS = ["data/offers.json", "../data/offers.json"];
   const UNIT_LABEL = { kg: "per kg", l: "per litre", stuk: "per piece" };
   const DEFAULT_MEMBER_LABEL = "with card";
-  const LANG_STORAGE_KEY = "lang";
+  // Used when a saved payload predates per-store verdicts: show offers without picking a winner.
+  const NO_VERDICT = { unit: null, compared: false, best: null, saving_pct: null };
   const eur = (n) => n == null ? "–" : "€" + n.toFixed(2).replace(".", ",");
-  const state = { cat: "all", q: "", sort: "compare", lang: readSavedLang(), data: null };
+  const user = window.userState;
+  const state = { cat: "all", q: "", sort: "compare", data: null };
+  const lang = () => (user.prefs.lang === "nl" ? "nl" : "en");
 
   async function fetchJson(url) {
     try {
@@ -42,24 +45,16 @@
   }
 
   const isWebUrl = (url) => typeof url === "string" && url.startsWith("https://");
-
-  // The language choice is a per-viewer convenience; storage can be blocked
-  // (private windows), in which case we simply default to English.
-  function readSavedLang() {
-    try { return localStorage.getItem(LANG_STORAGE_KEY) === "nl" ? "nl" : "en"; } catch (_) { return "en"; }
-  }
-
-  function saveLang(lang) {
-    try { localStorage.setItem(LANG_STORAGE_KEY, lang); } catch (_) { /* choice just isn't remembered */ }
-  }
+  const storeOf = (offerKey) => offerKey.slice(0, offerKey.indexOf(":"));
 
   // Offer text in the chosen language, falling back to the store's Dutch original.
   function offerText(o, field) {
     const original = field === "note" ? o.extras && o.extras.note : o[field];
-    return (state.lang === "en" && o.en && o.en[field]) || original;
+    return (lang() === "en" && o.en && o.en[field]) || original;
   }
 
-  const productName = (c) => (state.lang === "en" && c.product_en) || c.product;
+  const productName = (c) => (lang() === "en" && c.product_en) || c.product;
+  const shownPrice = (o) => (o.price != null ? o.price : o.member_price);
 
   function el(tag, cls, text) {
     const e = document.createElement(tag);
@@ -68,6 +63,59 @@
     return e;
   }
 
+  function icon(name) {
+    const span = el("span", "material-symbols-outlined", name);
+    span.setAttribute("aria-hidden", "true");
+    return span;
+  }
+
+  // ---------- stores to compare ----------
+  const availableStores = (d) => Object.keys(STORE_NAMES).filter((s) => d.offers.some((o) => o.store === s));
+
+  // The stores the person picked, among those with offers; all of them when nothing is picked.
+  function chosenStores(d) {
+    const available = availableStores(d);
+    const picked = user.prefs.stores;
+    const chosen = Array.isArray(picked) ? available.filter((s) => picked.includes(s)) : [];
+    return chosen.length ? chosen : available;
+  }
+
+  function toggleStore(store) {
+    const chosen = chosenStores(state.data);
+    const next = chosen.includes(store) ? chosen.filter((s) => s !== store) : [...chosen, store];
+    if (next.length) user.setPrefs({ stores: next }); // at least one store stays chosen
+  }
+
+  function renderStoreChips(d) {
+    const box = document.getElementById("stores");
+    const chosen = chosenStores(d);
+    box.textContent = "";
+    for (const store of availableStores(d)) {
+      const isOn = chosen.includes(store);
+      const chip = el("button", "store-chip " + store + (isOn ? " on" : ""));
+      chip.type = "button";
+      chip.setAttribute("aria-pressed", isOn);
+      chip.append(STORE_NAMES[store]);
+      chip.addEventListener("click", () => toggleStore(store));
+      box.append(chip);
+    }
+  }
+
+  // A comparison narrowed to the chosen stores, with the verdict worked out for exactly those
+  // stores by the scraper (scraper/pipeline.py verdicts_by_store_set).
+  function forChosenStores(c, chosen, verdicts, isAllStores) {
+    const offerIds = c.offer_ids.filter((k) => chosen.has(storeOf(k)));
+    if (!offerIds.length) return null;
+    const verdict = (verdicts && verdicts[c.product]) || (isAllStores ? c : NO_VERDICT);
+    return {
+      ...c,
+      offer_ids: offerIds,
+      stores: c.stores.filter((s) => chosen.has(s)),
+      unit: verdict.unit, compared: verdict.compared, best: verdict.best, saving_pct: verdict.saving_pct,
+    };
+  }
+
+  // ---------- status ----------
   function storeStatusText(s) {
     if (s.ok) return `${s.name}: ${s.matched} offers`;
     if (s.carried_over) return `${s.name}: ${s.carried_over} offers (from your last import)`;
@@ -77,7 +125,7 @@
   function renderStatus(d) {
     const box = document.getElementById("status");
     box.textContent = "";
-    for (const [key, s] of Object.entries(d.stores)) {
+    for (const s of Object.values(d.stores)) {
       const hasOffers = s.ok || s.carried_over > 0;
       const chip = el("span", "chip" + (hasOffers ? "" : " bad"));
       chip.append(el("span", "dot"));
@@ -96,7 +144,27 @@
     return Math.round((1 - now / o.old_price) * 100);
   }
 
-  function row(o, isBest, unit) {
+  // ---------- offer rows ----------
+  function listButton(o) {
+    const isListed = user.hasItem(o.key);
+    const name = offerText(o, "name");
+    const button = el("button", "icon-btn add" + (isListed ? " on" : ""));
+    button.type = "button";
+    button.setAttribute("aria-pressed", isListed);
+    button.title = isListed ? "On your grocery list (click to remove)" : "Add to grocery list";
+    button.setAttribute("aria-label", `${button.title}: ${name}`);
+    button.append(icon(isListed ? "playlist_add_check" : "add_shopping_cart"));
+    button.addEventListener("click", () => {
+      if (user.hasItem(o.key)) { user.removeItem(o.key); return; }
+      user.addItem({
+        id: o.key, text: name, store: o.store, price: shownPrice(o),
+        detail: offerText(o, "quantity_text") || undefined,
+      });
+    });
+    return button;
+  }
+
+  function row(o, isBest) {
     const li = el("li", "row" + (isBest ? " best" : ""));
     const offerName = offerText(o, "name");
 
@@ -130,7 +198,7 @@
 
     const price = el("div", "price");
     const line = el("div");
-    const shown = o.price != null ? o.price : o.member_price;
+    const shown = shownPrice(o);
     const memberLabel = offerText(o, "member_label");
     if (o.old_price && o.old_price > shown) line.append(el("span", "old", eur(o.old_price)));
     line.append(el("span", "now", eur(shown)));
@@ -144,6 +212,7 @@
       price.append(el("span", "unit", `${eur(o.unit_price)} ${UNIT_LABEL[o.qty_unit] || ""}`));
     }
     li.append(price);
+    li.append(listButton(o));
     return li;
   }
 
@@ -161,22 +230,34 @@
     return c.saving_pct ? `${STORE_NAMES[c.best.store]} ${c.saving_pct}% cheaper` : "Same price";
   }
 
+  function visibleComparisons(d, byKey) {
+    const chosen = chosenStores(d);
+    const verdicts = (d.verdicts_by_store_set || {})[[...chosen].sort().join(",")];
+    const isAllStores = chosen.length === availableStores(d).length;
+    const chosenSet = new Set(chosen);
+    const q = state.q.trim().toLowerCase();
+    return d.comparisons
+      .map((c) => forChosenStores(c, chosenSet, verdicts, isAllStores))
+      .filter((c) => c && (state.cat === "all" || c.category === state.cat))
+      .filter((c) => !q || searchableTexts(c, byKey).some((s) => s.includes(q)));
+  }
+
+  function sortRows(rows, byKey) {
+    const maxDisc = (c) => Math.max(0, ...c.offer_ids.map((k) => discountPct(byKey[k])));
+    if (state.sort === "compare") rows.sort((a, b) => b.stores.length - a.stores.length);
+    if (state.sort === "name") rows.sort((a, b) => productName(a).localeCompare(productName(b), lang()));
+    if (state.sort === "saving") rows.sort((a, b) => maxDisc(b) - maxDisc(a));
+    return rows;
+  }
+
   function render() {
     const d = state.data;
     const byKey = Object.fromEntries(d.offers.map((o) => [o.key, o]));
     const list = document.getElementById("list");
     const tpl = document.getElementById("card-tpl");
-    const q = state.q.trim().toLowerCase();
+    const rows = sortRows(visibleComparisons(d, byKey), byKey);
 
-    let rows = d.comparisons.filter((c) => {
-      if (state.cat !== "all" && c.category !== state.cat) return false;
-      return !q || searchableTexts(c, byKey).some((s) => s.includes(q));
-    });
-
-    const maxDisc = (c) => Math.max(0, ...c.offer_ids.map((k) => discountPct(byKey[k])));
-    if (state.sort === "name") rows.sort((a, b) => productName(a).localeCompare(productName(b), state.lang));
-    if (state.sort === "saving") rows.sort((a, b) => maxDisc(b) - maxDisc(a));
-
+    renderStoreChips(d);
     list.textContent = "";
     for (const c of rows) {
       const node = tpl.content.firstElementChild.cloneNode(true);
@@ -186,8 +267,7 @@
       for (const k of c.offer_ids) {
         const o = byKey[k];
         if (!o) continue;
-        const isBest = c.compared && `${c.best.store}:${c.best.id}` === k;
-        ul.append(row(o, isBest, c.unit));
+        ul.append(row(o, c.compared && `${c.best.store}:${c.best.id}` === k));
       }
       list.append(node);
     }
@@ -210,13 +290,19 @@
     }));
   }
 
+  function showLanguage() {
+    const langGroup = document.getElementById("lang");
+    markSelected(langGroup, langGroup.querySelector(`[data-lang="${lang()}"]`));
+  }
+
   function bind() {
     bindSegment("cat", (b) => { state.cat = b.dataset.cat; });
-    bindSegment("lang", (b) => { state.lang = b.dataset.lang; saveLang(state.lang); });
-    const langGroup = document.getElementById("lang");
-    markSelected(langGroup, langGroup.querySelector(`[data-lang="${state.lang}"]`));
+    bindSegment("lang", (b) => { user.setPrefs({ lang: b.dataset.lang }); });
+    showLanguage();
     document.getElementById("q").addEventListener("input", (e) => { state.q = e.target.value; render(); });
     document.getElementById("sort").addEventListener("change", (e) => { state.sort = e.target.value; render(); });
+    // Signing in, picking stores or changing the list all change what the cards show.
+    user.subscribe(() => { showLanguage(); render(); });
   }
 
   // Shared with upload.js: it reads the shown offers and sends back new ones.

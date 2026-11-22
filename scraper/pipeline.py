@@ -6,6 +6,7 @@ Pure functions only (no network, files or clock), so the same code runs in
 from __future__ import annotations
 
 from dataclasses import fields
+from itertools import combinations
 from datetime import date, datetime
 from typing import Optional
 
@@ -15,7 +16,7 @@ from .normalize import enrich
 from .translate import product_name, translate_offer
 
 # Stores whose shelf price already includes a "-30%" style discount (AH shows the old price)
-STORES_SHOWING_DISCOUNTED_PRICE = frozenset({"lidl", "aldi"})
+STORES_SHOWING_DISCOUNTED_PRICE = frozenset({"lidl", "aldi", "dirk"})
 
 
 def prepare(offers: list[Offer]) -> list[Offer]:
@@ -79,6 +80,31 @@ def compare(offers: list[Offer]) -> list[dict]:
     return result
 
 
+# What a comparison concludes; the rest of an entry (product, offers) doesn't depend on the stores.
+VERDICT_FIELDS = ("unit", "compared", "best", "saving_pct")
+
+
+def store_set_key(stores) -> str:
+    """Key of a store combination in ``verdicts_by_store_set``, e.g. "aldi,lidl"."""
+    return ",".join(sorted(stores))
+
+
+def verdicts_by_store_set(offers: list[Offer]) -> dict[str, dict[str, dict]]:
+    """For every combination of stores: product -> verdict among only those stores.
+
+    Lets the site show "best deal" for the stores a visitor picks without
+    re-implementing the comparison in JavaScript.
+    """
+    stores = sorted({o.store for o in offers})
+    result = {}
+    for size in range(1, len(stores) + 1):
+        for chosen in combinations(stores, size):
+            entries = compare([o for o in offers if o.store in chosen])
+            result[store_set_key(chosen)] = {
+                e["product"]: {f: e[f] for f in VERDICT_FIELDS} for e in entries}
+    return result
+
+
 def build_payload(offers: list[Offer], status: dict, now: datetime) -> dict:
     """The offers.json document the site renders."""
     return {
@@ -89,6 +115,7 @@ def build_payload(offers: list[Offer], status: dict, now: datetime) -> dict:
             for o in offers
         ],
         "comparisons": compare(offers),
+        "verdicts_by_store_set": verdicts_by_store_set(offers),
     }
 
 
@@ -109,7 +136,7 @@ def replace_store_offers(payload: dict, store: str, label: str,
                          scraped: list[Offer], now: datetime) -> dict:
     """A new payload where one store's offers are replaced by freshly scraped ones.
 
-    Used by the upload form (AH) and the weekly refresh (Lidl, Aldi): the other stores
+    Used by the upload form (AH) and the weekly refresh (Lidl, Aldi, Dirk): the other stores
     keep their status and those of their offers whose week hasn't ended.
     """
     kept = prepare(scraped)

@@ -4,21 +4,34 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Weekly Grocery Deals</title>
-  <meta name="description" content="Compare this week's grocery offers at Albert Heijn, Lidl and Aldi.">
+  <meta name="description" content="Compare this week's grocery offers at Albert Heijn, Lidl, Aldi and Dirk.">
   <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🛒</text></svg>">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap">
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0&display=block">
   <link rel="stylesheet" href="style.css">
+  <script src="stores.js"></script>
+  <script src="state.js"></script>
 </head>
 <body>
   <header class="app-bar">
     <div class="wrap app-bar-row">
       <span class="material-symbols-outlined app-bar-icon" aria-hidden="true">shopping_cart</span>
       <h1>Weekly Grocery Deals</h1>
-      <a class="btn text" href="#update">
-        <span class="material-symbols-outlined" aria-hidden="true">sync</span>Update prices
+      <button id="theme-btn" class="icon-btn" type="button">
+        <span class="material-symbols-outlined" aria-hidden="true">brightness_auto</span>
+      </button>
+      <button id="list-btn" class="btn text" type="button" aria-label="Grocery list">
+        <span class="material-symbols-outlined" aria-hidden="true">checklist</span>
+        <span class="label">List</span><span id="list-count" class="count" hidden></span>
+      </button>
+      <button id="account-btn" class="btn text" type="button">
+        <span class="material-symbols-outlined" aria-hidden="true">account_circle</span>
+        <span id="account-label" class="label">Sign in</span>
+      </button>
+      <a class="btn text" href="#update" aria-label="Update prices">
+        <span class="material-symbols-outlined" aria-hidden="true">sync</span><span class="label">Update prices</span>
       </a>
     </div>
   </header>
@@ -26,7 +39,7 @@
   <section class="hero">
     <div class="wrap">
       <p class="sub">This week's offers on fruit, vegetables, meat, fish, dairy, eggs, cereals and coffee at
-        Albert Heijn, Lidl and Aldi, compared per kilo, litre or piece.</p>
+        Albert Heijn, Lidl, Aldi and Dirk, compared per kilo, litre or piece.</p>
       <div id="status" class="status" aria-live="polite">Loading offers…</div>
     </div>
   </section>
@@ -49,6 +62,11 @@
         <button class="on" data-lang="en" role="tab" aria-selected="true">English</button>
         <button data-lang="nl" role="tab" aria-selected="false" lang="nl">Nederlands</button>
       </div>
+    </div>
+
+    <div class="store-picker">
+      <span class="small">Compare:</span>
+      <div id="stores" class="filter-chips" role="group" aria-label="Stores to compare"></div>
     </div>
 
     <div id="cat" class="filter-chips" role="tablist" aria-label="Category">
@@ -74,8 +92,8 @@
       </label>
 
       <div class="update-step">
-        <h3>Lidl and Aldi</h3>
-        <p class="small">Fetches the latest Lidl and Aldi offers. This runs by itself every Monday; use the button for an
+        <h3>Lidl, Aldi and Dirk</h3>
+        <p class="small">Fetches the latest Lidl, Aldi and Dirk offers. This runs by itself every Monday; use the button for an
           extra run. New prices appear here after about three minutes.</p>
         <button id="run-now" class="btn tonal" type="button">
           <span class="material-symbols-outlined" aria-hidden="true">play_arrow</span>Run now
@@ -106,10 +124,78 @@
         "Best deal" compares the effective price per kg, litre or piece after multi-buy deals such as
         "1+1 free" (1+1 gratis). Product names are translated automatically from Dutch; switch to
         Nederlands to see them exactly as the store writes them. Always check the store before you go; this
-        page is not affiliated with AH, Lidl or Aldi.</p>
+        page is not affiliated with AH, Lidl, Aldi or Dirk.</p>
       <p id="updated"></p>
     </footer>
   </main>
+
+  <dialog id="list-dialog" class="dialog sheet" aria-labelledby="list-title">
+    <header class="dialog-h">
+      <h2 id="list-title">Grocery list</h2>
+      <button class="icon-btn dialog-close" type="button" aria-label="Close">
+        <span class="material-symbols-outlined" aria-hidden="true">close</span>
+      </button>
+    </header>
+    <p id="list-saved" class="small"></p>
+    <form id="list-add" class="list-add">
+      <label class="field">
+        <span class="material-symbols-outlined" aria-hidden="true">add</span>
+        <input name="text" maxlength="200" placeholder="Add your own item, e.g. bread" aria-label="Add an item"
+          autocomplete="off">
+      </label>
+      <button class="btn tonal" type="submit">Add</button>
+    </form>
+    <ul id="list-items" class="list-items"></ul>
+    <p id="list-empty" class="empty">Your list is empty. Tap
+      <span class="material-symbols-outlined" aria-hidden="true">add_shopping_cart</span> on an offer to add it.</p>
+    <footer class="dialog-f">
+      <span id="list-total" class="small"></span>
+      <button id="list-clear" class="btn text" type="button">Remove ticked items</button>
+    </footer>
+    <p id="list-message" class="small message" aria-live="polite"></p>
+  </dialog>
+
+  <dialog id="account-dialog" class="dialog" aria-labelledby="account-title">
+    <header class="dialog-h">
+      <h2 id="account-title">Your account</h2>
+      <button class="icon-btn dialog-close" type="button" aria-label="Close">
+        <span class="material-symbols-outlined" aria-hidden="true">close</span>
+      </button>
+    </header>
+
+    <form id="signin-form" class="stack">
+      <p class="small">Sign in to keep your grocery list, stores and theme on every device.</p>
+      <label class="field"><span class="material-symbols-outlined" aria-hidden="true">person</span>
+        <input name="username" required autocomplete="username" placeholder="Username" aria-label="Username"></label>
+      <label class="field"><span class="material-symbols-outlined" aria-hidden="true">key</span>
+        <input name="password" type="password" required autocomplete="current-password" placeholder="Password"
+          aria-label="Password"></label>
+      <button class="btn filled" type="submit">Sign in</button>
+      <p class="small">New here? <button id="to-signup" class="link" type="button">Create an account</button></p>
+    </form>
+
+    <form id="signup-form" class="stack" hidden>
+      <p class="small">You need the invite code from the person who runs this site.</p>
+      <label class="field"><span class="material-symbols-outlined" aria-hidden="true">person</span>
+        <input name="username" required minlength="3" maxlength="32" pattern="[A-Za-z0-9][A-Za-z0-9._\-]{2,31}"
+          autocomplete="username" placeholder="Username (3–32 letters or digits)" aria-label="Username"></label>
+      <label class="field"><span class="material-symbols-outlined" aria-hidden="true">key</span>
+        <input name="password" type="password" required minlength="8" autocomplete="new-password"
+          placeholder="Password (at least 8 characters)" aria-label="Password"></label>
+      <label class="field"><span class="material-symbols-outlined" aria-hidden="true">confirmation_number</span>
+        <input name="invite" required autocomplete="off" placeholder="Invite code" aria-label="Invite code"></label>
+      <button class="btn filled" type="submit">Create account</button>
+      <p class="small">Have an account? <button id="to-signin" class="link" type="button">Sign in</button></p>
+    </form>
+
+    <div id="signed-in" class="stack" hidden>
+      <p>Signed in as <strong id="signed-in-name"></strong>. Your list, stores and theme are saved to this account.</p>
+      <button id="sign-out" class="btn tonal" type="button">
+        <span class="material-symbols-outlined" aria-hidden="true">logout</span>Sign out
+      </button>
+    </div>
+    <p id="account-message" class="small message" aria-live="polite"></p>
+  </dialog>
 
   <template id="card-tpl">
     <article class="card">
@@ -122,6 +208,9 @@
   </template>
 
   <script src="app.js"></script>
+  <script src="theme.js"></script>
+  <script src="list.js"></script>
+  <script src="account.js"></script>
   <script src="upload.js"></script>
   <script src="run.js"></script>
 </body>

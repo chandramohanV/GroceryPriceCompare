@@ -4,11 +4,12 @@ from pathlib import Path
 
 import pytest
 
-from scraper import ah, aldi, lidl, publish, upload
+from scraper import ah, aldi, devalue, dirk, lidl, publish, upload
 from scraper.match import CATEGORIES, PRODUCTS, classify
 from scraper.models import Offer
 from scraper.normalize import deal_factor, enrich, multi_price, parse_quantity
-from scraper.pipeline import compare, prepare, replace_store_offers
+from scraper.pipeline import (build_payload, compare, prepare, replace_store_offers, store_set_key,
+                              verdicts_by_store_set)
 from scraper.run import build_scrapers, run
 from scraper.translate import PRODUCT_NAMES, translate_offer, translate_text
 
@@ -120,6 +121,9 @@ def test_enrich_percent_not_double_counted():
     ("Choco met slagroom", None),
     ("Roomboter amandelstaaf", None),               # pastry
     ("Gemengd gehakt gekruid", "Gehakt"),
+    # Dirk look-alikes
+    ("Actimel drink aardbei", None),
+    ("Bakker van der Akker Kaas-ui bollen", None),   # bread rolls
 ])
 def test_classify(name, product):
     hit = classify(name)
@@ -238,6 +242,123 @@ def test_aldi_page_without_offers_data_is_reported():
         aldi.parse_pages(["<html>no data</html>"], ALDI_WEEK_DAY)
 
 
+# ---------- Nuxt payload (scraper/devalue.py) ----------
+def _devalue(value) -> list:
+    """Encode a value the way Nuxt does: a flat array of entries that point at each other."""
+    entries: list = []
+
+    def add(v) -> int:
+        index = len(entries)
+        entries.append(None)
+        if isinstance(v, dict):
+            entries[index] = {k: add(x) for k, x in v.items()}
+        elif isinstance(v, list):
+            entries[index] = [add(x) for x in v]
+        else:
+            entries[index] = v
+        return index
+
+    add(value)
+    return entries
+
+
+def test_devalue_round_trip():
+    value = {"a": [1, "x", None, {"b": 2.5}], "c": True}
+    assert devalue.decode(_devalue(value)) == value
+
+
+def test_devalue_unwraps_vue_state_and_dates():
+    entries = [["ShallowReactive", 1], {"when": 2, "list": 3, "gone": -1}, ["Date", "2026-11-18"],
+               ["Reactive", 4], [5], "item"]
+    assert devalue.decode(entries) == {"when": "2026-11-18", "list": ["item"], "gone": None}
+
+
+def test_devalue_keeps_shared_values_shared():
+    shared = {"x": 1}
+    entries = [{"first": 1, "second": 1}, {"x": 2}, 1]
+    decoded = devalue.decode(entries)
+    assert decoded["first"] is decoded["second"] and decoded["first"] == shared
+
+
+def test_devalue_rejects_unknown_types():
+    with pytest.raises(ValueError, match="BigInt"):
+        devalue.decode([["BigInt", "1"]])
+
+
+def test_devalue_page_without_payload():
+    with pytest.raises(devalue.PayloadMissing):
+        devalue.payload_from_html("<html></html>")
+
+
+# ---------- dirk parser ----------
+def _dirk_offer(offer_id=1, name="Hollandse spruiten", price=0.89, normal=1.89,
+                sign="ACTIE_\n ", products=None) -> dict:
+    return {"offerId": offer_id, "headerText": name + " ", "packaging": None,
+            "offerPrice": price, "normalPrice": normal, "textPriceSign": sign,
+            "startDate": "2026-11-18T00:00:00.000Z", "endDate": "2026-11-24T23:59:00.000Z",
+            "products": products if products is not None else [None]}
+
+
+def _dirk_product(product_id=4535, packaging="750 g", price=0.89, normal=1.89) -> dict:
+    return {"productId": product_id, "offerPrice": price, "normalPrice": normal,
+            "productInformation": {"productId": product_id, "headerText": "Spruiten",
+                                   "packaging": packaging, "image": f"artikelen/{product_id}.png"}}
+
+
+def _dirk_page(*sections: list, links: str = "") -> str:
+    state = {"data": {"offers-currentOffers": [{"currentOffers": s} for s in sections]}}
+    payload = json.dumps(_devalue(state))
+    return f'{links}<script type="application/json" id="__NUXT_DATA__">{payload}</script>'
+
+
+def test_dirk_single_product_offer():
+    link = '<a href="/boodschappen/groente/1%20de%20beste%20spruiten/4535">'
+    page = _dirk_page([_dirk_offer(products=[_dirk_product()])], links=link)
+    [sprouts] = dirk.parse_html(page)
+    assert sprouts.store == "dirk" and sprouts.name == "Hollandse spruiten"
+    assert (sprouts.price, sprouts.old_price) == (0.89, 1.89)
+    assert sprouts.quantity_text == "750 g"
+    assert sprouts.image == "https://web-fileserver.dirk.nl/artikelen/4535.png"
+    assert sprouts.url == "https://www.dirk.nl/boodschappen/groente/1%20de%20beste%20spruiten/4535"
+    assert (sprouts.valid_from, sprouts.valid_to) == ("2026-11-18", "2026-11-24")
+    assert sprouts.extras == {}
+
+
+def test_dirk_uses_product_price_that_belongs_to_its_pack():
+    offer = _dirk_offer(name="Hollandse witlof", price=0.99, normal=1.15,
+                        products=[_dirk_product(packaging="1 kg", price=1.98, normal=2.30)])
+    [chicory] = dirk.parse_html(_dirk_page([offer]))
+    assert (chicory.price, chicory.quantity_text) == (1.98, "1 kg")
+
+
+def test_dirk_offer_with_several_pack_sizes_has_no_quantity():
+    offer = _dirk_offer(products=[_dirk_product(1, "250 g"), _dirk_product(2, "500 g")])
+    [mixed] = dirk.parse_html(_dirk_page([offer]))
+    assert mixed.quantity_text is None and mixed.image is None
+    assert mixed.price == 0.89  # the offer's own price
+    assert mixed.url == "https://www.dirk.nl/aanbiedingen"
+
+
+def test_dirk_offer_without_products_keeps_offer_price():
+    [kiwis] = dirk.parse_html(_dirk_page([_dirk_offer(name="Groene kiwi's", price=3.49, normal=0)]))
+    assert (kiwis.price, kiwis.old_price, kiwis.quantity_text) == (3.49, None, None)
+
+
+def test_dirk_weekend_sign_is_a_note():
+    [offer] = dirk.parse_html(_dirk_page([_dirk_offer(sign="VR, ZA & ZO_actie")]))
+    assert offer.extras == {"note": "VR, ZA & ZO"}
+
+
+def test_dirk_offer_in_two_sections_is_kept_once():
+    offer = _dirk_offer()
+    assert len(dirk.parse_html(_dirk_page([offer], [offer]))) == 1
+
+
+def test_dirk_page_without_offers_data_is_reported():
+    with pytest.raises(dirk.DirkPageChanged):
+        dirk.parse_html("<html></html>")
+
+
 def test_prepare_uses_aldi_shelf_price_as_discounted():
     sprouts = next(o for o in prepare(_aldi_offers()) if o.name == "Spruiten")
     assert sprouts.unit_price == pytest.approx(1.32, abs=0.01)  # 0.99 for 750 g, not 47% off again
@@ -277,6 +398,34 @@ def test_compare_flags_group_without_a_second_price_as_not_compared():
     row = compare(prepare(offers))[0]
     assert row["stores"] == ["ah", "lidl"]
     assert row["compared"] is False and row["saving_pct"] is None
+
+
+def _three_store_apples() -> list[Offer]:
+    return prepare([
+        Offer(store="lidl", id="1", name="Jonagold appels", price=1.50, quantity_text="1 kg"),
+        Offer(store="aldi", id="2", name="Elstar appels", price=2.00, quantity_text="1 kg"),
+        Offer(store="dirk", id="3", name="Gala appels", price=3.00, quantity_text="1 kg"),
+    ])
+
+
+def test_verdicts_cover_every_store_combination():
+    verdicts = verdicts_by_store_set(_three_store_apples())
+    assert set(verdicts) == {"aldi", "dirk", "lidl", "aldi,dirk", "aldi,lidl", "dirk,lidl",
+                             "aldi,dirk,lidl"}
+
+
+def test_verdict_picks_best_among_chosen_stores_only():
+    verdicts = verdicts_by_store_set(_three_store_apples())
+    assert verdicts[store_set_key(["lidl", "dirk", "aldi"])]["Appels"]["best"]["store"] == "lidl"
+    without_lidl = verdicts["aldi,dirk"]["Appels"]
+    assert without_lidl["best"]["store"] == "aldi"
+    assert without_lidl["saving_pct"] == 33  # €2 vs €3 per kg
+    assert verdicts["dirk"]["Appels"]["compared"] is False  # one store: nothing to compare
+
+
+def test_payload_includes_verdicts_by_store_set():
+    payload = build_payload(_three_store_apples(), {}, NOW)
+    assert payload["verdicts_by_store_set"]["aldi,dirk,lidl"]["Appels"]["unit"] == "kg"
 
 
 def test_replace_store_offers_keeps_other_stores():

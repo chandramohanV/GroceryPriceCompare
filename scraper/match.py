@@ -149,13 +149,13 @@ EXCLUDE_ALWAYS = {
     "chips", "snoep", "chocolade", "pizza", "soep", "saus", "croissant", "tosti", "wrap",
     "wraps", "broodje", "broodjes", "maaltijd", "shampoo", "zeep", "kaars", "geur", "plant",
     "conifeer", "zaad", "zaden", "pencee", "hondenvoer", "kattenvoer", "hond", "honden",
-    "kat", "katten", "spray", "reiniger", "bowl", "staaf",
+    "kat", "katten", "spray", "reiniger", "bowl", "staaf", "bollen",
 }
 _EXCLUDE_PRODUCE = {
     "sap", "jam", "smoothie", "siroop", "moes", "compote", "yoghurt", "kwark", "ijs", "drank",
     "limonade", "thee", "bier", "wijn", "gedroogd", "gedroogde", "chutney", "kaas", "frites",
     "patat", "puree", "olie", "azijn", "stroop", "mix voor", "bakmix", "diepvries",
-    "perensap", "olijven", "fruitcocktail", "piccalilly",
+    "perensap", "olijven", "fruitcocktail", "piccalilly", "drink",
 }
 _EXCLUDE_NOT_ANIMAL = {
     "vega", "vegan", "vegetarisch", "vegetarische", "plantaardig", "plantaardige", "salade",

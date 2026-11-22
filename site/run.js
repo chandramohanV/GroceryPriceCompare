@@ -1,5 +1,5 @@
 // "Run now": asks the site's /api/run Function to start the GitHub Actions
-// job that scrapes Lidl and Aldi (see functions/api/run.js and .github/workflows/update.yml).
+// job that scrapes Lidl, Aldi and Dirk (see functions/api/run.js and .github/workflows/update.yml).
 (() => {
   "use strict";
 
@@ -32,7 +32,7 @@
         method: "POST",
         headers: { Authorization: `Bearer ${passwordField.value}` },
       });
-      if (resp.ok) say("Started. Reload this page in about three minutes to see the new Lidl and Aldi prices.");
+      if (resp.ok) say("Started. Reload this page in about three minutes to see the new Lidl, Aldi and Dirk prices.");
       else say(await errorText(resp), true);
     } catch (e) {
       say(`Could not start the run: ${e.message}`, true);
