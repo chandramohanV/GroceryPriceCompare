@@ -10,6 +10,9 @@
   const STATIC_OFFERS_URLS = ["data/offers.json", "../data/offers.json"];
   const UNIT_LABEL = { kg: "per kg", l: "per litre", stuk: "per piece" };
   const DEFAULT_MEMBER_LABEL = "with card";
+  // Loyalty card names are brand names, the same in English and Dutch.
+  const MEMBER_CARD_NAME = { lidl: "Lidl Plus" };
+  const DEFAULT_MEMBER_CARD_NAME = "Card price";
   // Used when a saved payload predates per-store verdicts: show offers without picking a winner.
   const NO_VERDICT = { unit: null, compared: false, best: null, saving_pct: null };
   const eur = (n) => n == null ? "–" : "€" + n.toFixed(2).replace(".", ",");
@@ -183,7 +186,7 @@
   }
 
   function row(o, isBest) {
-    const li = el("li", "row" + (isBest ? " best" : ""));
+    const li = el("li", `row ${o.store}` + (isBest ? " best" : ""));
     const offerName = offerText(o, "name");
 
     const img = el("img", "thumb");
@@ -212,6 +215,9 @@
     if (details) meta.append(el("div", "small", details));
     const badges = el("div", "badges");
     if (isBest) badges.append(el("span", "badge best", "Best deal"));
+    if (o.member_price != null) {
+      badges.append(el("span", "badge member", MEMBER_CARD_NAME[o.store] || DEFAULT_MEMBER_CARD_NAME));
+    }
     if (o.deal_text) badges.append(el("span", "badge", offerText(o, "deal_text")));
     if (badges.childElementCount) meta.append(badges);
     li.append(meta);
@@ -335,6 +341,8 @@
   }
 
   document.addEventListener("offers-uploaded", (e) => showData(e.detail));
+  // iOS Safari only applies :active (the tiles' press feedback) once a page listens for touches.
+  document.addEventListener("touchstart", () => {}, { passive: true });
 
   loadData()
     .then((d) => { bind(); showData(d); })

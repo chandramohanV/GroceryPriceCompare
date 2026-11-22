@@ -45,6 +45,7 @@
   --state-hover: 0.08;
   --state-focus: 0.1;
   --state-pressed: 0.1;
+  --state-hover-pct: 8%; /* --state-hover as a percentage, for color-mix() */
 
   /* Motion */
   --ease-standard: cubic-bezier(0.2, 0, 0, 1);
@@ -93,7 +94,10 @@ a { color: var(--md-primary); }
   background: currentColor; opacity: 0; pointer-events: none;
   transition: opacity var(--duration-short) var(--ease-standard);
 }
-:is(.btn, .icon-btn, .seg button, .filter-chips button, .store-tile):enabled:hover::after { opacity: var(--state-hover); }
+/* Touch screens keep :hover after a tap, which leaves a stuck highlight; only mice get hover. */
+@media (hover: hover) {
+  :is(.btn, .icon-btn, .seg button, .filter-chips button, .store-tile):enabled:hover::after { opacity: var(--state-hover); }
+}
 :is(.btn, .icon-btn, .seg button, .filter-chips button, .store-tile):focus-visible::after { opacity: var(--state-focus); }
 :is(.btn, .icon-btn, .seg button, .filter-chips button, .store-tile):enabled:active::after { opacity: var(--state-pressed); }
 
@@ -118,11 +122,20 @@ a { color: var(--md-primary); }
 .app-bar-icon { font-size: 24px; color: var(--md-primary); }
 h1 { flex: 1; margin: 0; font: var(--type-title-large); }
 
-.hero { padding: 8px 0; }
-.sub { margin: 0 0 16px; color: var(--md-on-surface-variant); font: var(--type-body-large); max-width: 70ch; }
+.hero { padding: 8px 0 16px; }
+.hero-title { margin: 0 0 4px; font: var(--type-headline-small); }
+.sub { margin: 0 0 12px; color: var(--md-on-surface-variant); font: var(--type-body-large); max-width: 70ch; }
+/* Key facts as M3 assist-chip-style pills: scannable at a glance instead of one long sentence. */
+.hero-facts { display: flex; flex-wrap: wrap; gap: 8px; margin: 0; padding: 0; list-style: none; }
+.hero-facts li {
+  display: inline-flex; align-items: center; gap: 8px; height: 32px; padding: 0 16px 0 8px;
+  border: 1px solid var(--md-outline-variant); border-radius: var(--shape-s);
+  font: var(--type-label-large); color: var(--md-on-surface);
+}
+.hero-facts .material-symbols-outlined { font-size: 18px; color: var(--md-primary); }
 
 /* Loading and error text before the offers arrive */
-.status { font: var(--type-label-large); color: var(--md-on-surface-variant); }
+.status { margin-top: 12px; font: var(--type-label-large); color: var(--md-on-surface-variant); }
 .status:empty { display: none; }
 
 /* ---------- Common buttons ---------- */
@@ -192,6 +205,12 @@ h1 { flex: 1; margin: 0; font: var(--type-title-large); }
 .card {
   background: var(--md-surface-container-low); border-radius: var(--shape-m);
   box-shadow: var(--elevation-1); overflow: hidden;
+  transition: box-shadow var(--duration-short) var(--ease-standard);
+}
+.row { transition: background var(--duration-short) var(--ease-standard); }
+@media (hover: hover) {
+  .card:not(.update):hover { box-shadow: var(--elevation-2); }
+  .row:not(.best):hover { background: color-mix(in srgb, var(--md-on-surface) var(--state-hover-pct), transparent); }
 }
 .card-h { display: flex; justify-content: space-between; align-items: baseline; gap: 8px; padding: 16px 16px 8px; }
 .card-h h2 { margin: 0; font: var(--type-title-large); }
@@ -208,12 +227,12 @@ h1 { flex: 1; margin: 0; font: var(--type-title-large); }
 .thumb.ph { display: grid; place-items: center; font-size: 26px; background: var(--md-surface-container-highest); }
 .meta { min-width: 0; }
 /* Each store's brand colour, shared by offer rows and store tiles. */
-:is(.store, .store-tile) { --store: var(--md-primary); }
-:is(.store, .store-tile).ah { --store: var(--ah); }
-:is(.store, .store-tile).lidl { --store: var(--lidl); }
-:is(.store, .store-tile).aldi { --store: var(--aldi); }
-:is(.store, .store-tile).dirk { --store: var(--dirk); }
-:is(.store, .store-tile).jumbo { --store: var(--jumbo); }
+:is(.store, .store-tile, .row) { --store: var(--md-primary); }
+:is(.store, .store-tile, .row).ah { --store: var(--ah); }
+:is(.store, .store-tile, .row).lidl { --store: var(--lidl); }
+:is(.store, .store-tile, .row).aldi { --store: var(--aldi); }
+:is(.store, .store-tile, .row).dirk { --store: var(--dirk); }
+:is(.store, .store-tile, .row).jumbo { --store: var(--jumbo); }
 .store {
   display: flex; align-items: center; gap: 6px; color: var(--store);
   font: var(--type-label-small); letter-spacing: 0.06em; text-transform: uppercase;
@@ -236,10 +255,13 @@ a.name:hover { text-decoration: underline; }
   font: var(--type-label-small); background: var(--deal-container); color: var(--deal);
 }
 .badge.best { background: var(--md-primary); color: var(--md-on-primary); }
+/* Loyalty-card offers wear the store's colour so they read as "the card price", not another discount. */
+.badge.member { background: var(--store); color: var(--md-surface); }
 .price { text-align: right; white-space: nowrap; font-variant-numeric: tabular-nums; }
 .price .now { font: var(--type-title-medium); font-size: 1.125rem; }
 .price .old { font: var(--type-body-medium); color: var(--md-on-surface-variant); text-decoration: line-through; margin-right: 4px; }
 .price .unit, .price .member { display: block; font: var(--type-body-small); color: var(--md-on-surface-variant); }
+.price .member { font: var(--type-label-large); color: var(--store); }
 
 /* Phones: four columns leave the name too narrow to read, so the price moves under the name. */
 @media (max-width: 480px) {
@@ -323,15 +345,27 @@ kbd {
 /* Five equal columns on wide screens; on phones the tiles keep their width and scroll sideways. */
 .store-tiles {
   display: grid; grid-auto-flow: column; grid-auto-columns: minmax(136px, 1fr); gap: 12px;
-  overflow-x: auto; padding: 2px 2px 8px; scrollbar-width: thin; scroll-snap-type: x proximity;
+  /* Top padding leaves room for the hover lift and shadow, which overflow-x would otherwise clip. */
+  overflow-x: auto; padding: 8px 2px 8px; margin-top: -6px; scrollbar-width: thin; scroll-snap-type: x proximity;
 }
 .store-tile {
   display: grid; grid-template-columns: auto 1fr; grid-template-areas: "avatar check" "name name" "count count";
   align-items: start; gap: 2px 8px; padding: 12px; min-height: 104px; text-align: left; scroll-snap-align: start;
   border: 1px solid var(--md-outline-variant); border-radius: var(--shape-m);
   background: transparent; color: var(--md-on-surface-variant); cursor: pointer;
-  transition: background var(--duration-short) var(--ease-standard), border-color var(--duration-short) var(--ease-standard);
+  -webkit-tap-highlight-color: transparent; touch-action: manipulation;
+  transition: background var(--duration-short) var(--ease-standard), border-color var(--duration-short) var(--ease-standard),
+    box-shadow var(--duration-short) var(--ease-standard), transform var(--duration-short) var(--ease-standard);
 }
+.store-avatar, .store-check { transition: opacity var(--duration-short) var(--ease-standard); }
+@media (hover: hover) {
+  .store-tile:enabled:hover { transform: translateY(-2px); box-shadow: var(--elevation-2); border-color: var(--store); }
+  .store-tile:enabled:hover .store-avatar { opacity: 1; }
+  /* Preview the check on unselected tiles so it is clear a click selects the store. */
+  .store-tile:enabled:not(.on):hover .store-check { visibility: visible; opacity: 0.5; }
+}
+/* Press feedback for mouse and touch alike: the tile sinks slightly while held (after hover, so it wins). */
+.store-tile:enabled:active { transform: scale(0.97); box-shadow: none; }
 .store-tile.on {
   border-color: var(--store); color: var(--md-on-surface);
   background: color-mix(in srgb, var(--store) 14%, var(--md-surface-container-low));
