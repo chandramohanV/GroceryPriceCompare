@@ -86,19 +86,46 @@
     if (next.length) user.setPrefs({ stores: next }); // at least one store stays chosen
   }
 
-  function renderStoreChips(d) {
+  const selectAllStores = () => user.setPrefs({ stores: availableStores(state.data) });
+
+  // "Albert Heijn" -> "AH", "Lidl" -> "Li": the letters on a store's avatar.
+  function storeInitials(name) {
+    const words = name.split(/\s+/);
+    return words.length > 1 ? words.map((w) => w[0]).join("").toUpperCase() : name.slice(0, 2);
+  }
+
+  function offerCountText(d, store) {
+    const count = d.offers.filter((o) => o.store === store).length;
+    const status = d.stores[store];
+    const carriedOver = status && !status.ok;
+    return `${count} offer${count === 1 ? "" : "s"}${carriedOver ? " · from last import" : ""}`;
+  }
+
+  // Stores that failed this run and have no offers still get a (disabled) tile, so the gap is visible.
+  function storeTile(d, store, isOn) {
+    const isAvailable = availableStores(d).includes(store);
+    const tile = el("button", `store-tile ${store}${isOn ? " on" : ""}`);
+    tile.type = "button";
+    tile.disabled = !isAvailable;
+    tile.setAttribute("aria-pressed", isOn);
+    const avatar = el("span", "store-avatar", storeInitials(STORE_NAMES[store]));
+    avatar.setAttribute("aria-hidden", "true");
+    const check = icon("check_circle");
+    check.classList.add("store-check");
+    tile.append(avatar, check, el("span", "store-tile-name", STORE_NAMES[store]),
+      el("span", "store-tile-count", isAvailable ? offerCountText(d, store) : "Not available this run"));
+    if (!isAvailable) tile.title = (d.stores[store] && d.stores[store].error) || "";
+    tile.addEventListener("click", () => toggleStore(store));
+    return tile;
+  }
+
+  function renderStoreTiles(d) {
     const box = document.getElementById("stores");
     const chosen = chosenStores(d);
+    const shown = Object.keys(STORE_NAMES).filter((s) => d.stores[s] || availableStores(d).includes(s));
     box.textContent = "";
-    for (const store of availableStores(d)) {
-      const isOn = chosen.includes(store);
-      const chip = el("button", "store-chip " + store + (isOn ? " on" : ""));
-      chip.type = "button";
-      chip.setAttribute("aria-pressed", isOn);
-      chip.append(STORE_NAMES[store]);
-      chip.addEventListener("click", () => toggleStore(store));
-      box.append(chip);
-    }
+    for (const store of shown) box.append(storeTile(d, store, chosen.includes(store)));
+    document.getElementById("stores-all").disabled = chosen.length === availableStores(d).length;
   }
 
   // A comparison narrowed to the chosen stores, with the verdict worked out for exactly those
@@ -116,23 +143,9 @@
   }
 
   // ---------- status ----------
-  function storeStatusText(s) {
-    if (s.ok) return `${s.name}: ${s.matched} offers`;
-    if (s.carried_over) return `${s.name}: ${s.carried_over} offers (from your last import)`;
-    return `${s.name}: not available this run`;
-  }
-
+  // Per-store offer counts are on the store tiles; this clears "Loading…" and dates the data.
   function renderStatus(d) {
-    const box = document.getElementById("status");
-    box.textContent = "";
-    for (const s of Object.values(d.stores)) {
-      const hasOffers = s.ok || s.carried_over > 0;
-      const chip = el("span", "chip" + (hasOffers ? "" : " bad"));
-      chip.append(el("span", "dot"));
-      chip.append(storeStatusText(s));
-      if (!s.ok) chip.title = s.error || "";
-      box.append(chip);
-    }
+    document.getElementById("status").textContent = "";
     const when = new Date(d.generated_at);
     document.getElementById("updated").textContent =
       "Last updated " + when.toLocaleString("en-GB", { dateStyle: "full", timeStyle: "short" }) + ".";
@@ -257,7 +270,7 @@
     const tpl = document.getElementById("card-tpl");
     const rows = sortRows(visibleComparisons(d, byKey), byKey);
 
-    renderStoreChips(d);
+    renderStoreTiles(d);
     list.textContent = "";
     for (const c of rows) {
       const node = tpl.content.firstElementChild.cloneNode(true);
@@ -301,6 +314,7 @@
     showLanguage();
     document.getElementById("q").addEventListener("input", (e) => { state.q = e.target.value; render(); });
     document.getElementById("sort").addEventListener("change", (e) => { state.sort = e.target.value; render(); });
+    document.getElementById("stores-all").addEventListener("click", selectAllStores);
     // Signing in, picking stores or changing the list all change what the cards show.
     user.subscribe(() => { showLanguage(); render(); });
   }

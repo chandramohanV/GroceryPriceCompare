@@ -9,7 +9,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap">
-  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0&display=block">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0..1,0&display=block">
   <link rel="stylesheet" href="style.css">
   <script src="stores.js"></script>
   <script src="state.js"></script>
@@ -64,10 +64,13 @@
       </div>
     </div>
 
-    <div class="store-picker">
-      <span class="small">Compare:</span>
-      <div id="stores" class="filter-chips" role="group" aria-label="Stores to compare"></div>
-    </div>
+    <section class="store-picker" aria-labelledby="stores-title">
+      <div class="store-picker-head">
+        <h2 id="stores-title">Compare stores</h2>
+        <button id="stores-all" class="btn text" type="button">Select all</button>
+      </div>
+      <div id="stores" class="store-tiles" role="group" aria-labelledby="stores-title"></div>
+    </section>
 
     <div id="cat" class="filter-chips" role="tablist" aria-label="Category">
       <button class="on" data-cat="all" role="tab" aria-selected="true">All</button>

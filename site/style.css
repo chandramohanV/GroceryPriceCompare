@@ -85,17 +85,17 @@ a { color: var(--md-primary); }
 :focus-visible { outline: 3px solid var(--md-secondary); outline-offset: 2px; }
 
 /* State layer: an overlay in the content colour whose opacity shows hover, focus and press. */
-.btn, .icon-btn, .seg button, .filter-chips button {
+.btn, .icon-btn, .seg button, .filter-chips button, .store-tile {
   position: relative; overflow: hidden; isolation: isolate;
 }
-.btn::after, .icon-btn::after, .seg button::after, .filter-chips button::after {
+.btn::after, .icon-btn::after, .seg button::after, .filter-chips button::after, .store-tile::after {
   content: ""; position: absolute; inset: 0; z-index: -1;
   background: currentColor; opacity: 0; pointer-events: none;
   transition: opacity var(--duration-short) var(--ease-standard);
 }
-:is(.btn, .icon-btn, .seg button, .filter-chips button):hover::after { opacity: var(--state-hover); }
-:is(.btn, .icon-btn, .seg button, .filter-chips button):focus-visible::after { opacity: var(--state-focus); }
-:is(.btn, .icon-btn, .seg button, .filter-chips button):active::after { opacity: var(--state-pressed); }
+:is(.btn, .icon-btn, .seg button, .filter-chips button, .store-tile):enabled:hover::after { opacity: var(--state-hover); }
+:is(.btn, .icon-btn, .seg button, .filter-chips button, .store-tile):focus-visible::after { opacity: var(--state-focus); }
+:is(.btn, .icon-btn, .seg button, .filter-chips button, .store-tile):enabled:active::after { opacity: var(--state-pressed); }
 
 /* Leading check mark on selected chips and segments, drawn with the Material Symbols ligature. */
 .filter-chips button.on::before, .seg button.on::before {
@@ -121,14 +121,9 @@ h1 { flex: 1; margin: 0; font: var(--type-title-large); }
 .hero { padding: 8px 0; }
 .sub { margin: 0 0 16px; color: var(--md-on-surface-variant); font: var(--type-body-large); max-width: 70ch; }
 
-/* ---------- Assist chips (store status) ---------- */
-.status { display: flex; flex-wrap: wrap; gap: 8px; font: var(--type-label-large); color: var(--md-on-surface-variant); }
-.chip {
-  display: inline-flex; align-items: center; gap: 8px; height: 32px; padding: 0 16px 0 12px;
-  border: 1px solid var(--md-outline-variant); border-radius: var(--shape-s); color: var(--md-on-surface);
-}
-.chip .dot { width: 8px; height: 8px; border-radius: 50%; background: var(--md-primary); }
-.chip.bad .dot { background: var(--md-error); }
+/* Loading and error text before the offers arrive */
+.status { font: var(--type-label-large); color: var(--md-on-surface-variant); }
+.status:empty { display: none; }
 
 /* ---------- Common buttons ---------- */
 .btn {
@@ -293,9 +288,45 @@ kbd {
   .app-bar-row h1 { font-size: 1.125rem; }
 }
 
-/* ---------- Store picker ---------- */
-.store-picker { display: flex; align-items: center; gap: 12px; }
-.store-picker .filter-chips { flex: 1; padding-bottom: 8px; }
+/* ---------- Store picker: one selectable tile per store ---------- */
+.store-picker { margin: 4px 0 16px; }
+.store-picker-head { display: flex; align-items: center; justify-content: space-between; gap: 8px; margin-bottom: 8px; }
+.store-picker-head h2 { margin: 0; font: var(--type-title-medium); }
+.store-picker-head .btn:disabled { background: transparent; }
+/* Five equal columns on wide screens; on phones the tiles keep their width and scroll sideways. */
+.store-tiles {
+  display: grid; grid-auto-flow: column; grid-auto-columns: minmax(136px, 1fr); gap: 12px;
+  overflow-x: auto; padding: 2px 2px 8px; scrollbar-width: thin; scroll-snap-type: x proximity;
+}
+.store-tile.ah { --store: var(--ah); }
+.store-tile.lidl { --store: var(--lidl); }
+.store-tile.aldi { --store: var(--aldi); }
+.store-tile.dirk { --store: var(--dirk); }
+.store-tile.jumbo { --store: var(--jumbo); }
+.store-tile {
+  --store: var(--md-primary);
+  display: grid; grid-template-columns: auto 1fr; grid-template-areas: "avatar check" "name name" "count count";
+  align-items: start; gap: 2px 8px; padding: 12px; min-height: 104px; text-align: left; scroll-snap-align: start;
+  border: 1px solid var(--md-outline-variant); border-radius: var(--shape-m);
+  background: transparent; color: var(--md-on-surface-variant); cursor: pointer;
+  transition: background var(--duration-short) var(--ease-standard), border-color var(--duration-short) var(--ease-standard);
+}
+.store-tile.on {
+  border-color: var(--store); color: var(--md-on-surface);
+  background: color-mix(in srgb, var(--store) 14%, var(--md-surface-container-low));
+}
+.store-avatar {
+  grid-area: avatar; display: grid; place-items: center; width: 40px; height: 40px; margin-bottom: 6px;
+  border-radius: 50%; background: var(--store); color: var(--md-surface); font: var(--type-label-large);
+}
+.store-tile:not(.on) .store-avatar { opacity: 0.55; }
+.store-check { grid-area: check; justify-self: end; font-size: 22px; color: var(--store); visibility: hidden; }
+.store-tile.on .store-check { visibility: visible; font-variation-settings: "FILL" 1; }
+.store-tile-name { grid-area: name; font: var(--type-title-medium); }
+.store-tile-count { grid-area: count; font: var(--type-body-small); color: var(--md-on-surface-variant); }
+.store-tile:disabled { cursor: not-allowed; border-style: dashed; }
+.store-tile:disabled .store-avatar { background: var(--md-outline); }
+.store-tile:disabled .store-tile-count { color: var(--md-error); }
 
 /* ---------- Dialogs (account) and the grocery list side sheet ---------- */
 .dialog {
