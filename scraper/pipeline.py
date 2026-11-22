@@ -119,11 +119,15 @@ def build_payload(offers: list[Offer], status: dict, now: datetime) -> dict:
     }
 
 
+def offers_from_dicts(items: list[dict]) -> list[Offer]:
+    """Offers from saved JSON, ignoring fields the site adds (key, en)."""
+    known_fields = {f.name for f in fields(Offer)}
+    return [Offer(**{k: v for k, v in o.items() if k in known_fields}) for o in items]
+
+
 def offers_from_payload(payload: dict) -> list[Offer]:
     """Offers from an earlier offers.json document."""
-    known_fields = {f.name for f in fields(Offer)}
-    return [Offer(**{k: v for k, v in o.items() if k in known_fields})
-            for o in payload.get("offers", [])]
+    return offers_from_dicts(payload.get("offers", []))
 
 
 def still_valid(offers: list[Offer], store: str, today: date) -> list[Offer]:

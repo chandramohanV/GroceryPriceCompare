@@ -43,6 +43,10 @@ QTY_RE = re.compile(
     re.I,
 )
 
+# Card links name their bonus week, e.g. "/bonus/groep/832162?week=47".
+WEEK_QUERY_RE = re.compile(r"[?&]week=(\d{1,2})(?!\d)")
+BONUS_WEEK_DAYS = 7
+
 # Shared with the site's upload form; defines extractAhCards(document).
 CARD_EXTRACTOR = Path(__file__).with_name("ah_cards.js")
 
@@ -75,7 +79,27 @@ def _split_deal(text: str) -> tuple[Optional[str], str]:
     return deal.group(1), text[:deal.start()] + " " + text[deal.end():]
 
 
-def card_to_offer(card: dict) -> Optional[Offer]:
+def week_start(today: date, weeks_ahead: int = 0) -> date:
+    """The Monday that starts an AH bonus week (they run Monday to Sunday)."""
+    return today - timedelta(days=today.weekday()) + timedelta(weeks=weeks_ahead)
+
+
+def week_end(monday: date) -> date:
+    """The Sunday that ends the bonus week starting on ``monday``."""
+    return monday + timedelta(days=BONUS_WEEK_DAYS - 1)
+
+
+def page_week(cards: list[dict]) -> Optional[int]:
+    """The ISO week number a saved bonus page is for, read from its card links."""
+    for card in cards:
+        found = WEEK_QUERY_RE.search(card.get("href") or "")
+        if found:
+            return int(found.group(1))
+    return None
+
+
+def card_to_offer(card: dict, week_monday: Optional[date] = None) -> Optional[Offer]:
+    """One offer from a card; ``week_monday`` is its bonus week (default: this week)."""
     text = " ".join((card.get("text") or "").split())
     title = " ".join((card.get("title") or card.get("alt") or "").split())
     if not title:
@@ -88,8 +112,7 @@ def card_to_offer(card: dict) -> Optional[Offer]:
         return None  # a banner such as "Heerlijke koffie, voordelig gezet", not an offer
     qty = QTY_RE.search(rest)
     href = (card.get("href") or "").split("?")[0]  # drop "?week=47"
-    today = date.today()
-    monday = today - timedelta(days=today.weekday())
+    monday = week_monday or week_start(date.today())
     return Offer(
         store="ah",
         id=href.rstrip("/").split("/")[-1] or title,
@@ -100,9 +123,8 @@ def card_to_offer(card: dict) -> Optional[Offer]:
         old_price=old,
         deal_text=deal,
         quantity_text=qty.group(1) if qty else None,
-        # AH bonus weeks run Monday to Sunday
         valid_from=monday.isoformat(),
-        valid_to=(monday + timedelta(days=6)).isoformat(),
+        valid_to=week_end(monday).isoformat(),
     )
 
 
@@ -111,11 +133,11 @@ def _absolute_url(url: Optional[str]) -> Optional[str]:
     return url if url and url.startswith("https://") else None
 
 
-def offers_from_cards(cards: list[dict]) -> list[Offer]:
+def offers_from_cards(cards: list[dict], week_monday: Optional[date] = None) -> list[Offer]:
     """Turn extracted cards into offers, one per AH product / bonus group."""
     offers, seen = [], set()
     for card in cards:
-        offer = card_to_offer(card)
+        offer = card_to_offer(card, week_monday)
         if offer and offer.id not in seen:
             seen.add(offer.id)
             offers.append(offer)

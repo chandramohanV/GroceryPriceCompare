@@ -290,6 +290,15 @@ a.name:hover { text-decoration: underline; }
 .update-step .btn { margin-top: 12px; }
 .upload-form { display: flex; flex-wrap: wrap; gap: 12px; align-items: center; }
 .upload-form .btn { margin-top: 0; }
+.week-choice { display: flex; flex-wrap: wrap; align-items: center; gap: 4px 16px; flex-basis: 100%; margin: 0; padding: 0; border: 0; }
+.week-choice legend { float: left; margin-right: 4px; font: var(--type-label-large); }
+.week-choice label { display: inline-flex; align-items: center; gap: 6px; font: var(--type-body-medium); cursor: pointer; }
+.week-choice input { width: 18px; height: 18px; margin: 0; accent-color: var(--md-primary); }
+.held-status {
+  display: flex; align-items: center; gap: 8px; margin: 8px 0 0; padding: 8px 12px;
+  border-radius: var(--shape-s); background: var(--md-secondary-container); color: var(--md-on-secondary-container);
+}
+.held-status[hidden] { display: none; }
 .upload-form input[type=file] { flex: 1 1 240px; min-width: 0; font: var(--type-body-medium); color: var(--md-on-surface-variant); }
 /* Styled as an M3 outlined button. */
 .upload-form input[type=file]::file-selector-button {

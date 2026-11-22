@@ -5,6 +5,8 @@
 // uses: ah_cards.js finds the cards, and the Python pipeline (run by Pyodide)
 // classifies, normalises and compares them. The result goes to the Cloudflare
 // Pages Function at /api/offers, which stores it in KV behind a password.
+// Next week's page goes to /api/next-week instead and is held there until the
+// daily refresh switches it in on Monday morning.
 (() => {
   "use strict";
 
@@ -14,10 +16,11 @@
   // The modules scraper/upload.py needs; lidl.py and run.py do network and file I/O.
   const BROWSER_MODULES = [
     "__init__.py", "models.py", "match.py", "normalize.py", "translate.py",
-    "pipeline.py", "ah.py", "upload.py",
+    "pipeline.py", "ah.py", "held.py", "upload.py",
   ];
   const CARD_EXTRACTOR = "ah_cards.js";
   const SAVE_URL = "/api/offers";
+  const HELD_URL = "/api/next-week";
   const PYODIDE_HOME = "/home/pyodide/scraper/";
 
   let shownOffers = null;
@@ -30,6 +33,7 @@
   const message = document.getElementById("upload-message");
   const button = form.querySelector("button");
   const passwordField = document.getElementById("update-password");
+  const heldStatus = document.getElementById("held-status");
 
   function say(text, isError = false) {
     message.textContent = text;
@@ -90,11 +94,12 @@
     return lines[lines.length - 1].replace(/^\w+Error: /, "");
   }
 
-  async function buildOffers(cards) {
+  // Calls a function of scraper/upload.py with string arguments and parses its JSON result.
+  async function runUpload(functionName, ...args) {
     const pyodide = await getPyodide();
     const upload = pyodide.pyimport("scraper.upload");
     try {
-      return JSON.parse(upload.import_ah_cards(JSON.stringify(cards), JSON.stringify(shownOffers || {})));
+      return JSON.parse(upload[functionName](...args));
     } catch (e) {
       throw new Error(pythonMessage(e));
     } finally {
@@ -102,11 +107,11 @@
     }
   }
 
-  async function saveOffers(offers, password) {
-    const r = await fetch(SAVE_URL, {
+  async function postJson(url, document, password) {
+    const r = await fetch(url, {
       method: "POST",
       headers: { "Content-Type": "application/json", Authorization: `Bearer ${password}` },
-      body: JSON.stringify(offers),
+      body: JSON.stringify(document),
     });
     if (r.ok) return;
     if (r.status === 401) throw new Error("Wrong upload password.");
@@ -116,19 +121,54 @@
     throw new Error(`Saving failed (HTTP ${r.status}): ${await r.text()}`);
   }
 
-  async function upload(file, password) {
-    say("Reading the page…");
-    const cards = await readCards(file);
-    say(`Found ${cards.length} cards. Loading the price checker (first time takes a few seconds)…`);
-    const offers = await buildOffers(cards);
+  const dayName = (isoDate) => new Date(`${isoDate}T00:00`).toLocaleDateString("en-GB",
+    { weekday: "long", day: "numeric", month: "long" });
+
+  async function uploadThisWeek(cards, password) {
+    const offers = await runUpload("import_ah_cards", JSON.stringify(cards), JSON.stringify(shownOffers || {}));
     const ah = offers.stores.ah;
     document.dispatchEvent(new CustomEvent("offers-uploaded", { detail: offers }));
     say(`Matched ${ah.matched} of ${ah.scraped} AH offers. Saving…`);
     try {
-      await saveOffers(offers, password);
+      await postJson(SAVE_URL, offers, password);
       say(`Saved: ${ah.matched} AH offers are now shown to everyone.`);
     } catch (e) {
       say(`${e.message} The new AH offers are shown here only, not saved.`, true);
+    }
+  }
+
+  // Not shown yet: the offers wait on the site until their week starts.
+  async function uploadNextWeek(cards, password) {
+    const held = await runUpload("hold_next_week_ah_cards", JSON.stringify(cards));
+    say(`Matched ${held.matched} of ${held.scraped} AH offers for next week. Saving…`);
+    await postJson(HELD_URL, held, password);
+    say(`Saved: ${held.matched} AH offers for next week, shown from ${dayName(held.valid_from)} at 06:00.`);
+    showHeld(held);
+  }
+
+  async function upload(file, password, week) {
+    say("Reading the page…");
+    const cards = await readCards(file);
+    say(`Found ${cards.length} cards. Loading the price checker (first time takes a few seconds)…`);
+    if (week === "next") await uploadNextWeek(cards, password);
+    else await uploadThisWeek(cards, password);
+  }
+
+  function showHeld(held) {
+    heldStatus.hidden = !held;
+    if (held) {
+      heldStatus.textContent = `Next week's AH offers are ready: ${held.matched} offers, ` +
+        `shown from ${dayName(held.valid_from)} at 06:00.`;
+    }
+  }
+
+  // Locally there is no API, so nothing is held.
+  async function loadHeld() {
+    try {
+      const r = await fetch(HELD_URL, { cache: "no-store" });
+      showHeld(r.ok ? await r.json() : null);
+    } catch (_) {
+      showHeld(null);
     }
   }
 
@@ -138,11 +178,13 @@
     if (!file) { say("Choose the saved ah.nl/bonus page first.", true); return; }
     button.disabled = true;
     try {
-      await upload(file, passwordField.value);
+      await upload(file, passwordField.value, form.elements.week.value);
     } catch (err) {
       say(err.message, true);
     } finally {
       button.disabled = false;
     }
   });
+
+  loadHeld();
 })();

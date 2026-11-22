@@ -101,8 +101,8 @@
 
       <div class="update-step">
         <h3>Lidl, Aldi, Dirk and Jumbo</h3>
-        <p class="small">Fetches the latest Lidl, Aldi, Dirk and Jumbo offers. This runs by itself every Monday; use the button for an
-          extra run. New prices appear here after about three minutes.</p>
+        <p class="small">Fetches the latest Lidl, Aldi, Dirk and Jumbo offers. This runs by itself every morning at 06:00; use the
+          button for an extra run. New prices appear here after about three minutes.</p>
         <button id="run-now" class="btn tonal" type="button">
           <span class="material-symbols-outlined" aria-hidden="true">play_arrow</span>Run now
         </button>
@@ -112,18 +112,25 @@
       <div class="update-step">
         <h3>Albert Heijn</h3>
         <ol class="small">
-          <li>Open <a href="https://www.ah.nl/bonus" target="_blank" rel="noopener">ah.nl/bonus</a> and scroll
-            to the bottom so every offer loads.</li>
+          <li>Open <a href="https://www.ah.nl/bonus" target="_blank" rel="noopener">ah.nl/bonus</a> (for next
+            week's offers, pick next week at the top of that page) and scroll to the bottom so every offer loads.</li>
           <li>Press <kbd>Ctrl</kbd>+<kbd>S</kbd> and save as "Webpage, Complete".</li>
-          <li>Choose the saved <code>.html</code> file and upload it.</li>
+          <li>Choose which week it is and the saved <code>.html</code> file, and upload it. Next week's
+            offers are held and go live by themselves on Monday at 06:00.</li>
         </ol>
         <form id="upload-form" class="upload-form">
+          <fieldset class="week-choice">
+            <legend>Offers for</legend>
+            <label><input type="radio" name="week" value="this" checked> This week</label>
+            <label><input type="radio" name="week" value="next"> Next week</label>
+          </fieldset>
           <input name="page" type="file" accept=".html,.htm,text/html" aria-label="Saved AH bonus page">
           <button class="btn filled" type="submit">
             <span class="material-symbols-outlined" aria-hidden="true">upload</span>Upload
           </button>
         </form>
         <p id="upload-message" class="small message" aria-live="polite"></p>
+        <p id="held-status" class="small held-status" hidden></p>
       </div>
     </section>
 

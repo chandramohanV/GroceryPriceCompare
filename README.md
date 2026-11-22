@@ -12,21 +12,28 @@ it follows you to every device.
 Runs **free** on Cloudflare Pages (site + Functions + KV) and GitHub Actions.
 
 ```
-Every Monday / "Run now" button ──> GitHub Actions: scrape Lidl + Aldi + Dirk + Jumbo ──┐
-                                                                                ├─> /api/offers (Cloudflare KV) ──> site
+Daily 06:00 / "Run now" button ──> GitHub Actions: scrape Lidl + Aldi + Dirk + Jumbo ──┐
+                                   (+ switch in next week's AH on Monday)       ├─> /api/offers (Cloudflare KV) ──> site
 "Upload AH bonus page" form ──> parsed in your browser (Pyodide) ───────────────┘
+        └── next week's page ──> /api/next-week (held until its Monday)
 ```
 
 ## Weekly use
 
 On the site, open **Update prices** (top right) and enter the update password.
 
-- **Lidl, Aldi, Dirk and Jumbo:** run by themselves every Monday. Press **Run now** for an extra run; new
-  prices appear after about three minutes.
+- **Lidl, Aldi, Dirk and Jumbo:** run by themselves every morning at 06:00 (Dutch time; GitHub may
+  start scheduled runs a few minutes late). Press **Run now** for an extra run; new prices appear
+  after about three minutes.
 - **Albert Heijn:** ah.nl blocks scripts, so upload the page from your own browser:
-  1. Open <https://www.ah.nl/bonus> and scroll to the bottom so every offer loads.
+  1. Open <https://www.ah.nl/bonus> and scroll to the bottom so every offer loads. For next
+     week's offers, pick next week at the top of that page first.
   2. Press **Ctrl+S** and save it as **Webpage, Complete**.
-  3. Choose the saved `.html` file and press **Upload**.
+  3. Choose **This week** or **Next week**, choose the saved `.html` file and press **Upload**.
+
+  *This week* replaces the AH offers right away. *Next week* is held on the site (the update
+  section says so) and switched in by the 06:00 run on Monday; uploading again replaces it. A
+  page from the other week is refused (AH's card links name their bonus week).
 
 The AH page is read in your browser with the same Python code the scraper uses (via Pyodide,
 ~10 MB on the first upload); only the resulting offers are sent to the site.
@@ -86,11 +93,12 @@ One-time setup, already done for `grocerypricecompare.pages.dev`:
 | `scraper/normalize.py` | Parses quantities ("2 x 150 g", "Per 500 g", "1 Stk.") and deals ("1+1 gratis", "2e halve prijs", "2 voor 5,00") into an effective price per kg / litre / piece. |
 | `scraper/translate.py` | Translates Dutch names, quantities and deals to English with a built-in glossary. The site shows English by default with a Nederlands toggle. |
 | `scraper/pipeline.py` | Pure logic: classify, normalise, compare and build the `offers.json` payload. Runs in Python and in the browser. |
-| `scraper/upload.py` | Entry point for the upload form (runs in Pyodide). |
-| `scraper/publish.py` | Weekly refresh: scrapes Lidl, Aldi, Dirk and Jumbo, merges it into the saved offers and saves them back. |
+| `scraper/upload.py` | Entry point for the upload form (runs in Pyodide): this week's AH offers, or next week's as a held document. |
+| `scraper/held.py` | Next week's offers held until their week starts, and switching them in. |
+| `scraper/publish.py` | Daily refresh: switches in held AH offers once their week starts, scrapes Lidl, Aldi, Dirk and Jumbo, merges it into the saved offers and saves them back. |
 | `scraper/run.py` | Local run: scrapes all stores and writes `data/offers.json` plus `data/history/`. |
-| `functions/api/` | Cloudflare Pages Functions: `offers.js` (read/save offers in KV), `run.js` (Run button) and `account/` (sign-up, login, logout, saved list). |
-| `lib/` | Code shared by the Functions: `password.js` (update password), `accounts.js` (accounts, sessions, saved data; storage passed in so it is testable), `session.js` (cookies, JSON bodies). |
+| `functions/api/` | Cloudflare Pages Functions: `offers.js` (read/save offers in KV), `next-week.js` (next week's AH offers, held), `run.js` (Run button) and `account/` (sign-up, login, logout, saved list). |
+| `lib/` | Code shared by the Functions: `password.js` (update password), `offers.js` (upload shape checks), `accounts.js` (accounts, sessions, saved data; storage passed in so it is testable), `session.js` (cookies, JSON bodies). |
 | `site/` | Static website (plain HTML/CSS/JS, Material Design 3 styling, no build step). `state.js` keeps each person's preferences and list (browser or account), `list.js` the list panel, `account.js` the sign-in dialog, `theme.js` the light/dark button. |
 
 **Comparison rule:** for each product, offers are compared on the effective price per kg (or per
@@ -120,10 +128,10 @@ after changing `site/`).
 ## Adding a store
 
 Write `scraper/<store>.py` with a `LABEL` and a `scrape() -> list[Offer]` function and register it
-in `STORES` in `scraper/run.py` (and `DEFAULT_STORES` in `scraper/publish.py` if the weekly job
+in `STORES` in `scraper/run.py` (and `DEFAULT_STORES` in `scraper/publish.py` if the daily job
 should scrape it). Add its name to `site/stores.js` and a `--<store>` colour in `site/style.css`.
 
 ## Fair use
 
-A few requests per store per week, public offer pages only. Not affiliated with Albert Heijn,
+A few requests per store per day, public offer pages only. Not affiliated with Albert Heijn,
 Lidl, Aldi, Dirk or Jumbo. Prices can differ in store; always check before you go.

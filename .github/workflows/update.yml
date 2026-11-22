@@ -1,15 +1,19 @@
 name: Refresh offers
 
 # Scrapes Lidl, Aldi, Dirk and Jumbo and merges them into the offers saved on the Cloudflare site
-# (next to the AH offers uploaded there). Runs every Monday, from the
-# "Run workflow" button in the Actions tab, or from the site's "Run now" button.
+# (next to the AH offers uploaded there), and switches in next week's AH offers once their week
+# starts. Runs every morning at 06:00 Dutch time, from the "Run workflow" button in the Actions
+# tab, or from the site's "Run now" button.
 #
 # Needs the repository secret UPLOAD_PASSWORD (same as the Cloudflare secret)
 # and the repository variable SITE_URL (e.g. https://grocerypricecompare.pages.dev).
 
 on:
+  # Cron is in UTC and the Netherlands moves between UTC+1 and UTC+2, so both are scheduled and the
+  # clock job below lets through only the one that is 06:00 in Amsterdam today.
   schedule:
-    - cron: "17 5 * * 1"   # Mondays ~06:17 Dutch time (05:17 UTC), when the offer weeks start
+    - cron: "0 4 * * *"   # 06:00 in summer (CEST, UTC+2)
+    - cron: "0 5 * * *"   # 06:00 in winter (CET, UTC+1)
   workflow_dispatch:
 
 permissions:
@@ -20,7 +24,25 @@ concurrency:
   cancel-in-progress: false
 
 jobs:
+  clock:
+    runs-on: ubuntu-latest
+    outputs:
+      is_due: ${{ steps.check.outputs.is_due }}
+    steps:
+      - id: check
+        env:
+          EVENT: ${{ github.event_name }}
+          SCHEDULE: ${{ github.event.schedule }}
+        run: |
+          # Decided by the UTC offset, not the clock, so a late-started run still counts.
+          if [ "$(TZ=Europe/Amsterdam date +%z)" = "+0200" ]; then due="0 4 * * *"; else due="0 5 * * *"; fi
+          if [ "$EVENT" != "schedule" ] || [ "$SCHEDULE" = "$due" ]; then
+            echo "is_due=true" >> "$GITHUB_OUTPUT"
+          fi
+
   refresh:
+    needs: clock
+    if: needs.clock.outputs.is_due == 'true'
     runs-on: ubuntu-latest
     timeout-minutes: 15
     steps:

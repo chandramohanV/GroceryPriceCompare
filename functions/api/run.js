@@ -2,7 +2,7 @@
 //
 // POST (with "Authorization: Bearer <UPLOAD_PASSWORD>") starts the GitHub
 // Actions workflow that scrapes Lidl, Aldi and Dirk and saves the merged offers back to
-// /api/offers. The same workflow also runs by itself every Monday.
+// /api/offers. The same workflow also runs by itself every morning at 06:00.
 //
 // Needs the GITHUB_TOKEN secret: a fine-grained token for this repository
 // with "Actions: read and write". GITHUB_REPO and WORKFLOW come from wrangler.toml.
