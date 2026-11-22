@@ -18,6 +18,7 @@ contain an image and a price), but it may need adjusting.
 from __future__ import annotations
 
 import re
+from collections import Counter
 from datetime import date, timedelta
 from pathlib import Path
 from typing import Optional
@@ -90,12 +91,23 @@ def week_end(monday: date) -> date:
 
 
 def page_week(cards: list[dict]) -> Optional[int]:
-    """The ISO week number a saved bonus page is for, read from its card links."""
-    for card in cards:
-        found = WEEK_QUERY_RE.search(card.get("href") or "")
-        if found:
-            return int(found.group(1))
-    return None
+    """The ISO week number a saved bonus page is for: the one most of its card links name.
+
+    A page also links a few offers of the week after (previews), so the first link can't be trusted.
+    """
+    weeks = Counter(w for w in map(card_week, cards) if w is not None)
+    return weeks.most_common(1)[0][0] if weeks else None
+
+
+def card_week(card: dict) -> Optional[int]:
+    """The bonus week a card links to, if its link names one."""
+    found = WEEK_QUERY_RE.search(card.get("href") or "")
+    return int(found.group(1)) if found else None
+
+
+def cards_of_week(cards: list[dict], week: int) -> list[dict]:
+    """The cards of one bonus week; cards whose link names no week are kept."""
+    return [c for c in cards if card_week(c) in (None, week)]
 
 
 def card_to_offer(card: dict, week_monday: Optional[date] = None) -> Optional[Offer]:

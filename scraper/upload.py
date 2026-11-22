@@ -22,16 +22,17 @@ def _offers_for_week(cards_json: str, weeks_ahead: int, today: date) -> tuple[li
     """The page's offers dated to the chosen bonus week, and that week's Monday."""
     cards = json.loads(cards_json)
     monday = ah.week_start(today, weeks_ahead)
-    _check_page_week(ah.page_week(cards), monday, weeks_ahead)
-    offers = ah.offers_from_cards(cards, monday)
+    week = monday.isocalendar().week
+    _check_page_week(ah.page_week(cards), week, weeks_ahead)
+    # Previews of the week after would otherwise be shown a week early.
+    offers = ah.offers_from_cards(ah.cards_of_week(cards, week), monday)
     if not offers:
         raise ValueError("No AH bonus offers found. Is this the saved ah.nl/bonus page?")
     return offers, monday
 
 
-def _check_page_week(found_week: Optional[int], monday: date, weeks_ahead: int) -> None:
+def _check_page_week(found_week: Optional[int], chosen_week: int, weeks_ahead: int) -> None:
     """Catches next week's page uploaded as this week's (or the other way round)."""
-    chosen_week = monday.isocalendar().week
     if found_week is None or found_week == chosen_week:
         return
     raise ValueError(

@@ -54,6 +54,26 @@ def test_ah_page_week_reads_card_links():
     assert ah.page_week(cards) == 48
 
 
+def test_ah_page_week_is_the_week_most_links_name():
+    # A real next-week page linked 4 previews of the week after before its 229 offers.
+    cards = [_card_for_week(49)] * 2 + [_card_for_week(48)] * 5
+    assert ah.page_week(cards) == 48
+
+
+def test_ah_cards_of_week_drops_other_weeks_and_keeps_unknown():
+    cards = [_card_for_week(48), _card_for_week(49), WITLOF_CARD]
+    assert ah.cards_of_week(cards, 48) == [_card_for_week(48), WITLOF_CARD]
+
+
+def test_upload_leaves_out_previews_of_the_week_after():
+    next_week = ah.week_start(date.today(), 1).isocalendar().week
+    preview = {**TOY_CARD, "title": "AH Prei", "text": "AH Prei 1.29",
+               "href": f"/bonus/groep/2?week={next_week + 1}"}
+    cards = [preview, _card_for_week(next_week), _card_for_week(next_week)]
+    doc = json.loads(upload.hold_next_week_ah_cards(json.dumps(cards)))
+    assert [o["name"] for o in doc["offers"]] == ["AH Witlof"]
+
+
 def test_ah_page_week_unknown_without_week_links():
     assert ah.page_week([WITLOF_CARD, {"title": "no link"}]) is None
 
