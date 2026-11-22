@@ -3,7 +3,7 @@
   "use strict";
 
   const STORE_NAMES = window.STORE_NAMES;
-  const OWN_ITEMS = "Other";
+  const OWN_ITEMS = "Any shop"; // same wording as the shop picker's "no shop" option
   const user = window.userState;
   const dialog = document.getElementById("list-dialog");
   const items = document.getElementById("list-items");
@@ -90,13 +90,26 @@
     message.classList.toggle("bad", Boolean(saveError));
   }
 
-  document.getElementById("list-add").addEventListener("submit", (e) => {
+  function fillShopPicker(select) {
+    for (const [store, name] of Object.entries(STORE_NAMES)) {
+      const option = el("option", null, name);
+      option.value = store;
+      select.append(option);
+    }
+  }
+
+  const addForm = document.getElementById("list-add");
+  fillShopPicker(addForm.elements.store);
+  addForm.addEventListener("submit", (e) => {
     e.preventDefault();
-    const input = e.target.elements.text; // not "item": forms already have an item() method
+    const input = addForm.elements.text; // not "item": forms already have an item() method
     const text = input.value.trim();
     if (!text) return;
-    user.addItem({ id: `own:${Date.now()}`, text });
+    // The shop stays selected, so several items for one shop can be added in a row.
+    const store = addForm.elements.store.value || undefined;
+    user.addItem({ id: `own:${Date.now()}`, text, store });
     input.value = "";
+    input.focus();
   });
   document.getElementById("list-clear").addEventListener("click", () => user.clearDone());
   document.getElementById("list-btn").addEventListener("click", () => dialog.showModal());

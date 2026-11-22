@@ -33,6 +33,9 @@ The AH page is read in your browser with the same Python code the scraper uses (
 
 ## Accounts and grocery lists
 
+Add offers from the cards, or type your own items and pick the shop to buy them at (or "Any
+shop"); the list is grouped per shop.
+
 Anyone can use the grocery list without an account; it is then kept in that browser only.
 With an account, the list and preferences (chosen stores, theme, language) are saved on the
 site and appear on every device where you sign in.

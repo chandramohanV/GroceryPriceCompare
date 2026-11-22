@@ -146,10 +146,17 @@
     </header>
     <p id="list-saved" class="small"></p>
     <form id="list-add" class="list-add">
-      <label class="field">
+      <label class="field item">
         <span class="material-symbols-outlined" aria-hidden="true">add</span>
         <input name="text" maxlength="200" placeholder="Add your own item, e.g. bread" aria-label="Add an item"
           autocomplete="off">
+      </label>
+      <label class="field shop">
+        <span class="material-symbols-outlined" aria-hidden="true">storefront</span>
+        <!-- The store options are added by list.js from STORE_NAMES. -->
+        <select name="store" aria-label="Shop to buy it at">
+          <option value="">Any shop</option>
+        </select>
       </label>
       <button class="btn tonal" type="submit">Add</button>
     </form>
