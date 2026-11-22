@@ -16,7 +16,7 @@ from .normalize import enrich
 from .translate import product_name, translate_offer
 
 # Stores whose shelf price already includes a "-30%" style discount (AH shows the old price)
-STORES_SHOWING_DISCOUNTED_PRICE = frozenset({"lidl", "aldi", "dirk"})
+STORES_SHOWING_DISCOUNTED_PRICE = frozenset({"lidl", "aldi", "dirk", "jumbo"})
 
 
 def prepare(offers: list[Offer]) -> list[Offer]:
@@ -136,7 +136,7 @@ def replace_store_offers(payload: dict, store: str, label: str,
                          scraped: list[Offer], now: datetime) -> dict:
     """A new payload where one store's offers are replaced by freshly scraped ones.
 
-    Used by the upload form (AH) and the weekly refresh (Lidl, Aldi, Dirk): the other stores
+    Used by the upload form (AH) and the weekly refresh (Lidl, Aldi, Dirk, Jumbo): the other stores
     keep their status and those of their offers whose week hasn't ended.
     """
     kept = prepare(scraped)

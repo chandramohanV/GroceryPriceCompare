@@ -8,12 +8,12 @@ USER_AGENT = (
 TIMEOUT_SECONDS = 30
 
 
-def fetch_page(url: str) -> str:
+def fetch_page(url: str, user_agent: str = USER_AGENT) -> str:
     import httpx  # imported lazily so parsing/tests don't need it
 
     resp = httpx.get(
         url,
-        headers={"User-Agent": USER_AGENT, "Accept-Language": "nl-NL,nl;q=0.9"},
+        headers={"User-Agent": user_agent, "Accept-Language": "nl-NL,nl;q=0.9"},
         timeout=TIMEOUT_SECONDS,
         follow_redirects=True,
     )

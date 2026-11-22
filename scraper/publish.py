@@ -1,6 +1,6 @@
 """Refresh the live site: scrape stores and merge them into the saved offers.
 
-Usage:  python -m scraper.publish --site https://grocerypricecompare.pages.dev [--stores lidl,aldi,dirk]
+Usage:  python -m scraper.publish --site https://grocerypricecompare.pages.dev [--stores lidl,aldi,dirk,jumbo]
 Needs the UPLOAD_PASSWORD environment variable. Run by the weekly GitHub
 Actions job, which the site's Run button can also start.
 
@@ -20,7 +20,7 @@ from .run import STORES
 API_PATH = "/api/offers"
 TIMEOUT_SECONDS = 30
 # AH blocks automated requests; its offers come from the site's upload form.
-DEFAULT_STORES = "lidl,aldi,dirk"
+DEFAULT_STORES = "lidl,aldi,dirk,jumbo"
 
 
 def fetch_payload(api_url: str) -> dict:

@@ -1,6 +1,6 @@
 """Scrape all stores, keep the products we compare, normalise and compare.
 
-Usage:  python -m scraper.run [--out data] [--stores lidl,aldi,dirk,ah] [--ah-page bonus.html]
+Usage:  python -m scraper.run [--out data] [--stores lidl,aldi,dirk,jumbo,ah] [--ah-page bonus.html]
 Writes data/offers.json (latest) and data/history/YYYY-MM-DD.json.
 A store that fails is reported in the output but doesn't stop the others; its
 earlier offers are kept until their offer week ends.
@@ -16,7 +16,7 @@ from functools import partial
 from pathlib import Path
 from typing import Callable, Optional
 
-from . import ah, aldi, dirk, lidl
+from . import ah, aldi, dirk, jumbo, lidl
 from .models import Offer
 from .pipeline import build_payload, offers_from_payload, prepare, still_valid
 
@@ -26,6 +26,7 @@ STORES: dict[str, tuple[str, Scraper]] = {
     "lidl": (lidl.LABEL, lidl.scrape),
     "aldi": (aldi.LABEL, aldi.scrape),
     "dirk": (dirk.LABEL, dirk.scrape),
+    "jumbo": (jumbo.LABEL, jumbo.scrape),
     "ah": (ah.LABEL, ah.scrape),
 }
 

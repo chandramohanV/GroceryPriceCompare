@@ -1,7 +1,7 @@
 # GroceryPriceCompare 🛒
 
 Compares this week's offers at **Albert Heijn** (ah.nl/bonus), **Lidl**
-(lidl.nl/aanbiedingen), **Aldi** (aldi.nl/aanbiedingen) and **Dirk** (dirk.nl/aanbiedingen) on
+(lidl.nl/aanbiedingen), **Aldi** (aldi.nl/aanbiedingen) **Dirk** (dirk.nl/aanbiedingen) and **Jumbo** (jumbo.com/aanbiedingen/nu) on
 **fruit, vegetables, meat, fish, dairy & eggs, cereals and coffee**: picture, price, discount and
 the effective price **per kg / litre / piece**, with the cheapest offer marked **Best deal**.
 
@@ -12,7 +12,7 @@ it follows you to every device.
 Runs **free** on Cloudflare Pages (site + Functions + KV) and GitHub Actions.
 
 ```
-Every Monday / "Run now" button ──> GitHub Actions: scrape Lidl + Aldi + Dirk ──┐
+Every Monday / "Run now" button ──> GitHub Actions: scrape Lidl + Aldi + Dirk + Jumbo ──┐
                                                                                 ├─> /api/offers (Cloudflare KV) ──> site
 "Upload AH bonus page" form ──> parsed in your browser (Pyodide) ───────────────┘
 ```
@@ -21,7 +21,7 @@ Every Monday / "Run now" button ──> GitHub Actions: scrape Lidl + Aldi + Dir
 
 On the site, open **Update prices** (top right) and enter the update password.
 
-- **Lidl, Aldi and Dirk:** run by themselves every Monday. Press **Run now** for an extra run; new
+- **Lidl, Aldi, Dirk and Jumbo:** run by themselves every Monday. Press **Run now** for an extra run; new
   prices appear after about three minutes.
 - **Albert Heijn:** ah.nl blocks scripts, so upload the page from your own browser:
   1. Open <https://www.ah.nl/bonus> and scroll to the bottom so every offer loads.
@@ -76,14 +76,15 @@ One-time setup, already done for `grocerypricecompare.pages.dev`:
 | `scraper/lidl.py` | Downloads the Lidl offers page; every product tile has its data as JSON in the HTML. Keeps the food aisles (skips pet food, bakery, frozen pizza, sweets). Reads regular and Lidl Plus prices. |
 | `scraper/aldi.py` | Downloads Aldi's this-week and next-week offer pages; the products are JSON in the page's `__NEXT_DATA__` script. Keeps the offers running in the compared week (the week containing tomorrow, so on Sunday that is next week). |
 | `scraper/dirk.py` + `devalue.py` | Downloads Dirk's offers page; the offers are in Nuxt's `__NUXT_DATA__` payload, which `devalue.py` decodes. Pack sizes and pictures come from each offer's products. Dirk's week runs Wednesday–Tuesday. |
-| `scraper/web.py` | Shared page download (User-Agent, timeout) for the Lidl, Aldi and Dirk scrapers. |
+| `scraper/jumbo.py` | Downloads Jumbo's "nu" offers page; every promotion of the week (featured and per aisle) is in the `__NUXT_DATA__` payload. Jumbo shows promotions, not shelf prices: the price or deal comes from the tag ("voor 1,00", "2 voor 3,00", "1+1 gratis") and the pack size from the subtitle, so there is no old price. Jumbo's week runs Wednesday–Tuesday. Sends the User-Agent without the repo link, because Jumbo's bot protection stalls requests whose User-Agent contains a URL. |
+| `scraper/web.py` | Shared page download (User-Agent, timeout) for the Lidl, Aldi, Dirk and Jumbo scrapers. |
 | `scraper/ah.py` + `ah_cards.js` | Reads AH promotion cards from a saved bonus page (or live, usually blocked). `ah_cards.js` finds the cards and is shared by Playwright and the site's upload form. |
 | `scraper/match.py` | Recognises products in Dutch names ("Jonagold appels" → *Appels*, "Half-om-half gehakt" → *Gehakt*) with whole-word matching, and skips things that only look like them (appeltaart, koffiebroodjes, vegetarisch gehakt…). |
 | `scraper/normalize.py` | Parses quantities ("2 x 150 g", "Per 500 g", "1 Stk.") and deals ("1+1 gratis", "2e halve prijs", "2 voor 5,00") into an effective price per kg / litre / piece. |
 | `scraper/translate.py` | Translates Dutch names, quantities and deals to English with a built-in glossary. The site shows English by default with a Nederlands toggle. |
 | `scraper/pipeline.py` | Pure logic: classify, normalise, compare and build the `offers.json` payload. Runs in Python and in the browser. |
 | `scraper/upload.py` | Entry point for the upload form (runs in Pyodide). |
-| `scraper/publish.py` | Weekly refresh: scrapes Lidl, Aldi and Dirk, merges it into the saved offers and saves them back. |
+| `scraper/publish.py` | Weekly refresh: scrapes Lidl, Aldi, Dirk and Jumbo, merges it into the saved offers and saves them back. |
 | `scraper/run.py` | Local run: scrapes all stores and writes `data/offers.json` plus `data/history/`. |
 | `functions/api/` | Cloudflare Pages Functions: `offers.js` (read/save offers in KV), `run.js` (Run button) and `account/` (sign-up, login, logout, saved list). |
 | `lib/` | Code shared by the Functions: `password.js` (update password), `accounts.js` (accounts, sessions, saved data; storage passed in so it is testable), `session.js` (cookies, JSON bodies). |
@@ -101,7 +102,7 @@ stores (`verdicts_by_store_set`), so the site never re-implements this rule in J
 python -m venv .venv && source .venv/bin/activate   # Windows: .venv\Scripts\activate
 pip install -r requirements.txt
 python -m playwright install chromium
-python -m scraper.run                            # or: --stores lidl,aldi,dirk
+python -m scraper.run                            # or: --stores lidl,aldi,dirk,jumbo
 python -m scraper.run --ah-page ah-bonus.html    # with AH from a saved page
 python -m pytest -q
 npm test                                         # account logic (Node's built-in test runner)
@@ -122,4 +123,4 @@ should scrape it). Add its name to `site/stores.js` and a `--<store>` colour in 
 ## Fair use
 
 A few requests per store per week, public offer pages only. Not affiliated with Albert Heijn,
-Lidl, Aldi or Dirk. Prices can differ in store; always check before you go.
+Lidl, Aldi, Dirk or Jumbo. Prices can differ in store; always check before you go.

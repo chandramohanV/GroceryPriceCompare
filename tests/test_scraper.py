@@ -3,6 +3,7 @@ from datetime import date, datetime, timedelta, timezone
 from pathlib import Path
 
 import pytest
+from nuxt_page import devalue_encode, nuxt_page
 
 from scraper import ah, aldi, devalue, dirk, lidl, publish, upload
 from scraper.match import CATEGORIES, PRODUCTS, classify
@@ -243,28 +244,9 @@ def test_aldi_page_without_offers_data_is_reported():
 
 
 # ---------- Nuxt payload (scraper/devalue.py) ----------
-def _devalue(value) -> list:
-    """Encode a value the way Nuxt does: a flat array of entries that point at each other."""
-    entries: list = []
-
-    def add(v) -> int:
-        index = len(entries)
-        entries.append(None)
-        if isinstance(v, dict):
-            entries[index] = {k: add(x) for k, x in v.items()}
-        elif isinstance(v, list):
-            entries[index] = [add(x) for x in v]
-        else:
-            entries[index] = v
-        return index
-
-    add(value)
-    return entries
-
-
 def test_devalue_round_trip():
     value = {"a": [1, "x", None, {"b": 2.5}], "c": True}
-    assert devalue.decode(_devalue(value)) == value
+    assert devalue.decode(devalue_encode(value)) == value
 
 
 def test_devalue_unwraps_vue_state_and_dates():
@@ -307,8 +289,7 @@ def _dirk_product(product_id=4535, packaging="750 g", price=0.89, normal=1.89) -
 
 def _dirk_page(*sections: list, links: str = "") -> str:
     state = {"data": {"offers-currentOffers": [{"currentOffers": s} for s in sections]}}
-    payload = json.dumps(_devalue(state))
-    return f'{links}<script type="application/json" id="__NUXT_DATA__">{payload}</script>'
+    return nuxt_page(state, before=links)
 
 
 def test_dirk_single_product_offer():

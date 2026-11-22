@@ -27,6 +27,7 @@
   --lidl: light-dark(#0050aa, #a8c4ff);
   --aldi: light-dark(#00796b, #5fd4c4);
   --dirk: light-dark(#c8102e, #ff8a80);
+  --jumbo: light-dark(#8a6d00, #ffd54f);
 
   /* Shape scale */
   --shape-xs: 4px;
@@ -216,6 +217,7 @@ h1 { flex: 1; margin: 0; font: var(--type-title-large); }
 .store.lidl { color: var(--lidl); }
 .store.aldi { color: var(--aldi); }
 .store.dirk { color: var(--dirk); }
+.store.jumbo { color: var(--jumbo); }
 .name {
   color: inherit; text-decoration: none; font: var(--type-body-large);
   display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden;
