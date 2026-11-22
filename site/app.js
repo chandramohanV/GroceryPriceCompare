@@ -94,6 +94,13 @@
     return words.length > 1 ? words.map((w) => w[0]).join("").toUpperCase() : name.slice(0, 2);
   }
 
+  // Decorative: the store's name is always written next to it.
+  function storeAvatar(store) {
+    const avatar = el("span", "store-avatar", storeInitials(STORE_NAMES[store] || store));
+    avatar.setAttribute("aria-hidden", "true");
+    return avatar;
+  }
+
   function offerCountText(d, store) {
     const count = d.offers.filter((o) => o.store === store).length;
     const status = d.stores[store];
@@ -108,11 +115,9 @@
     tile.type = "button";
     tile.disabled = !isAvailable;
     tile.setAttribute("aria-pressed", isOn);
-    const avatar = el("span", "store-avatar", storeInitials(STORE_NAMES[store]));
-    avatar.setAttribute("aria-hidden", "true");
     const check = icon("check_circle");
     check.classList.add("store-check");
-    tile.append(avatar, check, el("span", "store-tile-name", STORE_NAMES[store]),
+    tile.append(storeAvatar(store), check, el("span", "store-tile-name", STORE_NAMES[store]),
       el("span", "store-tile-count", isAvailable ? offerCountText(d, store) : "Not available this run"));
     if (!isAvailable) tile.title = (d.stores[store] && d.stores[store].error) || "";
     tile.addEventListener("click", () => toggleStore(store));
@@ -195,7 +200,9 @@
     if (isWebUrl(o.image)) img.src = o.image; else placeholder();
 
     const meta = el("div", "meta");
-    meta.append(el("div", "store " + o.store, STORE_NAMES[o.store] || o.store));
+    const storeLabel = el("div", "store " + o.store);
+    storeLabel.append(storeAvatar(o.store), STORE_NAMES[o.store] || o.store);
+    meta.append(storeLabel);
     const hasLink = isWebUrl(o.url);
     const name = el(hasLink ? "a" : "span", "name", offerName);
     if (hasLink) { name.href = o.url; name.target = "_blank"; name.rel = "noopener"; }

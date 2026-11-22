@@ -207,12 +207,22 @@ h1 { flex: 1; margin: 0; font: var(--type-title-large); }
 .thumb { width: 56px; height: 56px; border-radius: var(--shape-s); object-fit: contain; background: #fff; }
 .thumb.ph { display: grid; place-items: center; font-size: 26px; background: var(--md-surface-container-highest); }
 .meta { min-width: 0; }
-.store { font: var(--type-label-small); letter-spacing: 0.06em; text-transform: uppercase; }
-.store.ah { color: var(--ah); }
-.store.lidl { color: var(--lidl); }
-.store.aldi { color: var(--aldi); }
-.store.dirk { color: var(--dirk); }
-.store.jumbo { color: var(--jumbo); }
+/* Each store's brand colour, shared by offer rows and store tiles. */
+:is(.store, .store-tile) { --store: var(--md-primary); }
+:is(.store, .store-tile).ah { --store: var(--ah); }
+:is(.store, .store-tile).lidl { --store: var(--lidl); }
+:is(.store, .store-tile).aldi { --store: var(--aldi); }
+:is(.store, .store-tile).dirk { --store: var(--dirk); }
+:is(.store, .store-tile).jumbo { --store: var(--jumbo); }
+.store {
+  display: flex; align-items: center; gap: 6px; color: var(--store);
+  font: var(--type-label-small); letter-spacing: 0.06em; text-transform: uppercase;
+}
+/* The store tile's avatar, scaled down to sit in front of the store name. */
+.store .store-avatar {
+  width: 20px; height: 20px; margin: 0; flex: none;
+  font: 700 0.5625rem/1 var(--font-family); letter-spacing: 0; text-transform: none;
+}
 .name {
   color: inherit; text-decoration: none; font: var(--type-body-large);
   display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden;
@@ -230,6 +240,18 @@ a.name:hover { text-decoration: underline; }
 .price .now { font: var(--type-title-medium); font-size: 1.125rem; }
 .price .old { font: var(--type-body-medium); color: var(--md-on-surface-variant); text-decoration: line-through; margin-right: 4px; }
 .price .unit, .price .member { display: block; font: var(--type-body-small); color: var(--md-on-surface-variant); }
+
+/* Phones: four columns leave the name too narrow to read, so the price moves under the name. */
+@media (max-width: 480px) {
+  .row {
+    grid-template-columns: 48px 1fr auto; grid-template-areas: "thumb meta add" "thumb price add";
+    gap: 4px 12px;
+  }
+  .thumb { grid-area: thumb; width: 48px; height: 48px; }
+  .meta { grid-area: meta; }
+  .price { grid-area: price; text-align: left; }
+  .row .icon-btn.add { grid-area: add; }
+}
 
 .empty { color: var(--md-on-surface-variant); font: var(--type-body-large); text-align: center; padding: 40px 0; }
 
@@ -284,8 +306,13 @@ kbd {
 /* Phones: app bar actions show icons only (each has an aria-label). */
 @media (max-width: 640px) {
   .app-bar-row .label { display: none; }
-  .app-bar-row .btn.text { padding: 0 8px; gap: 4px; }
-  .app-bar-row h1 { font-size: 1.125rem; }
+  .app-bar-row .btn.text { min-width: 40px; padding: 0 8px; gap: 4px; }
+  .app-bar-row h1 { font-size: 1.125rem; line-height: 1.5rem; }
+}
+/* Small phones: drop the decorative cart so the title fits on at most two lines. */
+@media (max-width: 400px) {
+  .app-bar-icon { display: none; }
+  .app-bar-row h1 { font-size: 1rem; line-height: 1.25rem; }
 }
 
 /* ---------- Store picker: one selectable tile per store ---------- */
@@ -298,13 +325,7 @@ kbd {
   display: grid; grid-auto-flow: column; grid-auto-columns: minmax(136px, 1fr); gap: 12px;
   overflow-x: auto; padding: 2px 2px 8px; scrollbar-width: thin; scroll-snap-type: x proximity;
 }
-.store-tile.ah { --store: var(--ah); }
-.store-tile.lidl { --store: var(--lidl); }
-.store-tile.aldi { --store: var(--aldi); }
-.store-tile.dirk { --store: var(--dirk); }
-.store-tile.jumbo { --store: var(--jumbo); }
 .store-tile {
-  --store: var(--md-primary);
   display: grid; grid-template-columns: auto 1fr; grid-template-areas: "avatar check" "name name" "count count";
   align-items: start; gap: 2px 8px; padding: 12px; min-height: 104px; text-align: left; scroll-snap-align: start;
   border: 1px solid var(--md-outline-variant); border-radius: var(--shape-m);
@@ -347,13 +368,14 @@ kbd {
 }
 /* The list opens as a side sheet on wide screens and full width on phones. */
 .dialog.sheet {
-  width: min(100%, 440px); height: 100%; max-height: none; margin: 0 0 0 auto;
+  /* max-width overrides the browser's dialog default, which would leave a gap beside the sheet on phones. */
+  width: min(100%, 440px); max-width: 100%; height: 100%; max-height: none; margin: 0 0 0 auto;
   border-radius: var(--shape-l) 0 0 var(--shape-l); display: none; flex-direction: column;
 }
 .dialog.sheet[open] { display: flex; }
 @media (max-width: 480px) { .dialog.sheet { border-radius: 0; } }
 .list-add { display: flex; gap: 8px; align-items: center; margin: 8px 0; }
-.list-add .field { flex: 1; height: 48px; }
+.list-add .field { flex: 1; min-width: 0; height: 48px; }
 .list-items { flex: 1; overflow-y: auto; list-style: none; margin: 0; padding: 0; }
 .list-group h3 { margin: 16px 0 4px; font: var(--type-title-medium); color: var(--md-on-surface-variant); }
 .list-group ul { list-style: none; margin: 0; padding: 0; }
@@ -363,6 +385,8 @@ kbd {
 }
 .list-check { display: flex; flex-wrap: wrap; align-items: center; gap: 4px 12px; cursor: pointer; }
 .list-check input { width: 18px; height: 18px; accent-color: var(--md-primary); }
+/* A zero basis keeps long item names beside the checkbox instead of wrapping below it. */
+.list-text { flex: 1 1 0; min-width: 0; }
 .list-check .small { flex-basis: 100%; padding-left: 30px; }
 .list-item.done .list-text { text-decoration: line-through; color: var(--md-on-surface-variant); }
 .list-price { font-variant-numeric: tabular-nums; }
