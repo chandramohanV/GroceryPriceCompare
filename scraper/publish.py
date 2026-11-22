@@ -1,13 +1,13 @@
-"""Refresh the live site: scrape stores and merge them into the saved offers.
+"""Refresh the live site: scrape stores and merge them into this week's and next week's offers.
 
 Usage:  python -m scraper.publish --site https://grocerypricecompare.pages.dev [--stores lidl,aldi,dirk,jumbo]
-Needs the UPLOAD_PASSWORD environment variable. Run by the weekly GitHub
-Actions job (every morning at 06:00), which the site's Run button can also start.
+Needs the UPLOAD_PASSWORD environment variable. Run by the daily GitHub Actions
+job (every morning at 06:00), which the site's Run button can also start.
 
-The live offers are kept in Cloudflare KV (see functions/api/offers.js), next
+Both weeks' offers are kept in Cloudflare KV (see functions/api/offers.js), next
 to the AH offers uploaded from the site, so only the scraped stores change.
-Next week's AH offers, uploaded ahead (functions/api/next-week.js), are swapped
-in on the first run of their week.
+Offers in next week's set whose week has started (AH uploaded ahead) move into
+this week's set first.
 """
 from __future__ import annotations
 
@@ -17,12 +17,15 @@ import sys
 from datetime import datetime, timezone
 from typing import Optional
 
-from .held import switch_in
-from .pipeline import replace_store_offers
+from .pipeline import offers_from_dicts, replace_store_offers
 from .run import STORES
+from .weeks import replace_store_weeks, roll_over
 
 API_PATH = "/api/offers"
-HELD_PATH = "/api/next-week"
+NEXT_WEEK_QUERY = "?week=next"
+# Before next week's set existed, next week's AH upload was held here (Nov 2026). Its document is
+# moved into next week's set once; drop this and functions/api/next-week.js when it answers 404.
+LEGACY_HELD_PATH = "/api/next-week"
 TIMEOUT_SECONDS = 30
 # AH blocks automated requests; its offers come from the site's upload form.
 DEFAULT_STORES = "lidl,aldi,dirk,jumbo"
@@ -50,20 +53,32 @@ def post_payload(api_url: str, payload: dict, password: str) -> None:
     resp.raise_for_status()
 
 
-def delete_held(held_url: str, password: str) -> None:
+def delete_legacy_held(held_url: str, password: str) -> None:
     import httpx
 
     resp = httpx.delete(held_url, timeout=TIMEOUT_SECONDS, headers=_auth(password))
     resp.raise_for_status()
 
 
-def refresh(payload: dict, stores: list[str], now: datetime) -> dict:
-    """Scrape each store and swap its offers into the payload."""
+def adopt_legacy_held(upcoming: dict, held: dict, now: datetime) -> dict:
+    """Next week's set with the offers of an old held document (see LEGACY_HELD_PATH).
+
+    An upload made since then into next week's set is newer, so it wins.
+    """
+    if any(o["store"] == held["store"] for o in upcoming.get("offers", [])):
+        return upcoming
+    return replace_store_offers(upcoming, held["store"], held["label"], offers_from_dicts(held["offers"]), now)
+
+
+def refresh(current: dict, upcoming: dict, stores: list[str], now: datetime) -> tuple[dict, dict]:
+    """(this week's payload, next week's) after rolling over started offers and scraping each store."""
+    current, upcoming = roll_over(current, upcoming, now)
     for key in stores:
         label, scrape = STORES[key]
-        payload = replace_store_offers(payload, key, label, scrape(), now)
-        print(f"[{key}] {payload['stores'][key]['matched']} offers matched", file=sys.stderr)
-    return payload
+        current, upcoming = replace_store_weeks(current, upcoming, key, label, scrape(), now)
+        print(f"[{key}] {current['stores'][key]['matched']} offers this week, "
+              f"{upcoming['stores'][key]['matched']} next week", file=sys.stderr)
+    return current, upcoming
 
 
 def main(argv=None) -> int:
@@ -76,16 +91,21 @@ def main(argv=None) -> int:
         print("UPLOAD_PASSWORD is not set", file=sys.stderr)
         return 2
     site = args.site.rstrip("/")
-    api_url, held_url = site + API_PATH, site + HELD_PATH
+    api_url, next_url, held_url = site + API_PATH, site + API_PATH + NEXT_WEEK_QUERY, site + LEGACY_HELD_PATH
     stores = [s.strip() for s in args.stores.split(",") if s.strip()]
     now = datetime.now(timezone.utc)
-    payload, is_held_used = switch_in(fetch_json(api_url) or {}, fetch_json(held_url), now)
-    payload = refresh(payload, stores, now)
-    post_payload(api_url, payload, password)
-    # Only after the live offers are saved: if this run fails, the next one switches again.
-    if is_held_used:
-        delete_held(held_url, password)
-        print("held next-week offers switched in (or dropped, if their week had ended)", file=sys.stderr)
+
+    current, upcoming = fetch_json(api_url) or {}, fetch_json(next_url) or {}
+    held = fetch_json(held_url)
+    if held:
+        upcoming = adopt_legacy_held(upcoming, held, now)
+    current, upcoming = refresh(current, upcoming, stores, now)
+    # This week first: if saving next week then fails, its started offers are still there to roll
+    # over again on the next run.
+    post_payload(api_url, current, password)
+    post_payload(next_url, upcoming, password)
+    if held:
+        delete_legacy_held(held_url, password)
     return 0
 
 

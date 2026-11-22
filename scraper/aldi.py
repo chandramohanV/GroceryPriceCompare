@@ -2,14 +2,13 @@
 
 aldi.nl is a Next.js site: every offer page embeds its products as JSON in the
 ``__NEXT_DATA__`` script, so plain HTTP requests are enough (no browser needed).
-Aldi has one page for this week and one for next week; both are read and only
-the offers running in the compared week are kept (see ``offer_week``).
+Aldi has one page for this week and one for next week; both are read, and
+``weeks.split_by_week`` later sorts the offers into this week and next week.
 """
 from __future__ import annotations
 
 import json
 import re
-from datetime import date, timedelta
 from typing import Optional
 
 from .models import Offer
@@ -111,38 +110,19 @@ def parse_item(item: dict) -> Optional[Offer]:
     )
 
 
-def offer_week(today: date) -> tuple[date, date]:
-    """Monday and Sunday of the week we compare: the one containing tomorrow.
-
-    On Sunday that is next week (this week's offers end today, and Lidl already
-    shows next week); on other days it is the current week, mid-week deals included.
-    """
-    monday = today + timedelta(days=1)
-    monday -= timedelta(days=monday.weekday())
-    return monday, monday + timedelta(days=6)
-
-
-def _runs_in(offer: Offer, week: tuple[date, date]) -> bool:
-    first_day, last_day = (d.isoformat() for d in week)
-    starts_in_time = offer.valid_from is None or offer.valid_from <= last_day
-    ends_in_time = offer.valid_to is None or offer.valid_to >= first_day
-    return starts_in_time and ends_in_time
-
-
-def parse_pages(pages: list[str], today: date) -> list[Offer]:
-    """Offers from all pages that run during the offer week, each product once."""
-    week = offer_week(today)
+def parse_pages(pages: list[str]) -> list[Offer]:
+    """Offers from all pages, each product once per offer period (it can be on offer both weeks)."""
     offers: list[Offer] = []
-    seen: set[str] = set()
+    seen: set[tuple[str, Optional[str]]] = set()
     for page in pages:
         for item in products_from_html(page):
             offer = parse_item(item)
-            if offer is None or offer.id in seen or not _runs_in(offer, week):
+            if offer is None or (offer.id, offer.valid_from) in seen:
                 continue
-            seen.add(offer.id)
+            seen.add((offer.id, offer.valid_from))
             offers.append(offer)
     return offers
 
 
 def scrape() -> list[Offer]:
-    return parse_pages([fetch_page(url) for url in OFFER_PAGES], date.today())
+    return parse_pages([fetch_page(url) for url in OFFER_PAGES])

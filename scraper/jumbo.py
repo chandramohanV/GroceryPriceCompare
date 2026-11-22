@@ -1,7 +1,7 @@
 """Jumbo NL offers scraper.
 
-jumbo.com is a Nuxt site: /aanbiedingen/nu embeds every promotion of the offer
-week in ``__NUXT_DATA__`` (decoded by ``devalue.py``), the featured ones and
+jumbo.com is a Nuxt site: /aanbiedingen/nu embeds every promotion of this offer
+week, and from about Sunday also next week's, in ``__NUXT_DATA__`` (decoded by ``devalue.py``), the featured ones and
 those grouped per aisle, so one plain HTTP request is enough. Jumbo publishes
 promotions rather than shelf prices: the price or deal is a short tag such as
 "voor 1,00", "2 voor 3,00" or "1+1 gratis", and the pack size is in the subtitle.
@@ -46,11 +46,14 @@ def _amount(text: str) -> float:
     return float(text.replace(",", "."))
 
 
-def _active_runtime(page: str) -> dict:
+def _runtimes(page: str) -> list[dict]:
+    """The page's offer periods: this week's and, once Jumbo shows it, next week's ("Vanaf woensdag")."""
     try:
         runtimes = payload_from_html(page)["data"][OFFERS_KEY]["activeTab"]["runtimes"]
-        return next(runtime for runtime in runtimes if runtime.get("active"))
-    except (KeyError, TypeError, ValueError, StopIteration) as e:
+        if not isinstance(runtimes, list):
+            raise TypeError("runtimes is not a list")
+        return runtimes
+    except (KeyError, TypeError, ValueError) as e:
         raise JumboPageChanged(f"Jumbo offers data has an unexpected shape ({e!r}); "
                                "update scraper/jumbo.py") from e
 
@@ -62,15 +65,16 @@ def _promotions_in(section: dict) -> Iterator[dict]:
 
 
 def raw_promotions(page: str) -> list[dict]:
-    """The visible promotions of the current offer week, each once.
+    """The visible promotions of every offer period on the page, each once.
 
     A promotion can be both featured and listed under its aisle.
     """
     unique: dict[str, dict] = {}
-    for section in _active_runtime(page).get("sections") or []:
-        for promotion in _promotions_in(section):
-            if promotion.get("id") and not promotion.get("hidden"):
-                unique.setdefault(promotion["id"], promotion)
+    for runtime in _runtimes(page):
+        for section in runtime.get("sections") or []:
+            for promotion in _promotions_in(section):
+                if promotion.get("id") and not promotion.get("hidden"):
+                    unique.setdefault(promotion["id"], promotion)
     return list(unique.values())
 
 

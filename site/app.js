@@ -6,8 +6,19 @@
   const CATEGORY_ICON = {
     fruit: "🍎", groente: "🥦", vlees: "🥩", vis: "🐟", zuivel: "🧀", granen: "🥣", koffie: "☕",
   };
-  const UPLOADED_OFFERS_URL = "/api/offers";
-  const STATIC_OFFERS_URLS = ["data/offers.json", "../data/offers.json"];
+  // Saved by the daily refresh and the AH upload (Cloudflare KV); the static files come from a local run.
+  const OFFERS_SOURCES = {
+    this: { api: "/api/offers", file: "offers.json" },
+    next: { api: "/api/offers?week=next", file: "offers-next.json" },
+  };
+  const DATA_DIRS = ["data/", "../data/"];
+  const WEEK_TITLE = { this: "This week's best grocery deals", next: "Next week's best grocery deals" };
+  const EMPTY_TEXT = {
+    this: "No offers match your filter.",
+    next: "No offers for next week match yet. Stores publish next week's offers during the week; check back later.",
+  };
+  // Shown for next week before any store has published it.
+  const NO_OFFERS = Object.freeze({ generated_at: "", stores: {}, offers: [], comparisons: [], verdicts_by_store_set: {} });
   const UNIT_LABEL = { kg: "per kg", l: "per litre", stuk: "per piece" };
   const DEFAULT_MEMBER_LABEL = "with card";
   // Loyalty card names are brand names, the same in English and Dutch.
@@ -17,7 +28,7 @@
   const NO_VERDICT = { unit: null, compared: false, best: null, saving_pct: null };
   const eur = (n) => n == null ? "–" : "€" + n.toFixed(2).replace(".", ",");
   const user = window.userState;
-  const state = { cat: "all", q: "", sort: "compare", data: null };
+  const state = { cat: "all", q: "", sort: "compare", week: "this", weeks: { this: null, next: null }, data: null };
   const lang = () => (user.prefs.lang === "nl" ? "nl" : "en");
 
   async function fetchJson(url) {
@@ -29,22 +40,27 @@
     }
   }
 
-  // Static offers.json works both when deployed (data/ next to index.html) and locally (../data/)
-  async function loadStaticData() {
-    for (const url of STATIC_OFFERS_URLS) {
-      const data = await fetchJson(url);
+  // The static file works both when deployed (data/ next to index.html) and locally (../data/)
+  async function loadStaticData(file) {
+    for (const dir of DATA_DIRS) {
+      const data = await fetchJson(dir + file);
       if (data) return data;
     }
     return null;
   }
 
-  // The last AH upload lives in Cloudflare KV; the daily scrape is a static file.
-  // Show whichever is newer. Locally and on GitHub Pages there is no API.
+  // One week's offers: the saved ones (Cloudflare KV) or the static file, whichever is newer.
+  // Locally there is no API.
+  async function loadWeek(week) {
+    const { api, file } = OFFERS_SOURCES[week];
+    const candidates = (await Promise.all([fetchJson(api), loadStaticData(file)])).filter(Boolean);
+    return candidates.length ? candidates.reduce((a, b) => (a.generated_at >= b.generated_at ? a : b)) : null;
+  }
+
   async function loadData() {
-    const [uploaded, scraped] = await Promise.all([fetchJson(UPLOADED_OFFERS_URL), loadStaticData()]);
-    const candidates = [uploaded, scraped].filter(Boolean);
-    if (!candidates.length) throw new Error("Could not load offers.json");
-    return candidates.reduce((a, b) => (a.generated_at >= b.generated_at ? a : b));
+    const [thisWeek, nextWeek] = await Promise.all([loadWeek("this"), loadWeek("next")]);
+    if (!thisWeek) throw new Error("Could not load offers.json");
+    return { this: thisWeek, next: nextWeek };
   }
 
   const isWebUrl = (url) => typeof url === "string" && url.startsWith("https://");
@@ -104,12 +120,24 @@
     return avatar;
   }
 
+  const shortDay = (isoDate) => new Date(`${isoDate}T00:00`).toLocaleDateString("en-GB",
+    { weekday: "short", day: "numeric", month: "short" });
+
+  // Next week starts on a different day per store (Dirk and Jumbo on Wednesday), so say when.
+  function startText(offers) {
+    const starts = offers.map((o) => o.valid_from).filter(Boolean).sort();
+    return state.week === "next" && starts.length ? ` · from ${shortDay(starts[0])}` : "";
+  }
+
   function offerCountText(d, store) {
-    const count = d.offers.filter((o) => o.store === store).length;
+    const offers = d.offers.filter((o) => o.store === store);
     const status = d.stores[store];
     const carriedOver = status && !status.ok;
-    return `${count} offer${count === 1 ? "" : "s"}${carriedOver ? " · from last import" : ""}`;
+    const count = `${offers.length} offer${offers.length === 1 ? "" : "s"}`;
+    return count + (carriedOver ? " · from last import" : startText(offers));
   }
+
+  const missingOffersText = () => (state.week === "next" ? "Not published yet" : "Not available this run");
 
   // Stores that failed this run and have no offers still get a (disabled) tile, so the gap is visible.
   function storeTile(d, store, isOn) {
@@ -117,11 +145,12 @@
     const tile = el("button", `store-tile ${store}${isOn ? " on" : ""}`);
     tile.type = "button";
     tile.disabled = !isAvailable;
+    tile.classList.toggle("not-yet", !isAvailable && state.week === "next");
     tile.setAttribute("aria-pressed", isOn);
     const check = icon("check_circle");
     check.classList.add("store-check");
     tile.append(storeAvatar(store), check, el("span", "store-tile-name", STORE_NAMES[store]),
-      el("span", "store-tile-count", isAvailable ? offerCountText(d, store) : "Not available this run"));
+      el("span", "store-tile-count", isAvailable ? offerCountText(d, store) : missingOffersText()));
     if (!isAvailable) tile.title = (d.stores[store] && d.stores[store].error) || "";
     tile.addEventListener("click", () => toggleStore(store));
     return tile;
@@ -154,6 +183,7 @@
   // Per-store offer counts are on the store tiles; this clears "Loading…" and dates the data.
   function renderStatus(d) {
     document.getElementById("status").textContent = "";
+    if (!d.generated_at) return; // next week, before any store published it
     const when = new Date(d.generated_at);
     document.getElementById("updated").textContent =
       "Last updated " + when.toLocaleString("en-GB", { dateStyle: "full", timeStyle: "short" }) + ".";
@@ -297,7 +327,9 @@
       }
       list.append(node);
     }
-    document.getElementById("empty").hidden = rows.length > 0;
+    const empty = document.getElementById("empty");
+    empty.textContent = EMPTY_TEXT[state.week];
+    empty.hidden = rows.length > 0;
   }
 
   function markSelected(group, chosen) {
@@ -321,7 +353,15 @@
     markSelected(langGroup, langGroup.querySelector(`[data-lang="${lang()}"]`));
   }
 
+  function showWeek(week) {
+    state.week = week;
+    state.data = state.weeks[week] || NO_OFFERS;
+    document.getElementById("hero-title").textContent = WEEK_TITLE[week];
+    renderStatus(state.data);
+  }
+
   function bind() {
+    bindSegment("week", (b) => showWeek(b.dataset.week));
     bindSegment("cat", (b) => { state.cat = b.dataset.cat; });
     bindSegment("lang", (b) => { user.setPrefs({ lang: b.dataset.lang }); });
     showLanguage();
@@ -332,15 +372,15 @@
     user.subscribe(() => { showLanguage(); render(); });
   }
 
-  // Shared with upload.js: it reads the shown offers and sends back new ones.
-  function showData(d) {
-    state.data = d;
-    renderStatus(d);
+  // Shared with upload.js: it reads both weeks' offers and sends back an updated week.
+  function showData(weeks) {
+    state.weeks = weeks;
+    showWeek(state.week);
     render();
-    document.dispatchEvent(new CustomEvent("offers-shown", { detail: d }));
+    document.dispatchEvent(new CustomEvent("offers-shown", { detail: weeks }));
   }
 
-  document.addEventListener("offers-uploaded", (e) => showData(e.detail));
+  document.addEventListener("offers-uploaded", (e) => showData({ ...state.weeks, [e.detail.week]: e.detail.offers }));
   // iOS Safari only applies :active (the tiles' press feedback) once a page listens for touches.
   document.addEventListener("touchstart", () => {}, { passive: true });
 

@@ -17,7 +17,6 @@ from scraper.translate import PRODUCT_NAMES, translate_offer, translate_text
 FIXTURE = Path(__file__).parent / "fixtures" / "lidl_sample.html"
 AH_SAVED_PAGE = Path(__file__).parent / "fixtures" / "ah_saved_sample.html"
 ALDI_FIXTURE = Path(__file__).parent / "fixtures" / "aldi_sample.html"
-ALDI_WEEK_DAY = date(2026, 11, 17)  # a Tuesday in the fixture's offer week (16-22 Nov)
 NOW = datetime(2026, 11, 17, 12, 0, tzinfo=timezone.utc)
 
 
@@ -166,8 +165,8 @@ def test_lidl_keeps_food_aisles_only(path, is_food):
 
 
 # ---------- aldi parser on real page sample ----------
-def _aldi_offers(today: date = ALDI_WEEK_DAY) -> list[Offer]:
-    return aldi.parse_pages([ALDI_FIXTURE.read_text(encoding="utf-8")], today)
+def _aldi_offers() -> list[Offer]:
+    return aldi.parse_pages([ALDI_FIXTURE.read_text(encoding="utf-8")])
 
 
 def _aldi_page(*items: dict) -> str:
@@ -203,7 +202,7 @@ def test_aldi_multi_buy_price_moves_into_deal_text():
 def test_aldi_non_discount_label_is_a_note():
     item = _aldi_item("1", "2026-11-16", "2026-11-22")
     item["currentPrice"]["priceTagLabels"] = {"promoText1": "OP=OP"}
-    [leek] = aldi.parse_pages([_aldi_page(item)], ALDI_WEEK_DAY)
+    [leek] = aldi.parse_pages([_aldi_page(item)])
     assert leek.deal_text is None
     assert leek.extras == {"note": "OP=OP"}
 
@@ -217,30 +216,18 @@ def test_aldi_skips_products_without_price():
     assert "Gyoza" not in {o.name for o in _aldi_offers()}
 
 
-def test_aldi_drops_this_weeks_offers_on_sunday():
-    assert _aldi_offers(today=date(2026, 11, 22)) == []
-
-
-@pytest.mark.parametrize("today,week", [
-    (date(2026, 11, 22), (date(2026, 11, 23), date(2026, 11, 29))),  # Sunday: next week
-    (date(2026, 11, 23), (date(2026, 11, 23), date(2026, 11, 29))),  # Monday
-    (date(2026, 11, 28), (date(2026, 11, 23), date(2026, 11, 29))),  # Saturday
-])
-def test_aldi_offer_week(today, week):
-    assert aldi.offer_week(today) == week
-
-
-def test_aldi_keeps_each_product_once_across_pages():
+def test_aldi_keeps_both_weeks_and_each_product_once_per_week():
     this_week = _aldi_page(_aldi_item("1", "2026-11-16", "2026-11-22"))
     next_week = _aldi_page(_aldi_item("1", "2026-11-23", "2026-11-29"),
                            _aldi_item("2", "2026-11-23", "2026-11-29"))
-    offers = aldi.parse_pages([this_week, next_week], date(2026, 11, 17))
-    assert [(o.id, o.valid_to) for o in offers] == [("1", "2026-11-22")]
+    offers = aldi.parse_pages([this_week, next_week, next_week])
+    assert [(o.id, o.valid_from) for o in offers] == [
+        ("1", "2026-11-16"), ("1", "2026-11-23"), ("2", "2026-11-23")]
 
 
 def test_aldi_page_without_offers_data_is_reported():
     with pytest.raises(aldi.AldiPageChanged):
-        aldi.parse_pages(["<html>no data</html>"], ALDI_WEEK_DAY)
+        aldi.parse_pages(["<html>no data</html>"])
 
 
 # ---------- Nuxt payload (scraper/devalue.py) ----------
@@ -574,6 +561,17 @@ def test_blocked_store_drops_expired_offers(tmp_path):
     assert "carried_over" not in data["stores"]["ah"]
 
 
+def test_run_writes_next_weeks_offers_separately(tmp_path):
+    next_monday = date.today() - timedelta(days=date.today().weekday()) + timedelta(weeks=1)
+    upcoming = Offer(store="lidl", id="9", name="Mango", price=0.99, quantity_text="1 Stk.",
+                     valid_from=next_monday.isoformat(), valid_to=(next_monday + timedelta(days=6)).isoformat())
+    current = Offer(store="lidl", id="8", name="Prei", price=0.55, quantity_text="1 Stk.")
+    data = run({"lidl": ("Lidl", lambda: [current, upcoming])}, tmp_path)
+    next_data = json.loads((tmp_path / "offers-next.json").read_text(encoding="utf-8"))
+    assert [o["key"] for o in data["offers"]] == ["lidl:8"]
+    assert [o["key"] for o in next_data["offers"]] == ["lidl:9"]
+
+
 # ---------- weekly refresh (scraper/publish.py) ----------
 def test_refresh_replaces_lidl_and_drops_expired_ah(monkeypatch):
     this_week = prepare([Offer(store="ah", id="1", name="AH Witlof", price=1.49,
@@ -584,9 +582,10 @@ def test_refresh_replaces_lidl_and_drops_expired_ah(monkeypatch):
              "offers": [this_week.to_dict(), last_week.to_dict()]}
     fresh_lidl = [Offer(store="lidl", id="9", name="Mango", price=0.99, quantity_text="1 Stk.")]
     monkeypatch.setattr(publish, "STORES", {"lidl": ("Lidl", lambda: fresh_lidl)})
-    payload = publish.refresh(saved, ["lidl"], NOW)
+    payload, next_week = publish.refresh(saved, {}, ["lidl"], NOW)
     assert sorted(o["key"] for o in payload["offers"]) == ["ah:1", "lidl:9"]
     assert payload["stores"]["lidl"]["matched"] == 1
+    assert next_week["offers"] == []
 
 
 def test_publish_needs_upload_password(monkeypatch):

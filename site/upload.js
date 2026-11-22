@@ -5,8 +5,8 @@
 // uses: ah_cards.js finds the cards, and the Python pipeline (run by Pyodide)
 // classifies, normalises and compares them. The result goes to the Cloudflare
 // Pages Function at /api/offers, which stores it in KV behind a password.
-// Next week's page goes to /api/next-week instead and is held there until the
-// daily refresh switches it in on Monday morning.
+// Next week's page goes into next week's offers (/api/offers?week=next); the
+// daily refresh moves them into this week's on Monday morning.
 (() => {
   "use strict";
 
@@ -16,24 +16,36 @@
   // The modules scraper/upload.py needs; lidl.py and run.py do network and file I/O.
   const BROWSER_MODULES = [
     "__init__.py", "models.py", "match.py", "normalize.py", "translate.py",
-    "pipeline.py", "ah.py", "held.py", "upload.py",
+    "pipeline.py", "ah.py", "upload.py",
   ];
   const CARD_EXTRACTOR = "ah_cards.js";
-  const SAVE_URL = "/api/offers";
-  const HELD_URL = "/api/next-week";
+  // Per week: the scraper/upload.py function that merges the page in, where it is saved, the message.
+  const UPLOAD_WEEKS = {
+    this: {
+      importer: "import_ah_cards", saveUrl: "/api/offers",
+      savedText: (n) => `Saved: ${n} AH offers are now shown to everyone.`,
+    },
+    next: {
+      importer: "import_next_week_ah_cards", saveUrl: "/api/offers?week=next",
+      savedText: (n) => `Saved: ${n} AH offers for next week. They move into this week on Monday at 06:00.`,
+    },
+  };
   const PYODIDE_HOME = "/home/pyodide/scraper/";
 
-  let shownOffers = null;
+  let shownWeeks = { this: null, next: null };
   let scraperDir = null;
   let pyodideReady = null;
 
-  document.addEventListener("offers-shown", (e) => { shownOffers = e.detail; });
+  document.addEventListener("offers-shown", (e) => {
+    shownWeeks = e.detail;
+    showNextWeekAh(shownWeeks.next);
+  });
 
   const form = document.getElementById("upload-form");
   const message = document.getElementById("upload-message");
   const button = form.querySelector("button");
   const passwordField = document.getElementById("update-password");
-  const heldStatus = document.getElementById("held-status");
+  const nextWeekAhStatus = document.getElementById("ah-next-status");
 
   function say(text, isError = false) {
     message.textContent = text;
@@ -124,51 +136,31 @@
   const dayName = (isoDate) => new Date(`${isoDate}T00:00`).toLocaleDateString("en-GB",
     { weekday: "long", day: "numeric", month: "long" });
 
-  async function uploadThisWeek(cards, password) {
-    const offers = await runUpload("import_ah_cards", JSON.stringify(cards), JSON.stringify(shownOffers || {}));
+  async function upload(file, password, week) {
+    const { importer, saveUrl, savedText } = UPLOAD_WEEKS[week];
+    say("Reading the page…");
+    const cards = await readCards(file);
+    say(`Found ${cards.length} cards. Loading the price checker (first time takes a few seconds)…`);
+    const offers = await runUpload(importer, JSON.stringify(cards), JSON.stringify(shownWeeks[week] || {}));
     const ah = offers.stores.ah;
-    document.dispatchEvent(new CustomEvent("offers-uploaded", { detail: offers }));
+    document.dispatchEvent(new CustomEvent("offers-uploaded", { detail: { week, offers } }));
     say(`Matched ${ah.matched} of ${ah.scraped} AH offers. Saving…`);
     try {
-      await postJson(SAVE_URL, offers, password);
-      say(`Saved: ${ah.matched} AH offers are now shown to everyone.`);
+      await postJson(saveUrl, offers, password);
+      say(savedText(ah.matched));
     } catch (e) {
       say(`${e.message} The new AH offers are shown here only, not saved.`, true);
     }
   }
 
-  // Not shown yet: the offers wait on the site until their week starts.
-  async function uploadNextWeek(cards, password) {
-    const held = await runUpload("hold_next_week_ah_cards", JSON.stringify(cards));
-    say(`Matched ${held.matched} of ${held.scraped} AH offers for next week. Saving…`);
-    await postJson(HELD_URL, held, password);
-    say(`Saved: ${held.matched} AH offers for next week, shown from ${dayName(held.valid_from)} at 06:00.`);
-    showHeld(held);
-  }
-
-  async function upload(file, password, week) {
-    say("Reading the page…");
-    const cards = await readCards(file);
-    say(`Found ${cards.length} cards. Loading the price checker (first time takes a few seconds)…`);
-    if (week === "next") await uploadNextWeek(cards, password);
-    else await uploadThisWeek(cards, password);
-  }
-
-  function showHeld(held) {
-    heldStatus.hidden = !held;
-    if (held) {
-      heldStatus.textContent = `Next week's AH offers are ready: ${held.matched} offers, ` +
-        `shown from ${dayName(held.valid_from)} at 06:00.`;
-    }
-  }
-
-  // Locally there is no API, so nothing is held.
-  async function loadHeld() {
-    try {
-      const r = await fetch(HELD_URL, { cache: "no-store" });
-      showHeld(r.ok ? await r.json() : null);
-    } catch (_) {
-      showHeld(null);
+  // So it's clear next week's AH page is in, and when it goes live.
+  function showNextWeekAh(nextWeek) {
+    const starts = ((nextWeek && nextWeek.offers) || [])
+      .filter((o) => o.store === "ah" && o.valid_from).map((o) => o.valid_from).sort();
+    nextWeekAhStatus.hidden = starts.length === 0;
+    if (starts.length) {
+      nextWeekAhStatus.textContent = `Next week's AH offers are in: ${starts.length} offers, ` +
+        `live from ${dayName(starts[0])} at 06:00.`;
     }
   }
 
@@ -185,6 +177,4 @@
       button.disabled = false;
     }
   });
-
-  loadHeld();
 })();

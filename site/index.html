@@ -38,13 +38,17 @@
 
   <section class="hero">
     <div class="wrap">
-      <h2 class="hero-title">This week's best grocery deals</h2>
+      <h2 id="hero-title" class="hero-title">This week's best grocery deals</h2>
       <p class="sub">Offers from Albert Heijn, Lidl, Aldi, Dirk and Jumbo, side by side.</p>
       <ul class="hero-facts">
         <li><span class="material-symbols-outlined" aria-hidden="true">nutrition</span>Fresh food, dairy, cereals &amp; coffee</li>
         <li><span class="material-symbols-outlined" aria-hidden="true">scale</span>Priced per kg, litre or piece</li>
         <li><span class="material-symbols-outlined" aria-hidden="true">workspace_premium</span>Cheapest offer marked Best deal</li>
       </ul>
+      <div id="week" class="seg week-switch" role="tablist" aria-label="Offer week">
+        <button class="on" data-week="this" role="tab" aria-selected="true">This week</button>
+        <button data-week="next" role="tab" aria-selected="false">Next week</button>
+      </div>
       <div id="status" class="status" aria-live="polite">Loading offers…</div>
     </div>
   </section>
@@ -116,7 +120,7 @@
             week's offers, pick next week at the top of that page) and scroll to the bottom so every offer loads.</li>
           <li>Press <kbd>Ctrl</kbd>+<kbd>S</kbd> and save as "Webpage, Complete".</li>
           <li>Choose which week it is and the saved <code>.html</code> file, and upload it. Next week's
-            offers are held and go live by themselves on Monday at 06:00.</li>
+            offers appear under <b>Next week</b> and move into this week by themselves on Monday at 06:00.</li>
         </ol>
         <form id="upload-form" class="upload-form">
           <fieldset class="week-choice">
@@ -130,7 +134,7 @@
           </button>
         </form>
         <p id="upload-message" class="small message" aria-live="polite"></p>
-        <p id="held-status" class="small held-status" hidden></p>
+        <p id="ah-next-status" class="small ah-next-status" hidden></p>
       </div>
     </section>
 

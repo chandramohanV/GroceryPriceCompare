@@ -21,8 +21,7 @@ def _page(featured=(), aisles=(), runtimes=None) -> str:
     sections = [{"promotions": list(featured), "categories": []},
                 {"promotions": [], "categories": [{"title": "Groente", "promotions": list(aisles)}]}]
     if runtimes is None:
-        runtimes = [{"active": True, "sections": sections},
-                    {"active": False, "sections": [{"promotions": [_promotion("next-week")]}]}]
+        runtimes = [{"active": True, "sections": sections}]
     return nuxt_page({"data": {"nuTab": {"activeTab": {"runtimes": runtimes}}}})
 
 
@@ -45,6 +44,17 @@ def test_price_tag_becomes_offer_price():
 def test_reads_featured_and_aisle_promotions_of_the_active_week_once():
     page = _page(featured=[_promotion("1")], aisles=[_promotion("1"), _promotion("2")])
     assert [o.id for o in jumbo.parse_html(page)] == ["1", "2"]
+
+
+def test_reads_next_weeks_runtime_too():
+    # Jumbo's page shows "Nu geldig" and, from about Sunday, "Vanaf woensdag"; weeks.py splits them.
+    runtimes = [{"active": True, "sections": [{"promotions": [_promotion("1")]}]},
+                {"active": True, "sections": [{"promotions": [_promotion("2"), _promotion("1")]}]}]
+    assert [o.id for o in jumbo.parse_html(_page(runtimes=runtimes))] == ["1", "2"]
+
+
+def test_runtime_without_sections_has_no_promotions():
+    assert jumbo.parse_html(_page(runtimes=[{"active": False}])) == []
 
 
 def test_skips_hidden_promotions():
@@ -109,7 +119,7 @@ def test_scrape_downloads_offers_page_with_jumbos_user_agent(monkeypatch):
 
 @pytest.mark.parametrize("state", [
     {"data": {}},
-    {"data": {"nuTab": {"activeTab": {"runtimes": [{"active": False}]}}}},
+    {"data": {"nuTab": {"activeTab": {"runtimes": {"active": True}}}}},
 ])
 def test_unexpected_page_shape_is_reported(state):
     with pytest.raises(jumbo.JumboPageChanged, match="update scraper/jumbo.py"):

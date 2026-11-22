@@ -1,7 +1,8 @@
 """Scrape all stores, keep the products we compare, normalise and compare.
 
 Usage:  python -m scraper.run [--out data] [--stores lidl,aldi,dirk,jumbo,ah] [--ah-page bonus.html]
-Writes data/offers.json (latest) and data/history/YYYY-MM-DD.json.
+Writes data/offers.json (this week), data/offers-next.json (next week, where stores already
+show it) and data/history/YYYY-MM-DD.json.
 A store that fails is reported in the output but doesn't stop the others; its
 earlier offers are kept until their offer week ends.
 """
@@ -19,6 +20,7 @@ from typing import Callable, Optional
 from . import ah, aldi, dirk, jumbo, lidl
 from .models import Offer
 from .pipeline import build_payload, offers_from_payload, prepare, still_valid
+from .weeks import split_by_week
 
 Scraper = Callable[[], list[Offer]]
 
@@ -31,17 +33,18 @@ STORES: dict[str, tuple[str, Scraper]] = {
 }
 
 
-def scrape_store(key: str, label: str, scrape: Scraper) -> tuple[list[Offer], dict]:
-    """Scrape one store; a failure is recorded in its status instead of raised."""
+def scrape_store(key: str, label: str, scrape: Scraper) -> tuple[list[Offer], Optional[dict]]:
+    """(the store's raw offers, None) or ([], the failure's status): a failure is not raised."""
     try:
-        raw = scrape()
+        return scrape(), None
     except Exception as e:  # keep going with other stores
         print(f"[{key}] FAILED: {e}", file=sys.stderr)
         traceback.print_exc(file=sys.stderr)
         return [], {"name": label, "ok": False, "error": f"{type(e).__name__}: {e}"[:300]}
-    kept = prepare(raw)
-    print(f"[{key}] {len(raw)} offers scraped, {len(kept)} matched", file=sys.stderr)
-    return kept, {"name": label, "ok": True, "scraped": len(raw), "matched": len(kept)}
+
+
+def _matched_status(label: str, raw: list[Offer], kept: list[Offer]) -> dict:
+    return {"name": label, "ok": True, "scraped": len(raw), "matched": len(kept)}
 
 
 def load_offers(path: Path) -> list[Offer]:
@@ -52,27 +55,41 @@ def load_offers(path: Path) -> list[Offer]:
 
 
 def run(scrapers: dict[str, tuple[str, Scraper]], out_dir: Path) -> dict:
+    """Scrape, write this week's and next week's offers, and return this week's."""
     now = datetime.now(timezone.utc)
+    today = now.date()
     previous = load_offers(out_dir / "offers.json")
-    all_offers: list[Offer] = []
-    status = {}
+    this_week: list[Offer] = []
+    next_week: list[Offer] = []
+    status, next_status = {}, {}
     for key, (label, scrape) in scrapers.items():
-        offers, status[key] = scrape_store(key, label, scrape)
-        if not status[key]["ok"]:
-            # e.g. AH blocks the daily job: keep this week's imported AH offers
-            offers = still_valid(previous, key, now.date())
-            if offers:
-                status[key]["carried_over"] = len(offers)
-        all_offers.extend(offers)
+        raw, failure = scrape_store(key, label, scrape)
+        this_raw, next_raw = split_by_week(raw, today)
+        mine, upcoming = prepare(this_raw), prepare(next_raw)
+        status[key] = failure or _matched_status(label, this_raw, mine)
+        next_status[key] = dict(failure) if failure else _matched_status(label, next_raw, upcoming)
+        if not mine:
+            # A blocked store (AH), or Lidl on Sunday already showing next week: keep what still runs.
+            mine = still_valid(previous, key, today)
+            if mine:
+                status[key]["carried_over"] = len(mine)
+        print(f"[{key}] {len(mine)} offers this week, {len(upcoming)} next week", file=sys.stderr)
+        this_week.extend(mine)
+        next_week.extend(upcoming)
 
-    data = build_payload(all_offers, status, now)
+    data = build_payload(this_week, status, now)
+    _write(out_dir, data, build_payload(next_week, next_status, now), today.isoformat())
+    return data
 
+
+def _write(out_dir: Path, data: dict, next_data: dict, day: str) -> None:
     out_dir.mkdir(parents=True, exist_ok=True)
     (out_dir / "history").mkdir(exist_ok=True)
     payload = json.dumps(data, ensure_ascii=False, indent=1)
     (out_dir / "offers.json").write_text(payload, encoding="utf-8")
-    (out_dir / "history" / f"{now.date().isoformat()}.json").write_text(payload, encoding="utf-8")
-    return data
+    (out_dir / "offers-next.json").write_text(json.dumps(next_data, ensure_ascii=False, indent=1),
+                                              encoding="utf-8")
+    (out_dir / "history" / f"{day}.json").write_text(payload, encoding="utf-8")
 
 
 def build_scrapers(stores: list[str], ah_page: Optional[Path]) -> dict[str, tuple[str, Scraper]]:
