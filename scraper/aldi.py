@@ -9,6 +9,7 @@ from __future__ import annotations
 
 import json
 import re
+import sys
 from typing import Optional
 
 from .models import Offer
@@ -32,6 +33,11 @@ class AldiPageChanged(RuntimeError):
     """The page no longer has the embedded offers data this scraper reads."""
 
 
+class AldiOffersUnavailable(RuntimeError):
+    """The page loaded, but Aldi's own offers request inside it failed (e.g. its next-week page on a
+    Monday answered {"statusCode": 502})."""
+
+
 def products_from_html(page: str) -> list[dict]:
     """The raw product objects embedded in one Aldi offers page."""
     match = _NEXT_DATA_RE.search(page)
@@ -40,6 +46,8 @@ def products_from_html(page: str) -> list[dict]:
     try:
         api_calls = json.loads(json.loads(match.group(1))["props"]["pageProps"]["apiData"])
         response = next(body["res"] for name, body in api_calls if name == OFFERS_REQUEST)
+        if "algoliaDataMap" not in response and "statusCode" in response:
+            raise AldiOffersUnavailable(f"Aldi's offers request answered {response['statusCode']}")
         return list(response["algoliaDataMap"].values())
     except (KeyError, TypeError, ValueError, StopIteration) as e:
         raise AldiPageChanged(f"Aldi offers data has an unexpected shape ({e!r}); "
@@ -110,17 +118,30 @@ def parse_item(item: dict) -> Optional[Offer]:
     )
 
 
+def _available_products(pages: list[str]) -> list[dict]:
+    """Products of every page whose offers loaded; fails only when none did."""
+    products, failures = [], []
+    for page in pages:
+        try:
+            products.extend(products_from_html(page))
+        except AldiOffersUnavailable as e:
+            failures.append(e)
+            print(f"[aldi] one offers page skipped: {e}", file=sys.stderr)
+    if pages and len(failures) == len(pages):
+        raise failures[0]
+    return products
+
+
 def parse_pages(pages: list[str]) -> list[Offer]:
     """Offers from all pages, each product once per offer period (it can be on offer both weeks)."""
     offers: list[Offer] = []
     seen: set[tuple[str, Optional[str]]] = set()
-    for page in pages:
-        for item in products_from_html(page):
-            offer = parse_item(item)
-            if offer is None or (offer.id, offer.valid_from) in seen:
-                continue
-            seen.add((offer.id, offer.valid_from))
-            offers.append(offer)
+    for item in _available_products(pages):
+        offer = parse_item(item)
+        if offer is None or (offer.id, offer.valid_from) in seen:
+            continue
+        seen.add((offer.id, offer.valid_from))
+        offers.append(offer)
     return offers
 
 

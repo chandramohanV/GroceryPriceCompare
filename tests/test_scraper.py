@@ -225,6 +225,24 @@ def test_aldi_keeps_both_weeks_and_each_product_once_per_week():
         ("1", "2026-11-16"), ("1", "2026-11-23"), ("2", "2026-11-23")]
 
 
+def _aldi_page_with_failed_request(status_code: int = 502) -> str:
+    api = [["OFFER_GET", {"res": {"statusCode": status_code, "message": {}}}]]
+    next_data = {"props": {"pageProps": {"apiData": json.dumps(api)}}}
+    return f'<script id="__NEXT_DATA__" type="application/json">{json.dumps(next_data)}</script>'
+
+
+def test_aldi_skips_a_page_whose_offers_request_failed():
+    # Seen on Monday 23 Nov 2026: the next-week page embedded {"statusCode": 502}.
+    this_week = _aldi_page(_aldi_item("1", "2026-11-23", "2026-11-29"))
+    offers = aldi.parse_pages([this_week, _aldi_page_with_failed_request()])
+    assert [o.id for o in offers] == ["1"]
+
+
+def test_aldi_fails_when_no_page_has_offers():
+    with pytest.raises(aldi.AldiOffersUnavailable, match="502"):
+        aldi.parse_pages([_aldi_page_with_failed_request(), _aldi_page_with_failed_request()])
+
+
 def test_aldi_page_without_offers_data_is_reported():
     with pytest.raises(aldi.AldiPageChanged):
         aldi.parse_pages(["<html>no data</html>"])
@@ -582,10 +600,10 @@ def test_refresh_replaces_lidl_and_drops_expired_ah(monkeypatch):
              "offers": [this_week.to_dict(), last_week.to_dict()]}
     fresh_lidl = [Offer(store="lidl", id="9", name="Mango", price=0.99, quantity_text="1 Stk.")]
     monkeypatch.setattr(publish, "STORES", {"lidl": ("Lidl", lambda: fresh_lidl)})
-    payload, next_week = publish.refresh(saved, {}, ["lidl"], NOW)
+    payload, next_week, failed = publish.refresh(saved, {}, ["lidl"], NOW)
     assert sorted(o["key"] for o in payload["offers"]) == ["ah:1", "lidl:9"]
     assert payload["stores"]["lidl"]["matched"] == 1
-    assert next_week["offers"] == []
+    assert next_week["offers"] == [] and failed == []
 
 
 def test_publish_needs_upload_password(monkeypatch):

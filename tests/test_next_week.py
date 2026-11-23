@@ -208,7 +208,8 @@ class FakeSite:
 
     def install(self, monkeypatch, now: datetime, lidl_scrape=()) -> None:
         monkeypatch.setenv("UPLOAD_PASSWORD", "secret")
-        monkeypatch.setattr(publish, "STORES", {"lidl": ("Lidl", lambda: list(lidl_scrape))})
+        monkeypatch.setattr(publish, "STORES", {"lidl": ("Lidl", lambda: list(lidl_scrape)),
+                                                "aldi": ("Aldi", _broken_scrape)})
         monkeypatch.setattr(publish, "fetch_json", lambda url: self.docs[url.removeprefix(SITE)])
         monkeypatch.setattr(publish, "post_payload",
                             lambda url, payload, pw: self.posted.__setitem__(url.removeprefix(SITE), payload))
@@ -219,19 +220,23 @@ class FakeSite:
         return _keys(self.posted[week_path])
 
 
+def _broken_scrape():
+    raise RuntimeError("Aldi offers data has an unexpected shape")
+
+
 NEXT_PATH = publish.API_PATH + publish.NEXT_WEEK_QUERY
 
 
-def _run(monkeypatch, site: FakeSite, now: datetime, lidl_scrape=()) -> None:
+def _run(monkeypatch, site: FakeSite, now: datetime, lidl_scrape=(), stores: str = "lidl") -> int:
     site.install(monkeypatch, now, lidl_scrape)
-    assert publish.main(["--site", SITE, "--stores", "lidl"]) == 0
+    return publish.main(["--site", SITE, "--stores", stores])
 
 
 def test_publish_saves_both_weeks_from_one_scrape(monkeypatch):
     site = FakeSite()
     scrape = [_offer("lidl", "now", "2026-11-16", "2026-11-22", "Rode uien"),
               _offer("lidl", "next", "2026-11-23", "2026-11-29")]
-    _run(monkeypatch, site, _at(date(2026, 11, 20)), scrape)
+    assert _run(monkeypatch, site, _at(date(2026, 11, 20)), scrape) == 0
     assert site.keys(publish.API_PATH) == ["lidl:now"]
     assert site.keys(NEXT_PATH) == ["lidl:next"]
 
@@ -239,7 +244,7 @@ def test_publish_saves_both_weeks_from_one_scrape(monkeypatch):
 def test_publish_rolls_next_weeks_ah_into_this_week_on_monday(monkeypatch):
     site = FakeSite(current=_payload(_offer("ah", "old", "2026-11-16", "2026-11-22")),
                     upcoming=_payload(_offer("ah", "new", "2026-11-23", "2026-11-29")))
-    _run(monkeypatch, site, _at(MONDAY))
+    assert _run(monkeypatch, site, _at(MONDAY)) == 0
     assert site.keys(publish.API_PATH) == ["ah:new"]
     assert site.keys(NEXT_PATH) == []
 
@@ -249,7 +254,7 @@ def test_publish_moves_a_legacy_held_upload_into_next_week_once(monkeypatch):
     held = {"store": "ah", "label": "Albert Heijn", "valid_from": "2026-11-23", "valid_to": "2026-11-29",
             "offers": [held_offer.to_dict()]}
     site = FakeSite(legacy_held=held)
-    _run(monkeypatch, site, _at(SUNDAY_BEFORE))
+    assert _run(monkeypatch, site, _at(SUNDAY_BEFORE)) == 0
     assert site.keys(NEXT_PATH) == ["ah:wi1"]
     assert site.deleted == [SITE + publish.LEGACY_HELD_PATH]
 
@@ -258,12 +263,25 @@ def test_publish_prefers_a_newer_next_week_upload_over_the_legacy_held_one(monke
     old = _offer("ah", "old", "2026-11-23", "2026-11-29", "AH Witlof")
     held = {"store": "ah", "label": "Albert Heijn", "offers": [old.to_dict()]}
     site = FakeSite(upcoming=_payload(_offer("ah", "newer", "2026-11-23", "2026-11-29")), legacy_held=held)
-    _run(monkeypatch, site, _at(SUNDAY_BEFORE))
+    assert _run(monkeypatch, site, _at(SUNDAY_BEFORE)) == 0
     assert site.keys(NEXT_PATH) == ["ah:newer"]
     assert site.deleted == [SITE + publish.LEGACY_HELD_PATH]
 
 
 def test_publish_without_legacy_held_upload_deletes_nothing(monkeypatch):
     site = FakeSite()
-    _run(monkeypatch, site, _at(MONDAY))
+    assert _run(monkeypatch, site, _at(MONDAY)) == 0
     assert site.deleted == []
+
+
+def test_publish_still_rolls_ah_over_and_saves_when_a_store_fails(monkeypatch):
+    # Monday 23 Nov 2026: Aldi broke every run, so AH's new week was never saved.
+    aldi_now = _offer("aldi", "a1", "2026-11-23", "2026-11-29", "Spruiten")
+    site = FakeSite(current=_payload(_offer("ah", "old", "2026-11-16", "2026-11-22"), aldi_now),
+                    upcoming=_payload(_offer("ah", "new", "2026-11-23", "2026-11-29")))
+    scrape = [_offer("lidl", "1", "2026-11-23", "2026-11-29", "Rode uien")]
+    assert _run(monkeypatch, site, _at(MONDAY), scrape, stores="lidl,aldi") == 1
+    assert site.keys(publish.API_PATH) == ["ah:new", "aldi:a1", "lidl:1"]
+    assert site.keys(NEXT_PATH) == []
+    aldi_status = site.posted[publish.API_PATH]["stores"]["aldi"]
+    assert aldi_status["ok"] is False and "unexpected shape" in aldi_status["error"]
