@@ -2,18 +2,21 @@ name: Refresh offers
 
 # Scrapes Lidl, Aldi, Dirk and Jumbo, fetches this week's AH bonus from AH's app API, and merges
 # them into the offers saved on the Cloudflare site; next week's AH offers uploaded there switch in
-# once their week starts. Runs every morning at 06:00 Dutch time, from the "Run workflow" button
-# in the Actions tab, or from the site's "Run now" button.
+# once their week starts. Runs every morning at 06:00 Dutch time, on Friday at 20:00 as well (to
+# pick up next week's offers, which the stores publish by then), from the "Run workflow" button in
+# the Actions tab, or from the site's "Run now" button.
 #
 # Needs the repository secret UPLOAD_PASSWORD (same as the Cloudflare secret)
 # and the repository variable SITE_URL (e.g. https://grocerypricecompare.pages.dev).
 
 on:
   # Cron is in UTC and the Netherlands moves between UTC+1 and UTC+2, so both are scheduled and the
-  # clock job below lets through only the one that is 06:00 in Amsterdam today.
+  # clock job below lets through only the ones that are 06:00 (daily) and 20:00 (Friday) in Amsterdam today.
   schedule:
     - cron: "0 4 * * *"   # 06:00 in summer (CEST, UTC+2)
     - cron: "0 5 * * *"   # 06:00 in winter (CET, UTC+1)
+    - cron: "0 18 * * 5"  # Friday 20:00 in summer
+    - cron: "0 19 * * 5"  # Friday 20:00 in winter
   workflow_dispatch:
 
 permissions:
@@ -35,8 +38,12 @@ jobs:
           SCHEDULE: ${{ github.event.schedule }}
         run: |
           # Decided by the UTC offset, not the clock, so a late-started run still counts.
-          if [ "$(TZ=Europe/Amsterdam date +%z)" = "+0200" ]; then due="0 4 * * *"; else due="0 5 * * *"; fi
-          if [ "$EVENT" != "schedule" ] || [ "$SCHEDULE" = "$due" ]; then
+          if [ "$(TZ=Europe/Amsterdam date +%z)" = "+0200" ]; then
+            daily="0 4 * * *"; friday="0 18 * * 5"
+          else
+            daily="0 5 * * *"; friday="0 19 * * 5"
+          fi
+          if [ "$EVENT" != "schedule" ] || [ "$SCHEDULE" = "$daily" ] || [ "$SCHEDULE" = "$friday" ]; then
             echo "is_due=true" >> "$GITHUB_OUTPUT"
           fi
 

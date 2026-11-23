@@ -14,18 +14,19 @@ it follows you to every device.
 Runs **free** on Cloudflare Pages (site + Functions + KV) and GitHub Actions.
 
 ```
-Daily 06:00 / "Run now" button ──> GitHub Actions: scrape Lidl + Aldi + Dirk + Jumbo,  ┐   /api/offers            (this week)
-                                   AH (this week) from its app API,             ├─> /api/offers?week=next (next week) ──> site
-                                   split into this week / next week             │   (Cloudflare KV)
-"Upload AH bonus page" form ──> parsed in your browser (Pyodide) ────────────────┘
+Daily 06:00, Friday 20:00, "Run now" ──> GitHub Actions: scrape Lidl + Aldi + Dirk + Jumbo,  ┐   /api/offers            (this week)
+                                         AH (this week) from its app API,                    ├─> /api/offers?week=next (next week) ──> site
+                                         split into this week / next week                    │   (Cloudflare KV)
+"Upload AH bonus page" form ──> parsed in your browser (Pyodide) ────────────────────────────┘
 ```
 
 ## Weekly use
 
 On the site, open **Update prices** (top right) and enter the update password.
 
-- **Lidl, Aldi, Dirk, Jumbo and this week's Albert Heijn:** run by themselves every morning at 06:00 (Dutch time; GitHub may
-  start scheduled runs a few minutes late). Press **Run now** for an extra run; new prices appear
+- **Lidl, Aldi, Dirk, Jumbo and this week's Albert Heijn:** run by themselves every morning at
+  06:00, and on Friday at 20:00 to pick up next week's offers (Dutch time; GitHub may start
+  scheduled runs a few minutes late). Press **Run now** for an extra run; new prices appear
   after about three minutes.
 - **Albert Heijn, next week:** AH's app API only shows bonuses once their week has started, so to
   see next week's AH offers before Monday (AH announces them on Friday), upload the page from your
