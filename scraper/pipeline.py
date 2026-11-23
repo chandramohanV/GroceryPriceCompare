@@ -140,7 +140,7 @@ def replace_store_offers(payload: dict, store: str, label: str,
                          scraped: list[Offer], now: datetime) -> dict:
     """A new payload where one store's offers are replaced by freshly scraped ones.
 
-    Used by the upload form (AH) and the weekly refresh (Lidl, Aldi, Dirk, Jumbo): the other stores
+    Used by the upload form (AH) and the daily refresh (Lidl, Aldi, Dirk, Jumbo, AH): the other stores
     keep their status and those of their offers whose week hasn't ended.
     """
     kept = prepare(scraped)

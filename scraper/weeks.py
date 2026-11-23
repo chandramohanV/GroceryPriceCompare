@@ -47,12 +47,16 @@ def replace_store_weeks(current: dict, upcoming: dict, store: str, label: str,
     """(this week's payload, next week's) with one store's freshly scraped offers swapped in.
 
     When the scrape has nothing for this week (on Sunday Lidl's page already shows next week),
-    the store's earlier offers that still run today stay.
+    the store's earlier offers that still run today stay. When it has nothing for next week
+    (AH's app API only shows started bonuses), next week's earlier offers stay: an upload made
+    from the site isn't wiped by the next daily run.
     """
     today = now.date()
     this_week, next_week = split_by_week(scraped, today)
     if not this_week:
         this_week = still_valid(offers_from_payload(current), store, today)
+    if not next_week:
+        next_week = [o for o in offers_from_payload(upcoming) if o.store == store]
     return (replace_store_offers(current, store, label, this_week, now),
             replace_store_offers(upcoming, store, label, next_week, now))
 

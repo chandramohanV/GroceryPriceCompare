@@ -1,9 +1,9 @@
 name: Refresh offers
 
-# Scrapes Lidl, Aldi, Dirk and Jumbo and merges them into the offers saved on the Cloudflare site
-# (next to the AH offers uploaded there), and switches in next week's AH offers once their week
-# starts. Runs every morning at 06:00 Dutch time, from the "Run workflow" button in the Actions
-# tab, or from the site's "Run now" button.
+# Scrapes Lidl, Aldi, Dirk and Jumbo, fetches this week's AH bonus from AH's app API, and merges
+# them into the offers saved on the Cloudflare site; next week's AH offers uploaded there switch in
+# once their week starts. Runs every morning at 06:00 Dutch time, from the "Run workflow" button
+# in the Actions tab, or from the site's "Run now" button.
 #
 # Needs the repository secret UPLOAD_PASSWORD (same as the Cloudflare secret)
 # and the repository variable SITE_URL (e.g. https://grocerypricecompare.pages.dev).
@@ -68,7 +68,7 @@ jobs:
       - name: Run account tests
         run: npm test
 
-      - name: Scrape Lidl, Aldi, Dirk and Jumbo and save to the site
+      - name: Scrape Lidl, Aldi, Dirk, Jumbo and AH and save to the site
         env:
           UPLOAD_PASSWORD: ${{ secrets.UPLOAD_PASSWORD }}
         run: python -m scraper.publish --site "${{ vars.SITE_URL }}"

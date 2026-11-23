@@ -589,7 +589,7 @@ def test_build_scrapers_uses_saved_ah_page_even_when_not_listed():
 
 # ---------- carrying over a blocked store's offers ----------
 def _blocked() -> list[Offer]:
-    raise ah.AHBlocked("ah.nl answered HTTP 403")
+    raise RuntimeError("AH answered HTTP 403")
 
 
 def _save_previous_ah_offer(out_dir: Path, valid_to: date) -> None:

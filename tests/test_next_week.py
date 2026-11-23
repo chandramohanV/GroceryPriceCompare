@@ -128,6 +128,22 @@ def test_replace_store_weeks_keeps_this_weeks_offers_when_the_page_moved_on():
     assert (_keys(current), _keys(upcoming)) == (["lidl:old"], ["lidl:new"])
 
 
+def test_replace_store_weeks_keeps_next_weeks_upload_when_the_scrape_has_none():
+    # AH's app API only shows started bonuses; next week's AH upload must survive the daily run.
+    uploaded = _offer("ah", "upload", "2026-11-30", "2026-12-06", "Witlof")
+    scraped = [_offer("ah", "api", "2026-11-23", "2026-11-29")]
+    current, upcoming = weeks.replace_store_weeks({}, _payload(uploaded), "ah", "Albert Heijn", scraped,
+                                                  _at(MONDAY))
+    assert (_keys(current), _keys(upcoming)) == (["ah:api"], ["ah:upload"])
+
+
+def test_replace_store_weeks_replaces_next_week_when_the_scrape_has_it():
+    earlier = _offer("jumbo", "earlier", "2026-11-25", "2026-12-01", "Witlof")
+    scraped = [_offer("jumbo", "fresh", "2026-11-25", "2026-12-01")]
+    _, upcoming = weeks.replace_store_weeks({}, _payload(earlier), "jumbo", "Jumbo", scraped, _at(MONDAY))
+    assert _keys(upcoming) == ["jumbo:fresh"]
+
+
 def test_roll_over_moves_started_offers_into_this_week():
     this_weeks_ah = _offer("ah", "old", "2026-11-16", "2026-11-22")
     lidl_now = _offer("lidl", "1", "2026-11-23", "2026-11-29")

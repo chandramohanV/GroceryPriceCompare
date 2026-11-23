@@ -17,7 +17,7 @@ from functools import partial
 from pathlib import Path
 from typing import Callable, Optional
 
-from . import ah, aldi, dirk, jumbo, lidl
+from . import ah, ah_api, aldi, dirk, jumbo, lidl
 from .models import Offer
 from .pipeline import build_payload, offers_from_payload, prepare, still_valid
 from .weeks import split_by_week
@@ -29,7 +29,7 @@ STORES: dict[str, tuple[str, Scraper]] = {
     "aldi": (aldi.LABEL, aldi.scrape),
     "dirk": (dirk.LABEL, dirk.scrape),
     "jumbo": (jumbo.LABEL, jumbo.scrape),
-    "ah": (ah.LABEL, ah.scrape),
+    "ah": (ah.LABEL, ah_api.scrape),
 }
 
 
@@ -69,7 +69,7 @@ def run(scrapers: dict[str, tuple[str, Scraper]], out_dir: Path) -> dict:
         status[key] = failure or _matched_status(label, this_raw, mine)
         next_status[key] = dict(failure) if failure else _matched_status(label, next_raw, upcoming)
         if not mine:
-            # A blocked store (AH), or Lidl on Sunday already showing next week: keep what still runs.
+            # A failing store, or Lidl on Sunday already showing next week: keep what still runs.
             mine = still_valid(previous, key, today)
             if mine:
                 status[key]["carried_over"] = len(mine)
@@ -105,7 +105,7 @@ def main(argv=None) -> int:
     ap.add_argument("--out", default="data", type=Path)
     ap.add_argument("--stores", default=",".join(STORES))
     ap.add_argument("--ah-page", type=Path,
-                    help="ah.nl/bonus saved from your browser (Ctrl+S), used instead of live AH")
+                    help="ah.nl/bonus saved from your browser (Ctrl+S), used instead of AH's app API")
     args = ap.parse_args(argv)
     stores = [s.strip() for s in args.stores.split(",") if s.strip()]
     data = run(build_scrapers(stores, args.ah_page), args.out)

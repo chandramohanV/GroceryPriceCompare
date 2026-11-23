@@ -1,13 +1,12 @@
 """Refresh the live site: scrape stores and merge them into this week's and next week's offers.
 
-Usage:  python -m scraper.publish --site https://grocerypricecompare.pages.dev [--stores lidl,aldi,dirk,jumbo]
+Usage:  python -m scraper.publish --site https://grocerypricecompare.pages.dev [--stores lidl,aldi,dirk,jumbo,ah]
 Needs the UPLOAD_PASSWORD environment variable. Run by the daily GitHub Actions
 job (every morning at 06:00), which the site's Run button can also start.
 
-Both weeks' offers are kept in Cloudflare KV (see functions/api/offers.js), next
-to the AH offers uploaded from the site, so only the scraped stores change.
-Offers in next week's set whose week has started (AH uploaded ahead) move into
-this week's set first.
+Both weeks' offers are kept in Cloudflare KV (see functions/api/offers.js), so only
+the scraped stores change. Offers in next week's set whose week has started (AH
+uploaded ahead) move into this week's set first.
 """
 from __future__ import annotations
 
@@ -28,8 +27,8 @@ NEXT_WEEK_QUERY = "?week=next"
 # moved into next week's set once; drop this and functions/api/next-week.js when it answers 404.
 LEGACY_HELD_PATH = "/api/next-week"
 TIMEOUT_SECONDS = 30
-# AH blocks automated requests; its offers come from the site's upload form.
-DEFAULT_STORES = "lidl,aldi,dirk,jumbo"
+# AH comes from its app API (this week only); next week's AH offers come from the upload form.
+DEFAULT_STORES = "lidl,aldi,dirk,jumbo,ah"
 
 
 def fetch_json(url: str) -> Optional[dict]:

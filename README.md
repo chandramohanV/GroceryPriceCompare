@@ -7,26 +7,29 @@ the effective price **per kg / litre / piece**, with the cheapest offer marked *
 
 Switch between **This week** and **Next week** (next week shows each store's offers as soon as
 it publishes them: Lidl and Aldi late in the week, Jumbo from about Sunday, AH when you upload
-it), pick which stores to compare (Best deal is then worked out among those only), switch between
+it; AH announces it on Friday), pick which stores to compare (Best deal is then worked out among those only), switch between
 light and dark mode, and keep a **grocery list**: in your browser, or saved to your account so
 it follows you to every device.
 
 Runs **free** on Cloudflare Pages (site + Functions + KV) and GitHub Actions.
 
 ```
-Daily 06:00 / "Run now" button ──> GitHub Actions: scrape Lidl + Aldi + Dirk + Jumbo ──┐   /api/offers            (this week)
-                                   split into this week / next week            ├─> /api/offers?week=next (next week) ──> site
-"Upload AH bonus page" form ──> parsed in your browser (Pyodide) ───────────────┘   (Cloudflare KV)
+Daily 06:00 / "Run now" button ──> GitHub Actions: scrape Lidl + Aldi + Dirk + Jumbo,  ┐   /api/offers            (this week)
+                                   AH (this week) from its app API,             ├─> /api/offers?week=next (next week) ──> site
+                                   split into this week / next week             │   (Cloudflare KV)
+"Upload AH bonus page" form ──> parsed in your browser (Pyodide) ────────────────┘
 ```
 
 ## Weekly use
 
 On the site, open **Update prices** (top right) and enter the update password.
 
-- **Lidl, Aldi, Dirk and Jumbo:** run by themselves every morning at 06:00 (Dutch time; GitHub may
+- **Lidl, Aldi, Dirk, Jumbo and this week's Albert Heijn:** run by themselves every morning at 06:00 (Dutch time; GitHub may
   start scheduled runs a few minutes late). Press **Run now** for an extra run; new prices appear
   after about three minutes.
-- **Albert Heijn:** ah.nl blocks scripts, so upload the page from your own browser:
+- **Albert Heijn, next week:** AH's app API only shows bonuses once their week has started, so to
+  see next week's AH offers before Monday (AH announces them on Friday), upload the page from your
+  own browser:
   1. Open <https://www.ah.nl/bonus> and scroll to the bottom so every offer loads. For next
      week's offers, pick next week at the top of that page first.
   2. Press **Ctrl+S** and save it as **Webpage, Complete**.
@@ -89,15 +92,16 @@ One-time setup, already done for `grocerypricecompare.pages.dev`:
 | `scraper/aldi.py` | Downloads Aldi's this-week and next-week offer pages; the products are JSON in the page's `__NEXT_DATA__` script. Returns both weeks' offers; `weeks.py` sorts them into this week and next week. |
 | `scraper/dirk.py` + `devalue.py` | Downloads Dirk's offers page; the offers are in Nuxt's `__NUXT_DATA__` payload, which `devalue.py` decodes. Pack sizes and pictures come from each offer's products. Dirk's week runs Wednesday–Tuesday. |
 | `scraper/jumbo.py` | Downloads Jumbo's "nu" offers page; every promotion of this week and, from about Sunday, next week ("Vanaf woensdag"), featured and per aisle, is in the `__NUXT_DATA__` payload. Jumbo shows promotions, not shelf prices: the price or deal comes from the tag ("voor 1,00", "2 voor 3,00", "1+1 gratis") and the pack size from the subtitle, so there is no old price. Jumbo's week runs Wednesday–Tuesday. Sends the User-Agent without the repo link, because Jumbo's bot protection stalls requests whose User-Agent contains a URL. |
+| `scraper/ah_api.py` | This week's AH bonus from AH's app API (anonymous token, no account). The search's bonus filter is ignored, so it reads every search page (about 10 × 1,000 products) and keeps in-store bonus products (`NATIONAL`), skipping online-only deals and aisles we never compare. Weight deals ("100 gram voor 1.99") are priced per that weight. Unofficial: AH can change or close it; a failure keeps the AH offers saved earlier. |
 | `scraper/web.py` | Shared page download (User-Agent, timeout) for the Lidl, Aldi, Dirk and Jumbo scrapers. |
-| `scraper/ah.py` + `ah_cards.js` | Reads AH promotion cards from a saved bonus page (or live, usually blocked). `ah_cards.js` finds the cards and is shared by Playwright and the site's upload form. |
+| `scraper/ah.py` + `ah_cards.js` | Reads AH promotion cards from a saved bonus page (next week's upload; ah.nl refuses scripts). `ah_cards.js` finds the cards and is shared by Playwright and the site's upload form. |
 | `scraper/match.py` | Recognises products in Dutch names ("Jonagold appels" → *Appels*, "Half-om-half gehakt" → *Gehakt*) with whole-word matching, and skips things that only look like them (appeltaart, koffiebroodjes, vegetarisch gehakt…). Frozen food goes by the store's own label (Lidl's and Jumbo's frozen aisle, Aldi's "Diepvries" seal, Dirk's department, AH's frozen section on the bonus page) into frozen groups (fries, snacks, ice cream, pizza, meals, frozen vegetables, fruit, fish, meat), so it is never compared with fresh. |
 | `scraper/normalize.py` | Parses quantities ("2 x 150 g", "Per 500 g", "1 Stk.") and deals ("1+1 gratis", "2e halve prijs", "2 voor 5,00") into an effective price per kg / litre / piece. |
 | `scraper/translate.py` | Translates Dutch names, quantities and deals to English with a built-in glossary. The site shows English by default with a Nederlands toggle. |
 | `scraper/pipeline.py` | Pure logic: classify, normalise, compare and build the `offers.json` payload. Runs in Python and in the browser. |
 | `scraper/weeks.py` | Which offer week an offer belongs to (each store's week starts on its own weekday: Monday for AH, Lidl and Aldi, Wednesday for Dirk and Jumbo), splitting a scrape into this week and next week, and moving next week's offers into this week once their week starts. |
 | `scraper/upload.py` | Entry point for the upload form (runs in Pyodide): AH into this week's or next week's offers. |
-| `scraper/publish.py` | Daily refresh: moves started offers from next week into this week, scrapes Lidl, Aldi, Dirk and Jumbo, splits them into both weeks and saves both back. |
+| `scraper/publish.py` | Daily refresh: moves started offers from next week into this week, scrapes Lidl, Aldi, Dirk, Jumbo and AH, splits them into both weeks and saves both back. A store with nothing for next week keeps its earlier next-week offers (so next week's AH upload stays). |
 | `scraper/run.py` | Local run: scrapes all stores and writes `data/offers.json`, `data/offers-next.json` and `data/history/`. |
 | `functions/api/` | Cloudflare Pages Functions: `offers.js` (read/save this week's offers in KV, next week's with `?week=next`), `run.js` (Run button), `account/` (sign-up, login, logout, saved list) and `next-week.js` (legacy: next week's AH upload as held before Nov 2026; the daily refresh moves it into next week's offers once). |
 | `lib/` | Code shared by the Functions: `password.js` (update password), `offers.js` (upload shape checks), `accounts.js` (accounts, sessions, saved data; storage passed in so it is testable), `session.js` (cookies, JSON bodies). |
@@ -135,5 +139,6 @@ should scrape it). Add its name to `site/stores.js` and a `--<store>` colour in 
 
 ## Fair use
 
-A few requests per store per day, public offer pages only. Not affiliated with Albert Heijn,
+A few requests per store per day: public offer pages, and for AH about eleven requests to its
+app API (an unofficial API, used without an account). Not affiliated with Albert Heijn,
 Lidl, Aldi, Dirk or Jumbo. Prices can differ in store; always check before you go.

@@ -1,15 +1,10 @@
-"""Albert Heijn bonus scraper (EXPERIMENTAL).
+"""Albert Heijn bonus offers from ah.nl/bonus as saved from your own browser (Ctrl+S).
 
-ah.nl/bonus is rendered with JavaScript, so we load the public page in a
-regular headless Chromium (Playwright), scroll to load all cards, and read
-each promotion card's text. No login, no private APIs, no bot-protection
-workarounds: if AH refuses the request (e.g. "Access Denied" for datacenter
-IPs) we stop and report the error, and the site shows Lidl data only.
-
-AH usually blocks automated browsers. The supported alternative is to save
-ah.nl/bonus from your own browser (Ctrl+S) and import it with
-``python -m scraper.run --ah-page <file>``; ``scrape_saved_page`` reads that
-file offline, with every network request blocked.
+ah.nl refuses scripts and automated browsers (HTTP 403), so this week's offers come from AH's
+app API (``ah_api.py``). A saved bonus page is still how next week's offers get in (AH
+announces them on Friday): the site's upload form reads it in the browser with this module,
+and ``python -m scraper.run --ah-page <file>`` reads it offline, with every network request
+blocked.
 
 Note: AH changes its HTML from time to time. Card detection below is
 deliberately generic (it looks for links to product / bonus-group pages that
@@ -26,7 +21,6 @@ from typing import Optional
 from .models import Offer
 
 LABEL = "Albert Heijn"
-BONUS_URL = "https://www.ah.nl/bonus"
 BASE = "https://www.ah.nl"
 
 DEAL_RE = re.compile(
@@ -176,37 +170,3 @@ def scrape_saved_page(path: Path) -> list[Offer]:
             browser.close()
     return offers_from_cards(cards)
 
-
-class AHBlocked(RuntimeError):
-    pass
-
-
-def scrape(timeout_ms: int = 45000) -> list[Offer]:
-    from playwright.sync_api import sync_playwright
-
-    with sync_playwright() as p:
-        browser = p.chromium.launch()
-        try:
-            page = browser.new_page(locale="nl-NL")
-            resp = page.goto(BONUS_URL, wait_until="domcontentloaded", timeout=timeout_ms)
-            if resp is None or resp.status >= 400 or "Access Denied" in page.title():
-                raise AHBlocked(f"ah.nl answered HTTP {resp.status if resp else '?'}")
-            # Accept-cookies banner, if present (best effort)
-            for label in ("Accepteren", "Alles accepteren", "Akkoord"):
-                btn = page.get_by_role("button", name=label)
-                if btn.count():
-                    btn.first.click()
-                    break
-            # Scroll to trigger lazy loading
-            last = 0
-            for _ in range(30):
-                page.mouse.wheel(0, 4000)
-                page.wait_for_timeout(700)
-                h = page.evaluate("document.body.scrollHeight")
-                if h == last:
-                    break
-                last = h
-            cards = _extract_cards(page)
-        finally:
-            browser.close()
-    return offers_from_cards(cards)
