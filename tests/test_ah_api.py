@@ -92,12 +92,16 @@ def test_offers_from_products_keeps_each_product_once():
 
 # ---------- fetching (fake transport) ----------
 def _client(search_pages: list[dict], token_body=None, requests=None) -> httpx.Client:
+    """A fake AH: the token, then the given search pages; a page past them answers 400 like AH's limit."""
     def handle(request: httpx.Request) -> httpx.Response:
         if requests is not None:
             requests.append(request)
         if request.url.path == ah_api.TOKEN_PATH:
             return httpx.Response(200, json={"access_token": "t0k"} if token_body is None else token_body)
-        return httpx.Response(200, json=search_pages[int(request.url.params["page"])])
+        page = int(request.url.params["page"])
+        if page >= len(search_pages):
+            return httpx.Response(400, json={"error": "page out of range"})
+        return httpx.Response(200, json=search_pages[page])
     return httpx.Client(transport=httpx.MockTransport(handle))
 
 
@@ -118,6 +122,17 @@ def test_fetch_products_reads_every_page_with_the_anonymous_token():
 def test_fetch_products_stops_at_the_page_limit():
     pages = [_search_page([_product(i)], 10_000) for i in range(ah_api.MAX_PAGES + 1)]
     assert len(ah_api.fetch_products(_client(pages))) == ah_api.MAX_PAGES
+
+
+def test_fetch_products_stops_at_the_searchs_paging_limit():
+    # AH claims 10 pages but answers 400 from the 4th; the pages read so far are kept.
+    pages = [_search_page([_product(i)], 10) for i in range(3)]
+    assert [p["webshopId"] for p in ah_api.fetch_products(_client(pages))] == [0, 1, 2]
+
+
+def test_bad_request_on_the_first_page_is_raised():
+    with pytest.raises(httpx.HTTPStatusError):
+        ah_api.fetch_products(_client([]))
 
 
 def test_missing_token_is_reported_as_an_api_change():

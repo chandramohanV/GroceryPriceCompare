@@ -92,7 +92,7 @@ One-time setup, already done for `grocerypricecompare.pages.dev`:
 | `scraper/aldi.py` | Downloads Aldi's this-week and next-week offer pages; the products are JSON in the page's `__NEXT_DATA__` script. Returns both weeks' offers; `weeks.py` sorts them into this week and next week. |
 | `scraper/dirk.py` + `devalue.py` | Downloads Dirk's offers page; the offers are in Nuxt's `__NUXT_DATA__` payload, which `devalue.py` decodes. Pack sizes and pictures come from each offer's products. Dirk's week runs Wednesday–Tuesday. |
 | `scraper/jumbo.py` | Downloads Jumbo's "nu" offers page; every promotion of this week and, from about Sunday, next week ("Vanaf woensdag"), featured and per aisle, is in the `__NUXT_DATA__` payload. Jumbo shows promotions, not shelf prices: the price or deal comes from the tag ("voor 1,00", "2 voor 3,00", "1+1 gratis") and the pack size from the subtitle, so there is no old price. Jumbo's week runs Wednesday–Tuesday. Sends the User-Agent without the repo link, because Jumbo's bot protection stalls requests whose User-Agent contains a URL. |
-| `scraper/ah_api.py` | This week's AH bonus from AH's app API (anonymous token, no account). The search's bonus filter is ignored, so it reads every search page (about 10 × 1,000 products) and keeps in-store bonus products (`NATIONAL`), skipping online-only deals and aisles we never compare. Weight deals ("100 gram voor 1.99") are priced per that weight. Unofficial: AH can change or close it; a failure keeps the AH offers saved earlier. |
+| `scraper/ah_api.py` | This week's AH bonus from AH's app API (anonymous token, no account). The search's bonus filter is ignored, so it reads the search's first 3,000 products (as far as its paging goes; bonus products rank high) and keeps in-store bonus products (`NATIONAL`), skipping online-only deals and aisles we never compare. Weight deals ("100 gram voor 1.99") are priced per that weight. Unofficial: AH can change or close it; a failure keeps the AH offers saved earlier. |
 | `scraper/web.py` | Shared page download (User-Agent, timeout) for the Lidl, Aldi, Dirk and Jumbo scrapers. |
 | `scraper/ah.py` + `ah_cards.js` | Reads AH promotion cards from a saved bonus page (next week's upload; ah.nl refuses scripts). `ah_cards.js` finds the cards and is shared by Playwright and the site's upload form. |
 | `scraper/match.py` | Recognises products in Dutch names ("Jonagold appels" → *Appels*, "Half-om-half gehakt" → *Gehakt*) with whole-word matching, and skips things that only look like them (appeltaart, koffiebroodjes, vegetarisch gehakt…). Frozen food goes by the store's own label (Lidl's and Jumbo's frozen aisle, Aldi's "Diepvries" seal, Dirk's department, AH's frozen section on the bonus page) into frozen groups (fries, snacks, ice cream, pizza, meals, frozen vegetables, fruit, fish, meat), so it is never compared with fresh. |
@@ -139,6 +139,6 @@ should scrape it). Add its name to `site/stores.js` and a `--<store>` colour in 
 
 ## Fair use
 
-A few requests per store per day: public offer pages, and for AH about eleven requests to its
+A few requests per store per day: public offer pages, and for AH four requests to its
 app API (an unofficial API, used without an account). Not affiliated with Albert Heijn,
 Lidl, Aldi, Dirk or Jumbo. Prices can differ in store; always check before you go.

@@ -23,7 +23,10 @@ SEARCH_PATH = "/mobile-services/product/search/v2"
 CLIENT_ID = "appie"  # the app's public client id for anonymous tokens
 APP_USER_AGENT = "Appie/8.22.3"
 APPLICATION = "AHWEBSHOP"
-PAGE_SIZE = 1000  # the most the search returns per page; it stops after 10 pages
+PAGE_SIZE = 1000  # the most the search returns per page
+# The search claims 10 pages but answers 400 from the 4th: it pages through 3,000 products at most.
+# The bonus products rank high, so those hold this week's bonus.
+PAGE_LIMIT_STATUS = 400
 MAX_PAGES = 20  # guards against a page count that never ends
 TIMEOUT_SECONDS = 30
 PRODUCT_URL = "https://www.ah.nl/producten/product/wi{}"
@@ -129,9 +132,12 @@ def _anonymous_token(client) -> str:
     return token
 
 
-def _search_page(client, token: str, page: int) -> dict:
+def _search_page(client, token: str, page: int) -> Optional[dict]:
+    """One search page, or None past the search's paging limit (only after the first page)."""
     resp = client.get(API + SEARCH_PATH, headers={"Authorization": f"Bearer {token}"},
                       params={"sortOn": "RELEVANCE", "size": PAGE_SIZE, "page": page})
+    if page > 0 and resp.status_code == PAGE_LIMIT_STATUS:
+        return None
     resp.raise_for_status()
     body = resp.json()
     if not isinstance(body.get("products"), list) or "page" not in body:
@@ -146,6 +152,8 @@ def fetch_products(client) -> list[dict]:
     page, pages = 0, 1
     while page < min(pages, MAX_PAGES):
         body = _search_page(client, token, page)
+        if body is None:
+            break
         products.extend(body["products"])
         pages = body["page"].get("totalPages") or 0
         page += 1
