@@ -27,6 +27,7 @@ _NEXT_DATA_RE = re.compile(r'<script id="__NEXT_DATA__"[^>]*>(.*?)</script>', re
 # "2 VOOR" / "5 VOOR": the price tag shows the price for that many packs
 _MULTI_BUY_RE = re.compile(r"^(\d+)\s*VOOR$", re.I)
 _IMAGE_TYPES = ("primary", "gallery")
+_FROZEN_SEAL = "/Diepvries"  # seal image next to the product, like "/Koeling" for chilled
 
 
 class AldiPageChanged(RuntimeError):
@@ -52,6 +53,11 @@ def products_from_html(page: str) -> list[dict]:
     except (KeyError, TypeError, ValueError, StopIteration) as e:
         raise AldiPageChanged(f"Aldi offers data has an unexpected shape ({e!r}); "
                               "update scraper/aldi.py") from e
+
+
+def _is_frozen(item: dict) -> bool:
+    return any(asset.get("type") == "seal" and (asset.get("url") or "").endswith(_FROZEN_SEAL)
+               for asset in item.get("assets") or [])
 
 
 def _image(item: dict) -> Optional[str]:
@@ -114,6 +120,7 @@ def parse_item(item: dict) -> Optional[Offer]:
         quantity_text=item.get("salesUnit"),
         valid_from=valid_from,
         valid_to=valid_to,
+        is_frozen=_is_frozen(item),
         extras={"note": prices["note"]} if prices["note"] else {},
     )
 

@@ -112,7 +112,18 @@ def _date(moment: Optional[dict]) -> Optional[str]:
     return iso[:10] if iso else None
 
 
-def parse_promotion(promotion: dict) -> Offer:
+FROZEN_AISLE = "Diepvries"
+
+
+def frozen_promotion_ids(page: str) -> set[str]:
+    """Promotions listed in the frozen aisle (featured ones appear under their aisle too)."""
+    return {promotion.get("id")
+            for runtime in _runtimes(page) for section in runtime.get("sections") or []
+            for category in section.get("categories") or [] if category.get("title") == FROZEN_AISLE
+            for promotion in category.get("promotions") or []}
+
+
+def parse_promotion(promotion: dict, is_frozen: bool = False) -> Offer:
     tags = [(tag.get("text") or "").strip() for tag in promotion.get("tags") or []]
     fields = _tag_fields([tag for tag in tags if tag])
     path = promotion.get("url")
@@ -128,12 +139,14 @@ def parse_promotion(promotion: dict) -> Offer:
         quantity_text=fields["quantity_text"] or subtitle_text(promotion.get("subtitle")),
         valid_from=_date(promotion.get("start")),
         valid_to=_date(promotion.get("end")),
+        is_frozen=is_frozen,
         extras={"note": fields["note"]} if fields["note"] else {},
     )
 
 
 def parse_html(page: str) -> list[Offer]:
-    return [parse_promotion(promotion) for promotion in raw_promotions(page)]
+    frozen = frozen_promotion_ids(page)
+    return [parse_promotion(promotion, promotion["id"] in frozen) for promotion in raw_promotions(page)]
 
 
 def scrape() -> list[Offer]:

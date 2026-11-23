@@ -47,6 +47,9 @@ def product_links(page: str) -> dict[int, str]:
             for path, product_id in re.findall(r'href="(/boodschappen/[^"]*/(\d+))"', page)}
 
 
+FROZEN_DEPARTMENT = "Diepvries"
+
+
 def _products(offer: dict) -> list[dict]:
     """The product information of an offer's products (some offers list none)."""
     return [p["productInformation"] for p in offer.get("products") or []
@@ -96,6 +99,7 @@ def parse_offer(offer: dict, links: dict[int, str]) -> Offer:
         quantity_text=_shared_packaging(products),
         valid_from=_date(offer.get("startDate")),
         valid_to=_date(offer.get("endDate")),
+        is_frozen=any(p.get("department") == FROZEN_DEPARTMENT for p in products),
         extras={"note": note} if note else {},
     )
 

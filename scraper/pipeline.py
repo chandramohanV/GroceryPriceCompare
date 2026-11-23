@@ -23,7 +23,7 @@ def prepare(offers: list[Offer]) -> list[Offer]:
     """Keep the offers we compare and fill in product, category and unit price."""
     kept = []
     for o in offers:
-        hit = classify(o.name)
+        hit = classify(o.name, o.is_frozen)
         if not hit:
             continue
         o.product, o.category = hit

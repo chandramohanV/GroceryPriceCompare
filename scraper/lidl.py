@@ -24,11 +24,11 @@ _GRID_RE = re.compile(r'data-grid-data="([^"]*)"')
 # "Werelden van nood/Eten en dichtbij voedsel/Vlees & gevogelte/Varkensvlees"
 FOOD_CATEGORY = "Eten en dichtbij voedsel"
 # Sold in the food section, but never one of our products (pet food named
-# "Rundertartaartje", frozen pizza named "salami", pastries, ...).
+# "Rundertartaartje", pastries, ...). Frozen pizza named "salami" is fine: it is filed as frozen.
 SKIPPED_AISLES = (
-    "Dierbenodigdheden", "Bloemen & planten", "Huishouding", "Bakkerij",
-    "Diepvriespizza's & snacks", "Snoep & snacks",
+    "Dierbenodigdheden", "Bloemen & planten", "Huishouding", "Bakkerij", "Snoep & snacks",
 )
+FROZEN_AISLE = "Diepvries"  # "Diepvriesvoeding", "Diepvriespizza's & snacks", ...
 _TZ = ZoneInfo("Europe/Amsterdam")
 # Only treat ribbon text as a "deal" if it describes a discount
 _DEAL_WORDS = re.compile(r"%|gratis|halve prijs|voor\s*€?\s*\d", re.I)
@@ -110,6 +110,7 @@ def parse_item(item: dict) -> Offer:
         quantity_text=packaging.get("text"),
         valid_from=valid_from,
         valid_to=valid_to,
+        is_frozen=FROZEN_AISLE in (keyfacts.get("wonCategoryPrimary") or ""),
         extras=extras,
     )
 

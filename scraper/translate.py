@@ -47,6 +47,10 @@ PRODUCT_NAMES: dict[str, str] = {
     "Havermout": "Oats", "Muesli & granola": "Muesli & granola",
     "Cornflakes & cereals": "Cornflakes & cereals",
     "Koffie": "Coffee", "Koffiebonen": "Coffee beans", "Koffiecups & pads": "Coffee capsules & pads",
+    "Diepvries friet & aardappel": "Frozen fries & potato", "Diepvries snacks": "Frozen snacks",
+    "IJs": "Ice cream", "Diepvriespizza": "Frozen pizza", "Diepvriesmaaltijden": "Frozen meals",
+    "Diepvries vlees & kip": "Frozen meat & chicken", "Diepvriesgroenten": "Frozen vegetables",
+    "Diepvriesfruit": "Frozen fruit", "Diepvries vis": "Frozen fish",
 }
 
 # Dutch word or phrase (lowercase) -> English. Longer entries win over shorter ones.

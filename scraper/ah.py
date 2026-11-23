@@ -44,6 +44,8 @@ QTY_RE = re.compile(
     re.I,
 )
 
+# The bonus page's section for frozen food (ah_cards.js reports each card's section as "aisle").
+FROZEN_AISLE = "diepvries"
 # Card links name their bonus week, e.g. "/bonus/groep/832162?week=47".
 WEEK_QUERY_RE = re.compile(r"[?&]week=(\d{1,2})(?!\d)")
 BONUS_WEEK_DAYS = 7
@@ -137,6 +139,7 @@ def card_to_offer(card: dict, week_monday: Optional[date] = None) -> Optional[Of
         quantity_text=qty.group(1) if qty else None,
         valid_from=monday.isoformat(),
         valid_to=week_end(monday).isoformat(),
+        is_frozen=card.get("aisle") == FROZEN_AISLE,
     )
 
 

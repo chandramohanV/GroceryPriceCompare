@@ -1,10 +1,14 @@
 """Recognise supermarket products in Dutch product names and group them.
 
-Covers fruit, vegetables, meat, fish, dairy & eggs, cereals and coffee. Each
+Covers fruit, vegetables, meat, fish, dairy & eggs, cereals, coffee and frozen food. Each
 store names products differently ("QUALITÉ SUISSE Jonagold appels" vs
 "AH Elstar appels 1 kg"). We map every name to a canonical product using a
 vocabulary of Dutch words, matched on whole words so that e.g. "appelsap"
 or "appeltaart" are *not* treated as apples.
+
+Frozen food is recognised from the store's own label (its frozen aisle or seal, see
+``Offer.is_frozen``), because names rarely say so ("Aviko", "Magnum"); such offers are grouped
+with ``FROZEN_PRODUCTS`` so frozen spinach is never compared with fresh spinach.
 """
 from __future__ import annotations
 
@@ -140,7 +144,30 @@ PRODUCTS: dict[str, tuple[str, list[str]]] = {
                                      "cups", "pads", "nespresso", "dolce gusto", "senseo"]),
 }
 
-CATEGORIES = ("fruit", "groente", "vlees", "vis", "zuivel", "granen", "koffie")
+FROZEN = "diepvries"
+CATEGORIES = ("fruit", "groente", "vlees", "vis", "zuivel", "granen", "koffie", FROZEN)
+
+# Frozen products by their own words, checked first ("rundvlees bitterballen" are snacks, not
+# beef). Words of 4+ letters also match inside compounds ("crunchfriet", "champignonschnitzels").
+FROZEN_PRODUCTS: dict[str, list[str]] = {
+    "Diepvries friet & aardappel": ["friet", "frites", "patat", "aviko", "rosti", "wedges",
+                                    "aardappelkroketjes", "aardappelpartjes"],
+    "Diepvries snacks": ["kroket", "kroketten", "kroketjes", "croquetten", "bitterbal", "bitterballen",
+                         "frikandel", "frikandellen", "loempia", "loempia's", "kipcorn", "kaassouffle",
+                         "hapjes", "bites", "gyoza", "spring rolls", "springrolls", "mexicano",
+                         "bamischijf", "nasischijf", "chicken wings", "nuggets", "snacks"],
+    "IJs": ["ijs", "roomijs", "ijsjes", "magnum", "cornetto", "ben & jerry's", "sorbet", "waterijs"],
+    "Diepvriespizza": ["pizza", "pizza's", "big americans", "ristorante"],
+    "Diepvriesmaaltijden": ["maaltijd", "maaltijden", "meals", "ovenschotel", "lasagne", "stamppot"],
+    "Diepvries vlees & kip": ["kip", "schnitzel", "kipburger", "kipburgers", "chicken"],
+}
+# Otherwise the fresh vocabulary decides: frozen "snijbonen" are frozen vegetables.
+FROZEN_BY_FRESH_CATEGORY = {
+    "groente": "Diepvriesgroenten", "fruit": "Diepvriesfruit",
+    "vlees": "Diepvries vlees & kip", "vis": "Diepvries vis",
+}
+# A promotion in the frozen aisle that isn't food, e.g. AH's "korting op bezorging".
+_EXCLUDE_FROZEN = {"bezorging", "hondenvoer", "kattenvoer"}
 
 # Words that mean the product is something else (a pastry, a meal, a non-food
 # item), whatever category it would otherwise match.
@@ -187,8 +214,8 @@ _PHRASES: list[tuple[str, str]] = sorted(
 )
 
 
-def _has_excluded_word(normalized_name: str, words: set[str]) -> bool:
-    """True if the name contains an excluded word, also inside compounds
+def _mentions(normalized_name: str, words) -> bool:
+    """True if the name contains one of the words, also inside compounds
     such as "kruimelvlaaitje", "appeltaart" or "tomatensoep"."""
     if any(f" {_norm(w).strip()} " in normalized_name for w in words):
         return True
@@ -196,20 +223,45 @@ def _has_excluded_word(normalized_name: str, words: set[str]) -> bool:
     return any(w in token for token in normalized_name.split() for w in long_words)
 
 
-def classify(name: str) -> Optional[tuple[str, str]]:
-    """Return (canonical_product, category), or None if it isn't a product we compare."""
-    n = _norm(name)
-    product = next((canon for phrase, canon in _PHRASES if phrase in n), None)
+def _fresh_product(normalized_name: str) -> Optional[str]:
+    return next((canon for phrase, canon in _PHRASES if phrase in normalized_name), None)
+
+
+def _classify_fresh(n: str) -> Optional[tuple[str, str]]:
+    product = _fresh_product(n)
     if product is None:
         return None
     category = PRODUCTS[product][0]
-    if _has_excluded_word(n, EXCLUDE_ALWAYS | EXCLUDE_BY_CATEGORY[category]):
+    if _mentions(n, EXCLUDE_ALWAYS | EXCLUDE_BY_CATEGORY[category]):
         return None
     return product, category
 
 
+def _classify_frozen(n: str) -> Optional[tuple[str, str]]:
+    if _mentions(n, _EXCLUDE_FROZEN):
+        return None
+    product = next((canon for canon, words in FROZEN_PRODUCTS.items() if _mentions(n, words)), None)
+    if product is None:
+        fresh = _fresh_product(n)
+        category = PRODUCTS[fresh][0] if fresh else None
+        is_vegetarian_meat = category in ("vlees", "vis") and _mentions(n, _EXCLUDE_NOT_ANIMAL)
+        product = None if is_vegetarian_meat else FROZEN_BY_FRESH_CATEGORY.get(category)
+    return (product, FROZEN) if product else None
+
+
+def classify(name: str, is_frozen: bool = False) -> Optional[tuple[str, str]]:
+    """Return (canonical_product, category), or None if it isn't a product we compare.
+
+    ``is_frozen``: the store files the offer as frozen food, so it goes in the frozen category.
+    """
+    n = _norm(name)
+    return _classify_frozen(n) if is_frozen or _mentions(n, {FROZEN}) else _classify_fresh(n)
+
+
 def variety(name: str, product: str) -> Optional[str]:
     """Best-effort variety/brand hint (e.g. "Jonagold") for display."""
+    if product not in PRODUCTS:  # frozen groups have no varieties
+        return None
     n = _norm(name)
     for p in PRODUCTS[product][1]:
         p_n = f" {_norm(p).strip()} "

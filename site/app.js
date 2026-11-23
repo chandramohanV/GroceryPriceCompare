@@ -5,6 +5,7 @@
   // Category codes come from scraper/match.py (CATEGORIES).
   const CATEGORY_ICON = {
     fruit: "🍎", groente: "🥦", vlees: "🥩", vis: "🐟", zuivel: "🧀", granen: "🥣", koffie: "☕",
+    diepvries: "🧊",
   };
   // Saved by the daily refresh and the AH upload (Cloudflare KV); the static files come from a local run.
   const OFFERS_SOURCES = {

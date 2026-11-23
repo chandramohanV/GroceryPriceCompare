@@ -6,7 +6,7 @@ import pytest
 from nuxt_page import devalue_encode, nuxt_page
 
 from scraper import ah, aldi, devalue, dirk, lidl, publish, upload
-from scraper.match import CATEGORIES, PRODUCTS, classify
+from scraper.match import CATEGORIES, FROZEN, FROZEN_BY_FRESH_CATEGORY, FROZEN_PRODUCTS, PRODUCTS, classify
 from scraper.models import Offer
 from scraper.normalize import deal_factor, enrich, multi_price, parse_quantity
 from scraper.pipeline import (build_payload, compare, prepare, replace_store_offers, store_set_key,
@@ -131,7 +131,44 @@ def test_classify(name, product):
 
 
 def test_every_product_has_a_known_category():
-    assert {category for category, _ in PRODUCTS.values()} == set(CATEGORIES)
+    # Frozen products live in FROZEN_PRODUCTS, chosen by the store's frozen label.
+    assert {category for category, _ in PRODUCTS.values()} | {FROZEN} == set(CATEGORIES)
+    assert set(FROZEN_BY_FRESH_CATEGORY) <= set(CATEGORIES)
+
+
+@pytest.mark.parametrize("name,product", [
+    ("Snijbonen", "Diepvriesgroenten"),                        # Lidl, by the fresh vocabulary
+    ("- Slavink hybride", "Diepvries vlees & kip"),
+    ("KWEKKEBOOM Old Amsterdam croquetten", "Diepvries snacks"),  # a snack, not cheese
+    ("KWEKKEBOOM Rundvlees bitterballen", "Diepvries snacks"),    # a snack, not beef
+    ("Super crunchfriet", "Diepvries friet & aardappel"),         # inside a compound
+    ("Fitmeals", "Diepvriesmaaltijden"),
+    ("Alle Ben & Jerry's en Magnum pints 400-465 ml", "IJs"),
+    ("AH Roomijsbakjes 70 ml", "IJs"),
+    ("Dr. Oetker Big Americans Filled Crust Triple Salami", "Diepvriespizza"),  # not cold cuts
+    ("Duca Boneless chicken wings", "Diepvries snacks"),
+    ("Duca kip snacks", "Diepvries snacks"),                      # Dirk: snacks, not chicken
+    ("Kabeljauwfilet", "Diepvries vis"),
+    ("Dr. Oetker: 3 euro korting op bezorging", None),           # AH frozen aisle, not food
+    ("Vegetarische kipstuckjes", None),
+])
+def test_classify_frozen(name, product):
+    expected = (product, FROZEN) if product else None
+    assert classify(name, is_frozen=True) == expected
+
+
+def test_frozen_label_keeps_frozen_apart_from_fresh():
+    assert classify("Spinazie") == ("Spinazie", "groente")
+    assert classify("Spinazie", is_frozen=True) == ("Diepvriesgroenten", FROZEN)
+
+
+def test_name_saying_diepvries_counts_as_frozen():
+    assert classify("Diepvries spinazie") == ("Diepvriesgroenten", FROZEN)
+
+
+def test_every_frozen_product_has_an_english_name():
+    frozen = set(FROZEN_PRODUCTS) | set(FROZEN_BY_FRESH_CATEGORY.values())
+    assert frozen <= set(PRODUCT_NAMES)
 
 
 # ---------- lidl parser on real page sample ----------
@@ -157,7 +194,7 @@ def test_lidl_parse_fixture():
     ("Werelden van nood/Eten en dichtbij voedsel/Koffie, thee & cacao", True),
     ("Werelden van nood/Eten en dichtbij voedsel/Dierbenodigdheden/Hondenvoer", False),
     ("Werelden van nood/Eten en dichtbij voedsel/Diepvriesvoeding/Diepvriespizza's & snacks",
-     False),
+     True),
     ("Werelden van nood/Wonen & Inrichting/Badkamer", False),
 ])
 def test_lidl_keeps_food_aisles_only(path, is_food):
@@ -609,3 +646,46 @@ def test_refresh_replaces_lidl_and_drops_expired_ah(monkeypatch):
 def test_publish_needs_upload_password(monkeypatch):
     monkeypatch.delenv("UPLOAD_PASSWORD", raising=False)
     assert publish.main(["--site", "https://example.invalid"]) == 2
+
+
+# ---------- each store's frozen label (Offer.is_frozen) ----------
+def test_lidl_frozen_aisle_marks_offer_frozen():
+    item = {"fullTitle": "Snijbonen", "productId": 1,
+            "keyfacts": {"wonCategoryPrimary": "Werelden van nood/Eten en dichtbij voedsel/"
+                                               "Diepvriesvoeding (Diepvriesvoeding)/Diepvriesfruit & -groenten"}}
+    assert lidl.parse_item(item).is_frozen is True
+    item["keyfacts"]["wonCategoryPrimary"] = "Werelden van nood/Eten en dichtbij voedsel/Groente"
+    assert lidl.parse_item(item).is_frozen is False
+
+
+def test_aldi_frozen_seal_marks_offer_frozen():
+    item = _aldi_item("1", "2026-11-23", "2026-11-29")
+    item["assets"] = [{"type": "seal", "url": "https://s7g10.scene7.com/is/image/aldinord/Diepvries"}]
+    [frozen] = aldi.parse_pages([_aldi_page(item)])
+    assert frozen.is_frozen is True
+    item["assets"] = [{"type": "seal", "url": "https://s7g10.scene7.com/is/image/aldinord/Koeling"}]
+    [chilled] = aldi.parse_pages([_aldi_page(item)])
+    assert chilled.is_frozen is False
+
+
+def test_dirk_frozen_department_marks_offer_frozen():
+    product = _dirk_product()
+    product["productInformation"]["department"] = "Diepvries"
+    [offer] = dirk.parse_html(_dirk_page([_dirk_offer(name="Friet", products=[product])]))
+    assert offer.is_frozen is True
+
+
+def test_ah_frozen_section_marks_offer_frozen(tmp_path):
+    page = tmp_path / "bonus.html"
+    page.write_text('''<html><body>
+      <div id="groente-aardappelen"><div id="_r_1_"><div class="promotion-card">
+        <a href="/bonus/groep/1"><img src="x.jpg" alt="AH Spinazie"></a>
+        <h3 class="promotion-card_title">AH Spinazie</h3><div>1.29</div></div></div></div>
+      <div id="diepvries"><div id="_r_2_"><div class="promotion-card">
+        <a href="/bonus/groep/2"><img src="y.jpg" alt="AH Spinazie"></a>
+        <h3 class="promotion-card_title">AH Spinazie diepgevroren</h3><div>1.49</div></div></div></div>
+    </body></html>''', encoding="utf-8")
+    fresh, frozen = ah.scrape_saved_page(page)
+    assert (fresh.is_frozen, fresh.category) == (False, None)
+    assert frozen.is_frozen is True
+    assert prepare([fresh, frozen])[1].product == "Diepvriesgroenten"

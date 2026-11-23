@@ -124,3 +124,11 @@ def test_scrape_downloads_offers_page_with_jumbos_user_agent(monkeypatch):
 def test_unexpected_page_shape_is_reported(state):
     with pytest.raises(jumbo.JumboPageChanged, match="update scraper/jumbo.py"):
         jumbo.parse_html(nuxt_page(state))
+
+
+def test_promotions_in_the_frozen_aisle_are_frozen():
+    sections = [{"promotions": [_promotion("1", title="Friet")], "categories": [
+        {"title": "Diepvries", "promotions": [_promotion("1", title="Friet")]},
+        {"title": "Aardappelen, groente en fruit", "promotions": [_promotion("2")]}]}]
+    offers = jumbo.parse_html(_page(runtimes=[{"active": True, "sections": sections}]))
+    assert [(o.id, o.is_frozen) for o in offers] == [("1", True), ("2", False)]
