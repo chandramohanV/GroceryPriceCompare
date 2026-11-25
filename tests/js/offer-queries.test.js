@@ -44,9 +44,11 @@ describe("overview", () => {
   test("lists only categories with offers", () => {
     assert.deepEqual(result.categories, [{ name: "Fruit", offers: 1 }, { name: "Dairy & eggs", offers: 3 }]);
   });
-  test("gives the valid dates and how many products compare", () => {
-    assert.deepEqual([result.valid_from, result.valid_to, result.products, result.products_compared],
-      ["2026-11-23", "2026-11-29", 2, 1]);
+  test("counts the products and how many compare", () => assert.deepEqual([result.products, result.products_compared], [2, 1]));
+  test("gives each store its usual offer week, ignoring an offer that runs for months", () => {
+    const longRunning = { ...PAYLOAD.offers[1], key: "aldi:9", valid_from: "2026-01-07", valid_to: "2026-12-22" };
+    const aldi = overview({ ...PAYLOAD, offers: [...PAYLOAD.offers, longRunning] }).stores.find((s) => s.key === "aldi");
+    assert.deepEqual([aldi.valid_from, aldi.valid_to], ["2026-11-23", "2026-11-29"]);
   });
 });
 
