@@ -7,12 +7,6 @@
     fruit: "🍎", groente: "🥦", vlees: "🥩", vis: "🐟", zuivel: "🧀", granen: "🥣", koffie: "☕",
     diepvries: "🧊",
   };
-  // Saved by the daily refresh and the AH upload (Cloudflare KV); the static files come from a local run.
-  const OFFERS_SOURCES = {
-    this: { api: "/api/offers", file: "offers.json" },
-    next: { api: "/api/offers?week=next", file: "offers-next.json" },
-  };
-  const DATA_DIRS = ["data/", "../data/"];
   const WEEK_TITLE = { this: "This week's best grocery deals", next: "Next week's best grocery deals" };
   const EMPTY_TEXT = {
     this: "No offers match your filter.",
@@ -31,38 +25,6 @@
   const user = window.userState;
   const state = { cat: "all", q: "", sort: "compare", week: "this", weeks: { this: null, next: null }, data: null };
   const lang = () => (user.prefs.lang === "nl" ? "nl" : "en");
-
-  async function fetchJson(url) {
-    try {
-      const r = await fetch(url, { cache: "no-store" });
-      return r.ok ? await r.json() : null;
-    } catch (_) {
-      return null; /* missing here: the caller tries the next source */
-    }
-  }
-
-  // The static file works both when deployed (data/ next to index.html) and locally (../data/)
-  async function loadStaticData(file) {
-    for (const dir of DATA_DIRS) {
-      const data = await fetchJson(dir + file);
-      if (data) return data;
-    }
-    return null;
-  }
-
-  // One week's offers: the saved ones (Cloudflare KV) or the static file, whichever is newer.
-  // Locally there is no API.
-  async function loadWeek(week) {
-    const { api, file } = OFFERS_SOURCES[week];
-    const candidates = (await Promise.all([fetchJson(api), loadStaticData(file)])).filter(Boolean);
-    return candidates.length ? candidates.reduce((a, b) => (a.generated_at >= b.generated_at ? a : b)) : null;
-  }
-
-  async function loadData() {
-    const [thisWeek, nextWeek] = await Promise.all([loadWeek("this"), loadWeek("next")]);
-    if (!thisWeek) throw new Error("Could not load offers.json");
-    return { this: thisWeek, next: nextWeek };
-  }
 
   const isWebUrl = (url) => typeof url === "string" && url.startsWith("https://");
   const storeOf = (offerKey) => offerKey.slice(0, offerKey.indexOf(":"));
@@ -373,19 +335,16 @@
     user.subscribe(() => { showLanguage(); render(); });
   }
 
-  // Shared with upload.js: it reads both weeks' offers and sends back an updated week.
   function showData(weeks) {
     state.weeks = weeks;
     showWeek(state.week);
     render();
-    document.dispatchEvent(new CustomEvent("offers-shown", { detail: weeks }));
   }
 
-  document.addEventListener("offers-uploaded", (e) => showData({ ...state.weeks, [e.detail.week]: e.detail.offers }));
   // iOS Safari only applies :active (the tiles' press feedback) once a page listens for touches.
   document.addEventListener("touchstart", () => {}, { passive: true });
 
-  loadData()
+  window.offersData.loadWeeks()
     .then((d) => { bind(); showData(d); })
     .catch((e) => {
       document.getElementById("status").textContent =

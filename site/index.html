@@ -31,9 +31,6 @@
         <span class="material-symbols-outlined" aria-hidden="true">account_circle</span>
         <span id="account-label" class="label">Sign in</span>
       </button>
-      <a class="btn text" href="#update" aria-label="Update prices">
-        <span class="material-symbols-outlined" aria-hidden="true">sync</span><span class="label">Update prices</span>
-      </a>
     </div>
   </header>
 
@@ -96,51 +93,6 @@
 
     <section id="list" class="grid" aria-label="Products"></section>
     <p id="empty" class="empty" hidden>No offers match your filter.</p>
-
-    <section id="update" class="card update" aria-labelledby="update-title">
-      <h2 id="update-title">Update prices</h2>
-      <label class="field password">
-        <span class="material-symbols-outlined" aria-hidden="true">key</span>
-        <input id="update-password" type="password" placeholder="Update password"
-          autocomplete="current-password" aria-label="Update password">
-      </label>
-
-      <div class="update-step">
-        <h3>Lidl, Aldi, Dirk, Jumbo and Albert Heijn</h3>
-        <p class="small">Fetches the latest Lidl, Aldi, Dirk and Jumbo offers and this week's AH bonus. This runs by itself every morning at 06:00 and on Friday at 20:00 (for next week's offers); use the
-          button for an extra run. New prices appear here after about three minutes.</p>
-        <button id="run-now" class="btn tonal" type="button">
-          <span class="material-symbols-outlined" aria-hidden="true">play_arrow</span>Run now
-        </button>
-        <p id="run-message" class="small message" aria-live="polite"></p>
-      </div>
-
-      <div class="update-step">
-        <h3>Albert Heijn: next week</h3>
-        <p class="small">This week's AH offers come in by themselves. AH announces next week's bonus on
-          Friday; to show it before Monday, upload it:</p>
-        <ol class="small">
-          <li>Open <a href="https://www.ah.nl/bonus" target="_blank" rel="noopener">ah.nl/bonus</a> (for next
-            week's offers, pick next week at the top of that page) and scroll to the bottom so every offer loads.</li>
-          <li>Press <kbd>Ctrl</kbd>+<kbd>S</kbd> and save as "Webpage, Complete".</li>
-          <li>Choose which week it is and the saved <code>.html</code> file, and upload it. Next week's
-            offers appear under <b>Next week</b> and move into this week by themselves on Monday at 06:00.</li>
-        </ol>
-        <form id="upload-form" class="upload-form">
-          <fieldset class="week-choice">
-            <legend>Offers for</legend>
-            <label><input type="radio" name="week" value="this" checked> This week</label>
-            <label><input type="radio" name="week" value="next"> Next week</label>
-          </fieldset>
-          <input name="page" type="file" accept=".html,.htm,text/html" aria-label="Saved AH bonus page">
-          <button class="btn filled" type="submit">
-            <span class="material-symbols-outlined" aria-hidden="true">upload</span>Upload
-          </button>
-        </form>
-        <p id="upload-message" class="small message" aria-live="polite"></p>
-        <p id="ah-next-status" class="small ah-next-status" hidden></p>
-      </div>
-    </section>
 
     <footer class="foot">
       <p>Prices include loyalty prices (Lidl Plus app, AH Bonuskaart) where offered; these are free to join.
@@ -237,11 +189,10 @@
     </article>
   </template>
 
+  <script src="offers-data.js"></script>
   <script src="app.js"></script>
   <script src="theme.js"></script>
   <script src="list.js"></script>
   <script src="account.js"></script>
-  <script src="upload.js"></script>
-  <script src="run.js"></script>
 </body>
 </html>

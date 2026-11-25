@@ -1,0 +1,84 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Update prices · Weekly Grocery Deals</title>
+  <meta name="robots" content="noindex">
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🛒</text></svg>">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0..1,0&display=block">
+  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="modern.css">
+  <script src="state.js"></script>
+</head>
+<body>
+  <!-- The owner's page: Run now and the AH bonus upload. Not linked from the deals page. -->
+  <header class="app-bar">
+    <div class="wrap app-bar-row">
+      <span class="material-symbols-outlined app-bar-icon" aria-hidden="true">shopping_cart</span>
+      <h1>Weekly Grocery Deals</h1>
+      <button id="theme-btn" class="icon-btn" type="button">
+        <span class="material-symbols-outlined" aria-hidden="true">brightness_auto</span>
+      </button>
+      <a class="btn text" href="./" aria-label="Back to the deals">
+        <span class="material-symbols-outlined" aria-hidden="true">arrow_back</span><span class="label">Deals</span>
+      </a>
+    </div>
+  </header>
+
+  <main class="wrap">
+    <section id="update" class="card update" aria-labelledby="update-title">
+      <h2 id="update-title">Update prices</h2>
+      <label class="field password">
+        <span class="material-symbols-outlined" aria-hidden="true">key</span>
+        <input id="update-password" type="password" placeholder="Update password"
+          autocomplete="current-password" aria-label="Update password">
+      </label>
+
+      <div class="update-step">
+        <h3>Lidl, Aldi, Dirk, Jumbo and Albert Heijn</h3>
+        <p class="small">Fetches the latest Lidl, Aldi, Dirk and Jumbo offers and this week's AH bonus. This runs by itself every morning at 06:00 and on Friday at 20:00 (for next week's offers); use the
+          button for an extra run. New prices appear on the deals page after about three minutes.</p>
+        <button id="run-now" class="btn tonal" type="button">
+          <span class="material-symbols-outlined" aria-hidden="true">play_arrow</span>Run now
+        </button>
+        <p id="run-message" class="small message" aria-live="polite"></p>
+      </div>
+
+      <div class="update-step">
+        <h3>Albert Heijn: next week</h3>
+        <p class="small">This week's AH offers come in by themselves. AH announces next week's bonus on
+          Friday; to show it before Monday, upload it:</p>
+        <ol class="small">
+          <li>Open <a href="https://www.ah.nl/bonus" target="_blank" rel="noopener">ah.nl/bonus</a> (for next
+            week's offers, pick next week at the top of that page) and scroll to the bottom so every offer loads.</li>
+          <li>Press <kbd>Ctrl</kbd>+<kbd>S</kbd> and save as "Webpage, Complete".</li>
+          <li>Choose which week it is and the saved <code>.html</code> file, and upload it. Next week's
+            offers appear under <b>Next week</b> and move into this week by themselves on Monday at 06:00.</li>
+        </ol>
+        <form id="upload-form" class="upload-form">
+          <fieldset class="week-choice">
+            <legend>Offers for</legend>
+            <label><input type="radio" name="week" value="this" checked> This week</label>
+            <label><input type="radio" name="week" value="next"> Next week</label>
+          </fieldset>
+          <input name="page" type="file" accept=".html,.htm,text/html" aria-label="Saved AH bonus page">
+          <button class="btn filled" type="submit">
+            <span class="material-symbols-outlined" aria-hidden="true">upload</span>Upload
+          </button>
+        </form>
+        <p id="upload-message" class="small message" aria-live="polite"></p>
+        <p id="ah-next-status" class="small ah-next-status" hidden></p>
+      </div>
+    </section>
+  </main>
+
+  <script src="theme.js"></script>
+  <script src="offers-data.js"></script>
+  <script src="upload.js"></script>
+  <script src="run.js"></script>
+</body>
+</html>

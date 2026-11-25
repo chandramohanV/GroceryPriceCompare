@@ -22,7 +22,9 @@ Daily 06:00, Friday 20:00, "Run now" ──> GitHub Actions: scrape Lidl + Aldi 
 
 ## Weekly use
 
-On the site, open **Update prices** (top right) and enter the update password.
+Open the **Update prices** page at `/update` on the site (for example
+`https://grocerypricecompare.pages.dev/update`; the deals page doesn't link to it) and enter the
+update password.
 
 - **Lidl, Aldi, Dirk, Jumbo and this week's Albert Heijn:** run by themselves every morning at
   06:00, and on Friday at 20:00 to pick up next week's offers (Dutch time; GitHub may start
@@ -106,7 +108,7 @@ One-time setup, already done for `grocerypricecompare.pages.dev`:
 | `scraper/run.py` | Local run: scrapes all stores and writes `data/offers.json`, `data/offers-next.json` and `data/history/`. |
 | `functions/api/` | Cloudflare Pages Functions: `offers.js` (read/save this week's offers in KV, next week's with `?week=next`), `run.js` (Run button), `account/` (sign-up, login, logout, saved list) and `next-week.js` (legacy: next week's AH upload as held before Nov 2026; the daily refresh moves it into next week's offers once). |
 | `lib/` | Code shared by the Functions: `password.js` (update password), `offers.js` (upload shape checks), `accounts.js` (accounts, sessions, saved data; storage passed in so it is testable), `session.js` (cookies, JSON bodies). |
-| `site/` | Static website (plain HTML/CSS/JS, Material Design 3 styling, no build step). `style.css` holds the layout and design tokens; `modern.css`, loaded after it, reskins the site and only overrides styles. `state.js` keeps each person's preferences and list (browser or account), `list.js` the list panel, `account.js` the sign-in dialog, `theme.js` the light/dark button. |
+| `site/` | Static website (plain HTML/CSS/JS, Material Design 3 styling, no build step). `style.css` holds the layout and design tokens; `modern.css`, loaded after it, reskins the site and only overrides styles. `state.js` keeps each person's preferences and list (browser or account), `list.js` the list panel, `account.js` the sign-in dialog, `theme.js` the light/dark button. `update.html` is the owner's page with `run.js` (Run now) and `upload.js` (AH bonus upload); `offers-data.js` loads the offers for both pages. |
 
 **Comparison rule:** for each product, offers are compared on the effective price per kg (or per
 piece when sold per piece), using the lowest price you can get, including free loyalty programmes.

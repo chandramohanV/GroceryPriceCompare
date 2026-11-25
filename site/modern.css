@@ -77,9 +77,6 @@ body { -webkit-font-smoothing: antialiased; }
 h1 { font: 800 1.125rem/1.2 var(--font-family); letter-spacing: -0.02em; }
 .btn.text { color: var(--md-on-surface); }
 .app-bar-row .btn.text { border-radius: var(--shape-full); padding: 0 14px; height: 38px; }
-.app-bar-row a.btn.text[href="#update"] {
-  background: var(--md-primary); color: var(--md-on-primary);
-}
 .count { background: var(--lime); color: var(--on-lime); }
 
 /* ---------- Hero: a contained banner ---------- */

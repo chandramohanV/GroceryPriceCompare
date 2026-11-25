@@ -32,14 +32,10 @@
   };
   const PYODIDE_HOME = "/home/pyodide/scraper/";
 
-  let shownWeeks = { this: null, next: null };
+  // The current offers the upload merges into; filled in by loadCurrentOffers().
+  let currentWeeks = { this: null, next: null };
   let scraperDir = null;
   let pyodideReady = null;
-
-  document.addEventListener("offers-shown", (e) => {
-    shownWeeks = e.detail;
-    showNextWeekAh(shownWeeks.next);
-  });
 
   const form = document.getElementById("upload-form");
   const message = document.getElementById("upload-message");
@@ -141,15 +137,27 @@
     say("Reading the page…");
     const cards = await readCards(file);
     say(`Found ${cards.length} cards. Loading the price checker (first time takes a few seconds)…`);
-    const offers = await runUpload(importer, JSON.stringify(cards), JSON.stringify(shownWeeks[week] || {}));
+    const offers = await runUpload(importer, JSON.stringify(cards), JSON.stringify(currentWeeks[week] || {}));
     const ah = offers.stores.ah;
-    document.dispatchEvent(new CustomEvent("offers-uploaded", { detail: { week, offers } }));
     say(`Matched ${ah.matched} of ${ah.scraped} AH offers. Saving…`);
     try {
       await postJson(saveUrl, offers, password);
+      currentWeeks = { ...currentWeeks, [week]: offers };
+      showNextWeekAh(currentWeeks.next);
       say(savedText(ah.matched));
     } catch (e) {
-      say(`${e.message} The new AH offers are shown here only, not saved.`, true);
+      say(`${e.message} The new AH offers were not saved.`, true);
+    }
+  }
+
+  async function loadCurrentOffers() {
+    try {
+      currentWeeks = await window.offersData.loadWeeks();
+      showNextWeekAh(currentWeeks.next);
+    } catch (e) {
+      // Merging into nothing would save AH-only offers over everyone's, so uploading stays off.
+      button.disabled = true;
+      say(`${e.message}, so uploading is off. Reload the page to try again.`, true);
     }
   }
 
@@ -177,4 +185,6 @@
       button.disabled = false;
     }
   });
+
+  loadCurrentOffers();
 })();
