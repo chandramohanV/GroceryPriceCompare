@@ -68,6 +68,19 @@ stored as salted PBKDF2 hashes; after 10 wrong passwords an account is locked fo
 To remove an account, delete its `user:<name>` and `data:<name>` keys from the `USERS` KV
 namespace in the Cloudflare dashboard (Workers & Pages → KV).
 
+## Ask Claude about the offers (MCP)
+
+The site has a read-only [MCP](https://modelcontextprotocol.io) server at `/mcp`, so Claude can
+search and compare this week's and next week's offers for you, also from the Claude mobile app.
+Add it once on [claude.ai](https://claude.ai): **Settings → Connectors → Add custom connector**,
+name it "Grocery deals" and use the URL `https://grocerypricecompare.pages.dev/mcp` (no login:
+the offers are public). It then shows up in Claude on the web, desktop and mobile; ask things
+like "Where is cheese cheapest this week?" or "Best deals at Lidl and Aldi?".
+
+Tools: `get_overview` (dates, stores, categories), `list_products`, `search_offers`,
+`compare_product` (all stores side by side) and `best_deals`; give `week: "next"` for next week
+and `stores` to weigh only the shops you go to. It reads the same offers as the site.
+
 ## Deploy (Cloudflare Pages)
 
 ```bash
@@ -106,8 +119,8 @@ One-time setup, already done for `grocerypricecompare.pages.dev`:
 | `scraper/upload.py` | Entry point for the upload form (runs in Pyodide): AH into this week's or next week's offers. |
 | `scraper/publish.py` | Daily refresh: moves started offers from next week into this week, scrapes Lidl, Aldi, Dirk, Jumbo and AH, splits them into both weeks and saves both back. A store with nothing for next week keeps its earlier next-week offers (so next week's AH upload stays). |
 | `scraper/run.py` | Local run: scrapes all stores and writes `data/offers.json`, `data/offers-next.json` and `data/history/`. |
-| `functions/api/` | Cloudflare Pages Functions: `offers.js` (read/save this week's offers in KV, next week's with `?week=next`), `run.js` (Run button), `account/` (sign-up, login, logout, saved list) and `next-week.js` (legacy: next week's AH upload as held before Nov 2026; the daily refresh moves it into next week's offers once). |
-| `lib/` | Code shared by the Functions: `password.js` (update password), `offers.js` (upload shape checks), `accounts.js` (accounts, sessions, saved data; storage passed in so it is testable), `session.js` (cookies, JSON bodies). |
+| `functions/api/` | Cloudflare Pages Functions: `offers.js` (read/save this week's offers in KV, next week's with `?week=next`), `run.js` (Run button), `account/` (sign-up, login, logout, saved list) and `next-week.js` (legacy: next week's AH upload as held before Nov 2026; the daily refresh moves it into next week's offers once). `functions/mcp.js` is the MCP server at `/mcp`. |
+| `lib/` | Code shared by the Functions: `password.js` (update password), `offers.js` (upload shape checks), `accounts.js` (accounts, sessions, saved data; storage passed in so it is testable), `session.js` (cookies, JSON bodies), `mcp.js` (MCP protocol and tools) and `offer-queries.js` (the MCP tools' answers). |
 | `site/` | Static website (plain HTML/CSS/JS, Material Design 3 styling, no build step). `style.css` holds the layout and design tokens; `modern.css`, loaded after it, reskins the site and only overrides styles. `state.js` keeps each person's preferences and list (browser or account), `list.js` the list panel, `account.js` the sign-in dialog, `theme.js` the light/dark button. `update.html` is the owner's page with `run.js` (Run now) and `upload.js` (AH bonus upload); `offers-data.js` loads the offers for both pages. |
 
 **Comparison rule:** for each product, offers are compared on the effective price per kg (or per
